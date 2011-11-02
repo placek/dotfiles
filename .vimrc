@@ -6,8 +6,8 @@ set tabstop=2
 set expandtab
 set autoindent
 set backspace=indent,eol,start
-set foldcolumn=1
-set foldminlines=3
+set foldcolumn=3
+set foldminlines=2
 set foldmethod=syntax
 set foldenable
 set completeopt=longest,menuone
@@ -39,6 +39,8 @@ filetype indent on
 autocmd FileType ruby,haml set omnifunc=rubycomplete#Complete
 
 " Skróty
+map <Leader>e :Ex<CR>
+map <Leader>v :Vex<CR><C-w>=
 map <F8> :set number!<CR>
 map <F9> :set list!<CR>
 map <F10> :set spell!<CR>
