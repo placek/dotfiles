@@ -13,4 +13,4 @@ bind '.' next
 # Default screens
 screen -t vim   0 vim
 screen -t tig   1 tig
-screen -t bash  2
+screen -t zsh  2

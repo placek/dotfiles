@@ -11,9 +11,10 @@ HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
 
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -alF --color'
+alias la='ls -A --color'
+alias l='ls -CF --color'
+alias ls='ls --color'
 alias b='bundle exec'
 alias cukes='bundle exec cucumber --format=pretty --require features/step_definitions --require features/support'
 

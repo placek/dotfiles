@@ -2,6 +2,11 @@ require 'rubygems' unless defined? Gem
 require 'irb/completion'
 require 'irb/ext/save-history'
 require 'pp'
+require 'benchmark'
+require 'wirble'
+
+Wirble.init
+Wirble.colorize
 
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 IRB.conf[:SAVE_HISTORY] = 1024
@@ -21,7 +26,6 @@ class Object
   end
 
   def bm(times = 1)
-    require 'benchmark'
     ret = nil
     Benchmark.bm { |x| x.report { times.times { ret = yield } } }
     ret
