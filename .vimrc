@@ -1,4 +1,3 @@
-" Zachowanie przy pisaniu
 behave xterm
 set nocompatible
 set shiftwidth=2
@@ -11,10 +10,6 @@ set foldminlines=2
 set foldmethod=syntax
 set foldenable
 set completeopt=longest,menuone
-
-syntax on
-
-" Widoczne elementy
 set ruler
 set showcmd
 set spell spelllang=pl
@@ -32,8 +27,13 @@ set nonumber
 set tags+=tags;
 set mouse=a
 set fo=tcrqn
+set backup
+set backupdir=~/.vim/backup
+
 filetype plugin on
 filetype indent on
+
+syntax on
 
 " Uzupełnianie Ruby'ego
 autocmd FileType ruby,haml set omnifunc=rubycomplete#Complete
