@@ -46,6 +46,7 @@ map <F9> :set list!<CR>
 map <F10> :set spell!<CR>
 map <F11> :!ctags -R --exclude=.git --exclude=log --exclude=tmp * ~/.rvm/gems/ruby-head/* <CR>
 map <F12> :Ex<CR>
+cmap w!! %!sudo tee > /dev/null %
 
 " Kolorki
 colorscheme desert
