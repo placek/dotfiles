@@ -17,6 +17,7 @@ alias l='ls -CF --color'
 alias ls='ls --color'
 alias b='bundle exec'
 alias cukes='bundle exec cucumber --format=pretty --require features/step_definitions --require features/support'
+alias rspec='rspec --format=documentation'
 
 compinit && colors
 
