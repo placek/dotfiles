@@ -16,8 +16,9 @@ alias la='ls -A --color'
 alias l='ls -CF --color'
 alias ls='ls --color'
 alias b='bundle exec'
-alias cukes='bundle exec cucumber --format=pretty --require features/step_definitions --require features/support'
-alias rspec='rspec --format=documentation'
+alias cukes='bundle exec cucumber --require features/step_definitions --require features/support'
+alias rspec='bundle exec rspec'
+alias clean='rm -f **/.*.sw[po] ; rm -f **/tags ; rm -f **/*~*'
 
 compinit && colors
 
