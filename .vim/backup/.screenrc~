@@ -1,0 +1,16 @@
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d.%m.%Y %{W}%c %{g}]'
+termcapinfo  * 'Z0=\E[?3h:Z1=\E[?3l:hs:ts=\E[62"p\E[0$~\E[2$~\E[1$}:fs=\E[0}\E[61"p:ds=\E[62"p\E[1$~\E[61"p:ic@'
+autodetach on
+startup_message off
+defscrollback 4096
+crlf off
+debug off
+
+bind ',' prev
+bind '.' next
+
+# Default screens
+screen -t vim   0 vim
+screen -t git   1
+screen -t shell 2

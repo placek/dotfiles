@@ -20,7 +20,7 @@ set incsearch
 set nostartofline
 set foldmarker=begin,end
 set laststatus=1
-"set autochdir
+set autochdir
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*.tar.*,*.bmp,*.jpeg,*.avi,*.mov,*.mp3,*.ogg,*.flac
 set nospell
 set nonumber
