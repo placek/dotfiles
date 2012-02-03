@@ -6,6 +6,7 @@ startup_message off
 defscrollback 4096
 crlf off
 debug off
+term xterm
 
 bind ',' prev
 bind '.' next
