@@ -20,7 +20,6 @@ set incsearch
 set nostartofline
 set foldmarker=begin,end
 set laststatus=1
-set autochdir
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*.tar.*,*.bmp,*.jpeg,*.avi,*.mov,*.mp3,*.ogg,*.flac
 set nospell
 set nonumber
@@ -46,15 +45,24 @@ map <Leader>2 :set list!<CR>
 map <Leader>3 :set spell!<CR>
 map <Leader>4 :!ctags -R --exclude=.git --exclude=log --exclude=tmp * /usr/local/rvm/gems/ruby-head <CR>
 cmap w!! %!sudo tee > /dev/null %
+cmap W w
+cmap Wq wq
+cmap Wall wall
+cmap Q q
+cmap Q! q!
+cmap Qall qall
+cmap Qall! qall!
 vmap Y "+y
 imap . .<C-p>
+map <C-m> <C-W>>
+map <C-n> <C-W><
 
 " Kolorki
 colorscheme desert
-hi DiffAdd gui=bold,undercurl guifg=palegreen guibg=Grey40
-hi DiffChange gui=bold guifg=SkyBlue guibg=Grey40
-hi DiffDelete gui=bold,undercurl guifg=indianred guibg=Grey40
-hi DiffText gui=bold,undercurl guifg=SkyBlue guibg=Grey40
+hi DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white
+hi DiffChange term=reverse cterm=bold ctermbg=gray ctermfg=black
+hi DiffText term=reverse cterm=bold ctermbg=blue ctermfg=black
+hi DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 
 " Usuwanie trailing whitespaces
 autocmd BufWritePre * :%s/\s\+$//e

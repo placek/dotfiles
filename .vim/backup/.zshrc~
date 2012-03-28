@@ -12,6 +12,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
 setopt APPEND_HISTORY
+setopt SHARE_HISTORY
 
 alias ll='ls -alF --color'
 alias la='ls -A --color'
@@ -42,6 +43,9 @@ export HISTSIZE=1024
 export SAVEHIST=1024
 export REPORTTIME=10
 export EDITOR='vim'
+export FIREFOX_SELENIUM_PROFILE='selenium'
+export JAVA_HOME='/usr/lib/jvm/java-6-openjdk'
+export PATH="$PATH:/home/placek/.android-sdk-linux/tools:$JAVA_HOME/bin"
 
 function precmd  { print -Pn "\e]2; %~/ \a" }
 function preexec { print -Pn "\e]2; %~/ \a" }

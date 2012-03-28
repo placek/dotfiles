@@ -1,6 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/home/placek/Projekty/spaghetti'
-let g:netrw_dirhist_2='/home/placek/Projekty/spaghetti/app'
-let g:netrw_dirhist_3='/home/placek/Projekty/spaghetti/app/controllers'
-let g:netrw_dirhist_4='/home/placek/Projekty/spaghetti/app/controllers/owner'
+let g:netrw_dirhist_cnt =0

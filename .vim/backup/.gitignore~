@@ -25,3 +25,5 @@ mkmf.log
 .bundle/
 nohup.out
 tags
+var/bundle
+db/*.sqlite
