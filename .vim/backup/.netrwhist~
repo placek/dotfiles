@@ -1,9 +1,9 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/placek/Projekty/spaghetti'
-let g:netrw_dirhist_2='/home/placek/Projekty/spaghetti/app'
-let g:netrw_dirhist_3='/home/placek/Projekty/spaghetti/app/models'
+let g:netrw_dirhist_1='/home/placek/Projekty/spaghetti/app/views/admin/business_contacts'
+let g:netrw_dirhist_2='/home/placek/Projekty/spaghetti/app/views/admin'
+let g:netrw_dirhist_3='/home/placek/Projekty/spaghetti/app/views'
 let g:netrw_dirhist_4='/home/placek/Projekty/spaghetti/app'
 let g:netrw_dirhist_5='/home/placek/Projekty/spaghetti'
-let g:netrw_dirhist_6='/home/placek/Projekty/spaghetti/features'
-let g:netrw_dirhist_7='/home/placek/Projekty/spaghetti/features/support'
+let g:netrw_dirhist_6='/home/placek/Projekty/spaghetti/db'
+let g:netrw_dirhist_7='/home/placek/Projekty/spaghetti/db/migrate'

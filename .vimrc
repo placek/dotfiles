@@ -5,7 +5,7 @@ set tabstop=2
 set expandtab
 set autoindent
 set backspace=indent,eol,start
-set foldcolumn=3
+set foldcolumn=2
 set foldminlines=2
 set foldmethod=syntax
 set foldenable
@@ -28,22 +28,28 @@ set mouse=a
 set fo=tcrqn
 set backup
 set backupdir=~/.vim/backup
+set ofu=syntaxcomplete#Complete
 
 filetype plugin on
 filetype indent on
 
 syntax on
 
-" Uzupełnianie Ruby'ego
-autocmd FileType ruby,haml set omnifunc=rubycomplete#Complete
+" Ruby
+autocmd FileType ruby,haml let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,haml let g:rubycomplete_rails = 1
+autocmd FileType ruby,haml let g:rubycomplete_classes_in_global = 1
 
 " Skróty
 map <Leader>e :Ex<CR>
 map <Leader>v :Vex<CR><C-w>=
+map <Leader>s :Sex<CR><C-w>=
+map <Leader>d :DiffChangesDiffToggle<CR>
+map <Leader>m :TagbarToggle<CR>
 map <Leader>1 :set number!<CR>
 map <Leader>2 :set list!<CR>
 map <Leader>3 :set spell!<CR>
-map <Leader>4 :!ctags -R --exclude=.git --exclude=log --exclude=tmp * /usr/local/rvm/gems/ruby-head <CR>
+map <Leader>4 :!ctags -R --exclude=.git --exclude=log --exclude=tmp * ~/.rvm/gems/ruby-head <CR>
 cmap w!! %!sudo tee > /dev/null %
 cmap W w
 cmap Wq wq
@@ -52,10 +58,7 @@ cmap Q q
 cmap Q! q!
 cmap Qall qall
 cmap Qall! qall!
-vmap Y "+y
-imap . .<C-p>
-map <C-m> <C-W>>
-map <C-n> <C-W><
+vmap Y "*y
 
 " Kolorki
 colorscheme desert
@@ -63,6 +66,9 @@ hi DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white
 hi DiffChange term=reverse cterm=bold ctermbg=gray ctermfg=black
 hi DiffText term=reverse cterm=bold ctermbg=blue ctermfg=black
 hi DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
+
+" Autocomplete menu
+hi Pmenu ctermbg=238 gui=bold
 
 " Usuwanie trailing whitespaces
 autocmd BufWritePre * :%s/\s\+$//e

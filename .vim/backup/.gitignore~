@@ -1,29 +1,17 @@
-log/*
-tmp/*
-lib/mysql.rb
-config/*.yml
-[a-zA-Z0-9\.-_]*~
-misc
-capybara*
-coverage
-config/*.sphinx.conf
-config/environments/dev_local.rb
-db/schema.rb
-db/sphinx/*
-public/system/*
-public/sitemaps/*
-*.swp
-*.swo
-backup
-nbproject/*
-features_report.html
-public/services/
-public/stylesheets/all.css
-public/javascripts/all.js
-rerun.txt
-mkmf.log
-.bundle/
-nohup.out
+# Ignore bundler config
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Other ignores
+*~
+*.sw[op]
 tags
-var/bundle
-db/*.sqlite
+*rerun*
+*test*
+*backup*

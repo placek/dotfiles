@@ -4,6 +4,7 @@ require 'irb/ext/save-history'
 require 'pp'
 require 'benchmark'
 require 'wirble'
+require 'letters'
 
 Wirble.init
 Wirble.colorize
