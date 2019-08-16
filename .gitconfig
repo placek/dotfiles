@@ -1,31 +1,31 @@
 [core]
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	excludesfile = /Users/placek/.gitignore_global
+  excludesfile = /Users/placek/.gitignore_global
 [apply]
   whitespace = nowarn
 [rerere]
-	enabled = 1
+  enabled = 1
 [log]
   date = short
 [alias]
-	st = status -sb
-	co = checkout
+  st = status -sb
+  co = checkout
   com = commit -m
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	ctags = !.git/hooks/ctags
+  ctags = !.git/hooks/ctags
   root = rev-parse --show-toplevel
-	stashp = stash push -p
+  stashp = stash push -p
 [format]
   pretty = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'
 [user]
-	name = Paweł Placzyński
-	email = placzynski.pawel@gmail.com
-	signingkey = C6E4ECDDDD13326D324AA1992F32B4B85CBA349E
+  name = Paweł Placzyński
+  email = placzynski.pawel@gmail.com
+  signingkey = C6E4ECDDDD13326D324AA1992F32B4B85CBA349E
 [github]
   user = placek
 [gpg]
-	program = gpg
+  program = gpg
 [init]
-	templatedir = ~/.git_template
+  templatedir = ~/.git_template
 [status]
-	submoduleSummary = true
+  submoduleSummary = true
