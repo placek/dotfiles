@@ -34,3 +34,4 @@ projects() {
 }
 
 alias b="bundle exec"
+export PATH="/usr/local/sbin:$PATH"
