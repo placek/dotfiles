@@ -23,6 +23,12 @@ projects() {
       target=`comm -3 <(ls -1 ~/Projects | sort) <(echo $list) | sort -n | fzf --prompt "Projects>"`
       tmux new -s $target -c ~/Projects/$target vim
       ;;
-    *) echo "usage: project [ls|add]"
+    *)
+      if [ -n "$TMUX" ]; then
+        echo "usage: projects [add|ls|help]"
+      else
+        tmux attach
+      fi
+      ;;
   esac
 }
