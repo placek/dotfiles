@@ -21,7 +21,7 @@ projects() {
       ;;
     "add")
       target=`comm -3 <(ls -1 ~/Projects | sort) <(echo $list) | sort -n | fzf --prompt "Projects>"`
-      tmux new -s $target -c ~/Projects/$target vim
+      tmux new-session -s $target -c ~/Projects/$target vim \; new-window
       ;;
     *)
       if [ -n "$TMUX" ]; then
@@ -32,3 +32,5 @@ projects() {
       ;;
   esac
 }
+
+alias b="bundle exec"
