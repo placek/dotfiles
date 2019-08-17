@@ -23,9 +23,25 @@ projects() {
       target=`comm -3 <(ls -1 ~/Projects | sort) <(echo $list) | sort -n | fzf --prompt "Projects>"`
       tmux new-session -s $target -c ~/Projects/$target vim \; new-window
       ;;
+    "new")
+      target=$2
+      if [ -z "$target" ]; then
+        >&2 echo "usage: projects new <project-name>"
+      else
+        if [ -d ~/Projects/$target ]; then
+          >&2 echo "project already exists"
+        else
+          mkdir -p ~/Projects/$2
+          pushd ~/Projects/$target
+            git init
+          popd
+          tmux new-session -s $target -c ~/Projects/$target vim \; new-window
+        fi
+      fi
+      ;;
     *)
       if [ -n "$TMUX" ]; then
-        echo "usage: projects [add|ls|help]"
+        >&2 echo "usage: projects [add|ls|help]"
       else
         tmux attach
       fi

@@ -1,16 +1,20 @@
 call plug#begin('~/.vim/bundle')
-  Plug 'scrooloose/nerdtree'
-  Plug 'xuyuanp/nerdtree-git-plugin'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'edkolev/tmuxline.vim'
+  Plug 'godlygeek/tabular'
+  Plug 'jiangmiao/auto-pairs'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
+  Plug 'mattn/emmet-vim'
+  Plug 'scrooloose/nerdtree'
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'airblade/vim-gitgutter'
+  Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
+  Plug 'valloric/youcompleteme'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'w0rp/ale'
-  Plug 'mattn/emmet-vim'
-  Plug 'godlygeek/tabular'
+  Plug 'xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 filetype plugin indent on
@@ -27,32 +31,30 @@ set completeopt=longest,menuone
 set cursorline
 set dir=/tmp
 set expandtab
-set fo=tcrqn
 set foldmethod=indent
+set formatoptions=tcrqn
 set hlsearch
 set incsearch
 set laststatus=2
 set listchars=tab:→\ ,space:·,eol:¬,nbsp:◦
 set mouse=a
 set nocompatible
+set noshowmode
 set nospell
-set ofu=syntaxcomplete#Complete
-set rtp+=/usr/local/opt/fzf
+set omnifunc=syntaxcomplete#Complete
+set runtimepath+=/usr/local/opt/fzf
 set shell=/usr/local/bin/bash
 set shiftwidth=2
 set showcmd
-set softtabstop=2
 set showtabline=2
+set softtabstop=2
 set splitbelow
 set splitright
-set noshowmode
 set swapfile
 set tabstop=2
 set tags+=.git/tags;
-set textwidth=0
 set term=xterm-256color
 set timeoutlen=2000 ttimeoutlen=0
-set undodir=/tmp
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*.tar.*,*.bmp,*.jpeg,*.avi,*.mov,*.mp7,*.ogg,*.flac
 set wrapmargin=0
 
@@ -88,13 +90,11 @@ nnoremap <silent>* *``
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 vnoremap // y/<C-R>"<CR>
+nnoremap <silent> <2-LeftMouse> *``
 
 if exists(":Tabularize")
-  nnoremap <Leader>a{ :Tabularize /{<CR>
-  vnoremap <Leader>a{ :Tabularize /{<CR>
+  vnoremap ,{ :Tabularize /^[^{]*/<CR>
 endif
-
-nnoremap <silent> <2-LeftMouse> *``
 
 " options
 let g:fzf_tags_command = 'git ctags'
@@ -118,19 +118,15 @@ autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 
 " colors
-hi FoldColumn ctermbg=7 ctermfg=0
-hi LineNr ctermbg=7 ctermfg=0
 hi CursorLineNr cterm=bold ctermbg=7 ctermfg=0
-hi SignColumn ctermbg=7
+hi FoldColumn ctermbg=7 ctermfg=0
 hi GitGutterAdd ctermbg=7 ctermfg=2
 hi GitGutterChange ctermbg=7 ctermfg=3
-hi GitGutterDelete ctermbg=7 ctermfg=1
 hi GitGutterChangeDelete ctermbg=7 ctermfg=3
+hi GitGutterDelete ctermbg=7 ctermfg=1
+hi LineNr ctermbg=7 ctermfg=0
 hi Search ctermfg=0 ctermbg=7
-
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
+hi SignColumn ctermbg=7
 
 function! FoldColumnToggle()
   if &foldcolumn
@@ -138,8 +134,4 @@ function! FoldColumnToggle()
   else
     setlocal foldcolumn=1
   endif
-endfunction
-
-function! LightlineFilename()
-  return expand('%') !=# '' ? expand('%') : '[No Name]'
 endfunction
