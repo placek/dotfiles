@@ -10,7 +10,18 @@ fi
 
 source "$HOME/.bash_plugins/git_completion.bash"
 
-export PS1="\[$(tput setaf 3)\]\w \\$ \[$(tput sgr0)\]"
+export PROMPT_COMMAND=__prompt_command
+
+__prompt_command() {
+  local exit=$?
+  PS1="\[$(tput setaf 0)\]\w "
+  if [[ $exit -eq 0 ]]; then
+    PS1+="\[$(tput setaf 2)\]"
+  else
+    PS1+="\[$(tput setaf 1)\]"
+  fi
+  PS1+="\\$ \[$(tput sgr0)\]"
+}
 
 projects() {
   list=`tmux ls 2> /dev/null | cut -f1 -d':' | sort`
