@@ -62,3 +62,6 @@ projects() {
 
 alias b="bundle exec"
 export PATH="/usr/local/sbin:$PATH"
+  export NVM_DIR="/Users/placek/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion

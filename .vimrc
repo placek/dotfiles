@@ -10,11 +10,10 @@ call plug#begin('~/.vim/bundle')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
-  Plug 'valloric/youcompleteme'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'w0rp/ale'
   Plug 'xuyuanp/nerdtree-git-plugin'
+  Plug 'scrooloose/syntastic'
 call plug#end()
 
 filetype plugin indent on
@@ -54,7 +53,7 @@ set swapfile
 set tabstop=2
 set tags+=.git/tags;
 set term=xterm-256color
-set timeoutlen=2000 ttimeoutlen=0
+set timeoutlen=1000 ttimeoutlen=0
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*.tar.*,*.bmp,*.jpeg,*.avi,*.mov,*.mp7,*.ogg,*.flac
 set wrapmargin=0
 
@@ -114,6 +113,10 @@ augroup haskell_file
   autocmd Filetype haskell setlocal makeprg=hlint\ %
 augroup END
 
+augroup jb_file
+  autocmd BufNewFile, BufRead *.jb set syntax=ruby
+augroup END
+
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 
@@ -127,6 +130,10 @@ hi GitGutterDelete ctermbg=7 ctermfg=1
 hi LineNr ctermbg=7 ctermfg=0
 hi Search ctermfg=0 ctermbg=7
 hi SignColumn ctermbg=7
+hi DiffAdd ctermfg=7 ctermbg=2
+hi DiffDelete ctermfg=7 ctermbg=1
+hi DiffChange ctermfg=7 ctermbg=4
+hi DiffText ctermfg=7
 
 function! FoldColumnToggle()
   if &foldcolumn
