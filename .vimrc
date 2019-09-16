@@ -13,7 +13,6 @@ call plug#begin('~/.vim/bundle')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'xuyuanp/nerdtree-git-plugin'
-  Plug 'scrooloose/syntastic'
 call plug#end()
 
 filetype plugin indent on
