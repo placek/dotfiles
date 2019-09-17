@@ -40,7 +40,6 @@ set noshowmode
 set nospell
 set omnifunc=syntaxcomplete#Complete
 set runtimepath+=/usr/local/opt/fzf
-set shell=/usr/local/bin/bash
 set shiftwidth=2
 set showcmd
 set showtabline=2
