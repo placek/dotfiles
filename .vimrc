@@ -11,7 +11,8 @@ call plug#begin('~/.vim/bundle')
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'xuyuanp/nerdtree-git-plugin'
-  Plug 'itchyny/lightline.vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 filetype plugin indent on
@@ -94,16 +95,8 @@ endif
 
 " options
 let g:fzf_tags_command = 'git ctags'
-let g:lightline = {
-  \ 'colorscheme': 'solarized',
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-  \ },
-  \ 'component_function': {
-  \   'gitbranch': 'fugitive#head'
-  \ }
-  \ }
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_theme='solarized'
 
 " autocommands
 augroup normalize
