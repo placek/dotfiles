@@ -13,6 +13,7 @@ call plug#begin('~/.vim/bundle')
   Plug 'xuyuanp/nerdtree-git-plugin'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 filetype plugin indent on
@@ -64,7 +65,7 @@ imap <ESC>[F <End>
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
-nnoremap <Leader>1 :set number!<CR>
+nnoremap <Leader>1 :set relativenumber!<CR>
 nnoremap <Leader>2 :call FoldColumnToggle()<CR>
 nnoremap <Leader>3 :GitGutterToggle<CR>
 nnoremap <Leader>4 :set hlsearch!<CR>
