@@ -1,5 +1,4 @@
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"
@@ -10,17 +9,38 @@ fi
 
 source "$HOME/.bash_plugins/git_completion.bash"
 
-export PROMPT_COMMAND=__prompt_command
+# prompt functions
+black="\[$(tput setaf 0)\]"
+red="\[$(tput setaf 1)\]"
+green="\[$(tput setaf 2)\]"
+orange="\[$(tput setaf 3)\]"
+blue="\[$(tput setaf 39)\]"
+normal="\[$(tput sgr0)\]"
 
-__prompt_command() {
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
+}
+
+parse_k8s_context() {
+  printf ' %s' $(kubectl config current-context)
+}
+
+# custom prompt
+PROMPT_COMMAND=__set_prompt
+
+__set_prompt() {
   local exit=$?
-  PS1="\[$(tput setaf 0)\]\w "
+  # local bg_jobs="${yellow}\$(parse_bg_jobs)${normal}"
+  # local venv="${dark_green}\$(parse_venv)${normal}"
+  local cwd="${black}\w${normal}"
+  local git_branch="${orange}\$(parse_git_branch)${normal}"
+  local k8s_context="${blue}\$(parse_k8s_context)${normal}"
+  PS1="${cwd}${git_branch}${k8s_context} "
   if [[ $exit -eq 0 ]]; then
-    PS1+="\[$(tput setaf 2)\]"
+    PS1+="${green}$ ${normal}"
   else
-    PS1+="\[$(tput setaf 1)\]"
+    PS1+="${red}$ ${normal}"
   fi
-  PS1+="\\$ \[$(tput sgr0)\]"
 }
 
 projects() {
@@ -61,7 +81,15 @@ projects() {
 }
 
 alias b="bundle exec"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export PATH="/usr/local/sbin:$PATH"
   export NVM_DIR="/Users/placek/.nvm"
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/placek/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/placek/Downloads/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/placek/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/placek/Downloads/google-cloud-sdk/completion.bash.inc'; fi

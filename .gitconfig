@@ -29,3 +29,5 @@
   templatedir = ~/.git_template
 [status]
   submoduleSummary = true
+[diff "sopsdiffer"]
+	textconv = sops -d
