@@ -21,10 +21,6 @@ parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
 }
 
-parse_k8s_context() {
-  printf ' %s' $(kubectl config current-context)
-}
-
 # custom prompt
 PROMPT_COMMAND=__set_prompt
 
@@ -34,8 +30,7 @@ __set_prompt() {
   # local venv="${dark_green}\$(parse_venv)${normal}"
   local cwd="${black}\w${normal}"
   local git_branch="${orange}\$(parse_git_branch)${normal}"
-  local k8s_context="${blue}\$(parse_k8s_context)${normal}"
-  PS1="${cwd}${git_branch}${k8s_context} "
+  PS1="${cwd}${git_branch} "
   if [[ $exit -eq 0 ]]; then
     PS1+="${green}$ ${normal}"
   else
