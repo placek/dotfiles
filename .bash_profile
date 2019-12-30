@@ -79,12 +79,3 @@ alias b="bundle exec"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export PATH="/usr/local/sbin:$PATH"
-  export NVM_DIR="/Users/placek/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/placek/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/placek/Downloads/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/placek/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/placek/Downloads/google-cloud-sdk/completion.bash.inc'; fi
