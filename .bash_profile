@@ -1,5 +1,7 @@
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
+export HISTCONTROL=ignoreboth:erasedups
+
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"
 if [[ $- == *i* ]]; then

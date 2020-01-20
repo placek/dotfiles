@@ -1,8 +1,8 @@
+" plugins
 call plug#begin('~/.vim/bundle')
   Plug 'airblade/vim-gitgutter'
   Plug 'edkolev/tmuxline.vim'
   Plug 'godlygeek/tabular'
-  Plug 'jiangmiao/auto-pairs'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
   Plug 'mattn/emmet-vim'
@@ -35,6 +35,7 @@ set formatoptions=tcrqn
 set hlsearch
 set incsearch
 set laststatus=2
+set lazyredraw
 set listchars=tab:→\ ,space:·,eol:¬,nbsp:◦
 set mouse=a
 set nocompatible
@@ -66,38 +67,34 @@ nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>1 :set relativenumber!<CR>
-nnoremap <Leader>2 :call FoldColumnToggle()<CR>
-nnoremap <Leader>3 :GitGutterToggle<CR>
-nnoremap <Leader>4 :set hlsearch!<CR>
-nnoremap <Leader>5 :set list!<CR>
-nnoremap <Leader>t :FZF<CR>
+nnoremap <Leader>2 :GitGutterToggle<CR>
+nnoremap <Leader>3 :set hlsearch!<CR>
+nnoremap <Leader>4 :set list!<CR>
 nnoremap <Leader>f :Ag<CR>
+nnoremap <Leader>F :FZF<CR>
+nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>m :Marks<CR>
-nnoremap <Leader>c :Commits<CR>
-nnoremap <Leader>T :Tags<CR>
-nnoremap <Leader>S :GFiles?<CR>
-nnoremap <Leader>G :GFiles<CR>
+nnoremap <Leader>C :Commits<CR>
+nnoremap <Leader>g :GFiles<CR>
+nnoremap <Leader>G :GFiles?<CR>
 nnoremap <Leader>q *``cgn
+nnoremap <Leader>c :MultipleCursorsFind <C-r>/<CR>
+vnoremap <Leader>c :MultipleCursorsFind <C-r>/<CR>
 nnoremap <Leader>r :NERDTreeFind<CR>
-nnoremap <Leader>h <C-W><C-H>
-nnoremap <Leader>j <C-W><C-J>
-nnoremap <Leader>k <C-W><C-K>
-nnoremap <Leader>l <C-W><C-L>
 nnoremap <silent>* *``
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 vnoremap // y/<C-R>"<CR>
 nnoremap <silent> <2-LeftMouse> *``
-
-if exists(":Tabularize")
-  vnoremap ,{ :Tabularize /^[^{]*/<CR>
-endif
+vnoremap <Leader>a{ :Tabularize /^[^{]*/<CR>
 
 " options
 let g:fzf_tags_command = 'git ctags'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_theme='solarized'
+let g:multi_cursor_select_all_key='<C-m>'
 
 " autocommands
 augroup normalize
@@ -111,10 +108,6 @@ augroup END
 
 augroup haskell_file
   autocmd Filetype haskell setlocal makeprg=hlint\ %
-augroup END
-
-augroup jb_file
-  autocmd BufNewFile, BufRead *.jb set syntax=ruby
 augroup END
 
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
@@ -134,11 +127,3 @@ hi DiffAdd ctermfg=7 ctermbg=2
 hi DiffDelete ctermfg=7 ctermbg=1
 hi DiffChange ctermfg=7 ctermbg=4
 hi DiffText ctermfg=7
-
-function! FoldColumnToggle()
-  if &foldcolumn
-    setlocal foldcolumn=0
-  else
-    setlocal foldcolumn=1
-  endif
-endfunction
