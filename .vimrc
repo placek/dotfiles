@@ -83,9 +83,11 @@ nnoremap <Leader>q *``cgn
 nnoremap <Leader>c :MultipleCursorsFind <C-r>/<CR>
 vnoremap <Leader>c :MultipleCursorsFind <C-r>/<CR>
 nnoremap <Leader>r :NERDTreeFind<CR>
+nnoremap <Leader>o o<esc>
+nnoremap <Leader>O O<esc>
 nnoremap <silent>* *``
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
 vnoremap // y/<C-R>"<CR>
 nnoremap <silent> <2-LeftMouse> *``
 vnoremap <Leader>a{ :Tabularize /^[^{]*/<CR>
@@ -100,14 +102,6 @@ let g:multi_cursor_select_all_key='<C-m>'
 augroup normalize
   autocmd BufWritePre * :%s/\s\+$//e
   autocmd BufRead * normal zR
-augroup END
-
-augroup ruby_file
-  autocmd Filetype ruby setlocal makeprg=rubocop\ %
-augroup END
-
-augroup haskell_file
-  autocmd Filetype haskell setlocal makeprg=hlint\ %
 augroup END
 
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
