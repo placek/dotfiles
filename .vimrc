@@ -34,7 +34,6 @@ set formatoptions=tcrqn
 set hlsearch
 set incsearch
 set laststatus=2
-set lazyredraw
 set listchars=tab:→\ ,space:·,eol:¬,nbsp:◦
 set mouse=a
 set nocompatible
