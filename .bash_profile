@@ -23,15 +23,17 @@ parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
 }
 
+parse_git_status() {
+  [ -n "$(git status --porcelain 2> /dev/null)" ] && echo "*"
+}
+
 # custom prompt
 PROMPT_COMMAND=__set_prompt
 
 __set_prompt() {
   local exit=$?
-  # local bg_jobs="${yellow}\$(parse_bg_jobs)${normal}"
-  # local venv="${dark_green}\$(parse_venv)${normal}"
   local cwd="${black}\w${normal}"
-  local git_branch="${orange}\$(parse_git_branch)${normal}"
+  local git_branch="${orange}\$(parse_git_branch)\$(parse_git_status)${normal}"
   PS1="${cwd}${git_branch} "
   if [[ $exit -eq 0 ]]; then
     PS1+="${green}$ ${normal}"
@@ -77,7 +79,13 @@ projects() {
   esac
 }
 
-alias b="bundle exec"
+alias be="bundle exec"
+alias bi="bundle install"
+alias dcb="docker-compose build"
+alias dcr="docker-compose run"
+alias dcu="docker-compose up -d"
+alias dcl="docker-compose logs"
+alias dcd="docker-compose down"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export PATH="/usr/local/sbin:$PATH"
