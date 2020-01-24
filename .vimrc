@@ -10,10 +10,9 @@ call plug#begin('~/.vim/bundle')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
-  Plug 'xuyuanp/nerdtree-git-plugin'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'vim-syntastic/syntastic'
+  Plug 'xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 filetype plugin indent on
