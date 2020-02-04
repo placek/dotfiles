@@ -12,7 +12,7 @@ fi
 source "$HOME/.bash_plugins/git_completion.bash"
 
 # prompt functions
-black="\[$(tput setaf 0)\]"
+black="\[$(tput setaf 4)\]"
 red="\[$(tput setaf 1)\]"
 green="\[$(tput setaf 2)\]"
 orange="\[$(tput setaf 3)\]"
