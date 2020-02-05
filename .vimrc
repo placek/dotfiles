@@ -64,7 +64,7 @@ imap <ESC>[F <End>
 " mapping
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
-nnoremap <Leader>\ :NERDTreeTabsToggle<CR>
+nnoremap <Leader>\ :NERDTreeMirrorToggle<CR>
 nnoremap <Leader>1 :set relativenumber!<CR>
 nnoremap <Leader>2 :GitGutterToggle<CR>
 nnoremap <Leader>3 :set hlsearch!<CR>
@@ -81,7 +81,7 @@ nnoremap <Leader>C :Commits<CR>
 nnoremap <Leader>g :GFiles<CR>
 nnoremap <Leader>G :GFiles?<CR>
 nnoremap <Leader>q *``cgn
-nnoremap <Leader>r :NERDTreeFind<CR>
+nnoremap <Leader>r :NERDTreeFocusToggle<CR>
 nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
 nnoremap <silent>* *``
@@ -96,6 +96,7 @@ let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:nerdtree_tabs_autoclose = 0
 
 " autocommands
 augroup normalize

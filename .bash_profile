@@ -69,9 +69,25 @@ projects() {
         fi
       fi
       ;;
+    "clone")
+      uri=$2
+      target=$(basename "$uri" .git)
+      if [ -z "$target" ]; then
+        >&2 echo "usage: projects clone <project-git-uri>"
+      else
+        if [ -d ~/Projects/$target ]; then
+          >&2 echo "project already exists"
+        else
+          pushd ~/Projects
+            git clone $uri
+          popd
+          tmux new-session -s $target -c ~/Projects/$target vim \; new-window
+        fi
+      fi
+      ;;
     *)
       if [ -n "$TMUX" ]; then
-        >&2 echo "usage: projects [add|ls|help]"
+        >&2 echo "usage: projects [add|new|clone|ls|help]"
       else
         tmux attach
       fi
@@ -82,7 +98,7 @@ projects() {
 alias be="bundle exec"
 alias bi="bundle install"
 alias dcb="docker-compose build"
-alias dcr="docker-compose run"
+alias dcr="docker-compose run --rm"
 alias dcu="docker-compose up -d"
 alias dcl="docker-compose logs"
 alias dcd="docker-compose down"
