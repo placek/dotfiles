@@ -50,7 +50,7 @@ projects() {
       echo $list
       ;;
     "add")
-      target=`comm -3 <(ls -1 ~/Projects | sort) <(echo $list) | sort -n | fzf --prompt "Projects>"`
+      target=`ls -1 ~/Projects | sort -n | fzf --prompt "Projects> "`
       tmux new-session -s $target -c ~/Projects/$target vim \; new-window
       ;;
     "new")
@@ -102,6 +102,10 @@ alias dcr="docker-compose run --rm"
 alias dcu="docker-compose up -d"
 alias dcl="docker-compose logs"
 alias dcd="docker-compose down"
+alias dsp="docker system prune"
+alias dspv="docker system prune --volumes"
+alias dcres="docker-compose restart"
+alias dcps="docker-compose ps"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export PATH="/usr/local/sbin:$PATH"

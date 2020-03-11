@@ -53,6 +53,7 @@ set tabstop=2
 set tags+=.git/tags;
 set term=xterm-256color
 set timeoutlen=1000 ttimeoutlen=0
+set ttyfast
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*.tar.*,*.bmp,*.jpeg,*.avi,*.mov,*.mp7,*.ogg,*.flac
 set wrapmargin=0
 
@@ -81,14 +82,18 @@ nnoremap <Leader>C :Commits<CR>
 nnoremap <Leader>g :GFiles<CR>
 nnoremap <Leader>G :GFiles?<CR>
 nnoremap <Leader>q *``cgn
-nnoremap <Leader>r :NERDTreeFocusToggle<CR>
+vnoremap <Leader>q "qy/<C-R>q<CR>``cgn
+nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
 nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
 nnoremap <silent>* *``
+nnoremap <silent># #``
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 vnoremap // y/<C-R>"<CR>
 vnoremap <Leader>a{ :Tabularize /^[^{]*/<CR>
+vnoremap <Leader>a= :Tabularize /^[^=]*/<CR>
+vnoremap <Leader>a: :Tabularize /:\zs/<CR>
 
 " options
 let g:fzf_tags_command = 'git ctags'
@@ -106,3 +111,11 @@ augroup END
 
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
+
+" colors
+hi Pmenu ctermfg=254 ctermbg=241
+hi PmenuSel ctermfg=254 ctermbg=136 cterm=bold
+hi GitGutterAdd ctermbg=7 ctermfg=2
+hi GitGutterChange ctermbg=7 ctermfg=3
+hi GitGutterChangeDelete ctermbg=7 ctermfg=3
+hi GitGutterDelete ctermbg=7 ctermfg=1
