@@ -1,8 +1,10 @@
 " plugins
 call plug#begin('~/.vim/bundle')
   Plug 'airblade/vim-gitgutter'
+  Plug 'andys8/vim-elm-syntax'
   Plug 'edkolev/tmuxline.vim'
   Plug 'godlygeek/tabular'
+  Plug 'jistr/vim-nerdtree-tabs'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
   Plug 'mattn/emmet-vim'
@@ -13,7 +15,6 @@ call plug#begin('~/.vim/bundle')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'xuyuanp/nerdtree-git-plugin'
-  Plug 'jistr/vim-nerdtree-tabs'
 call plug#end()
 
 filetype plugin indent on
@@ -30,7 +31,7 @@ set completeopt=longest,menuone
 set cursorline
 set dir=/tmp
 set expandtab
-set foldmethod=indent
+set foldmethod=manual
 set formatoptions=tcrqn
 set hlsearch
 set incsearch
@@ -65,7 +66,7 @@ imap <ESC>[F <End>
 " mapping
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
-nnoremap <Leader>\ :NERDTreeMirrorToggle<CR>
+nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>1 :set relativenumber!<CR>
 nnoremap <Leader>2 :GitGutterToggle<CR>
 nnoremap <Leader>3 :set hlsearch!<CR>
@@ -84,6 +85,7 @@ nnoremap <Leader>G :GFiles?<CR>
 nnoremap <Leader>q *``cgn
 vnoremap <Leader>q "qy/<C-R>q<CR>``cgn
 nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
+nnoremap <Leader>R :split %:s?spec/?app/?:s?_spec.rb?.rb?<CR>
 nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
 nnoremap <silent>* *``
@@ -111,10 +113,12 @@ augroup END
 
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
+autocmd FileType haskell setlocal makeprg=cabal\ build
 
 " colors
-hi Pmenu ctermfg=254 ctermbg=241
-hi PmenuSel ctermfg=254 ctermbg=136 cterm=bold
+hi Search cterm=none ctermfg=3 ctermbg=7
+hi Pmenu ctermfg=0 ctermbg=7
+hi PmenuSel ctermfg=0 ctermbg=7 cterm=bold
 hi GitGutterAdd ctermbg=7 ctermfg=2
 hi GitGutterChange ctermbg=7 ctermfg=3
 hi GitGutterChangeDelete ctermbg=7 ctermfg=3
