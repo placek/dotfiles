@@ -1,5 +1,6 @@
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+# [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
 export HISTCONTROL=ignoreboth:erasedups
 
 bind "set completion-ignore-case on"
@@ -10,6 +11,7 @@ if [[ $- == *i* ]]; then
 fi
 
 source "$HOME/.bash_plugins/git_completion.bash"
+EDITOR=vim
 
 # prompt functions
 black="\[$(tput setaf 4)\]"
@@ -51,7 +53,7 @@ projects() {
       ;;
     "add")
       target=`ls -1 ~/Projects | sort -n | fzf --prompt "Projects> "`
-      tmux new-session -s $target -c ~/Projects/$target vim \; new-window
+      tmux new-session -s $target -c ~/Projects/$target $EDITOR
       ;;
     "new")
       target=$2
@@ -65,7 +67,7 @@ projects() {
           pushd ~/Projects/$target
             git init
           popd
-          tmux new-session -s $target -c ~/Projects/$target vim \; new-window
+          tmux new-session -s $target -c ~/Projects/$target $EDITOR
         fi
       fi
       ;;
@@ -81,7 +83,7 @@ projects() {
           pushd ~/Projects
             git clone $uri
           popd
-          tmux new-session -s $target -c ~/Projects/$target vim \; new-window
+          tmux new-session -s $target -c ~/Projects/$target $EDITOR
         fi
       fi
       ;;
@@ -107,6 +109,17 @@ alias dspv="docker system prune --volumes"
 alias dcres="docker-compose restart"
 alias dcps="docker-compose ps"
 
+# RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export PATH="/usr/local/sbin:$PATH"
+
+# GHCUP
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
+# QT 5.5
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+# NVM
+export NVM_DIR="/Users/placek/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
