@@ -2,6 +2,7 @@
 call plug#begin('~/.vim/bundle')
   Plug 'airblade/vim-gitgutter'
   Plug 'edkolev/tmuxline.vim'
+  Plug 'godlygeek/tabular'
   Plug 'jistr/vim-nerdtree-tabs'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
@@ -26,7 +27,7 @@ set completeopt=longest,menuone
 set cursorline
 set dir=/tmp
 set expandtab
-set foldmethod=manual
+set foldmethod=indent
 set formatoptions=tcrqn
 set hlsearch
 set incsearch
@@ -69,6 +70,7 @@ nnoremap <Leader>3 :GitGutterToggle<CR>
 nnoremap <Leader>4 :set hlsearch!<CR>
 nnoremap <Leader>5 :set list!<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
+nnoremap <C-\>     :NERDTreeFind<CR>
 nnoremap <Leader>f :Ag<CR>
 nnoremap <Leader>F :FZF<CR>
 nnoremap <Leader>t :Tags<CR>

@@ -1,5 +1,3 @@
-# [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export HISTCONTROL=ignoreboth:erasedups
 
@@ -110,16 +108,24 @@ alias dcres="docker-compose restart"
 alias dcps="docker-compose ps"
 
 # RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-export PATH="/usr/local/sbin:$PATH"
+if [ -d "$HOME/.rvm" ] ; then
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+  export PATH="/usr/local/sbin:$PATH"
+fi
 
 # GHCUP
-[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
-
-# QT 5.5
-export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+if [ -d "$HOME/.ghcup" ] ; then
+  [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+fi
 
 # NVM
-export NVM_DIR="/Users/placek/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+if [ -d "$HOME/.nvm" ] ; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+fi
+
+# STACK
+if [ -d "$HOME/.local/bin" ] ; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
