@@ -7,7 +7,9 @@ call plug#begin('~/.vim/bundle')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdtree'
+  Plug 'scrooloose/syntastic'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-surround'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'xuyuanp/nerdtree-git-plugin'
@@ -84,8 +86,10 @@ nnoremap <Leader>C :Commits<CR>
 nnoremap <Leader>g :GFiles<CR>
 nnoremap <Leader>G :GFiles?<CR>
 nnoremap <Leader>h :History<CR>
-nnoremap <Leader>q *``cgn
-vnoremap <Leader>q "qy/<C-R>q<CR>``cgn
+nnoremap <Leader>q :set opfunc=<SID>SearchOperator<CR>g@
+vnoremap <Leader>q :<C-u>call <SID>SearchOperator(visualmode())<CR>
+nnoremap <Leader>Q :set opfunc=<SID>SearchProjectOperator<CR>g@
+vnoremap <Leader>Q :<C-u>call <SID>SearchProjectOperator(visualmode())<CR>
 nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
 nnoremap <Leader>R :split %:s?spec/?app/?:s?_spec.rb?.rb?<CR>
 nnoremap <Leader>o o<esc>
@@ -115,6 +119,29 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+
+" search operator
+function! s:SearchOperator(type)
+  if a:type ==# 'v'
+    silent exec "normal! `<v`>\"ry"
+  elseif a:type ==# 'char'
+    silent exec "normal! `[v`]\"ry"
+  else
+    return
+  endif
+  let @/=@r
+endfunction
+
+function! s:SearchProjectOperator(type)
+  if a:type ==# 'v'
+    silent exec "normal! `<v`>\"ry"
+  elseif a:type ==# 'char'
+    silent exec "normal! `[v`]\"ry"
+  else
+    return
+  endif
+  silent exec "vimgrep! /" . shellescape(@@) . "/gj **/*.rb"
+endfunction
 
 " autocommands
 augroup normalize
