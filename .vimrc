@@ -7,12 +7,14 @@ call plug#begin('~/.vim/bundle')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdtree'
-  Plug 'scrooloose/syntastic'
+  Plug 'slim-template/vim-slim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'xuyuanp/nerdtree-git-plugin'
+  Plug 'w0rp/ale'
+  Plug 'vim-airline/vim-airline'
 call plug#end()
 
 filetype plugin indent on
@@ -39,8 +41,10 @@ set mouse=a
 set nocompatible
 set noshowmode
 set nospell
+set number
 set omnifunc=syntaxcomplete#Complete
 set path+=**
+set relativenumber
 set runtimepath+=/usr/local/opt/fzf
 set shiftwidth=2
 set showcmd
@@ -72,7 +76,7 @@ nnoremap <Leader>3 :GitGutterToggle<CR>
 nnoremap <Leader>4 :set hlsearch!<CR>
 nnoremap <Leader>5 :set list!<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
-nnoremap <C-\>     :NERDTreeFind<CR>
+nnoremap <Leader>/ :NERDTreeFind<CR>
 nnoremap <Leader>f :Ag<CR>
 nnoremap <Leader>F :FZF<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -105,20 +109,25 @@ vnoremap <Leader>a: :Tabularize /:\zs/<CR>
 
 " options
 let g:fzf_tags_command = 'git ctags'
-let g:airline_theme='solarized'
+let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:nerdtree_tabs_autoclose = 0
-let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=2  " open in vertical split
-let g:netrw_winsize = 15    " netrw 15% of window
-let g:netrw_altv=1          " open splits to the right
-let g:netrw_liststyle=3     " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let NERDTreeWinSize = 32
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'ruby': ['rubocop'],
+\   'haskell': ['hlint'],
+\}
+let g:ale_linters_explicit = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
 
 " search operator
 function! s:SearchOperator(type)
@@ -152,6 +161,7 @@ augroup END
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal makeprg=cabal\ build
+autocmd FileType nerdtree :vert resize 32
 
 command! MakeTags !git ctags
 
@@ -164,6 +174,8 @@ hi GitGutterAdd ctermbg=7 ctermfg=2
 hi GitGutterChange ctermbg=7 ctermfg=3
 hi GitGutterChangeDelete ctermbg=7 ctermfg=3
 hi GitGutterDelete ctermbg=7 ctermfg=1
+hi LineNr ctermfg=14
+hi CursorLineNr ctermfg=14
 
 " FZF extension
 function! s:build_quickfix_list(lines)
