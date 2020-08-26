@@ -11,10 +11,10 @@ call plug#begin('~/.vim/bundle')
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'xuyuanp/nerdtree-git-plugin'
-  Plug 'w0rp/ale'
   Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'w0rp/ale'
+  Plug 'xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 filetype plugin indent on
@@ -33,6 +33,8 @@ set dir=/tmp
 set expandtab
 set foldmethod=indent
 set formatoptions=tcrqn
+set grepformat=%f:%l:%c:%m
+set grepprg=ag\ --vimgrep\ $*
 set hlsearch
 set incsearch
 set laststatus=2
@@ -85,7 +87,7 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>B :bufdo bd<CR>
 nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>l :Lines<CR>
-nnoremap <Leader>L :Blines<CR>
+nnoremap <Leader>L :BLines<CR>
 nnoremap <Leader>C :Commits<CR>
 nnoremap <Leader>g :GFiles<CR>
 nnoremap <Leader>G :GFiles?<CR>
@@ -98,19 +100,21 @@ nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
 nnoremap <Leader>R :split %:s?spec/?app/?:s?_spec.rb?.rb?<CR>
 nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
-nnoremap <silent>* *``
-nnoremap <silent># #``
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
+nmap ]a :ALENext<CR>
+nmap [a :ALEPrevious<CR>
 vnoremap // y/<C-R>"<CR>
 vnoremap <Leader>a{ :Tabularize /^[^{]*/<CR>
 vnoremap <Leader>a= :Tabularize /^[^=]*/<CR>
-vnoremap <Leader>a: :Tabularize /:\zs/<CR>
+vnoremap <Leader>a: :Tabularize /:/<CR>
+vnoremap <Leader>A: :Tabularize /:\zs/<CR>
 
 " options
 let g:fzf_tags_command = 'git ctags'
 let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:nerdtree_tabs_autoclose = 0
@@ -118,12 +122,7 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeWinSize = 32
-
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'ruby': ['rubocop'],
-\   'haskell': ['hlint'],
-\}
+let g:ale_linters = { 'javascript': ['eslint'], 'ruby': ['rubocop'], 'haskell': ['hlint'] }
 let g:ale_linters_explicit = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_column_always = 1
@@ -153,17 +152,16 @@ function! s:SearchProjectOperator(type)
 endfunction
 
 " autocommands
-augroup normalize
-  autocmd BufWritePre * :%s/\s\+$//e
-  autocmd BufRead * normal zR
-augroup END
-
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufRead * normal zR
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal makeprg=cabal\ build
 autocmd FileType nerdtree :vert resize 32
+autocmd BufNewFile,BufRead *_spec.rb setlocal makeprg=rspec\ --no-color\ % errorformat=rspec\ %f:%l\ %m
 
 command! MakeTags !git ctags
+command! Open !open %
 
 " colors
 hi SignColumn ctermbg=7
