@@ -93,8 +93,6 @@ nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
-nmap ]a :ALENext<CR>
-nmap [a :ALEPrevious<CR>
 vnoremap // y/<C-R>"<CR>
 vnoremap <Leader>a{ :Tabularize /^[^{]*/<CR>
 vnoremap <Leader>a= :Tabularize /^[^=]*/<CR>

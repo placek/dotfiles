@@ -1,6 +1,9 @@
+# exports
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export HISTCONTROL=ignoreboth:erasedups
+export EDITOR=vim
 
+# bash options
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"
 if [[ $- == *i* ]]; then
@@ -8,9 +11,8 @@ if [[ $- == *i* ]]; then
   bind '"\e[B": history-search-forward'
 fi
 
-EDITOR=vim
 
-# prompt functions
+# custom prompt
 black="\[$(tput setaf 4)\]"
 red="\[$(tput setaf 1)\]"
 green="\[$(tput setaf 2)\]"
@@ -26,7 +28,6 @@ parse_git_status() {
   [ -n "$(git status --porcelain 2> /dev/null)" ] && echo "*"
 }
 
-# custom prompt
 PROMPT_COMMAND=__set_prompt
 
 __set_prompt() {
@@ -41,6 +42,7 @@ __set_prompt() {
   fi
 }
 
+# projects function
 projects() {
   list=`tmux ls 2> /dev/null | cut -f1 -d':' | sort`
 
@@ -94,6 +96,7 @@ projects() {
   esac
 }
 
+# aliases
 alias be="bundle exec"
 alias bi="bundle install"
 alias dcb="docker-compose build"
@@ -107,13 +110,13 @@ alias dcres="docker-compose restart"
 alias dcps="docker-compose ps"
 
 # GIT
-if [ -f "$HOME/.bash_plugins/git_completion.bash" ]
+if [ -f "$HOME/.bash_plugins/git_completion.bash" ] ; then
   source "$HOME/.bash_plugins/git_completion.bash"
 fi
 
 # FZF
-if [ -f "$HOME/.fzf.bash" ]
-  source "$HOME/.fzf.bash"
+if [ -f "$HOME/.bash_plugins/fzf.bash" ] ; then
+  source "$HOME/.bash_plugins/fzf.bash"
 fi
 
 # RVM
