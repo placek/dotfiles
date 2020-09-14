@@ -2,6 +2,8 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export HISTCONTROL=ignoreboth:erasedups
 export EDITOR=vim
+export HISTSIZE=1000
+export HISTFILESIZE=2000
 
 # bash options
 bind "set completion-ignore-case on"
@@ -10,7 +12,15 @@ if [[ $- == *i* ]]; then
   bind '"\e[A": history-search-backward'
   bind '"\e[B": history-search-forward'
 fi
+shopt -s checkwinsize
 
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
 
 # custom prompt
 black="\[$(tput setaf 4)\]"
@@ -108,6 +118,7 @@ alias dsp="docker system prune"
 alias dspv="docker system prune --volumes"
 alias dcres="docker-compose restart"
 alias dcps="docker-compose ps"
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # GIT
 if [ -f "$HOME/.bash_plugins/git_completion.bash" ] ; then
