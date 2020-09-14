@@ -1,0 +1,27 @@
+[submodule ".vim/pack/bundle/opt/nerdtree"]
+	path = .vim/pack/bundle/opt/nerdtree
+	url = git@github.com:preservim/nerdtree.git
+[submodule ".vim/pack/bundle/opt/fzf"]
+	path = .vim/pack/bundle/opt/fzf
+	url = git@github.com:junegunn/fzf
+[submodule ".vim/pack/bundle/opt/fzf_vim"]
+	path = .vim/pack/bundle/opt/fzf_vim
+	url = git@github.com:junegunn/fzf.vim
+[submodule ".vim/pack/bundle/opt/nerdtree_git_plugin"]
+	path = .vim/pack/bundle/opt/nerdtree_git_plugin
+	url = git@github.com:xuyuanp/nerdtree-git-plugin
+[submodule ".vim/pack/bundle/opt/vim_airline"]
+	path = .vim/pack/bundle/opt/vim_airline
+	url = git@github.com:vim-airline/vim-airline
+[submodule ".vim/pack/bundle/opt/vim_airline_themes"]
+	path = .vim/pack/bundle/opt/vim_airline_themes
+	url = git@github.com:vim-airline/vim-airline-themes
+[submodule ".vim/pack/bundle/opt/vim_gitgutter"]
+	path = .vim/pack/bundle/opt/vim_gitgutter
+	url = git@github.com:airblade/vim-gitgutter
+[submodule ".vim/pack/bundle/opt/tmuxline"]
+	path = .vim/pack/bundle/opt/tmuxline
+	url = git@github.com:edkolev/tmuxline.vim
+[submodule ".vim/pack/bundle/opt/tabular"]
+	path = .vim/pack/bundle/opt/tabular
+	url = git@github.com:godlygeek/tabular

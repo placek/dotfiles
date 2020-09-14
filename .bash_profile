@@ -8,7 +8,6 @@ if [[ $- == *i* ]]; then
   bind '"\e[B": history-search-forward'
 fi
 
-source "$HOME/.bash_plugins/git_completion.bash"
 EDITOR=vim
 
 # prompt functions
@@ -106,6 +105,16 @@ alias dsp="docker system prune"
 alias dspv="docker system prune --volumes"
 alias dcres="docker-compose restart"
 alias dcps="docker-compose ps"
+
+# GIT
+if [ -f "$HOME/.bash_plugins/git_completion.bash" ]
+  source "$HOME/.bash_plugins/git_completion.bash"
+fi
+
+# FZF
+if [ -f "$HOME/.fzf.bash" ]
+  source "$HOME/.fzf.bash"
+fi
 
 # RVM
 if [ -d "$HOME/.rvm" ] ; then

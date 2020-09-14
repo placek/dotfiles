@@ -1,26 +1,17 @@
-" plugins
-call plug#begin('~/.vim/bundle')
-  Plug 'airblade/vim-gitgutter'
-  Plug 'edkolev/tmuxline.vim'
-  Plug 'godlygeek/tabular'
-  Plug 'jistr/vim-nerdtree-tabs'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'scrooloose/nerdtree'
-  Plug 'slim-template/vim-slim'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-surround'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'w0rp/ale'
-  Plug 'xuyuanp/nerdtree-git-plugin'
-call plug#end()
-
 filetype plugin indent on
 syntax enable
 
+" plugins
 packadd! matchit
+packadd! fzf
+packadd! fzf_vim
+packadd! nerdtree
+packadd! nerdtree_git_plugin
+packadd! vim_airline
+packadd! vim_airline_themes
+packadd! vim_gitgutter
+packadd! tmuxline
+packadd! tabular
 
 " settings
 set backspace=indent,eol,start
@@ -122,11 +113,11 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeWinSize = 32
-let g:ale_linters = { 'javascript': ['eslint'], 'ruby': ['rubocop'], 'haskell': ['hlint'] }
-let g:ale_linters_explicit = 1
-let g:airline#extensions#ale#enabled = 1
-let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 0
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 20
 
 " search operator
 function! s:SearchOperator(type)
@@ -182,10 +173,5 @@ function! s:build_quickfix_list(lines)
   cc
 endfunction
 
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
+let g:fzf_action = { 'ctrl-q': function('s:build_quickfix_list'), 'ctrl-t': 'tab split', 'ctrl-s': 'split', 'ctrl-v': 'vsplit' }
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
