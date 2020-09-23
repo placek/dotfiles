@@ -13,6 +13,7 @@ packadd! vim_gitgutter
 packadd! tmuxline
 packadd! tabular
 packadd! syntastic
+packadd! fugitive
 
 " settings
 set backspace=indent,eol,start
@@ -83,6 +84,7 @@ nnoremap <Leader>L :BLines<CR>
 nnoremap <Leader>C :Commits<CR>
 nnoremap <Leader>g :GFiles<CR>
 nnoremap <Leader>G :GFiles?<CR>
+nnoremap <Leader>Gb :Gblame<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>q :set opfunc=<SID>SearchOperator<CR>g@
 vnoremap <Leader>q :<C-u>call <SID>SearchOperator(visualmode())<CR>

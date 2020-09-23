@@ -28,3 +28,6 @@
 [submodule ".vim/pack/bundle/opt/syntastic"]
 	path = .vim/pack/bundle/opt/syntastic
 	url = git@github.com:vim-syntastic/syntastic.git
+[submodule ".vim/pack/bundle/opt/fugitive"]
+	path = .vim/pack/bundle/opt/fugitive
+	url = git@github.com:tpope/vim-fugitive.git
