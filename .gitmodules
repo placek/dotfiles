@@ -25,3 +25,6 @@
 [submodule ".vim/pack/bundle/opt/tabular"]
 	path = .vim/pack/bundle/opt/tabular
 	url = git@github.com:godlygeek/tabular
+[submodule ".vim/pack/bundle/opt/syntastic"]
+	path = .vim/pack/bundle/opt/syntastic
+	url = git@github.com:vim-syntastic/syntastic.git

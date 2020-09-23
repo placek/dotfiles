@@ -12,6 +12,7 @@ packadd! vim_airline_themes
 packadd! vim_gitgutter
 packadd! tmuxline
 packadd! tabular
+packadd! syntastic
 
 " settings
 set backspace=indent,eol,start
@@ -147,7 +148,12 @@ autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal makeprg=cabal\ build
 autocmd FileType nerdtree :vert resize 32
-autocmd BufNewFile,BufRead *_spec.rb setlocal makeprg=rspec\ --no-color\ % errorformat=rspec\ %f:%l\ %m
+autocmd FileType ruby
+  \ if expand("%") =~# '_spec\.rb$' |
+  \   compiler rspec | setl makeprg=rspec\ --no-color\ % |
+  \ else |
+  \   setl makeprg=rubocop\ --format\ clang\ % |
+  \ endif
 
 command! MakeTags !git ctags
 command! Open !open %
