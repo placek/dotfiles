@@ -13,6 +13,8 @@ if [[ $- == *i* ]]; then
   bind '"\e[B": history-search-forward'
 fi
 shopt -s checkwinsize
+shopt -s histappend
+shopt -s cmdhist
 
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -50,60 +52,6 @@ __set_prompt() {
   else
     PS1+="${red}$ ${normal}"
   fi
-}
-
-# projects function
-projects() {
-  list=`tmux ls 2> /dev/null | cut -f1 -d':' | sort`
-
-  case "$1" in
-    "ls")
-      echo $list
-      ;;
-    "add")
-      target=`ls -1 ~/Projects | sort -n | fzf --prompt "Projects> "`
-      tmux new-session -s $target -c ~/Projects/$target $EDITOR
-      ;;
-    "new")
-      target=$2
-      if [ -z "$target" ]; then
-        >&2 echo "usage: projects new <project-name>"
-      else
-        if [ -d ~/Projects/$target ]; then
-          >&2 echo "project already exists"
-        else
-          mkdir -p ~/Projects/$2
-          pushd ~/Projects/$target
-            git init
-          popd
-          tmux new-session -s $target -c ~/Projects/$target $EDITOR
-        fi
-      fi
-      ;;
-    "clone")
-      uri=$2
-      target=$(basename "$uri" .git)
-      if [ -z "$target" ]; then
-        >&2 echo "usage: projects clone <project-git-uri>"
-      else
-        if [ -d ~/Projects/$target ]; then
-          >&2 echo "project already exists"
-        else
-          pushd ~/Projects
-            git clone $uri
-          popd
-          tmux new-session -s $target -c ~/Projects/$target $EDITOR
-        fi
-      fi
-      ;;
-    *)
-      if [ -n "$TMUX" ]; then
-        >&2 echo "usage: projects [add|new|clone|ls|help]"
-      else
-        tmux attach
-      fi
-      ;;
-  esac
 }
 
 # aliases
@@ -148,7 +96,7 @@ if [ -d "$HOME/.nvm" ] ; then
   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 fi
 
-# STACK
+# LOCAL BINARIESs
 if [ -d "$HOME/.local/bin" ] ; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
