@@ -5,7 +5,6 @@ Description=OpenSSH Agent
 Type=simple
 Environment=SSH_AUTH_SOCK="%t/ssh-agent.socket"
 ExecStart=/usr/bin/ssh-agent -D -t 14400 -a "${SSH_AUTH_SOCK}"
-# ExecStartPost=/bin/sed -ie "s/.*SSH_AUTH_SOCK.*/SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" /etc/environment
 
 [Install]
 WantedBy=default.target

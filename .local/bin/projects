@@ -8,7 +8,7 @@ case "$1" in
     ;;
   "add")
     target=`ls -1 ~/Projects | sort -n | fzf --prompt "Projects> "`
-    tmux new-session -s $target -c ~/Projects/$target $EDITOR
+    tmux new-session -d -s $target -c ~/Projects/$target $EDITOR
     ;;
   "new")
     target=$2
