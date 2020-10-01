@@ -100,8 +100,3 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
-
-# SSH AGENT
-if [ -d "$XDG_RUNTIME_DIR" ]; then
-  export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
-fi

@@ -18,13 +18,9 @@ install: clean
 
 install_ubuntu: clean_ubuntu dependencies_ubuntu
 	${MK} ${HOME}/.local/bin
-	${MK} ${HOME}/.config/dunst
-	${MK} ${HOME}/.config/systemd/user
 	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
 	${LN} ${PWD}/.local/bin/open ${HOME}/.local/bin/open
-	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
-	${LN} ${PWD}/.config/systemd/user/ssh-agent.service ${HOME}/.config/systemd/user/ssh-agent.service
 
 clean:
 	${RM} ${HOME}/.bash_plugins \
@@ -40,9 +36,7 @@ clean:
 clean_ubuntu:
 	${RM} ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
-	      ${HOME}/.local/bin/open \
-	      ${HOME}/.config/dunst/dunsrc \
-	      ${HOME}/.config/systemd/user/ssh-agent.service
+	      ${HOME}/.local/bin/open
 
 dependencies_ubuntu:
 	${APT} update
