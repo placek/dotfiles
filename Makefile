@@ -4,6 +4,7 @@ RM = rm -fr
 APT = apt
 
 install: clean
+	${MK} ${HOME}/.local/bin
 	${LN} ${PWD}/.bash_plugins ${HOME}
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
@@ -13,7 +14,6 @@ install: clean
 	${LN} ${PWD}/.inputrc ${HOME}
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
-	${MK} ${HOME}/.local/bin
 	${LN} ${FLAGS} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 
 install_ubuntu: clean_ubuntu dependencies_ubuntu
@@ -23,7 +23,8 @@ install_ubuntu: clean_ubuntu dependencies_ubuntu
 	${LN} ${PWD}/.local/bin/open ${HOME}/.local/bin/open
 
 clean:
-	${RM} ${HOME}/.bash_plugins \
+	${RM} ${HOME}/.local/bin/projects \
+	      ${HOME}/.bash_plugins \
 	      ${HOME}/.git_template \
 	      ${HOME}/.vim \
 	      ${HOME}/.bash_profile \
@@ -34,8 +35,7 @@ clean:
 	      ${HOME}/.vimrc
 
 clean_ubuntu:
-	${RM} ${HOME}/.local/bin/projects \
-	      ${HOME}/.local/bin/pbcopy \
+	${RM} ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
 	      ${HOME}/.local/bin/open
 
