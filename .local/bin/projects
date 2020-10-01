@@ -3,6 +3,13 @@
 projects=${PROJECTS_DIR:-"$HOME/Projects"}
 list=$(tmux ls 2> /dev/null | cut -f1 -d':' | sort)
 
+pushd () {
+  command pushd "$@" > /dev/null
+}
+popd () {
+  command popd "$@" > /dev/null
+}
+
 case "$1" in
   "ls")
     if [ -z "$list" ]; then
@@ -62,11 +69,16 @@ case "$1" in
       for name in $list; do
         project="$projects/$name"
         if [ -d "$project" ]; then
-          echo "projects: fetching $project..."
+          echo "projects: $project"
           pushd "$project"
             for remote in $(git remote); do
-              echo "projects: fetching $remote"
-              git fetch "$remote" && echo "projects: fetched $remote"
+              git fetch "$remote" && echo "projects:   fetched $remote"
+              for branch in $(git branch); do
+                label=$(git config "branch.$branch.note" | xargs)
+                if [ ! -z "$label" ]; then
+                  git push "$remote" "$branch":"$branch" >/dev/null 2>&1 && echo "projects:   pushed $branch on $remote"
+                fi
+              done
             done
           popd
         else
@@ -78,7 +90,7 @@ case "$1" in
 
   *)
     if [ -n "$TMUX" ]; then
-      >&2 echo "usage: projects [add|new|clone|ls|help]"
+      >&2 echo "usage: projects [add|new|clone|ls|sync|help]"
     else
       tmux attach
     fi
