@@ -1,6 +1,7 @@
 LN = ln -s
 MK = mkdir -p
 RM = rm -fr
+APT = apt
 
 install: clean
 	${LN} ${PWD}/.bash_plugins ${HOME}
@@ -15,7 +16,7 @@ install: clean
 	${MK} ${HOME}/.local/bin
 	${LN} ${FLAGS} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 
-install_linux: clean_linux
+install_ubuntu: clean_ubuntu dependencies_ubuntu
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.config/dunst
 	${MK} ${HOME}/.config/systemd/user
@@ -36,9 +37,14 @@ clean:
 	      ${HOME}/.tmux.conf \
 	      ${HOME}/.vimrc
 
-clean_linux:
+clean_ubuntu:
 	${RM} ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
 	      ${HOME}/.local/bin/open \
 	      ${HOME}/.config/dunst/dunsrc \
 	      ${HOME}/.config/systemd/user/ssh-agent.service
+
+dependencies_ubuntu:
+	${APT} update
+	${APT} upgrade
+	${APT} install bash git tmux vim xclip silversearcher-ag exuberant-ctags entr
