@@ -34,7 +34,8 @@ clean:
 	      ${HOME}/.vimrc
 
 clean_ubuntu:
-	${RM} ${HOME}/.local/bin/pbcopy \
+	${RM} ${HOME}/.local/bin/projects \
+	      ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
 	      ${HOME}/.local/bin/open
 
