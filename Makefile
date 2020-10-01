@@ -1,37 +1,44 @@
-LN = ln
-FLAGS = -s
+LN = ln -s
+MK = mkdir -p
+RM = rm -fr
 
 install: clean
-	${LN} ${FLAGS} ${PWD}/.bash_plugins ${HOME}
-	${LN} ${FLAGS} ${PWD}/.git_template ${HOME}
-	${LN} ${FLAGS} ${PWD}/.vim ${HOME}
-	${LN} ${FLAGS} ${PWD}/.bash_profile ${HOME}
-	${LN} ${FLAGS} ${PWD}/.gitconfig ${HOME}
-	${LN} ${FLAGS} ${PWD}/.gitignore_global ${HOME}
-	${LN} ${FLAGS} ${PWD}/.inputrc ${HOME}
-	${LN} ${FLAGS} ${PWD}/.tmux.conf ${HOME}
-	${LN} ${FLAGS} ${PWD}/.vimrc ${HOME}
-	mkdir -p ${HOME}/.local/bin
+	${LN} ${PWD}/.bash_plugins ${HOME}
+	${LN} ${PWD}/.git_template ${HOME}
+	${LN} ${PWD}/.vim ${HOME}
+	${LN} ${PWD}/.bash_profile ${HOME}
+	${LN} ${PWD}/.gitconfig ${HOME}
+	${LN} ${PWD}/.gitignore_global ${HOME}
+	${LN} ${PWD}/.inputrc ${HOME}
+	${LN} ${PWD}/.tmux.conf ${HOME}
+	${LN} ${PWD}/.vimrc ${HOME}
+	${MK} ${HOME}/.local/bin
 	${LN} ${FLAGS} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 
 install_linux: clean_linux
-	mkdir -p ${HOME}/.local/bin
-	${LN} ${FLAGS} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
-	${LN} ${FLAGS} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
-	${LN} ${FLAGS} ${PWD}/.local/bin/open ${HOME}/.local/bin/open
+	${MK} ${HOME}/.local/bin
+	${MK} ${HOME}/.config/dunst
+	${MK} ${HOME}/.config/systemd/user
+	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
+	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
+	${LN} ${PWD}/.local/bin/open ${HOME}/.local/bin/open
+	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
+	${LN} ${PWD}/.config/systemd/user/ssh-agent.service ${HOME}/.config/systemd/user/ssh-agent.service
 
 clean:
-	rm -rf ${HOME}/.bash_plugins \
-	       ${HOME}/.git_template \
-	       ${HOME}/.vim \
-	       ${HOME}/.bash_profile \
-	       ${HOME}/.gitconfig \
-	       ${HOME}/.gitignore_global \
-	       ${HOME}/.inputrc \
-	       ${HOME}/.tmux.conf \
-	       ${HOME}/.vimrc
+	${RM} ${HOME}/.bash_plugins \
+	      ${HOME}/.git_template \
+	      ${HOME}/.vim \
+	      ${HOME}/.bash_profile \
+	      ${HOME}/.gitconfig \
+	      ${HOME}/.gitignore_global \
+	      ${HOME}/.inputrc \
+	      ${HOME}/.tmux.conf \
+	      ${HOME}/.vimrc
 
 clean_linux:
-	rm -rf ${HOME}/.local/bin/pbcopy
-	       ${HOME}/.local/bin/pbpaste
-	       ${HOME}/.local/bin/open
+	${RM} ${HOME}/.local/bin/pbcopy \
+	      ${HOME}/.local/bin/pbpaste \
+	      ${HOME}/.local/bin/open \
+	      ${HOME}/.config/dunst/dunsrc \
+	      ${HOME}/.config/systemd/user/ssh-agent.service
