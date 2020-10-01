@@ -104,7 +104,7 @@ vnoremap <Leader>A: :Tabularize /:\zs/<CR>
 
 " options
 let g:fzf_tags_command = 'git ctags'
-let g:airline_theme = 'solarized'
+let g:airline_theme = 'base16_atelierdune'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
