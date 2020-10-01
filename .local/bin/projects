@@ -1,5 +1,6 @@
 #!/bin/bash
 
+projects=${PROJECTS_DIR:-"$HOME/Projects"}
 list=`tmux ls 2> /dev/null | cut -f1 -d':' | sort`
 
 case "$1" in
@@ -7,22 +8,22 @@ case "$1" in
     echo $list
     ;;
   "add")
-    target=`ls -1 ~/Projects | sort -n | fzf --prompt "Projects> "`
-    tmux new-session -d -s $target -c ~/Projects/$target $EDITOR
+    target=`ls -1 $projects | sort -n | fzf --prompt "Projects> "`
+    tmux new-session -d -s $target -c $projects/$target $EDITOR
     ;;
   "new")
     target=$2
     if [ -z "$target" ]; then
       >&2 echo "usage: projects new <project-name>"
     else
-      if [ -d ~/Projects/$target ]; then
+      if [ -d $projects/$target ]; then
         >&2 echo "project already exists"
       else
-        mkdir -p ~/Projects/$2
-        pushd ~/Projects/$target
+        mkdir -p $projects/$2
+        pushd $projects/$target
           git init
         popd
-        tmux new-session -s $target -c ~/Projects/$target $EDITOR
+        tmux new-session -s $target -c $projects/$target $EDITOR
       fi
     fi
     ;;
@@ -32,13 +33,13 @@ case "$1" in
     if [ -z "$target" ]; then
       >&2 echo "usage: projects clone <project-git-uri>"
     else
-      if [ -d ~/Projects/$target ]; then
+      if [ -d $projects/$target ]; then
         >&2 echo "project already exists"
       else
-        pushd ~/Projects
+        pushd $projects
           git clone $uri
         popd
-        tmux new-session -s $target -c ~/Projects/$target $EDITOR
+        tmux new-session -s $target -c $projects/$target $EDITOR
       fi
     fi
     ;;

@@ -4,6 +4,7 @@ export HISTCONTROL=ignoreboth:erasedups
 export EDITOR=vim
 export HISTSIZE=1000
 export HISTFILESIZE=2000
+export PROJECTS_DIR=${HOME}/Projects
 
 # bash options
 bind "set completion-ignore-case on"
