@@ -1,48 +1,81 @@
 #!/bin/bash
 
 projects=${PROJECTS_DIR:-"$HOME/Projects"}
-list=`tmux ls 2> /dev/null | cut -f1 -d':' | sort`
+list=$(tmux ls 2> /dev/null | cut -f1 -d':' | sort)
 
 case "$1" in
   "ls")
-    echo $list
+    if [ -z "$list" ]; then
+      >&2 echo "projects: no projects available"
+    else
+      echo "$list"
+    fi
     ;;
+
   "add")
-    target=`ls -1 $projects | sort -n | fzf --prompt "Projects> "`
-    tmux new-session -d -s $target -c $projects/$target $EDITOR
+    if [ -z "$(ls -1 "$projects" | sort -n)" ]; then
+      >&2 echo "projects: no projects available under $projects"
+    else
+      target=$(ls -1 "$projects" | sort -n | fzf --prompt "Projects> ")
+      tmux new-session -d -s "$target" -c "$projects/$target" "$EDITOR"
+    fi
     ;;
+
   "new")
     target=$2
     if [ -z "$target" ]; then
-      >&2 echo "usage: projects new <project-name>"
+      >&2 echo "projects: usage: projects new <project-name>"
     else
-      if [ -d $projects/$target ]; then
-        >&2 echo "project already exists"
+      if [ -d "$projects/$target" ]; then
+        >&2 echo "projects: $target already exists"
       else
-        mkdir -p $projects/$2
-        pushd $projects/$target
+        mkdir -p "$projects"/"$2"
+        pushd "$projects/$target" || exit
           git init
         popd
-        tmux new-session -s $target -c $projects/$target $EDITOR
+        tmux new-session -d -s "$target" -c "$projects/$target" "$EDITOR"
       fi
     fi
     ;;
+
   "clone")
     uri=$2
     target=$(basename "$uri" .git)
     if [ -z "$target" ]; then
-      >&2 echo "usage: projects clone <project-git-uri>"
+      >&2 echo "projects: usage: projects clone <project-git-uri>"
     else
-      if [ -d $projects/$target ]; then
-        >&2 echo "project already exists"
+      if [ -d "$projects/$target" ]; then
+        >&2 echo "projects: $target already exists"
       else
-        pushd $projects
-          git clone $uri
+        pushd "$projects"
+          git clone "$uri"
         popd
-        tmux new-session -s $target -c $projects/$target $EDITOR
+        tmux new-session -d -s "$target" -c "$projects/$target" "$EDITOR"
       fi
     fi
     ;;
+
+  "sync")
+    if [ -z "$list" ]; then
+      >&2 echo "projects: nothing to sync"
+    else
+      for name in $list; do
+        project="$projects/$name"
+        if [ -d "$project" ]; then
+          echo "projects: fetching $project..."
+          pushd "$project"
+            for remote in $(git remote); do
+              echo "projects: fetching $remote"
+              git fetch "$remote" && echo "projects: fetched $remote"
+            done
+          popd
+        else
+          >&2 echo "projects: could not cd to $project"
+        fi
+      done
+    fi
+    ;;
+
   *)
     if [ -n "$TMUX" ]; then
       >&2 echo "usage: projects [add|new|clone|ls|help]"
