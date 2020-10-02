@@ -57,11 +57,6 @@ set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*
 set wrapmargin=0
 set wildmenu
 
-map  <ESC>[H <Home>
-map  <ESC>[F <End>
-imap <ESC>[H <Home>
-imap <ESC>[F <End>
-
 " mapping
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
@@ -157,20 +152,16 @@ autocmd FileType ruby
   \   setl makeprg=rubocop\ --format\ clang\ % |
   \ endif
 
+" commands
 command! MakeTags !git ctags
 command! Open !open %
 
 " colors
-hi SignColumn ctermbg=7
-hi Search cterm=none ctermfg=3 ctermbg=7
-hi Pmenu ctermfg=0 ctermbg=7
-hi PmenuSel ctermfg=0 ctermbg=7 cterm=bold
-hi GitGutterAdd ctermbg=7 ctermfg=2
-hi GitGutterChange ctermbg=7 ctermfg=3
-hi GitGutterChangeDelete ctermbg=7 ctermfg=3
-hi GitGutterDelete ctermbg=7 ctermfg=1
-hi LineNr ctermfg=14
-hi CursorLineNr ctermfg=14
+hi SignColumn ctermbg=0
+hi GitGutterAdd ctermbg=0 ctermfg=2
+hi GitGutterChange ctermbg=0 ctermfg=3
+hi GitGutterChangeDelete ctermbg=0 ctermfg=3
+hi GitGutterDelete ctermbg=0 ctermfg=1
 
 " FZF extension
 function! s:build_quickfix_list(lines)
@@ -181,3 +172,4 @@ endfunction
 
 let g:fzf_action = { 'ctrl-q': function('s:build_quickfix_list'), 'ctrl-t': 'tab split', 'ctrl-s': 'split', 'ctrl-v': 'vsplit' }
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+let $FZF_DEFAULT_COMMAND = 'git ls-files'

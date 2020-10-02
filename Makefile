@@ -16,7 +16,7 @@ install: clean
 	${LN} ${PWD}/.vimrc ${HOME}
 	${LN} ${FLAGS} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 
-install_ubuntu: clean_ubuntu dependencies_ubuntu
+install_ubuntu: clean_ubuntu
 	${MK} ${HOME}/.local/bin
 	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
