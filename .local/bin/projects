@@ -71,8 +71,8 @@ case "$1" in
         if [ -d "$project" ]; then
           echo "projects: $project"
           pushd "$project"
+            git fetch --all && echo "projects:   fetched"
             for remote in $(git remote); do
-              git fetch "$remote" && echo "projects:   fetched $remote"
               for branch in $(git branch); do
                 label=$(git config "branch.$branch.note" | xargs)
                 if [ ! -z "$label" ]; then
