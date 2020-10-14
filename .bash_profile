@@ -55,6 +55,11 @@ __set_prompt() {
   fi
 }
 
+# functions
+gch() {
+ git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
+}
+
 # aliases
 alias be="bundle exec"
 alias bi="bundle install"
