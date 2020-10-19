@@ -31,3 +31,8 @@
   templatedir = ~/.git_template
 [status]
   submoduleSummary = true
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
