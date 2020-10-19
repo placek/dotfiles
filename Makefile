@@ -29,7 +29,7 @@ symlink: clean
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
-	${LN} ${PWD}/.bashrc ${HOME}
+	${LN} ${PWD}/.bash_profile ${HOME}/.bashrc
 	${LN} ${PWD}/.gitconfig ${HOME}
 	${LN} ${PWD}/.gitignore_global ${HOME}
 	${LN} ${PWD}/.inputrc ${HOME}
@@ -45,4 +45,4 @@ symlink: clean
 install: symlink
 	${GIT} submodule init
 	${GIT} submodule update
-	.vim/pack/bundle/opt/fzf/install
+	yes n | .vim/pack/bundle/opt/fzf/install
