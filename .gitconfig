@@ -16,6 +16,7 @@
   stashp = stash push -p
   info = for-each-ref --format='%(color:yellow)%(committerdate:iso8601) %(color:blue)%(objectname:short) %(color:magenta)%(authorname) %(color:green)%(refname:short) %(color:reset)%(contents:subject)' --sort -committerdate
   label = "!git config branch.$(git symbolic-ref --short HEAD).note $( if [ $# -gt 0 ]; then $1; fi)"
+  sch = "!git checkout $(git branch --all | fzf | tr -d '[:space:]')"
 [format]
   pretty = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'
 [user]
