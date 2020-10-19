@@ -15,16 +15,10 @@
   root = rev-parse --show-toplevel
   stashp = stash push -p
   info = for-each-ref --format='%(color:yellow)%(committerdate:iso8601) %(color:blue)%(objectname:short) %(color:magenta)%(authorname) %(color:green)%(refname:short) %(color:reset)%(contents:subject)' --sort -committerdate
-  label = "!git config branch.$(git symbolic-ref --short HEAD).note $( if [ $# -gt 0 ]; then $1; fi)"
+  label = "!git config branch.$(git symbolic-ref --short HEAD).note $(if [ $# -gt 0 ]; then $1; fi)"
   sch = "!git checkout $(git branch --all | fzf | tr -d '[:space:]')"
 [format]
   pretty = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'
-[user]
-  name = Paweł Placzyński
-  email = placzynski.pawel@gmail.com
-  signingkey = C6E4ECDDDD13326D324AA1992F32B4B85CBA349E
-[github]
-  user = placek
 [gpg]
   program = gpg
 [init]
