@@ -1,27 +1,15 @@
 LN  = ln -s
 MK  = mkdir -p
 RM  = rm -fr
+NO  = yes n
 GIT = git
-UNAME := $(shell uname -s)
 
 .PHONY: clean symlink install
 
-clean:
-	${RM} ${HOME}/.local/bin/projects \
-	      ${HOME}/.bash \
-	      ${HOME}/.git_template \
-	      ${HOME}/.vim \
-	      ${HOME}/.bash_profile \
-	      ${HOME}/.bashrc \
-	      ${HOME}/.gitconfig \
-	      ${HOME}/.gitignore_global \
-	      ${HOME}/.inputrc \
-	      ${HOME}/.tmux.conf \
-	      ${HOME}/.vimrc \
-	      ${HOME}/.wall.jpg \
-	      ${HOME}/.local/bin/pbcopy \
-	      ${HOME}/.local/bin/pbpaste \
-	      ${HOME}/.local/bin/open
+install: symlink
+	${GIT} submodule init
+	${GIT} submodule update
+	${NO} | .vim/pack/bundle/opt/fzf/install
 
 symlink: clean
 	${MK} ${HOME}/.local/bin
@@ -42,7 +30,19 @@ symlink: clean
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
 	${LN} ${PWD}/.local/bin/open ${HOME}/.local/bin/open
 
-install: symlink
-	${GIT} submodule init
-	${GIT} submodule update
-	yes n | .vim/pack/bundle/opt/fzf/install
+clean:
+	${RM} ${HOME}/.local/bin/projects \
+	      ${HOME}/.bash \
+	      ${HOME}/.git_template \
+	      ${HOME}/.vim \
+	      ${HOME}/.bash_profile \
+	      ${HOME}/.bashrc \
+	      ${HOME}/.gitconfig \
+	      ${HOME}/.gitignore_global \
+	      ${HOME}/.inputrc \
+	      ${HOME}/.tmux.conf \
+	      ${HOME}/.vimrc \
+	      ${HOME}/.wall.jpg \
+	      ${HOME}/.local/bin/pbcopy \
+	      ${HOME}/.local/bin/pbpaste \
+	      ${HOME}/.local/bin/open
