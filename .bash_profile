@@ -104,5 +104,5 @@ fi
 
 # LOCAL BINARIESs
 if [ -d "$HOME/.local/bin" ] ; then
-  export PATH="$HOME/.local/bin:$PATH"
+  export PATH="$PATH:$HOME/.local/bin"
 fi

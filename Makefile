@@ -2,6 +2,7 @@ LN = ln -s
 MK = mkdir -p
 RM = rm -fr
 APT = apt
+UNAME := $(shell uname -s)
 
 install: clean
 	${MK} ${HOME}/.local/bin
@@ -15,8 +16,6 @@ install: clean
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
 	${LN} ${FLAGS} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
-
-install_ubuntu: clean_ubuntu
 	${MK} ${HOME}/.local/bin
 	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
@@ -32,14 +31,7 @@ clean:
 	      ${HOME}/.gitignore_global \
 	      ${HOME}/.inputrc \
 	      ${HOME}/.tmux.conf \
-	      ${HOME}/.vimrc
-
-clean_ubuntu:
-	${RM} ${HOME}/.local/bin/pbcopy \
+	      ${HOME}/.vimrc \
+	      ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
 	      ${HOME}/.local/bin/open
-
-dependencies_ubuntu:
-	${APT} update
-	${APT} upgrade
-	${APT} install bash git tmux vim xclip silversearcher-ag exuberant-ctags entr
