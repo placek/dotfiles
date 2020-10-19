@@ -1,0 +1,12 @@
+alias be="bundle exec"
+alias bi="bundle install"
+alias dcb="docker-compose build"
+alias dcr="docker-compose run --rm"
+alias dcu="docker-compose up -d"
+alias dcl="docker-compose logs"
+alias dcd="docker-compose down"
+alias dsp="docker system prune"
+alias dspv="docker system prune --volumes"
+alias dcres="docker-compose restart"
+alias dcps="docker-compose ps"
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

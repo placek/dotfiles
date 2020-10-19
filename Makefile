@@ -8,10 +8,11 @@ UNAME := $(shell uname -s)
 
 clean:
 	${RM} ${HOME}/.local/bin/projects \
-	      ${HOME}/.bash_plugins \
+	      ${HOME}/.bash \
 	      ${HOME}/.git_template \
 	      ${HOME}/.vim \
 	      ${HOME}/.bash_profile \
+	      ${HOME}/.bashrc \
 	      ${HOME}/.gitconfig \
 	      ${HOME}/.gitignore_global \
 	      ${HOME}/.inputrc \
@@ -24,10 +25,11 @@ clean:
 
 symlink: clean
 	${MK} ${HOME}/.local/bin
-	${LN} ${PWD}/.bash_plugins ${HOME}
+	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
+	${LN} ${PWD}/.bashrc ${HOME}
 	${LN} ${PWD}/.gitconfig ${HOME}
 	${LN} ${PWD}/.gitignore_global ${HOME}
 	${LN} ${PWD}/.inputrc ${HOME}
