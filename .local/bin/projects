@@ -1,7 +1,24 @@
 #!/bin/bash
 
+if ! command -v tmux &> /dev/null; then
+  >&2 echo "projects: tmux command could not be found"
+  exit
+fi
+
+if ! command -v git &> /dev/null; then
+  >&2 echo "projects: git command could not be found"
+  exit
+fi
+
+if ! command -v $EDITOR &> /dev/null; then
+  >&2 echo "projects: $EDITOR editor set by \$EDITOR env variable could not be found"
+  exit
+fi
+
 projects=${PROJECTS_DIR:-"$HOME/Projects"}
 list=$(tmux ls 2> /dev/null | cut -f1 -d':' | sort)
+
+[ ! -d "$projects" ] && mkdir -p "$projects"
 
 pushd () {
   command pushd "$@" > /dev/null
