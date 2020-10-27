@@ -4,14 +4,9 @@ RM  = rm -fr
 NO  = yes n
 GIT = git
 
-.PHONY: clean symlink install
+.PHONY: clean install
 
-install: symlink
-	${GIT} submodule init
-	${GIT} submodule update
-	${NO} | .vim/pack/bundle/opt/fzf/install
-
-symlink: clean
+install: clean
 	${MK} ${HOME}/.local/bin
 	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.git_template ${HOME}
