@@ -35,22 +35,9 @@ if [ -f "$HOME/.bash/fzf.bash" ] ; then
   source "$HOME/.bash/fzf.bash"
 fi
 
-# RVM
-if [ -d "$HOME/.rvm" ] ; then
-  [ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm"
-  export PATH="/usr/local/sbin:$PATH"
-fi
-
-# GHCUP
-if [ -d "$HOME/.ghcup" ] ; then
-  [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
-fi
-
-# NVM
-if [ -d "$HOME/.nvm" ] ; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && source "/usr/local/opt/nvm/nvm.sh"
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && source "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+# NIX-PROFILE
+if [ -d "$HOME/.nix-profile/etc/profile.d/nix.sh" ] ; then
+  source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
 
 # prompt
