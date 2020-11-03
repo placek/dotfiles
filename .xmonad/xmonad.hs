@@ -120,7 +120,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP
   }
 myStartupHook = do
   spawnOnce "xrdb .Xresources &"
-  spawnOnce "feh --bg-fill .wall.jpg &"
+  spawnOnce "feh --randomize --bg-fill .wall/* &"
 
 main = do
   xmproc <- spawnPipe "xmobar -x 0"
