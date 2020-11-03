@@ -9,7 +9,6 @@ GIT = git
 install: clean
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.xmonad
-	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME} \
 	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
@@ -21,6 +20,7 @@ install: clean
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
 	${LN} ${PWD}/.wall.jpg ${HOME}
+	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME}/.xmonad/xmonad.hs \
 	${LN} ${FLAGS} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 	${MK} ${HOME}/.local/bin
 	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
