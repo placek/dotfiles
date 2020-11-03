@@ -4,13 +4,14 @@ Config { font = "xft:Iosevka Term:size=10:antialias=true"
        , fgColor = "#ECF0F1"
        , position = TopW L 100
        , lowerOnStart = True
-       , commands = [ Run Cpu ["-L","3","-H","50","--normal","#2ECC71","--high","#E74C3C"] 10
-                    , Run Memory ["-t","Mem: %"] 10
-                    , Run Swap [] 10
+       , commands = [ Run Cpu ["-t","CPU <total>%"] 10
+                    , Run Memory ["-t","MEM <usedratio>%"] 10
+                    , Run BatteryP ["BAT0"] ["-t","BAT <left>%"] 600
+                    , Run Wireless "wlan0" ["t","WIFI <quality>%"] 600
                     , Run Date "%a %Y.%m.%d %H:%M" "date" 10
-                    , Run UnsafeStdinReader
+                    , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader% }{ %cpu% | %memory% * %swap% | %date% "
+       , template = " %StdinReader% }{ %cpu% | %memory% | %wiwlan0% | %battery% | %date% "
        }

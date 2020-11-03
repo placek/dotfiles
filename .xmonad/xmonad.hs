@@ -109,7 +109,14 @@ myManageHook = composeAll
     , resource  =? "kdesktop"       --> doIgnore ]
 
 myEventHook = mempty
-myLogHook = return ()
+myLogHook xmproc = dynamicLogWithPP xmobarPP
+  { ppOutput = hPutStrLn xmproc
+  , ppCurrent = xmobarColor "yellow" "" . wrap "[" "]"
+  , ppHiddenNoWindows = xmobarColor "grey" ""
+  , ppTitle   = xmobarColor "green"  "" . shorten 40
+  , ppVisible = wrap "(" ")"
+  , ppUrgent  = xmobarColor "red" "yellow"
+  }
 myStartupHook = do
   spawnOnce "feh --bg-fill .wall.jpg &"
 
@@ -117,7 +124,7 @@ main = do
   xmproc <- spawnPipe "xmobar -x 0"
   xmonad $ docks defaults
 
-defaults = def {
+defaultsi xmproc = def {
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
         clickJustFocuses   = myClickJustFocuses,
@@ -131,7 +138,7 @@ defaults = def {
         layoutHook         = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = myLogHook,
+        logHook            = myLogHook xmproc,
         startupHook        = myStartupHook
     }
 
