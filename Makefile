@@ -20,6 +20,7 @@ install: clean
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
 	${LN} ${PWD}/.xmobarrc ${HOME}
+	${LN} ${PWD}/.Xresources ${HOME}
 	${LN} ${PWD}/.wall.jpg ${HOME}
 	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME}/.xmonad/xmonad.hs
 	${LN} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
@@ -42,6 +43,7 @@ clean:
 	      ${HOME}/.tmux.conf \
 	      ${HOME}/.vimrc \
 	      ${HOME}/.xmobarrc \
+	      ${HOME}/.Xresources \
 	      ${HOME}/.wall.jpg \
 	      ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
