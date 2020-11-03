@@ -1,7 +1,7 @@
 import XMonad
 import Data.Monoid
 import System.Exit
-import XMonad.Utils.SpawnOnce
+import XMonad.Util.SpawnOnce
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
