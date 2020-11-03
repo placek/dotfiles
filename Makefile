@@ -20,8 +20,8 @@ install: clean
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
 	${LN} ${PWD}/.wall.jpg ${HOME}
-	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME}/.xmonad/xmonad.hs \
-	${LN} ${FLAGS} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
+	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME}/.xmonad/xmonad.hs
+	${LN} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 	${MK} ${HOME}/.local/bin
 	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
