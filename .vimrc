@@ -89,6 +89,7 @@ nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
 nnoremap <Leader>R :split %:s?spec/?app/?:s?_spec.rb?.rb?<CR>
 nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
+nnoremap <Leader>c :silent exec "terminal ++close ++rows=8 ". b:termprg . " %:p"<CR>
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 vnoremap // y/<C-R>"<CR>
@@ -96,6 +97,10 @@ vnoremap <Leader>a{ :Tabularize /^[^{]*/<CR>
 vnoremap <Leader>a= :Tabularize /^[^=]*/<CR>
 vnoremap <Leader>a: :Tabularize /:/<CR>
 vnoremap <Leader>A: :Tabularize /:\zs/<CR>
+cnoreabbrev W w
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev Q q
 
 " options
 let g:fzf_tags_command = 'git ctags'
@@ -144,6 +149,7 @@ autocmd BufRead * normal zR
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal makeprg=cabal\ build
+autocmd FileType haskell let b:termprg="ghci"
 autocmd FileType nerdtree :vert resize 32
 autocmd FileType ruby
   \ if expand("%") =~# '_spec\.rb$' |
@@ -151,6 +157,7 @@ autocmd FileType ruby
   \ else |
   \   setl makeprg=rubocop\ --format\ clang\ % |
   \ endif
+autocmd FileType ruby let b:termprg="irb -r"
 
 " commands
 command! MakeTags !git ctags

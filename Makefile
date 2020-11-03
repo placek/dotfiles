@@ -8,6 +8,8 @@ GIT = git
 
 install: clean
 	${MK} ${HOME}/.local/bin
+	${MK} ${HOME}/.xmonad
+	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME} \
 	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
@@ -27,6 +29,7 @@ install: clean
 
 clean:
 	${RM} ${HOME}/.local/bin/projects \
+	      ${HOME}/.xmonad/xmonad.hs \
 	      ${HOME}/.bash \
 	      ${HOME}/.git_template \
 	      ${HOME}/.vim \
