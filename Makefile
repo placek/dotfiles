@@ -9,6 +9,7 @@ GIT = git
 install: clean
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.xmonad
+	${MK} ${HOME}/.config/rofi
 	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
@@ -22,6 +23,7 @@ install: clean
 	${LN} ${PWD}/.xmobarrc ${HOME}
 	${LN} ${PWD}/.Xresources ${HOME}
 	${LN} ${PWD}/.wall.jpg ${HOME}
+	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
 	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME}/.xmonad/xmonad.hs
 	${LN} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 	${MK} ${HOME}/.local/bin
@@ -31,6 +33,7 @@ install: clean
 
 clean:
 	${RM} ${HOME}/.local/bin/projects \
+	      ${HOME}/.config/rofi/config.rasi \
 	      ${HOME}/.xmonad/xmonad.hs \
 	      ${HOME}/.bash \
 	      ${HOME}/.git_template \

@@ -1,0 +1,49 @@
+configuration {
+  matching: "fuzzy";
+  modi: "drun,run,combi";
+  combi-modi: "drun,run";
+  location: 2;
+}
+
+* {
+  background-color: #34495E;
+  border-color: #2C3E50;
+  text-color: #ECF0F1;
+  spacing: 0;
+  width: 512px;
+  font: "Iosevka Term 12";
+}
+
+inputbar {
+  border: 0 0 1px 0;
+  children: [prompt,entry];
+}
+
+prompt {
+  padding: 16px;
+  border: 0 1px 0 0;
+}
+
+textbox {
+  border: 0 0 1px 0;
+  padding: 8px 16px;
+}
+
+entry {
+  padding: 16px;
+}
+
+listview {
+  cycle: false;
+  margin: 0 0 -1px 0;
+  scrollbar: false;
+}
+
+element {
+  border: 0 0 1px 0;
+  padding: 16px;
+}
+
+element selected {
+  background-color: #3498DB;
+}
