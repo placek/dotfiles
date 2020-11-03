@@ -9,7 +9,7 @@ import XMonad.Util.SpawnOnce
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-myTerminal           = "gnome-terminal"
+myTerminal           = "urxvt"
 myFocusFollowsMouse  :: Bool
 myFocusFollowsMouse  = True
 myClickJustFocuses   :: Bool
@@ -119,6 +119,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP
   , ppUrgent  = xmobarColor "#E74C3C" "#F1C40F"
   }
 myStartupHook = do
+  spawnOnce "xrdb .Xresources &"
   spawnOnce "feh --bg-fill .wall.jpg &"
 
 main = do
