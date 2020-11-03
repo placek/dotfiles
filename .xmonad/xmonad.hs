@@ -112,20 +112,20 @@ myManageHook = composeAll
 myEventHook = mempty
 myLogHook xmproc = dynamicLogWithPP xmobarPP
   { ppOutput = hPutStrLn xmproc
-  , ppCurrent = xmobarColor "yellow" "" . wrap "[" "]"
-  , ppHiddenNoWindows = xmobarColor "grey" ""
-  , ppTitle   = xmobarColor "green"  "" . shorten 40
+  , ppCurrent = xmobarColor "#3498DB" "" . wrap "[" "]"
+  , ppHiddenNoWindows = xmobarColor "#ECF0F1" ""
+  , ppTitle   = xmobarColor "#2ECC71"  "" . shorten 40
   , ppVisible = wrap "(" ")"
-  , ppUrgent  = xmobarColor "red" "yellow"
+  , ppUrgent  = xmobarColor "#E74C3C" "#F1C40F"
   }
 myStartupHook = do
   spawnOnce "feh --bg-fill .wall.jpg &"
 
 main = do
   xmproc <- spawnPipe "xmobar -x 0"
-  xmonad $ docks defaults
+  xmonad $ docks (defaults xmproc)
 
-defaultsi xmproc = def {
+defaults xmproc = def {
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
         clickJustFocuses   = myClickJustFocuses,
