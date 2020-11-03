@@ -58,4 +58,5 @@ URxvt.saveline:        2048
 URxvt.scrollBar:       false
 URxvt.scrollBar_right: false
 URxvt.urgentOnBell:    true
-URxvt*termName:        xterm
+XTerm*termName:        xterm-256color
+URxvt*termName:        rxvt-unicode
