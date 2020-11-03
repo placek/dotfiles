@@ -1,6 +1,7 @@
 import XMonad
 import Data.Monoid
 import System.Exit
+import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
@@ -91,7 +92,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
   where
      tiled   = Tall nmaster delta ratio
      -- the default number of windows in the master pane
@@ -114,7 +115,7 @@ myStartupHook = do
 
 main = do
   xmproc <- spawnPipe "xmobar -x 0"
-  xmonad defaults
+  xmonad $ docks defaults
 
 defaults = def {
         terminal           = myTerminal,
