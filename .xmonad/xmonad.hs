@@ -1,6 +1,7 @@
 import XMonad
 import Data.Monoid
 import System.Exit
+import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
 import qualified XMonad.StackSet as W
@@ -57,7 +58,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
     -- toggle the status bar gap
-    , ((modm              , xK_b     ), sendMessage ToggleStruts)
+    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
     -- quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
     -- restart xmonad
@@ -111,7 +112,9 @@ myLogHook = return ()
 myStartupHook = do
   spawnOnce "feh --bg-fill .wall.jpg &"
 
-main = xmonad defaults
+main = do
+  xmproc <- spawnPipe "xmobar -x 0"
+  xmonad defaults
 
 defaults = def {
         terminal           = myTerminal,
