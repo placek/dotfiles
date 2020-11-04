@@ -38,6 +38,9 @@ fi
 # NIX-PROFILE
 if [ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ] ; then
   source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+  if type nix-env > /dev/null; then
+    export LOCALE_ARCHIVE=`nix-env --installed --no-name --out-path --query glibc-locales`/lib/locale/locale-archive
+  fi
 fi
 
 # prompt

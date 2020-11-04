@@ -10,12 +10,12 @@ install: clean
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.xmonad
 	${MK} ${HOME}/.config/rofi
+	${MK} ${HOME}/.config/dunst
 	${MK} ${HOME}/.wall
 	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
-	${LN} ${PWD}/.bash_profile ${HOME}/.bashrc
 	${LN} ${PWD}/.gitconfig ${HOME}
 	${LN} ${PWD}/.gitignore_global ${HOME}
 	${LN} ${PWD}/.inputrc ${HOME}
@@ -25,6 +25,7 @@ install: clean
 	${LN} ${PWD}/.Xresources ${HOME}
 	${LN} ${PWD}/.wall/default.jpg ${HOME}/.wall/default.jpg
 	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
+	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
 	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME}/.xmonad/xmonad.hs
 	${LN} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 	${MK} ${HOME}/.local/bin
@@ -35,13 +36,13 @@ install: clean
 clean:
 	${RM} ${HOME}/.local/bin/projects \
 	      ${HOME}/.config/rofi/config.rasi \
+	      ${HOME}/.config/dunst/dunstrc \
 	      ${HOME}/.wall/* \
 	      ${HOME}/.xmonad/xmonad.hs \
 	      ${HOME}/.bash \
 	      ${HOME}/.git_template \
 	      ${HOME}/.vim \
 	      ${HOME}/.bash_profile \
-	      ${HOME}/.bashrc \
 	      ${HOME}/.gitconfig \
 	      ${HOME}/.gitignore_global \
 	      ${HOME}/.inputrc \

@@ -1,0 +1,64 @@
+# vim: ft=cfg
+
+[global]
+font = Iosevka Term 10
+markup = yes
+plain_text = no
+format = "<b>%s</b>\n%b"
+sort = no
+indicate_hidden = yes
+alignment = center
+bounce_freq = 0
+show_age_threshold = -1
+word_wrap = yes
+ignore_newline = no
+stack_duplicates = yes
+hide_duplicate_count = yes
+geometry = "0x50-0+22"
+shrink = no
+transparency = 5
+idle_threshold = 0
+monitor = 0
+follow = none
+sticky_history = yes
+history_length = 15
+show_indicators = no
+line_height = 3
+separator_height = 4
+separator_color = "#34495E"
+padding = 8
+horizontal_padding = 8
+startup_notification = false
+# dmenu = /usr/bin/dmenu -p dunst:
+# browser = /usr/bin/firefox -new-tab
+icon_position = off
+max_icon_size = 80
+# icon_path = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/
+frame_width = 4
+
+[shortcuts]
+# close = ctrl+space
+close_all = mod1+ctrl+q
+history = mod1+grave
+context = mod1+slash
+
+[base16_low]
+frame_color = "#2ECC71"
+background = "#2C3E50"
+foreground = "#F5F5F5"
+msg_urgency = low
+timeout = 4
+
+[base16_normal]
+frame_color = "#3498DB"
+background = "#2C3E50"
+foreground = "#F5F5F5"
+msg_urgency = normal
+timeout = 6
+
+[base16_critical]
+frame_color = "#E74C3C"
+background = "#2C3E50"
+foreground = "#F5F5F5"
+msg_urgency = critical
+timeout = 8

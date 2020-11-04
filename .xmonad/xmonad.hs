@@ -3,7 +3,7 @@ import System.Exit
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Layout.Gaps
+import XMonad.Layout.Spacing
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
@@ -17,7 +17,7 @@ myClickJustFocuses   :: Bool
 myClickJustFocuses   = False
 myBorderWidth        = 4
 myModMask            = mod1Mask -- mod4Mask.
-myWorkspaces         = ["web","term","irc","4","5","6","7","8","9"]
+myWorkspaces         = fmap show [1..9]
 myNormalBorderColor  = "#2C3E50"
 myFocusedBorderColor = "#3498DB"
 
@@ -65,7 +65,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
-myLayout = gaps [(U,8), (R,8)] . avoidStruts $ tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ tiled ||| Mirror tiled ||| Full
   where
      tiled   = Tall nmaster delta ratio
      -- the default number of windows in the master pane
@@ -90,7 +90,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppUrgent          = xmobarColor "#E74C3C" "#F1C40F"
                                              }
 myStartupHook = do
-  spawnOnce "xrdb .Xresources &"
+  spawnOnce "xrdb -merge .Xresources &"
   spawnOnce "feh --randomize --bg-fill .wall/* &"
 
 main = do

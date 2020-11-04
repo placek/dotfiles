@@ -9,7 +9,8 @@ This is a set of configuration files I use daily.
 To fully use the configuration you need to install corresponding software:
 
 ```sh
-sudo apt install bash make curl git tmux vim xclip silversearcher-ag exuberant-ctags entr taskwarrior
+nix-env -i bash curl git tmux vim tig silver-searcher ctags entr
+nix-env -i xmonad xmobar rofi keepassxc google-chrome rxvt-unicode xclip dunst
 ```
 
 ### Installation
