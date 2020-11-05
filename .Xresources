@@ -18,7 +18,6 @@
 *foreground:           base05
 *background:           base00
 *cursorColor:          base05
-
 *color0:               base00
 *color1:               base08
 *color2:               base0B
@@ -55,9 +54,9 @@ URxvt*visualBell:      true
 URxvt.letterSpace:     0
 URxvt.lineSpace:       0
 URxvt.internalBorder:  4
-URxvt.cursorBlink:     true
+URxvt.cursorBlink:     false
 URxvt.cursorUnderline: false
-URxvt.saveline:        2048
+URxvt.saveline:        0
 URxvt.scrollBar:       false
 URxvt.scrollBar_right: false
 URxvt.urgentOnBell:    true

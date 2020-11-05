@@ -42,6 +42,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_b     ), sendMessage ToggleStruts)                     -- toggle the status bar gap
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))                    -- quit xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart") -- restart xmonad
+    , ((modm .|. shiftMask, xK_l     ), spawn "slock")                                -- lock screen
     ]
     ++
     -- mod-[1..9], switch to workspace N
