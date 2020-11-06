@@ -7,11 +7,19 @@ GIT = git
 .PHONY: clean install
 
 install: clean
+	${MK} ${HOME}/.config/dunst
+	${MK} ${HOME}/.config/rofi
+	${MK} ${HOME}/.config/fish
+	${MK} ${HOME}/.local/bin
+	${MK} ${HOME}/.local/bin
+	${MK} ${HOME}/.wall
+	${MK} ${HOME}/.xmonad
 	${LN} ${PWD}/.Xresources ${HOME}
 	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
 	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
 	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
+	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.gitconfig ${HOME}
 	${LN} ${PWD}/.gitignore_global ${HOME}
@@ -26,12 +34,6 @@ install: clean
 	${LN} ${PWD}/.wall/default.jpg ${HOME}/.wall/default.jpg
 	${LN} ${PWD}/.xmobarrc ${HOME}
 	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME}/.xmonad/xmonad.hs
-	${MK} ${HOME}/.config/dunst
-	${MK} ${HOME}/.config/rofi
-	${MK} ${HOME}/.local/bin
-	${MK} ${HOME}/.local/bin
-	${MK} ${HOME}/.wall
-	${MK} ${HOME}/.xmonad
 
 clean:
 	${RM} ${HOME}/.Xresources \
@@ -39,6 +41,7 @@ clean:
 	      ${HOME}/.bash_profile \
 	      ${HOME}/.config/dunst/dunstrc \
 	      ${HOME}/.config/rofi/config.rasi \
+	      ${HOME}/.config/fish/config.fish \
 	      ${HOME}/.git_template \
 	      ${HOME}/.gitconfig \
 	      ${HOME}/.gitignore_global \
