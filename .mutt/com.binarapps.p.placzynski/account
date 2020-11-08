@@ -1,7 +1,7 @@
 set imap_user = "p.placzynski@binarapps.com"
-set imap_pass = ""
+set imap_pass = $MUTT_ACCOUNT_3
 set smtp_url = "smtp://p.placzynski@smtp.gmail.com:587/"
-set smtp_pass = ""
+set smtp_pass = $MUTT_ACCOUNT_3
 set from = "p.placzynski@binarapps.com"
 set realname = "Paweł Placzyński"
 set folder = "imaps://imap.gmail.com:993"

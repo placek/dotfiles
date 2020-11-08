@@ -1,5 +1,5 @@
+CP  = cp -r
 LN  = ln -s
-CP  = cp -r --backup
 MK  = mkdir -p
 RM  = rm -fr
 NO  = yes n
@@ -11,7 +11,6 @@ install: clean
 	${MK} ${HOME}/.config/dunst
 	${MK} ${HOME}/.config/fish
 	${MK} ${HOME}/.config/rofi
-	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.mutt
 	${MK} ${HOME}/.mutt/com.gmail.silquenarmo/headers
@@ -36,6 +35,7 @@ install: clean
 	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
 	${LN} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
+	${LN} ${PWD}/.local/bin/sc ${HOME}/.local/bin/sc
 	${LN} ${PWD}/.mailcap ${HOME}
 	${LN} ${PWD}/.muttrc ${HOME}
 	${CP} ${PWD}/.mutt/* ${HOME}/.mutt/
@@ -61,6 +61,7 @@ clean:
 	      ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
 	      ${HOME}/.local/bin/projects \
+	      ${HOME}/.local/bin/sc \
 	      ${HOME}/.mailcap \
 	      ${HOME}/.muttrc \
 	      ${HOME}/.tmux.conf \

@@ -24,3 +24,6 @@ abbr --add dsp "docker system prune"
 abbr --add dspv "docker system prune --volumes"
 abbr --add dcres "docker-compose restart"
 abbr --add dcps "docker-compose ps"
+
+# aliases
+alias mail="sc mutt $HOME/.mutt/passwords.gpg"

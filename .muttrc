@@ -10,6 +10,7 @@ source ~/.mutt/com.gmail.placzynski.pawel/account
 macro index <esc>1 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.placzynski.pawel/account<enter><change-folder>!<enter>'
 macro index <esc>2 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.silquenarmo/account<enter><change-folder>!<enter>'
 macro index <esc>3 '<sync-mailbox><enter-command>source ~/.mutt/com.binarapps.p.placzynski/account<enter><change-folder>!<enter>'
+macro index c '<change-folder>?<change-dir><home>^K=<enter>'
 
 # fetch mail shortcut
 bind index G imap-fetch-mail
@@ -18,7 +19,7 @@ bind index G imap-fetch-mail
 set abort_nosubject = no
 set copy = no
 set date_format="%y-%m-%d %T"
-set editor=`echo \$EDITOR`
+set editor=$EDITOR
 set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
 set mail_check = 60
 set mailcap_path = "~/.mailcap"

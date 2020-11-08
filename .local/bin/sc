@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cmd=$1
+file=$2
+shift
+shift
+
+pwds=$(gpg -dq $file 2> /dev/null)
+eval "$pwds"
+exec $cmd "$@"
