@@ -1,0 +1,38 @@
+# folder hooks
+folder-hook 'account.com.gmail.placzynski.pawel' 'source ~/.mutt/com.gmail.placzynski.pawel/account'
+folder-hook 'account.com.gmail.silquenarmo' 'source ~/.mutt/com.gmail.silquenarmo/account'
+folder-hook 'account.com.binarapps.p.placzynski' 'source ~/.mutt/com.binarapps.p.placzynski/account'
+
+# default account
+source ~/.mutt/com.gmail.placzynski.pawel/account
+
+# macros for switching accounts
+macro index <esc>1 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.placzynski.pawel/account<enter><change-folder>!<enter>'
+macro index <esc>2 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.silquenarmo/account<enter><change-folder>!<enter>'
+macro index <esc>3 '<sync-mailbox><enter-command>source ~/.mutt/com.binarapps.p.placzynski/account<enter><change-folder>!<enter>'
+
+# fetch mail shortcut
+bind index G imap-fetch-mail
+
+# other global settings
+set abort_nosubject = no
+set copy = no
+set date_format="%y-%m-%d %T"
+set editor=`echo \$EDITOR`
+set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
+set mail_check = 60
+set mailcap_path = "~/.mailcap"
+set send_charset="utf-8"
+set sort = "reverse-date-received"
+set ssl_force_tls = yes
+set timeout = 10
+
+# key bindings
+bind pager j next-line
+bind pager k previous-line
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry

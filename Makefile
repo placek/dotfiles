@@ -1,4 +1,5 @@
 LN  = ln -s
+CP  = cp -r --backup
 MK  = mkdir -p
 RM  = rm -fr
 NO  = yes n
@@ -8,18 +9,25 @@ GIT = git
 
 install: clean
 	${MK} ${HOME}/.config/dunst
-	${MK} ${HOME}/.config/rofi
 	${MK} ${HOME}/.config/fish
+	${MK} ${HOME}/.config/rofi
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.local/bin
+	${MK} ${HOME}/.mutt
+	${MK} ${HOME}/.mutt/com.gmail.silquenarmo/headers
+	${MK} ${HOME}/.mutt/com.gmail.silquenarmo/messages
+	${MK} ${HOME}/.mutt/com.gmail.placzynski.pawel/headers
+	${MK} ${HOME}/.mutt/com.gmail.placzynski.pawel/messages
+	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/headers
+	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/messages
 	${MK} ${HOME}/.wall
 	${MK} ${HOME}/.xmonad
 	${LN} ${PWD}/.Xresources ${HOME}
 	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
 	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
-	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
 	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
+	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.gitconfig ${HOME}
 	${LN} ${PWD}/.gitignore_global ${HOME}
@@ -28,6 +36,9 @@ install: clean
 	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
 	${LN} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
+	${LN} ${PWD}/.mailcap ${HOME}
+	${LN} ${PWD}/.muttrc ${HOME}
+	${CP} ${PWD}/.mutt/* ${HOME}/.mutt/
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
@@ -50,6 +61,8 @@ clean:
 	      ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
 	      ${HOME}/.local/bin/projects \
+	      ${HOME}/.mailcap \
+	      ${HOME}/.muttrc \
 	      ${HOME}/.tmux.conf \
 	      ${HOME}/.vim \
 	      ${HOME}/.vimrc \

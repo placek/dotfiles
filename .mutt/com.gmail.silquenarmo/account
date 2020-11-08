@@ -1,0 +1,14 @@
+set imap_user = "silquenarmo@gmail.com"
+set imap_pass = ""
+set smtp_url = "smtp://silquenarmo@smtp.gmail.com:587/"
+set smtp_pass = ""
+set from = "silquenarmo@gmail.com"
+set realname = "Paweł Placzyński"
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set trash = "+[Gmail]/Trash"
+set header_cache = ~/.mutt/com.gmail.silquenarmo/headers
+set message_cachedir = ~/.mutt/com.gmail.silquenarmo/messages
+set signature="~/.mutt/com.gmail.silquenarmo/signature"

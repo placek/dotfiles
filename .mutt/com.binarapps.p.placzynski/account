@@ -1,0 +1,14 @@
+set imap_user = "p.placzynski@binarapps.com"
+set imap_pass = ""
+set smtp_url = "smtp://p.placzynski@smtp.gmail.com:587/"
+set smtp_pass = ""
+set from = "p.placzynski@binarapps.com"
+set realname = "Paweł Placzyński"
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set trash = "+[Gmail]/Trash"
+set header_cache = ~/.mutt/com.binarapps.p.placzynski/headers
+set message_cachedir = ~/.mutt/com.binarapps.p.placzynski/messages
+set signature="~/.mutt/com.binarapps.p.placzynski/signature"
