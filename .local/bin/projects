@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export SHELL=$(which fish)
+
 if ! command -v tmux &> /dev/null; then
   >&2 echo "projects: tmux command could not be found"
   exit
@@ -41,7 +43,9 @@ case "$1" in
       >&2 echo "projects: no projects available under $projects"
     else
       target=$(ls -1 "$projects" | sort -n | fzf --prompt "Projects> ")
-      tmux new-session -d -s "$target" -c "$projects/$target" "$EDITOR"
+      tmux new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; \
+           rename-window code \; \
+           new-window
     fi
     ;;
 
