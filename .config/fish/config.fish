@@ -28,7 +28,12 @@ abbr --add dcps "docker-compose ps"
 # aliases
 alias mail="sc mutt $HOME/.mutt/passwords.gpg"
 
+# colors
+source "$HOME/.config/fish/base16-flat.fish"
+base16-flat
+
+# budspencer
 set -U fish_key_bindings fish_vi_key_bindings
-set -U budspencer_nocmdhist cd ls pwd ll
-#                                                 insert        visual               normal
-set budspencer_colors 2C3E50 34495E F1C40F ffffff 3498DB ff6600 9B59B6 ff0033 3300ff 2ECC71 00ffff 00ff00
+set -U budspencer_nocmdhist cd ls pwd ll c d la
+#                     base   result git           insert        visual        c-fg   normal        rs-grn
+set budspencer_colors 2C3E50 34495E F1C40F 3498DB 3498DB E74C3C 9B59B6 E74C3C ECF0F1 2ECC71 E74C3C 2ECC71

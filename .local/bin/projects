@@ -44,8 +44,7 @@ case "$1" in
     else
       target=$(ls -1 "$projects" | sort -n | fzf --prompt "Projects> ")
       tmux new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; \
-           rename-window code \; \
-           new-window
+           rename-window code
     fi
     ;;
 

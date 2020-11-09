@@ -43,14 +43,14 @@
 
 *termName:             xterm-256color
 
+URxvt*font:            xft:Iosevka Term:size=10:antialias=true
+URxvt*imFont:          xft:Iosevka Term:italic:size=10:antialias=true
+URxvt*boldFont:        xft:Iosevka Term:bold:size=10:antialias=true
+URxvt*italicFont:      xft:Iosevka Term:italic:size=10:antialias=true
+URxvt*boldItalicFont:  xft:Iosevka Term:bold italic:size=10:antialias=true
 URxvt*buffered:        true
-URxvt*font:            xft:Iosevka Term:regular:size=10
-URxvt*imFont:          xft:Iosevka Term:italic:size=10
-URxvt*boldFont:        xft:Iosevka Term:bold:size=10
-URxvt*italicFont:      xft:Iosevka Term:italic:size=10
-URxvt*boldItalicFont:  xft:Iosevka Term:bold italic:size=10
 URxvt*loginShell:      true
-URxvt*visualBell:      true
+
 URxvt.letterSpace:     0
 URxvt.lineSpace:       0
 URxvt.internalBorder:  4

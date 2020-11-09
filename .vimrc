@@ -104,11 +104,21 @@ cnoreabbrev Q q
 
 " options
 let g:fzf_tags_command = 'git ctags'
-let g:airline_theme = 'base16_atelierdune'
+let g:airline_theme = 'base16_flat'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '#(docker info >/dev/null 2>/dev/null && echo "docker ✓" || echo "docker ✗")',
+      \'y'    : '#(ssh-add -l >/dev/null 2>/dev/null && echo "ssh keys ✓" || echo "ssh keys ✗")',
+      \'z'    : '#H',
+      \'options': {
+        \'status-justify': 'left'}
+      \}
 let g:nerdtree_tabs_autoclose = 0
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1

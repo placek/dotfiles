@@ -26,6 +26,7 @@ install: clean
 	${LN} ${PWD}/.bash_profile ${HOME}
 	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
 	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
+	${LN} ${PWD}/.config/fish/base16-flat.fish ${HOME}/.config/fish/base16-flat.fish
 	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.gitconfig ${HOME}
@@ -53,6 +54,7 @@ clean:
 	      ${HOME}/.config/dunst/dunstrc \
 	      ${HOME}/.config/rofi/config.rasi \
 	      ${HOME}/.config/fish/config.fish \
+	      ${HOME}/.config/fish/base16-flat.fish \
 	      ${HOME}/.git_template \
 	      ${HOME}/.gitconfig \
 	      ${HOME}/.gitignore_global \
