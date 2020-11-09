@@ -36,4 +36,4 @@ base16-flat
 set -U fish_key_bindings fish_vi_key_bindings
 set -U budspencer_nocmdhist cd ls pwd ll c d la
 #                     base   result git           insert        visual        c-fg   normal        rs-grn
-set budspencer_colors 2C3E50 34495E F1C40F 3498DB 3498DB E74C3C 9B59B6 E74C3C ECF0F1 2ECC71 E74C3C 2ECC71
+set budspencer_colors F5F5F5 878787 5F5F5F 3498DB 3498DB E74C3C 9B59B6 E74C3C ECF0F1 2ECC71 D58620 2ECC71

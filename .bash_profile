@@ -25,32 +25,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# GIT
-if [ -f "$HOME/.bash/git_completion.bash" ] ; then
-  source "$HOME/.bash/git_completion.bash"
-fi
-
-# FZF
-if [ -f "$HOME/.bash/fzf.bash" ] ; then
-  source "$HOME/.bash/fzf.bash"
-fi
-
 # NIX-PROFILE
 if [ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ] ; then
   source "$HOME/.nix-profile/etc/profile.d/nix.sh"
   if type nix-env > /dev/null; then
     export LOCALE_ARCHIVE=`nix-env --installed --no-name --out-path --query glibc-locales`/lib/locale/locale-archive
   fi
-fi
-
-# prompt
-if [ -f "$HOME/.bash/prompt.bash" ] ; then
-  source "$HOME/.bash/prompt.bash"
-fi
-
-# aliases
-if [ -f "$HOME/.bash/aliases.bash" ] ; then
-  source "$HOME/.bash/aliases.bash"
 fi
 
 # local binaries

@@ -22,7 +22,6 @@ install: clean
 	${MK} ${HOME}/.wall
 	${MK} ${HOME}/.xmonad
 	${LN} ${PWD}/.Xresources ${HOME}
-	${LN} ${PWD}/.bash ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
 	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
 	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
@@ -49,7 +48,6 @@ install: clean
 
 clean:
 	${RM} ${HOME}/.Xresources \
-	      ${HOME}/.bash \
 	      ${HOME}/.bash_profile \
 	      ${HOME}/.config/dunst/dunstrc \
 	      ${HOME}/.config/rofi/config.rasi \

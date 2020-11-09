@@ -106,7 +106,6 @@ cnoreabbrev Q q
 let g:fzf_tags_command = 'git ctags'
 let g:airline_theme = 'base16_flat'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:tmuxline_preset = {
@@ -124,11 +123,6 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeWinSize = 32
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 20
 
 " search operator
 function! s:SearchOperator(type)
