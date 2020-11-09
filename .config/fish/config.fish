@@ -27,3 +27,8 @@ abbr --add dcps "docker-compose ps"
 
 # aliases
 alias mail="sc mutt $HOME/.mutt/passwords.gpg"
+
+set -U fish_key_bindings fish_vi_key_bindings
+set -U budspencer_nocmdhist cd ls pwd ll
+#                                                 insert        visual               normal
+set budspencer_colors 2C3E50 34495E F1C40F ffffff 3498DB ff6600 9B59B6 ff0033 3300ff 2ECC71 00ffff 00ff00
