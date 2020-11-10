@@ -168,16 +168,16 @@ command! MakeTags !git ctags
 command! Open !open %
 
 " colors
-hi SignColumn ctermbg=0
-hi GitGutterAdd ctermbg=0 ctermfg=2
-hi GitGutterChange ctermbg=0 ctermfg=3
+hi SignColumn            ctermbg=0
+hi GitGutterAdd          ctermbg=0 ctermfg=2
+hi GitGutterChange       ctermbg=0 ctermfg=3
 hi GitGutterChangeDelete ctermbg=0 ctermfg=3
-hi GitGutterDelete ctermbg=0 ctermfg=1
-hi DiffAdd    cterm=BOLD ctermfg=0 ctermbg=2
-hi DiffDelete cterm=BOLD ctermfg=0 ctermbg=1
-hi DiffChange cterm=BOLD ctermfg=0 ctermbg=3
-hi DiffText   cterm=BOLD ctermfg=0 ctermbg=2
-hi Directory  ctermfg=blue
+hi GitGutterDelete       ctermbg=0 ctermfg=1
+hi DiffAdd               cterm=BOLD ctermfg=0 ctermbg=2
+hi DiffDelete            cterm=BOLD ctermfg=0 ctermbg=1
+hi DiffChange            cterm=BOLD ctermfg=0 ctermbg=3
+hi DiffText              cterm=BOLD ctermfg=0 ctermbg=2
+hi Directory             ctermfg=blue
 
 " FZF extension
 function! s:build_quickfix_list(lines)

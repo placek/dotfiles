@@ -12,10 +12,8 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 myBorderWidth        = 4
-myClickJustFocuses   :: Bool
 myClickJustFocuses   = False
 myEventHook          = mempty
-myFocusFollowsMouse  :: Bool
 myFocusFollowsMouse  = True
 myFocusedBorderColor = "#3498DB"
 myModMask            = mod1Mask -- mod4Mask.
