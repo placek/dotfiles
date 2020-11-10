@@ -53,7 +53,7 @@ URxvt*loginShell:      true
 
 URxvt.xftAntialias:    true
 URxvt.xftHinting:	     true
-URxvt.letterSpace:     0
+URxvt.letterSpace:     -1
 URxvt.lineSpace:       0
 URxvt.internalBorder:  4
 URxvt.cursorBlink:     false
