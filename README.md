@@ -10,7 +10,7 @@ To fully use the configuration you need to install corresponding software:
 
 ```sh
 nix-env -i bash curl git tmux vim tig silver-searcher ctags entr fish lynx mutt
-nix-env -i xmonad xmobar rofi keepassxc google-chrome rxvt-unicode xclip dunst feh
+nix-env -i xmonad xmobar rofi keepassxc google-chrome rxvt-unicode xclip dunst feh xdotool
 ```
 
 ### Installation

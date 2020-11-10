@@ -1,6 +1,7 @@
 import Data.Monoid
 import System.Exit
 import XMonad
+import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Spacing
@@ -10,16 +11,16 @@ import XMonad.Util.SpawnOnce
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-myTerminal           = "urxvt"
-myFocusFollowsMouse  :: Bool
-myFocusFollowsMouse  = True
+myBorderWidth        = 4
 myClickJustFocuses   :: Bool
 myClickJustFocuses   = False
-myBorderWidth        = 4
-myModMask            = mod1Mask -- mod4Mask.
-myWorkspaces         = fmap show [1..9]
-myNormalBorderColor  = "#2C3E50"
+myEventHook          = mempty
+myFocusFollowsMouse  :: Bool
+myFocusFollowsMouse  = True
 myFocusedBorderColor = "#3498DB"
+myModMask            = mod1Mask -- mod4Mask.
+myNormalBorderColor  = "#2C3E50"
+myTerminal           = "urxvt"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                 -- launch a terminal
@@ -66,23 +67,18 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
-myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ tiled ||| Mirror tiled ||| Full
-  where
-     tiled   = Tall nmaster delta ratio
-     -- the default number of windows in the master pane
-     nmaster = 1
-     -- default proportion of screen occupied by master pane
-     ratio   = 2/3
-     -- percent of screen to increment by when resizing panes
-     delta   = 3/100
+myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ layoutHook desktopConfig
 
-myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
-    , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+myManageHook = composeAll [ className =? "Gimp" --> doFloat ]
 
-myEventHook = mempty
+myWorkspaces :: [String]
+myWorkspaces = clickable . (fmap xmobarEscape) . (fmap show) $ workspaces
+  where clickable l = [ "<action=xdotool key alt+" ++ show (n) ++ ">" ++ ws ++ "</action>" | (i,ws) <- zip workspaces l, let n = i ]
+        workspaces  = [1..7]
+        xmobarEscape = concatMap doubleLts
+          where doubleLts '<' = "<<"
+                doubleLts x   = [x]
+
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
                                              , ppCurrent         = xmobarColor "#3498DB" "" . wrap "[" "]"
                                              , ppHiddenNoWindows = xmobarColor "#ECF0F1" ""
@@ -98,19 +94,19 @@ main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $ docks (defaults xmproc)
 
-defaults xmproc = def { terminal           = myTerminal
-                      , focusFollowsMouse  = myFocusFollowsMouse
-                      , clickJustFocuses   = myClickJustFocuses
-                      , borderWidth        = myBorderWidth
-                      , modMask            = myModMask
-                      , workspaces         = myWorkspaces
-                      , normalBorderColor  = myNormalBorderColor
-                      , focusedBorderColor = myFocusedBorderColor
-                      , keys               = myKeys
-                      , mouseBindings      = myMouseBindings
-                      , layoutHook         = myLayout
-                      , manageHook         = myManageHook
-                      , handleEventHook    = myEventHook
-                      , logHook            = myLogHook xmproc
-                      , startupHook        = myStartupHook
-                      }
+defaults xmproc = desktopConfig { terminal           = myTerminal
+                                , focusFollowsMouse  = myFocusFollowsMouse
+                                , clickJustFocuses   = myClickJustFocuses
+                                , borderWidth        = myBorderWidth
+                                , modMask            = myModMask
+                                , workspaces         = myWorkspaces
+                                , normalBorderColor  = myNormalBorderColor
+                                , focusedBorderColor = myFocusedBorderColor
+                                , keys               = myKeys
+                                , mouseBindings      = myMouseBindings
+                                , layoutHook         = myLayout
+                                , manageHook         = manageDocks <+> myManageHook <+> manageHook desktopConfig
+                                , handleEventHook    = myEventHook
+                                , logHook            = myLogHook xmproc
+                                , startupHook        = myStartupHook
+                                }

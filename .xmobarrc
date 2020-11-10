@@ -9,9 +9,9 @@ Config { font = "xft:Iosevka Term:size=10:antialias=true"
                     , Run BatteryP [ "BAT0" ] [ "-t", "<fc=#2ECC71>BAT <left>%</fc>" ] 600
                     , Run Wireless   "wlan0"  [ "-t", "<fc=#3498DB>WIFI <quality>%</fc>"] 600
                     , Run Date       "%a %Y.%m.%d %H:%M" "date" 10
-                    , Run StdinReader
+                    , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %StdinReader% }{ %cpu% %memory% %wiwlan0% %battery% %date% "
+       , template = " %UnsafeStdinReader% }{ %cpu% %memory% %wiwlan0% %battery% <action=xdotool key alt+shift+l>%date%</action> "
        }
