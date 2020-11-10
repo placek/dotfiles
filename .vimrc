@@ -177,6 +177,7 @@ hi DiffAdd    cterm=BOLD ctermfg=0 ctermbg=2
 hi DiffDelete cterm=BOLD ctermfg=0 ctermbg=1
 hi DiffChange cterm=BOLD ctermfg=0 ctermbg=3
 hi DiffText   cterm=BOLD ctermfg=0 ctermbg=2
+hi Directory  ctermfg=blue
 
 " FZF extension
 function! s:build_quickfix_list(lines)

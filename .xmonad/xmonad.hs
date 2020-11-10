@@ -49,7 +49,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-[1..9], switch to workspace N
     -- mod-shift-[1..9], move client to workspace N
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_8]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
     -- mod-{w,e,r}, switch to physical/Xinerama screens 1, 2, or 3
@@ -74,7 +74,7 @@ myManageHook = composeAll [ className =? "Gimp" --> doFloat ]
 myWorkspaces :: [String]
 myWorkspaces = clickable . (fmap xmobarEscape) . (fmap show) $ workspaces
   where clickable l = [ "<action=xdotool key alt+" ++ show (n) ++ ">" ++ ws ++ "</action>" | (i,ws) <- zip workspaces l, let n = i ]
-        workspaces  = [1..7]
+        workspaces  = [1..8]
         xmobarEscape = concatMap doubleLts
           where doubleLts '<' = "<<"
                 doubleLts x   = [x]

@@ -43,11 +43,11 @@
 
 *termName:             xterm-256color
 
-URxvt*font:            xft:Iosevka Term Light:size=10:minspace=False
-URxvt*imFont:          xft:Iosevka Term Light:italic:size=10:minspace=False
-URxvt*boldFont:        xft:Iosevka Term Light:bold:size=10:minspace=False
-URxvt*italicFont:      xft:Iosevka Term Light:italic:size=10:minspace=False
-URxvt*boldItalicFont:  xft:Iosevka Term Light:bold italic:size=10:minspace=False
+URxvt*font:            xft:Iosevka Term:size=12:minspace=False
+URxvt*imFont:          xft:Iosevka Term:italic:size=12:minspace=False
+URxvt*boldFont:        xft:Iosevka Term:bold:size=12:minspace=False
+URxvt*italicFont:      xft:Iosevka Term:italic:size=12:minspace=False
+URxvt*boldItalicFont:  xft:Iosevka Term:bold italic:size=12:minspace=False
 URxvt*buffered:        true
 URxvt*loginShell:      true
 
