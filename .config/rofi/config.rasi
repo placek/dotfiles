@@ -15,33 +15,32 @@ configuration {
 }
 
 inputbar {
-  border: 0 0 1px 0;
+  border: 0 0 4px 0;
   children: [prompt,entry];
 }
 
 prompt {
-  padding: 10px;
-  border: 0 1px 0 0;
+  padding: 8px;
+  border: 0 4px 0 0;
 }
 
 textbox {
-  border: 0 0 1px 0;
-  padding: 5px 10px;
+  border: 0 0 4px 0;
+  padding: 4px;
 }
 
 entry {
-  padding: 10px;
+  padding: 8px 16px;
 }
 
 listview {
   cycle: false;
-  margin: 0 0 -1px 0;
   scrollbar: false;
 }
 
 element {
-  border: 0 0 1px 0;
-  padding: 10px;
+  border: 0 0 4px 0;
+  padding: 8px;
 }
 
 element selected {

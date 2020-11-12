@@ -4,10 +4,10 @@
 font = Iosevka Term 12
 markup = yes
 plain_text = no
-format = "<b>%s</b>\n%b"
+format = "<b>%a: %s</b>\n%b\n%p"
 sort = no
 indicate_hidden = yes
-alignment = center
+alignment = left
 bounce_freq = 0
 show_age_threshold = -1
 word_wrap = yes
@@ -28,17 +28,18 @@ separator_height = 4
 separator_color = "#34495E"
 padding = 8
 horizontal_padding = 8
-startup_notification = false
-# dmenu = /usr/bin/dmenu -p dunst:
-# browser = /usr/bin/firefox -new-tab
-icon_position = off
-max_icon_size = 80
-# icon_path = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/
 frame_width = 4
+startup_notification = false
+icon_position = left
+max_icon_size = 48
+icon_path = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/
+dmenu = /home/placek/.nix-profile/bin/rofi -dmenu
+browser = /home/placek/.nix-profile/bin/google-chrome-stable
+mouse_left_click = do_action
+mouse_middle_click = close_all
+mouse_right_click = close_current
 
 [shortcuts]
-# close = ctrl+space
-close_all = mod1+ctrl+q
 history = mod1+grave
 context = mod1+slash
 
