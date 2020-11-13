@@ -112,8 +112,7 @@ let g:tmuxline_preset = {
       \'a'    : '#S',
       \'win'  : '#I #W',
       \'cwin' : '#I #W',
-      \'x'    : '#(docker info >/dev/null 2>/dev/null && echo "docker ✓" || echo "docker ✗")',
-      \'y'    : '#(ssh-add -l >/dev/null 2>/dev/null && echo "ssh keys ✓" || echo "ssh keys ✗")',
+      \'x'    : '#(hostname -I 2>/dev/null | cut -d " " -f 1)',
       \'z'    : '#H',
       \'options': {
         \'status-justify': 'left'}

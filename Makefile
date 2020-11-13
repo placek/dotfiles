@@ -37,6 +37,7 @@ install: clean
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
 	${LN} ${PWD}/.local/bin/projects ${HOME}/.local/bin/projects
 	${LN} ${PWD}/.local/bin/sc ${HOME}/.local/bin/sc
+	${LN} ${PWD}/.logo.xpm ${HOME}
 	${LN} ${PWD}/.mailcap ${HOME}
 	${LN} ${PWD}/.muttrc ${HOME}
 	${CP} ${PWD}/.mutt/* ${HOME}/.mutt/
@@ -64,6 +65,7 @@ clean:
 	      ${HOME}/.local/bin/pbpaste \
 	      ${HOME}/.local/bin/projects \
 	      ${HOME}/.local/bin/sc \
+	      ${HOME}/.logo.xpm \
 	      ${HOME}/.mailcap \
 	      ${HOME}/.muttrc \
 	      ${HOME}/.tmux.conf \
