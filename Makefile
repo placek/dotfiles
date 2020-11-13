@@ -44,7 +44,6 @@ install: clean
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
-	${LN} ${PWD}/.wall/default.jpg ${HOME}/.wall/default.jpg
 	${LN} ${PWD}/.xmobarrc ${HOME}
 	${LN} ${PWD}/.xmonad/xmonad.hs ${HOME}/.xmonad/xmonad.hs
 
@@ -71,6 +70,5 @@ clean:
 	      ${HOME}/.tmux.conf \
 	      ${HOME}/.vim \
 	      ${HOME}/.vimrc \
-	      ${HOME}/.wall/* \
 	      ${HOME}/.xmobarrc \
 	      ${HOME}/.xmonad/xmonad.hs

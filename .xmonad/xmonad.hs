@@ -1,10 +1,12 @@
 import Data.Monoid
 import System.Exit
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Spacing
+import XMonad.Layout.Spiral
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
@@ -38,6 +40,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)               -- push window back into tiling
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))                   -- increment the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))                -- deincrement the number of windows in the master area
+    , ((modm              , xK_Right ), nextWS)                                       -- go to next workspace
+    , ((modm              , xK_Left  ), prevWS)                                       -- go to previous workspace
     , ((modm              , xK_b     ), sendMessage ToggleStruts)                     -- toggle the status bar gap
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))                    -- quit xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart") -- restart xmonad
@@ -63,10 +67,17 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, button2), (\w -> focus w >> windows W.shiftMaster)) -- raise the window to the top of the stack
     , ((modm, button3), (\w -> focus w >> mouseResizeWindow w     -- set the window to floating mode and resize by dragging
                                        >> windows W.shiftMaster))
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
-myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ layoutHook desktopConfig
+myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ t ||| s ||| m ||| f
+  where
+    f       = Full
+    m       = Mirror t
+    s       = spiral (6/7)
+    t       = Tall nmaster delta ratio
+    nmaster = 1
+    ratio   = 2/3
+    delta   = 3/100
 
 myManageHook = composeAll [ className =? "Gimp" --> doFloat ]
 
@@ -87,9 +98,10 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppSep             = " \xE0B1 "
                                              }
   where layout a = case a of
-                   "Spacing Tall"        -> "tile"
-                   "Spacing Mirror Tall" -> "elit"
-                   "Spacing Full"        -> "full"
+          "Spacing Tall"        -> "tall"
+          "Spacing Mirror Tall" -> "mtall"
+          "Spacing Spiral"      -> "spiral"
+          "Spacing Full"        -> "full"
 
 myStartupHook = do
   spawnOnce "xsetroot -cursor_name left_ptr"
