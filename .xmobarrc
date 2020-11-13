@@ -1,17 +1,30 @@
-Config { font = "xft:Iosevka Term:size=12:antialias=true"
+Config { font            = "xft:Iosevka Term:size=12:antialias=true:hinting=true"
        , additionalFonts = []
-       , bgColor = "#2C3E50"
-       , fgColor = "#ECF0F1"
-       , position = TopW L 100
-       , lowerOnStart = True
-       , commands = [ Run Cpu                 [ "-t", "<fc=#F1C40F>CPU <total>%</fc>" ] 10
-                    , Run Memory              [ "-t", "<fc=#9B59B6>MEM <usedratio>%</fc>" ] 10
-                    , Run BatteryP [ "BAT0" ] [ "-t", "<fc=#2ECC71>BAT <left>%</fc>" ] 600
-                    , Run Wireless   "wlan0"  [ "-t", "<fc=#3498DB>WIFI <quality>%</fc>"] 600
-                    , Run Date       "%a %Y.%m.%d %H:%M" "date" 10
+       , bgColor         = "#2C3E50"
+       , fgColor         = "#ECF0F1"
+       , position        = TopW L 100
+       , lowerOnStart    = True
+       , sepChar         = "%"
+       , alignSep        = "}{"
+       , template        = "%UnsafeStdinReader%}{<action=`urxvt -e top`>%cpu%%memory%</action>%disku%<action=`urxvt -e nmtui`>%enp0s5%%wlan0wi%</action><action=`urxvt -e alsamixer`>%volume%</action>%battery%%date%"
+       , commands = [ Run Cpu              [ "-t", " CPU <total>% "
+                                           , "-L", "3", "-H", "50"
+                                           , "-n", "#2ECC71"
+                                           , "-h", "#E74C3C" ] 10
+                    , Run Memory           [ "-t", "\xE0B3 MEM <usedratio>% " ] 10
+                    , Run DiskU            [ ("/", "\xE0B3 DRV <freep>% ") ] [] 100
+                    , Run Network "enp0s5" [ "-t", "\xE0B3 NET \x2193<rx>kb \x2191<tx>kb " ] 20
+                    , Run Wireless "wlan0" [ "-t", "<fc=#878787,#2C3E50>\xE0B2</fc><fc=#EEEEEE,#878787> WIFI <quality>% </fc>"] 40
+                    , Run Battery          [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 <acstatus> <left>% </fc>"
+                                           , "--"
+                                           , "-O", "AC"
+                                           , "-i", "AC"
+                                           , "-o", "BAT"
+                                           , "-h", "#2ECC71"
+                                           , "-l", "#E74C3C" ] 40
+                    , Run Com "echo"       [ "<fc=#EEEEEE,#878787>\xE0B3 VOL </fc>" ] "volume" 0
+                    , Run Date "<fc=#2ECC71,#878787>\xE0B2</fc><fc=#2C3E50,#2ECC71> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
                     , Run UnsafeStdinReader
+                    -- , Run Volume "default" "Master" [] 10
                     ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = " %UnsafeStdinReader% }{ %cpu% %memory% %wiwlan0% %battery% <action=xdotool key alt+shift+l>%date%</action> "
        }

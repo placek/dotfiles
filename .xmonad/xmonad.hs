@@ -71,21 +71,28 @@ myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2)
 myManageHook = composeAll [ className =? "Gimp" --> doFloat ]
 
 myWorkspaces :: [String]
-myWorkspaces = clickable . (fmap xmobarEscape) . (fmap show) $ workspaces
-  where clickable l = [ "<action=xdotool key alt+" ++ show (n) ++ ">" ++ ws ++ "</action>" | (i,ws) <- zip workspaces l, let n = i ]
+myWorkspaces = fmap clickable workspaces
+  where clickable n = xmobarAction ("xdotool key alt+" ++ show n) "1" (show n)
         workspaces  = [1..8]
-        xmobarEscape = concatMap doubleLts
-          where doubleLts '<' = "<<"
-                doubleLts x   = [x]
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
-                                             , ppCurrent         = xmobarColor "#3498DB" "" . wrap "[" "]"
-                                             , ppHiddenNoWindows = xmobarColor "#ECF0F1" ""
-                                             , ppTitle           = xmobarColor "#2ECC71"  "" . shorten 40
+                                             , ppCurrent         = xmobarColor myNormalBorderColor myFocusedBorderColor . wrap " " " "
+                                             , ppHidden          = xmobarColor myFocusedBorderColor "" . wrap " " " "
+                                             , ppHiddenNoWindows = wrap " " " "
                                              , ppVisible         = wrap "(" ")"
+                                             , ppTitle           = xmobarColor "#F1C40F"  "" . shorten 40
+                                             , ppLayout          = xmobarAction "xdotool key alt+space" "1" . layout
                                              , ppUrgent          = xmobarColor "#E74C3C" "#F1C40F"
+                                             , ppWsSep           = ""
+                                             , ppSep             = " \xE0B1 "
                                              }
+  where layout a = case a of
+                   "Spacing Tall"        -> "tile"
+                   "Spacing Mirror Tall" -> "elit"
+                   "Spacing Full"        -> "full"
+
 myStartupHook = do
+  spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xrdb -merge .Xresources &"
   spawnOnce "feh --randomize --bg-fill .wall/* &"
 
