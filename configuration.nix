@@ -93,10 +93,8 @@
   };
 
   networking = {
-    interfaces.enp0s3.useDHCP = true;
-    # interfaces.wlan0.useDHCP = true;
     # wireless.enable = true;
-    useDHCP = false;
+    useDHCP = true;
   };
 
   boot.loader.grub = {
