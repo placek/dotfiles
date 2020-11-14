@@ -11,7 +11,7 @@ configuration {
   text-color: #ECF0F1;
   spacing: 0;
   width: 512px;
-  font: "Iosevka Term 12";
+  font: "Iosevka 12";
 }
 
 inputbar {

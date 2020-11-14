@@ -1,7 +1,7 @@
 # vim: ft=cfg
 
 [global]
-font = Iosevka Term 12
+font = Iosevka 12
 markup = yes
 plain_text = no
 format = "<b>%a: %s</b>\n%b\n%p"

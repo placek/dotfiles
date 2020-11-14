@@ -1,4 +1,4 @@
-Config { font            = "xft:Iosevka Term:size=12:antialias=true:hinting=true"
+Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , additionalFonts = []
        , bgColor         = "#2C3E50"
        , fgColor         = "#ECF0F1"
