@@ -63,11 +63,11 @@
       enableContribAndExtras = true;
       haskellPackages = pkgs.haskell.packages.ghc865;
       extraPackages = haskellPackages: with haskellPackages; [
+        alsa-core
+        alsa-mixer
         xmonad
         xmonad-contrib
         xmonad-extras
-        xmonad-utils
-        xmonad-volume
       ];
       enable = true;
     };
