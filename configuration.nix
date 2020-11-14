@@ -53,7 +53,6 @@
   services.xserver = {
     libinput.enable = true;
     libinput.naturalScrolling = true;
-    xkbOptions = "caps:ctrl_modifier"; # CAPSLOCK is CTRL - change my mind
     windowManager.xmonad = {
       enableContribAndExtras = true;
       extraPackages = haskellPackages: [
@@ -72,12 +71,13 @@
   fonts = {
     fonts = [
       pkgs.ubuntu_font_family
+      pkgs.iosevka
     ];
     fontconfig = {
       defaultFonts = {
         serif = [ "Ubuntu" ];
         sansSerif = [ "Ubuntu" ];
-        monospace = [ "Ubuntu" ];
+        monospace = [ "Iosevka Term" ];
       };
     };
     enableDefaultFonts = true;
@@ -96,5 +96,5 @@
     device = "/dev/sda";
   };
 
- system.stateVersion = "20.09";
+  system.stateVersion = "20.09";
 }
