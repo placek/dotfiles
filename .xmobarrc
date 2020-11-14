@@ -6,7 +6,7 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "<action=`xdotool key alt+shift+l`> <icon=/home/placek/.logo.xpm/> </action>%UnsafeStdinReader%}{<action=`urxvt -e top`>%cpu%%memory%</action>%disku%<action=`urxvt -e nmtui`>%enp0s5%%wlan0wi%</action><action=`urxvt -e alsamixer`>%default:Master%</action>%battery%<action=`google-chrome https://calendar.google.com`>%date%</action>"
+       , template        = "<action=`xdotool key alt+shift+l`> <icon=/home/placek/.logo.xpm/> </action>%UnsafeStdinReader%}{<action=`urxvt -e top`>%cpu%%memory%</action>%disku%<action=`urxvt -e nmtui`>%enp0s3%%wlan0wi%</action><action=`urxvt -e alsamixer`>%default:Master%</action>%battery%<action=`google-chrome https://calendar.google.com`>%date%</action>"
        , commands = [ Run Cpu              [ "-t", " CPU <total>% "
                                            , "-L", "3", "-H", "50"
                                            , "-n", "#2ECC71"
