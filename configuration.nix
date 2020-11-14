@@ -10,10 +10,10 @@
   hardware.pulseaudio.enable = true;
 
   # system settings
+  i18n.defaultLocale = "pl_PL.UTF-8";
   networking.hostName = "vm-nixos";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Warsaw";
-  i18n.defaultLocale = "pl_PL.UTF-8";
   virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
@@ -43,6 +43,7 @@
     paper-icon-theme
     rofi
     rxvt-unicode
+    scrot
     xclip
     xdotool
     xmobar
@@ -54,7 +55,7 @@
     placek = {
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" "docker" ];
-      packages = [];
+      packages = [ ];
     };
   };
 
@@ -94,7 +95,6 @@
 
   networking = {
     # wireless.enable = true;
-    useDHCP = true;
   };
 
   boot.loader.grub = {
