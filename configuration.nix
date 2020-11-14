@@ -1,52 +1,58 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
   # hardware
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   # system settings
-  networking.hostName = "";
+  networking.hostName = "vm-nixos";
   time.timeZone = "Europe/Warsaw";
   i18n.defaultLocale = "pl_PL.UTF-8";
 
-  # system packages are available to every user
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
-    pkgs.git
-    pkgs.vim
     pkgs.bash
-    pkgs.curl
-    pkgs.tmux
-    pkgs.tig
-    pkgs.silver-searcher
     pkgs.ctags
+    pkgs.curl
     pkgs.entr
     pkgs.fish
+    pkgs.fzf
+    pkgs.git
+    pkgs.gnumake
     pkgs.mutt
+    pkgs.silver-searcher
+    pkgs.tig
+    pkgs.tmux
+    pkgs.vim
 
-    pkgs.haskellPackages.xmonad-contrib
-    pkgs.haskellPackages.xmonad-extras
-    pkgs.haskellPackages.xmonad
-    pkgs.google-chrome
-    pkgs.xmobar
-    pkgs.rofi
-    pkgs.keepassxc
-    pkgs.rxvt-unicode
     pkgs.dunst
     pkgs.feh
-    pkgs.xdotool
+    pkgs.google-chrome
+    pkgs.haskellPackages.xmonad
+    pkgs.haskellPackages.xmonad-contrib
+    pkgs.haskellPackages.xmonad-extras
+    pkgs.keepassxc
+    pkgs.networkmanager
     pkgs.paper-icon-theme
-    pkgs.xorg.xkill
+    pkgs.rofi
+    pkgs.rxvt-unicode
     pkgs.xclip
+    pkgs.xdotool
+    pkgs.xmobar
+    pkgs.xmonad-with-packages
+    pkgs.xorg.xkill
   ];
 
   users.users = {
-    # change this to your name
     placek = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
-      packages = [
-      ];
+      packages = [];
     };
   };
 
@@ -55,10 +61,13 @@
     libinput.naturalScrolling = true;
     windowManager.xmonad = {
       enableContribAndExtras = true;
-      extraPackages = haskellPackages: [
-        haskellPackages.xmonad-contrib
-        haskellPackages.xmonad-extras
-        haskellPackages.xmonad
+      haskellPackages = pkgs.haskell.packages.ghc865;
+      extraPackages = haskellPackages: with haskellPackages; [
+        xmonad
+        xmonad-contrib
+        xmonad-extras
+        xmonad-utils
+        xmonad-volume
       ];
       enable = true;
     };
@@ -71,22 +80,22 @@
   fonts = {
     fonts = [
       pkgs.ubuntu_font_family
-      pkgs.iosevka
+      pkgs.iosevka-bin
     ];
     fontconfig = {
       defaultFonts = {
         serif = [ "Ubuntu" ];
         sansSerif = [ "Ubuntu" ];
-        monospace = [ "Iosevka Term" ];
+        monospace = [ "Iosevka" ];
       };
     };
     enableDefaultFonts = true;
   };
 
   networking = {
-    interfaces.eth0.useDHCP = true;
-    interfaces.wlan0.useDHCP = true;
-    wireless.enable = true;
+    interfaces.enp0s3.useDHCP = true;
+    # interfaces.wlan0.useDHCP = true;
+    # wireless.enable = true;
     useDHCP = false;
   };
 
