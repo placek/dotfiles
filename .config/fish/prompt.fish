@@ -43,7 +43,7 @@ function ssh_agent::is_up
 end
 
 function docker::is_up
-  type -q docker; and command docker info >/dev/null 2>/dev/null
+  command docker info >/dev/null 2>/dev/null
 end
 
 function git::ahead -a ahead behind diverged none

@@ -14,12 +14,14 @@
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Warsaw";
   i18n.defaultLocale = "pl_PL.UTF-8";
+  virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     bash
     ctags
     curl
+    docker-compose
     entr
     fish
     fzf
@@ -51,7 +53,7 @@
   users.users = {
     placek = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" "networkmanager" "docker" ];
       packages = [];
     };
   };
