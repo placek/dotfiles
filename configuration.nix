@@ -10,7 +10,10 @@
   hardware.pulseaudio.enable = true;
 
   # system settings
-  i18n.defaultLocale = "pl_PL.UTF-8";
+  i18n = {
+    defaultLocale = "pl_PL.UTF-8";
+    consoleKeyMap = "pl";
+  }
   networking.hostName = "vm-nixos";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Warsaw";
@@ -54,13 +57,16 @@
   users.users = {
     placek = {
       isNormalUser = true;
+      description = "Paweł Placzyński";
       extraGroups = [ "wheel" "networkmanager" "docker" ];
       packages = [ ];
+      shell = pkgs.fish;
     };
   };
 
   services.xserver = {
     libinput.enable = true;
+    layout = "pl";
     windowManager.xmonad = {
       enableContribAndExtras = true;
       haskellPackages = pkgs.haskell.packages.ghc865;
