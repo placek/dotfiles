@@ -10,10 +10,8 @@
   hardware.pulseaudio.enable = true;
 
   # system settings
-  i18n = {
-    defaultLocale = "pl_PL.UTF-8";
-    consoleKeyMap = "pl";
-  }
+  console.keyMap = "pl";
+  i18n.defaultLocale = "pl_PL.UTF-8";
   networking.hostName = "vm-nixos";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Warsaw";
@@ -59,7 +57,7 @@
       isNormalUser = true;
       description = "Paweł Placzyński";
       extraGroups = [ "wheel" "networkmanager" "docker" ];
-      packages = [ ];
+      packages = [];
       shell = pkgs.fish;
     };
   };
@@ -85,10 +83,7 @@
   };
 
   fonts = {
-    fonts = [
-      pkgs.ubuntu_font_family
-      pkgs.iosevka-bin
-    ];
+    fonts = [ pkgs.ubuntu_font_family pkgs.iosevka-bin ];
     fontconfig = {
       defaultFonts = {
         serif = [ "Ubuntu" ];
