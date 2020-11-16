@@ -15,6 +15,7 @@
   networking.hostName = "vm-nixos";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Warsaw";
+  security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
   virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
@@ -45,6 +46,7 @@
     rofi
     rxvt-unicode
     scrot
+    slock
     xclip
     xdotool
     xmobar
@@ -63,8 +65,8 @@
   };
 
   services.xserver = {
-    libinput.enable = true;
     layout = "pl";
+    libinput.enable = true;
     windowManager.xmonad = {
       enableContribAndExtras = true;
       haskellPackages = pkgs.haskell.packages.ghc865;
@@ -83,7 +85,10 @@
   };
 
   fonts = {
-    fonts = [ pkgs.ubuntu_font_family pkgs.iosevka-bin ];
+    fonts = [
+      pkgs.ubuntu_font_family
+      pkgs.iosevka-bin
+    ];
     fontconfig = {
       defaultFonts = {
         serif = [ "Ubuntu" ];
@@ -102,6 +107,24 @@
     enable = true;
     version = 2;
     device = "/dev/sda";
+  };
+
+  systemd.user.services.dotfiles = {
+    description = "Dot files synchronization";
+    enable = true;
+    serviceConfig = {
+      Type = "oneshot";
+      Environment = [
+        "REPO_URL=https://github.com/placek/dotfiles.git"
+        "DOTFILES_DIR=.config/dotfiles"
+      ];
+      RemainAfterExit = "yes";
+      ExecStartPre = "${pkgs.bash}/bin/bash -c '[ -d $HOME/$DOTFILES_DIR ] || ${pkgs.git}/bin/git clone --recurse-submodules $REPO_URL $HOME/$DOTFILES_DIR'";
+      ExecStart    = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.gnumake}/bin/make install'";
+      ExecReload   = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.git}/bin/git pull --ff origin master && ${pkgs.gnumake}/bin/make install'";
+      ExecStop     = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.gnumake}/bin/make clean'";
+    };
+    wantedBy = [ "default.target" ];
   };
 
   system.stateVersion = "20.09";
