@@ -16,8 +16,6 @@
   i18n.defaultLocale = "pl_PL.UTF-8";
   powerManagement.enable = true;
   security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
-  system.autoUpgrade.allowReboot = true;
-  system.autoUpgrade.enable = true;
   time.timeZone = "Europe/Warsaw";
   virtualisation.docker.enable = true;
 
@@ -148,5 +146,12 @@
     wantedBy = [ "default.target" ];
   };
 
-  system.stateVersion = "20.09";
+  system = {
+    autoUpgrade = {
+      allowReboot = true;
+      enable = true;
+      channel = https://nixos.org/channels/nixos-20.09;
+    };
+    stateVersion = "20.09";
+  };
 }

@@ -182,21 +182,21 @@ end
 
 function fish_mode_prompt
   switch $fish_bind_mode
-    case default
-      green
-      echo 'N '
-    case insert
-      blue
-      echo 'I '
-    case replace_one
-      red
-      echo 'R '
-    case visual
-      magenta
-      echo 'V '
-    case '*'
-      off
-      echo '? '
+  case default
+    green
+    echo 'N '
+  case insert
+    blue
+    echo 'I '
+  case replace_one
+    red
+    echo 'R '
+  case visual
+    magenta
+    echo 'V '
+  case '*'
+    off
+    echo '? '
   end
   off
 end
