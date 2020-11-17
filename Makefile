@@ -74,5 +74,5 @@ clean:
 	      ${HOME}/.xmonad/xmonad.hs
 
 nix:
-	${CP} ${PWD}/configuration.nix /etc/nixos/configuration.nix
+	${CP} configuration.nix /etc/nixos/configuration.nix
 	nixos-rebuild switch
