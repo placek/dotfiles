@@ -5,7 +5,7 @@ RM  = rm -fr
 NO  = yes n
 GIT = git
 
-.PHONY: clean install
+.PHONY: clean install nix
 
 install: clean
 	${MK} ${HOME}/.config/dunst
@@ -72,3 +72,7 @@ clean:
 	      ${HOME}/.vimrc \
 	      ${HOME}/.xmobarrc \
 	      ${HOME}/.xmonad/xmonad.hs
+
+nix:
+	${CP} ${PWD}/configuration.nix /etc/nixos/configuration.nix
+	nixos-rebuild switch
