@@ -6,16 +6,19 @@
   ];
 
   # hardware
-  sound.enable = true;
+  hardware.bluetooth.enable = true;
   hardware.pulseaudio.enable = true;
+  sound.enable = true;
 
   # system settings
+  boot.cleanTmpDir = true;
   console.keyMap = "pl";
   i18n.defaultLocale = "pl_PL.UTF-8";
-  networking.hostName = "vm-nixos";
-  networking.networkmanager.enable = true;
-  time.timeZone = "Europe/Warsaw";
+  powerManagement.enable = true;
   security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
+  system.autoUpgrade.allowReboot = true;
+  system.autoUpgrade.enable = true;
+  time.timeZone = "Europe/Warsaw";
   virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
@@ -56,6 +59,7 @@
 
   users.users = {
     placek = {
+      uid = 1000;
       isNormalUser = true;
       description = "Paweł Placzyński";
       extraGroups = [ "wheel" "networkmanager" "docker" ];
@@ -100,7 +104,24 @@
   };
 
   networking = {
-    # wireless.enable = true;
+    firewall.allowPing    = false;
+    firewall.enable       = true;
+    firewall.allowedTCPPortRanges = [
+      { from = 3000; to = 3009; }
+    ];
+    hostName              = "vm-nixos";
+    networkmanager.enable = true;
+    # wireless.enable     = true;
+    # wireless.networks = {
+    #   placki = {
+    #     ssid = "placki";
+    #     pskRaw = "3e77b06e92098e903627d0d9cd2222a77f54bc09b14bfcf780b01bdb0c165e39";
+    #   };
+    #   plackiplay = {
+    #     ssid = "placki-play";
+    #     pskRaw = "7ac564da03c01a69bd1f1465412038365e5b29f41f9d584aa8978d22110b5f6f";
+    #   };
+    # };
   };
 
   boot.loader.grub = {
