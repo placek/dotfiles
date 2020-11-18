@@ -39,6 +39,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_h     ), sendMessage Shrink)                            -- shrink the master area
     , ((modm,               xK_l     ), sendMessage Expand)                            -- expand the master area
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)                -- push window back into tiling
+    , ((modm .|. shiftMask, xK_z     ), killAllOtherCopies)                            -- toggle window state back by killing all copies
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))                    -- increment the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))                 -- deincrement the number of windows in the master area
     , ((modm              , xK_Right ), nextWS)                                        -- go to next workspace
@@ -54,7 +55,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-shift-[1..4], move client to workspace N
     -- mod-shift-control-[1..4], copy client to workspace N
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_4]
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1..]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask), (copy, shiftMask .|. controlMask)]]
     ++
     -- mod-{w,e,r}, switch to physical/Xinerama screens 1, 2, or 3

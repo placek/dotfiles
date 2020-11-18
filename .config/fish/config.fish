@@ -1,8 +1,10 @@
 set -U EDITOR vim
 set -U PROJECTS_DIR "HOME/Projects"
 
-# remove greetings
-set fish_greeting
+# neofetch greetings
+function fish_greeting
+  neofetch
+end
 
 # ssh agent
 if test -z (pgrep ssh-agent)
