@@ -92,7 +92,7 @@ myWorkspaces = fmap clickable (zip [1..] workspaceNames)
   where clickable (k, w) = xmobarAction ("xdotool key alt+" ++ show k) "1" w
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
-                                             , ppCurrent         = xmobarColor myNormalBorderColor myFocusedBorderColor . wrap " " " "
+                                             , ppCurrent         = xmobarColor "#5F5F5F" myFocusedBorderColor . wrap " " " "
                                              , ppHidden          = xmobarColor myFocusedBorderColor "" . wrap " " " "
                                              , ppHiddenNoWindows = wrap " " " "
                                              , ppVisible         = wrap "(" ")"
