@@ -1,5 +1,5 @@
-set -U EDITOR vim
-set -U PROJECTS_DIR "HOME/Projects"
+set -gx EDITOR vim
+set -gx PROJECTS_DIR "$HOME/Projects"
 
 # neofetch greetings
 function fish_greeting
