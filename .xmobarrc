@@ -6,14 +6,14 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "<action=`/usr/bin/env slock`> <icon=/home/placek/.logo.xpm/> </action>%UnsafeStdinReader%}{<action=`/usr/bin/env urxvt -e top`>%cpu%%memory%</action>%disku%<action=`/usr/bin/env urxvt -e nmtui`>%enp0s3%%wlan0wi%</action><action=`/usr/bin/env urxvt -e alsamixer`>%default:Master%</action>%battery%<action=`/usr/bin/env google-chrome-stable https://calendar.google.com`>%date%</action>"
+       , template        = "<action=`/usr/bin/env slock`> <icon=/home/placek/.logo.xpm/> </action>%UnsafeStdinReader%}{<action=`/usr/bin/env urxvt -e top`>%cpu%%memory%</action>%disku%<action=`/usr/bin/env urxvt -e nmtui`>%wlan0wi%%enp0s3%</action><action=`/usr/bin/env urxvt -e alsamixer`>%default:Master%</action>%battery%<action=`/usr/bin/env google-chrome-stable https://calendar.google.com`>%date%</action>"
        , commands = [ Run Cpu              [ "-t", " CPU <total>% "
                                            , "-L", "3", "-H", "50"
                                            , "-n", "#2ECC71"
                                            , "-h", "#E74C3C" ] 10
                     , Run Memory           [ "-t", "\xE0B3 MEM <usedratio>% " ] 10
                     , Run DiskU            [ ("/", "\xE0B3 DRV <freep>% ") ] [] 100
-                    , Run Network "enp0s3" [ "-t", "\xE0B3 NET \x2193<rx>kb \x2191<tx>kb " ] 10
+                    , Run Network "enp0s3" [ "-t", "<fc=#EEEEEE,#878787><rx>\x2193\x2191<tx> </fc>" ] 10
                     , Run Wireless "wlan0" [ "-t", "<fc=#878787,#2C3E50>\xE0B2</fc><fc=#EEEEEE,#878787> WIFI <quality>% </fc>"] 10
                     , Run Battery          [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 <acstatus> <left>% </fc>"
                                            , "--"
