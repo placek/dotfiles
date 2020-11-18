@@ -31,6 +31,7 @@
     git
     gnumake
     mutt
+    ncdu
     silver-searcher
     tig
     tmux
