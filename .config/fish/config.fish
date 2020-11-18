@@ -33,6 +33,7 @@ abbr --add dspv "docker system prune --volumes"
 abbr --add dcres "docker-compose restart"
 abbr --add dcps "docker-compose ps"
 abbr --add j "journalctl"
+abbr --add s "systemctl"
 
 # aliases
 alias mail="sc mutt $HOME/.mutt/passwords.gpg"

@@ -2,6 +2,7 @@ import Data.Monoid
 import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Actions.CopyWindow
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -49,11 +50,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_4     ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png") -- screenshot
     ]
     ++
-    -- mod-[1..9], switch to workspace N
-    -- mod-shift-[1..9], move client to workspace N
+    -- mod-[1..4], switch to workspace N
+    -- mod-shift-[1..4], move client to workspace N
+    -- mod-shift-control-[1..4], copy client to workspace N
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_8]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_4]
+        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask), (copy, shiftMask .|. controlMask)]]
     ++
     -- mod-{w,e,r}, switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, move client to screen 1, 2, or 3
@@ -81,10 +83,12 @@ myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2)
 
 myManageHook = composeAll [ className =? "Gimp" --> doFloat ]
 
+workspaceNames :: [String]
+workspaceNames = ["web", "dev", "misc", "kee"]
+
 myWorkspaces :: [String]
-myWorkspaces = fmap clickable workspaces
-  where clickable n = xmobarAction ("xdotool key alt+" ++ show n) "1" (show n)
-        workspaces  = [1..8]
+myWorkspaces = fmap clickable (zip [1..] workspaceNames)
+  where clickable (k, w) = xmobarAction ("xdotool key alt+" ++ show k) "1" w
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
                                              , ppCurrent         = xmobarColor myNormalBorderColor myFocusedBorderColor . wrap " " " "
