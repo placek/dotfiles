@@ -48,7 +48,6 @@
     haskellPackages.xmonad-extras
     keepassxc
     paper-icon-theme
-    qutebrowser
     rofi
     rxvt-unicode
     scrot

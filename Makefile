@@ -10,7 +10,6 @@ GIT = git
 install: clean
 	${MK} ${HOME}/.config/dunst
 	${MK} ${HOME}/.config/fish
-	${MK} ${HOME}/.config/qutebrowser
 	${MK} ${HOME}/.config/rofi
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.mutt
@@ -29,7 +28,6 @@ install: clean
 	${LN} ${PWD}/.config/fish/base16-flat.fish ${HOME}/.config/fish/base16-flat.fish
 	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
 	${LN} ${PWD}/.config/fish/prompt.fish ${HOME}/.config/fish/prompt.fish
-	${LN} ${PWD}/.config/qutebrowser/config.py ${HOME}/.config/qutebrowser/config.py
 	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.gitconfig ${HOME}
@@ -56,7 +54,6 @@ clean:
 	      ${HOME}/.config/fish/base16-flat.fish \
 	      ${HOME}/.config/fish/config.fish \
 	      ${HOME}/.config/fish/prompt.fish \
-	      ${HOME}/.config/qutebrowser/config.py \
 	      ${HOME}/.config/rofi/config.rasi \
 	      ${HOME}/.git_template \
 	      ${HOME}/.gitconfig \
