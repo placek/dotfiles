@@ -52,7 +52,7 @@
     rxvt-unicode
     scrot
     slock
-    vimb
+    vimb-unwrapped
     xclip
     xdotool
     xmobar
