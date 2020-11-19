@@ -42,10 +42,10 @@
     dunst
     feh
     google-chrome
-    gst_all_1.gst-libav
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-vaapi
-    gst_all_1.gstreamer
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
