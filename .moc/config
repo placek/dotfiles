@@ -1,0 +1,1 @@
+OnSongChange = "/usr/bin env nofify-send  -i audio-headphones -u 'low' '%a %t %r'"

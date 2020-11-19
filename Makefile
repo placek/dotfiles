@@ -13,6 +13,7 @@ install: clean
 	${MK} ${HOME}/.config/rofi
 	${MK} ${HOME}/.config/vimb
 	${MK} ${HOME}/.local/bin
+	${MK} ${HOME}/.moc
 	${MK} ${HOME}/.mutt
 	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/headers
 	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/messages
@@ -43,6 +44,7 @@ install: clean
 	${LN} ${PWD}/.logo.xpm ${HOME}
 	${LN} ${PWD}/.mailcap ${HOME}
 	${LN} ${PWD}/.muttrc ${HOME}
+	${LN} ${PWD}/.moc/config ${HOME}/.moc/config
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
@@ -70,6 +72,7 @@ clean:
 	      ${HOME}/.logo.xpm \
 	      ${HOME}/.mailcap \
 	      ${HOME}/.muttrc \
+	      ${HOME}/.moc/config \
 	      ${HOME}/.tmux.conf \
 	      ${HOME}/.vim \
 	      ${HOME}/.vimrc \

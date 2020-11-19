@@ -42,15 +42,9 @@ alias mail="sc mutt $HOME/.mutt/passwords.gpg"
 alias tb="nc termbin.com 9999"
 
 # functions
-function rebuild_nix
+function rebuild-nix
   pushd $HOME/.config/dotfiles
   sudo make nix
-  popd
-end
-
-function yt3
-  pushd $HOME/Downloads
-  youtube-dl --verbose --extract-audio --audio-format mp3 $argv[1..-1]
   popd
 end
 
