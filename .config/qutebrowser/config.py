@@ -8,9 +8,15 @@ config.set('content.notifications', True, 'https://www.youtube.com')
 
 c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'}
 c.downloads.location.directory = '/home/placek/Downloads'
-c.tabs.show = 'multiple'
-c.url.default_page = 'https://www.google.com'
-c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}', 'duck': 'https://duckduckgo.com/?q={}', 'am': 'https://www.amazon.com/s?k={}', 'aw': 'https://wiki.archlinux.org/?search={}', 'hoog': 'https://hoogle.haskell.org/?hoogle={}', 're': 'https://www.reddit.com/r/{}', 'ub': 'https://www.urbandictionary.com/define.php?term={}', 'wiki': 'https://en.wikipedia.org/wiki/{}', 'yt': 'https://www.youtube.com/results?search_query={}'}
+c.tabs.show = 'never'
+c.url.start_pages = ['https://www.google.com']
+c.url.searchengines = {
+  'DEFAULT': 'https://www.google.com/search?q={}',
+  'duck': 'https://duckduckgo.com/?q={}',
+  'hoog': 'https://hoogle.haskell.org/?hoogle={}',
+  'wiki': 'https://en.wikipedia.org/wiki/{}',
+  'yt': 'https://www.youtube.com/results?search_query={}'
+}
 
 base00 = "#2C3E50"
 base01 = "#34495E"
@@ -44,8 +50,8 @@ c.colors.completion.item.selected.match.fg = base0B
 c.colors.completion.match.fg = base0B
 c.colors.completion.scrollbar.fg = base05
 c.colors.completion.scrollbar.bg = base00
-c.colors.contextmenu.disabled.bg = base01
-c.colors.contextmenu.disabled.fg = base04
+# c.colors.contextmenu.disabled.bg = base01
+# c.colors.contextmenu.disabled.fg = base04
 c.colors.contextmenu.menu.bg = base00
 c.colors.contextmenu.menu.fg =  base05
 c.colors.contextmenu.selected.bg = base02
@@ -118,7 +124,7 @@ c.colors.tabs.selected.odd.fg = base05
 c.colors.tabs.selected.odd.bg = base02
 c.colors.tabs.selected.even.fg = base05
 c.colors.tabs.selected.even.bg = base02
-c.colors.webpage.bg = base00
+# c.colors.webpage.bg = base00
 
 c.fonts.default_family = '"Iosevka"'
 c.fonts.default_size = '12pt'
@@ -131,6 +137,4 @@ c.fonts.statusbar = '12pt "Iosevka"'
 config.bind('M', 'hint links spawn mpv {hint-url}')
 config.bind('Z', 'hint links spawn urxvt -e youtube-dl {hint-url}')
 config.bind('t', 'set-cmd-text -s :open -t')
-config.bind('xb', 'config-cycle statusbar.show always never')
 config.bind('xt', 'config-cycle tabs.show always never')
-config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
