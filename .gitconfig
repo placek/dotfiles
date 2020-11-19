@@ -7,16 +7,17 @@
 [rerere]
   enabled = 1
 [alias]
-  st = status -sb
+  amend = commit --amend --no-edit
   co = checkout
   com = commit -m
-  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   ctags = !.git/hooks/ctags
-  root = rev-parse --show-toplevel
-  stashp = stash push -p
   info = for-each-ref --format='%(color:yellow)%(committerdate:iso8601) %(color:blue)%(objectname:short) %(color:magenta)%(authorname) %(color:green)%(refname:short) %(color:reset)%(contents:subject)' --sort -committerdate
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   label = "!git config branch.$(git symbolic-ref --short HEAD).note $(if [ $# -gt 0 ]; then $1; fi)"
+  root = rev-parse --show-toplevel
   sch = "!git checkout $(git branch --all | fzf | tr -d '[:space:]')"
+  st = status -sb
+  stashp = stash push -p
 [format]
   pretty = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'
 [gpg]

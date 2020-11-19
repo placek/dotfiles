@@ -30,6 +30,8 @@
     fzf
     git
     gnumake
+    libnotify
+    moc
     mutt
     ncdu
     silver-searcher
