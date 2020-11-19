@@ -10,23 +10,26 @@ GIT = git
 install: clean
 	${MK} ${HOME}/.config/dunst
 	${MK} ${HOME}/.config/fish
+	${MK} ${HOME}/.config/qutebrowser
 	${MK} ${HOME}/.config/rofi
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.mutt
-	${MK} ${HOME}/.mutt/com.gmail.silquenarmo/headers
-	${MK} ${HOME}/.mutt/com.gmail.silquenarmo/messages
-	${MK} ${HOME}/.mutt/com.gmail.placzynski.pawel/headers
-	${MK} ${HOME}/.mutt/com.gmail.placzynski.pawel/messages
 	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/headers
 	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/messages
+	${MK} ${HOME}/.mutt/com.gmail.placzynski.pawel/headers
+	${MK} ${HOME}/.mutt/com.gmail.placzynski.pawel/messages
+	${MK} ${HOME}/.mutt/com.gmail.silquenarmo/headers
+	${MK} ${HOME}/.mutt/com.gmail.silquenarmo/messages
 	${MK} ${HOME}/.wall
 	${MK} ${HOME}/.xmonad
+	${CP} ${PWD}/.mutt/* ${HOME}/.mutt/
 	${LN} ${PWD}/.Xresources ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
 	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
-	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
 	${LN} ${PWD}/.config/fish/base16-flat.fish ${HOME}/.config/fish/base16-flat.fish
+	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
 	${LN} ${PWD}/.config/fish/prompt.fish ${HOME}/.config/fish/prompt.fish
+	${LN} ${PWD}/.config/qutebrowser/config.py ${HOME}/.config/qutebrowser/config.py
 	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.gitconfig ${HOME}
@@ -40,7 +43,6 @@ install: clean
 	${LN} ${PWD}/.logo.xpm ${HOME}
 	${LN} ${PWD}/.mailcap ${HOME}
 	${LN} ${PWD}/.muttrc ${HOME}
-	${CP} ${PWD}/.mutt/* ${HOME}/.mutt/
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
@@ -51,10 +53,11 @@ clean:
 	${RM} ${HOME}/.Xresources \
 	      ${HOME}/.bash_profile \
 	      ${HOME}/.config/dunst/dunstrc \
-	      ${HOME}/.config/rofi/config.rasi \
-	      ${HOME}/.config/fish/config.fish \
 	      ${HOME}/.config/fish/base16-flat.fish \
+	      ${HOME}/.config/fish/config.fish \
 	      ${HOME}/.config/fish/prompt.fish \
+	      ${HOME}/.config/qutebrowser/config.py \
+	      ${HOME}/.config/rofi/config.rasi \
 	      ${HOME}/.git_template \
 	      ${HOME}/.gitconfig \
 	      ${HOME}/.gitignore_global \

@@ -1,9 +1,9 @@
 set -gx EDITOR vim
 set -gx PROJECTS_DIR "$HOME/Projects"
 
-# neofetch greetings
+# pfetch greetings
 function fish_greeting
-  neofetch
+  pfetch
 end
 
 # ssh agent
