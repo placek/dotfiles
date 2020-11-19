@@ -43,6 +43,7 @@
     dunst
     feh
     google-chrome
+    gst_all_1
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
@@ -52,6 +53,7 @@
     rxvt-unicode
     scrot
     slock
+    vimb
     xclip
     xdotool
     xmobar
