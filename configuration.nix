@@ -45,6 +45,7 @@
     gst_all_1.gst-libav
     gst_all_1.gst-plugins-good
     gst_all_1.gst-vaapi
+    gst_all_1.gstreamer
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
