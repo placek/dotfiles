@@ -31,6 +31,7 @@
     git
     gnumake
     libnotify
+    pfetch
     moc
     mutt
     ncdu
@@ -42,20 +43,16 @@
     dunst
     feh
     google-chrome
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
     keepassxc
     paper-icon-theme
+    qutebrowser
     rofi
     rxvt-unicode
     scrot
     slock
-    vimb
     xclip
     xdotool
     xmobar
