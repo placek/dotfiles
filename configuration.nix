@@ -40,9 +40,9 @@
     tmux
     vim
 
+    chromium
     dunst
     feh
-    google-chrome
     haskellPackages.greenclip
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
