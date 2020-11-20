@@ -6,6 +6,8 @@ import Termonad
   ( CursorBlinkMode(CursorBlinkModeOff), Option(Set)
   , ShowScrollbar(ShowScrollbarNever), TMConfig, confirmExit, cursorBlinkMode
   , defaultConfigOptions, defaultTMConfig, options, showMenu, showScrollbar
+  , FontConfig, FontSize(FontSizePoints), defaultFontConfig, fontConfig
+  , fontFamily, fontSize
   , start
   )
 import Termonad.Config.Colour
@@ -23,7 +25,15 @@ myTMConfig =
           , confirmExit = False
           , showMenu = False
           , cursorBlinkMode = CursorBlinkModeOff
+          , fontConfig = fontConf
           }
+    }
+
+fontConf :: FontConfig
+fontConf =
+  defaultFontConfig
+    { fontFamily = "Iosevka"
+    , fontSize = FontSizePoints 12
     }
 
 myColourConfig :: ColourConfig (AlphaColour Double)
