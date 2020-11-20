@@ -21,7 +21,7 @@ myFocusFollowsMouse  = True
 myFocusedBorderColor = "#3498DB"
 myModMask            = mod1Mask -- mod4Mask.
 myNormalBorderColor  = "#2C3E50"
-myTerminal           = "urxvt"
+myTerminal           = "termonad"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                  -- launch a terminal

@@ -30,9 +30,9 @@ myColourConfig :: ColourConfig (AlphaColour Double)
 myColourConfig =
   defaultColourConfig
     -- normal colour of the cursor
-    { cursorBgColour = Set (createColour 120 80 110)
+    { cursorBgColour = Set (createColour 245 245 245)
     -- foreground colour of text of the terminal
-    , foregroundColour = Set (createColour 220 180 210)
+    , foregroundColour = Set (createColour 245 245 245)
     -- extended palette that has 8 colours standard colors and then 8 light colors.
     , palette = ExtendedPalette myStandardColours
                                 (fromMaybe defaultLightColours myLightColours)
