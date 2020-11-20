@@ -47,19 +47,19 @@ myColourConfig =
       , createColour 155  89 182 -- magenta
       , createColour 180  30 120 -- bright pink
       , createColour  26 188 156 -- cyan
-      , createColour 180 160 120 -- light brown
+      , createColour 245 245 245 -- white
       ]
 
     myLightColours :: Maybe (List8 (AlphaColour Double))
     myLightColours = mkList8
-        [ createColour  70  60  50 -- brown
-        , createColour 220  30  20 -- light red
-        , createColour  40 210  20 -- light green
-        , createColour 220 200  20 -- yellow
-        , createColour  40  30 180 -- purple
+        [ createColour  52  73  94 -- light black
+        , createColour 231  76  60 -- red
+        , createColour  46 204 113 -- light green
+        , createColour 241 196  15 -- yellow
+        , createColour 155  89 182 -- magenta
         , createColour 140  30 80  -- dark pink
-        , createColour  50 200 160 -- light teal
-        , createColour 220 200 150 -- light brown
+        , createColour  26 188 156 -- cyan
+        , createColour 245 245 245 -- white
         ]
 
 main :: IO ()
