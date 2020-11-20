@@ -114,6 +114,7 @@ myStartupHook = do
   spawnOnce "xrdb -merge .Xresources &"
   spawnOnce "feh --randomize --bg-fill .wall/* &"
   spawnOnce "greenclip daemon &"
+  spawnOnce "dunst &"
 
 main = do
   xmproc <- spawnPipe "xmobar"
