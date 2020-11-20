@@ -17,6 +17,7 @@ shortcut-default g
 nmap + zI
 nmap - zO
 nmap = zz
+nmap <C-g> :sh youtube-dl -x -o /home/placek/Music/%(title)s.%(ext)s %s
 
 set completion-css=color:#F5F5F5;background-color:#2C3E50;font:12pt Iosevka;
 set completion-hover-css=color:#F5F5F5;background-color:#2C3E50;font:12pt Iosevka;
