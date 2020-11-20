@@ -11,8 +11,8 @@ install: clean
 	${MK} ${HOME}/.config/dunst
 	${MK} ${HOME}/.config/fish
 	${MK} ${HOME}/.config/termonad
+	${MK} ${HOME}/.config/qutebrowser
 	${MK} ${HOME}/.config/rofi
-	${MK} ${HOME}/.config/vimb
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.moc
 	${MK} ${HOME}/.mutt
@@ -33,8 +33,8 @@ install: clean
 	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
 	${LN} ${PWD}/.config/fish/prompt.fish ${HOME}/.config/fish/prompt.fish
 	${LN} ${PWD}/.config/termonad/termonad.hs ${HOME}/.config/termonad/termonad.hs
+	${LN} ${PWD}/.config/qutebrowser/config.py ${HOME}/.config/qutebrowser/config.py
 	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
-	${LN} ${PWD}/.config/vimb/config ${HOME}/.config/vimb/config
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.gitconfig ${HOME}
 	${LN} ${PWD}/.gitignore_global ${HOME}
@@ -63,8 +63,8 @@ clean:
 	      ${HOME}/.config/fish/config.fish \
 	      ${HOME}/.config/fish/prompt.fish \
 	      ${HOME}/.config/termonad/termonad.hs \
+	      ${HOME}/.config/qutebrowser/config.py \
 	      ${HOME}/.config/rofi/config.rasi \
-	      ${HOME}/.config/vimb/config \
 	      ${HOME}/.git_template \
 	      ${HOME}/.gitconfig \
 	      ${HOME}/.gitignore_global \
