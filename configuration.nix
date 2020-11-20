@@ -43,6 +43,7 @@
     dunst
     feh
     google-chrome
+    haskellPackages.greenclip
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
