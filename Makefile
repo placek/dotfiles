@@ -10,6 +10,7 @@ GIT = git
 install: clean
 	${MK} ${HOME}/.config/dunst
 	${MK} ${HOME}/.config/fish
+	${MK} ${HOME}/.config/termonad
 	${MK} ${HOME}/.config/rofi
 	${MK} ${HOME}/.config/vimb
 	${MK} ${HOME}/.local/bin
@@ -30,6 +31,7 @@ install: clean
 	${LN} ${PWD}/.config/fish/base16-flat.fish ${HOME}/.config/fish/base16-flat.fish
 	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
 	${LN} ${PWD}/.config/fish/prompt.fish ${HOME}/.config/fish/prompt.fish
+	${LN} ${PWD}/.config/termonad/termonad.hs ${HOME}/.config/termonad/termonad.hs
 	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
 	${LN} ${PWD}/.config/vimb/config ${HOME}/.config/vimb/config
 	${LN} ${PWD}/.git_template ${HOME}
@@ -58,6 +60,7 @@ clean:
 	      ${HOME}/.config/fish/base16-flat.fish \
 	      ${HOME}/.config/fish/config.fish \
 	      ${HOME}/.config/fish/prompt.fish \
+	      ${HOME}/.config/termonad/termonad.hs \
 	      ${HOME}/.config/rofi/config.rasi \
 	      ${HOME}/.config/vimb/config \
 	      ${HOME}/.git_template \
