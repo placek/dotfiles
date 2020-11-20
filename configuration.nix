@@ -49,12 +49,12 @@
     haskellPackages.xmonad-extras
     keepassxc
     paper-icon-theme
+    qutebrowser
     rofi
     rxvt-unicode
     scrot
     slock
     termonad-with-packages
-    vimb-unwrapped
     xclip
     xdotool
     xmobar
