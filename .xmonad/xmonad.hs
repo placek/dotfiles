@@ -11,15 +11,6 @@ import XMonad.Layout.Spiral
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
-import XMonad.Prompt
-import XMonad.Prompt.Input
-import XMonad.Prompt.FuzzyMatch
-import XMonad.Prompt.Man
-import XMonad.Prompt.Shell
-import XMonad.Prompt.Ssh
-import XMonad.Prompt.XMonad
-import Control.Arrow (first)
-
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
@@ -34,8 +25,7 @@ myTerminal           = "termonad"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                  -- launch a terminal
-    , ((modm .|. shiftMask, xK_p     ), spawn "rofi -show combi")                      -- launch drun menu
-    , ((modm,               xK_p     ), shellPrompt dtXPConfig)                        -- launch prompt
+    , ((modm,               xK_p     ), spawn "rofi -show combi")                      -- launch drun menu
     , ((modm .|. shiftMask, xK_c     ), kill)                                          -- close focused window
     , ((modm,               xK_space ), sendMessage NextLayout)                        -- rotate through the available layouts
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)            -- reset the layouts on the current workspace to default
@@ -81,38 +71,6 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, button3), (\w -> focus w >> mouseResizeWindow w     -- set the window to floating mode and resize by dragging
                                        >> windows W.shiftMaster))
     ]
-
-dtXPConfig :: XPConfig
-dtXPConfig = def
-      { font                = "xft:Iosevka:size=12:antialias=true:hinting=true"
-      , bgColor             = "#2C3E50"
-      , fgColor             = "#F5F5F5"
-      , bgHLight            = "#3498DB"
-      , fgHLight            = "#2C3E50"
-      , borderColor         = "#3498DB"
-      , promptBorderWidth   = 0
-      , position            = Top
-   -- , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
-      , height              = 20
-      , historySize         = 256
-      , historyFilter       = id
-      , defaultText         = []
-      , autoComplete        = Just 100000  -- set Just 100000 for .1 sec
-      , showCompletionOnTab = False
-   -- , searchPredicate     = isPrefixOf
-      , searchPredicate     = fuzzyMatch
-      , defaultPrompter     = id $ map toUpper  -- change prompt to UPPER
-   -- , defaultPrompter     = unwords . map reverse . words  -- reverse the prompt
-   -- , defaultPrompter     = drop 5 .id (++ "XXXX: ")  -- drop first 5 chars of prompt and add XXXX:
-      , alwaysHighlight     = True
-      , maxComplRows        = Nothing      -- set to 'Just 5' for 5 rows
-      }
-
-promptList :: [(String, XPConfig -> X ())]
-promptList = [ ("m", manPrompt)          -- manpages prompt
-             , ("s", sshPrompt)          -- ssh prompt
-             , ("x", xmonadPrompt)       -- xmonad prompt
-             ]
 
 myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ t ||| s ||| m ||| f
   where
