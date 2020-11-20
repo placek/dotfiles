@@ -84,7 +84,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 dtXPConfig :: XPConfig
 dtXPConfig = def
-      { font                = myFont
+      { font                = "xft:Iosevka:size=12:antialias=true:hinting=true"
       , bgColor             = "#2C3E50"
       , fgColor             = "#F5F5F5"
       , bgHLight            = "#3498DB"
