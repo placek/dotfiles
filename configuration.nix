@@ -52,6 +52,7 @@
     rxvt-unicode
     scrot
     slock
+    termonad
     vimb-unwrapped
     xclip
     xdotool
