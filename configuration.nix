@@ -32,7 +32,8 @@
     git
     gnumake
     libnotify
-    pass.withExtensions (exts: [ exts.pass-otp ])
+    passExtensions.pass-otp
+    (pass.withExtensions (ext: with ext; [pass-otp]))
     pfetch
     moc
     mutt
