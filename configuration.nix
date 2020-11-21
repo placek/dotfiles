@@ -62,6 +62,7 @@
     xmobar
     xmonad-with-packages
     xorg.xkill
+    youtube-dl
   ];
 
   users.users = {

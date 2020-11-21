@@ -50,7 +50,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_x     ), spawn "xkill")                                                                       -- xkill
     , ((modm .|. shiftMask, xK_4     ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                                       -- screenshot
     , ((modm,               xK_c     ), spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'") -- clipboard history
-    , ((modm,               xK_r     ), spawn "rofi -modi 'ruby:mruby -e' -show ruby -run-command '{cmd}'")                  -- execute ruby expression
+    , ((modm .|. shiftMask, xK_p     ), spawn "rofi -modi 'ruby:mruby -e' -show ruby -run-command '{cmd}'")                  -- execute ruby expression
     ]
     ++
     -- mod-[1..4], switch to workspace N
