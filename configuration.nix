@@ -29,7 +29,7 @@
     fish
     fzf
     git
-    gnupg
+    gnupg1
     pass
     passExtensions.pass-otp
     gnumake
