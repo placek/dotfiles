@@ -30,13 +30,11 @@
     fish
     fzf
     git
-    pass
-    passExtensions.pass-otp
     gnumake
     libnotify
+    pass.withExtensions (exts: [ exts.pass-otp ])
     pfetch
     moc
-    mruby
     mutt
     ncdu
     silver-searcher
