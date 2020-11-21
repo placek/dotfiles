@@ -33,6 +33,7 @@
     libnotify
     pfetch
     moc
+    mruby
     mutt
     ncdu
     silver-searcher
@@ -55,6 +56,7 @@
     scrot
     slock
     termonad-with-packages
+    vimb
     xclip
     xdotool
     xmobar

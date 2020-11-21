@@ -50,8 +50,6 @@ c.colors.completion.item.selected.match.fg = base0B
 c.colors.completion.match.fg = base0B
 c.colors.completion.scrollbar.fg = base05
 c.colors.completion.scrollbar.bg = base00
-# c.colors.contextmenu.disabled.bg = base01
-# c.colors.contextmenu.disabled.fg = base04
 c.colors.contextmenu.menu.bg = base00
 c.colors.contextmenu.menu.fg =  base05
 c.colors.contextmenu.selected.bg = base02
@@ -124,7 +122,6 @@ c.colors.tabs.selected.odd.fg = base05
 c.colors.tabs.selected.odd.bg = base02
 c.colors.tabs.selected.even.fg = base05
 c.colors.tabs.selected.even.bg = base02
-# c.colors.webpage.bg = base00
 
 c.fonts.default_family = '"Iosevka"'
 c.fonts.default_size = '12pt'
@@ -133,8 +130,6 @@ c.fonts.debug_console = '12pt "Iosevka"'
 c.fonts.prompts = 'default_size sans-serif'
 c.fonts.statusbar = '12pt "Iosevka"'
 
-# Bindings for normal mode
-config.bind('M', 'hint links spawn mpv {hint-url}')
-config.bind('Z', 'hint links spawn urxvt -e youtube-dl {hint-url}')
+config.bind('M', 'hint links spawn urxvt -e youtube-dl -x {hint-url}')
 config.bind('t', 'set-cmd-text -s :open -t')
 config.bind('xt', 'config-cycle tabs.show always never')
