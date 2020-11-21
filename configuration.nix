@@ -54,6 +54,7 @@
     paper-icon-theme
     qutebrowser
     rofi
+    rofi-pass
     rxvt-unicode
     scrot
     slock
