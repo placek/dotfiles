@@ -31,6 +31,7 @@
     git
     gnumake
     libnotify
+    pass
     pfetch
     moc
     mruby
@@ -52,6 +53,7 @@
     paper-icon-theme
     qutebrowser
     rofi
+    rofi-pass
     rxvt-unicode
     scrot
     slock
