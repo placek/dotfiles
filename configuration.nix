@@ -18,6 +18,7 @@
   security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
   time.timeZone = "Europe/Warsaw";
   virtualisation.docker.enable = true;
+  programs.gnupg.agent.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -29,7 +30,6 @@
     fish
     fzf
     git
-    gnupg1
     pass
     passExtensions.pass-otp
     gnumake
