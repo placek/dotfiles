@@ -34,6 +34,7 @@
     libnotify
     passExtensions.pass-otp
     (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
+    python38Packages.pykeepass
     pfetch
     moc
     mutt
