@@ -38,6 +38,8 @@
     moc
     mutt
     ncdu
+    rclone
+    rsync
     silver-searcher
     tig
     tmux
@@ -52,6 +54,7 @@
     haskellPackages.xmonad-extras
     keepassxc
     paper-icon-theme
+    pinentry
     qutebrowser
     rofi
     rofi-pass
