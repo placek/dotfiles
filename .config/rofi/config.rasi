@@ -7,7 +7,6 @@ configuration {
 
 * {
   background-color: #34495E;
-  border-color: #2C3E50;
   text-color: #ECF0F1;
   spacing: 0;
   width: 512px;
@@ -15,17 +14,14 @@ configuration {
 }
 
 inputbar {
-  border: 0 0 4px 0;
   children: [prompt,entry];
 }
 
 prompt {
   padding: 8px;
-  border: 0 4px 0 0;
 }
 
 textbox {
-  border: 0 0 4px 0;
   padding: 4px;
 }
 
@@ -39,7 +35,6 @@ listview {
 }
 
 element {
-  border: 0 0 4px 0;
   padding: 8px;
 }
 
