@@ -114,8 +114,7 @@ let g:tmuxline_preset = {
       \'cwin' : '#I #W',
       \'x'    : '#(hostname -I 2>/dev/null | cut -d " " -f 1)',
       \'z'    : '#H',
-      \'options': {
-        \'status-justify': 'left'}
+      \'options': { 'status-justify': 'left' }
       \}
 let g:nerdtree_tabs_autoclose = 0
 let NERDTreeAutoDeleteBuffer = 1

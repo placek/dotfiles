@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+# source encrypted file like:
+#   gpg -r your.email@example.com -e <file>
+#   sc <file>.gpg command
 
-cmd=$1
-file=$2
-shift
+file=$1
 shift
 
 pwds=$(gpg -dq $file 2> /dev/null)
