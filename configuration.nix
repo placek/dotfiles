@@ -18,7 +18,13 @@
   security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
   time.timeZone = "Europe/Warsaw";
   virtualisation.docker.enable = true;
-  programs.gnupg.agent.enable = true;
+  programs = {
+    ssh.startAgent = false;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -32,12 +38,13 @@
     git
     gnumake
     libnotify
-    passExtensions.pass-otp
-    (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
-    pfetch
     moc
     mutt
     ncdu
+    passExtensions.pass-otp
+    (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
+    pfetch
+    pinentry-curses
     rclone
     rsync
     silver-searcher
@@ -54,7 +61,7 @@
     haskellPackages.xmonad-extras
     keepassxc
     paper-icon-theme
-    pinentry
+    pinentry-qt
     qutebrowser
     rofi
     rofi-pass
@@ -62,7 +69,6 @@
     scrot
     slock
     termonad-with-packages
-    vimb
     xclip
     xdotool
     xmobar
