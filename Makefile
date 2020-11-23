@@ -28,6 +28,7 @@ install: clean
 	${LN} ${PWD}/.Xresources ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
 	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
+	${LN} ${PWD}/.config/gpg-agent.cfg ${HOME}/.config/gpg-agent.cfg
 	${LN} ${PWD}/.config/greenclip.cfg ${HOME}/.config/greenclip.cfg
 	${LN} ${PWD}/.config/fish/base16-flat.fish ${HOME}/.config/fish/base16-flat.fish
 	${LN} ${PWD}/.config/fish/config.fish ${HOME}/.config/fish/config.fish
@@ -58,7 +59,8 @@ clean:
 	${RM} ${HOME}/.Xresources \
 	      ${HOME}/.bash_profile \
 	      ${HOME}/.config/dunst/dunstrc \
-				${HOME}/.config/greenclip.cfg \
+	      ${HOME}/.config/gpg-agent.cfg \
+	      ${HOME}/.config/greenclip.cfg \
 	      ${HOME}/.config/fish/base16-flat.fish \
 	      ${HOME}/.config/fish/config.fish \
 	      ${HOME}/.config/fish/prompt.fish \
