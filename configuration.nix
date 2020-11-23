@@ -5,19 +5,17 @@
     ./hardware-configuration.nix
   ];
 
-  # hardware
-  hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = true;
-  sound.enable = true;
-
-  # system settings
   boot.cleanTmpDir = true;
   console.keyMap = "pl";
+  hardware.bluetooth.enable = true;
+  hardware.pulseaudio.enable = true;
   i18n.defaultLocale = "pl_PL.UTF-8";
   powerManagement.enable = true;
   security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
+  sound.enable = true;
   time.timeZone = "Europe/Warsaw";
   virtualisation.docker.enable = true;
+
   programs = {
     ssh.startAgent = false;
     gnupg.agent = {
