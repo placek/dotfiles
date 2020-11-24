@@ -152,7 +152,6 @@
     description = "Dot files synchronization";
     enable = true;
     serviceConfig = {
-      Type = "oneshot";
       Environment = [
         "DOTFILES_URL=https://github.com/placek/dotfiles.git"
         "DOTFILES_DIR=.config/dotfiles"
@@ -160,12 +159,13 @@
         "GREP=${pkgs.busybox}/bin/grep"
         "GIT=${pkgs.git}/bin/git"
       ];
+      Type             = "oneshot";
       WorkingDirectory = "/home/placek/.config/dotfiles";
       RemainAfterExit  = "yes";
-      ExecStartPre = "!${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL .";
-      ExecStart    = "${pkgs.gnumake}/bin/make install";
-      ExecReload   = "${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff-only origin master && ${pkgs.gnumake}/bin/make install";
-      ExecStop     = "${pkgs.gnumake}/bin/make clean";
+      ExecStartPre     = "-${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL .";
+      ExecStart        = "${pkgs.gnumake}/bin/make install";
+      ExecReload       = "${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff-only origin master && ${pkgs.gnumake}/bin/make install";
+      ExecStop         = "${pkgs.gnumake}/bin/make clean";
     };
     wantedBy = [ "default.target" ];
   };
