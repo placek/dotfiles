@@ -1,4 +1,31 @@
 #!/usr/bin/env bash
 
-git --git-dir=$HOME/.cfg/ --work-tree=$HOME config --local status.showUntrackedFiles no
-git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+GIT=$(which git)
+CFG="$HOME/.cfg"
+CMD="$GIT --git-dir=$CGF --work-tree=$HOME"
+
+$CMD config --local status.showUntrackedFiles no
+$CMD $@
+
+case "$1" in
+  "init")
+    if [ -d "$CFG" ]; then
+      >&2 echo "dotfiles: already initialized"
+    else
+      $GIT clone --bare $DOTFILES_URL $CFG
+    fi
+    ;;
+
+  "checkout")
+    $CMD checkout
+    ;;
+
+  "pull")
+    $CMD pull
+    ;;
+
+  "git")
+    shift
+    $CMD $@
+    ;;
+esac

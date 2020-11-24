@@ -42,6 +42,7 @@ install: clean
 	${LN} ${PWD}/.gitconfig ${HOME}
 	${LN} ${PWD}/.gitignore_global ${HOME}
 	${LN} ${PWD}/.irbrc ${HOME}
+	${LN} ${PWD}/.local/bin/dotfiles ${HOME}/.local/bin/dotfiles
 	${LN} ${PWD}/.local/bin/open ${HOME}/.local/bin/open
 	${LN} ${PWD}/.local/bin/pbcopy ${HOME}/.local/bin/pbcopy
 	${LN} ${PWD}/.local/bin/pbpaste ${HOME}/.local/bin/pbpaste
@@ -74,6 +75,7 @@ clean:
 	      ${HOME}/.gitconfig \
 	      ${HOME}/.gitignore_global \
 	      ${HOME}/.irbrc \
+	      ${HOME}/.local/bin/dotfiles \
 	      ${HOME}/.local/bin/open \
 	      ${HOME}/.local/bin/pbcopy \
 	      ${HOME}/.local/bin/pbpaste \
