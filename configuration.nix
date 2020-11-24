@@ -83,6 +83,7 @@
       extraGroups = [ "wheel" "networkmanager" "docker" ];
       packages = [];
       shell = pkgs.fish;
+      environment.variables.DOT = "git@github.com:placek/dotfiles.git";
     };
   };
 
@@ -154,11 +155,11 @@
     serviceConfig = {
       Type = "oneshot";
       Environment = [
-        "REPO_URL=https://github.com/placek/dotfiles.git"
+        "DOTFILES_URL=https://github.com/placek/dotfiles.git"
         "DOTFILES_DIR=.config/dotfiles"
       ];
       RemainAfterExit = "yes";
-      ExecStartPre = "${pkgs.bash}/bin/bash -c '[ -d $HOME/$DOTFILES_DIR ] || ${pkgs.git}/bin/git clone --recurse-submodules $REPO_URL $HOME/$DOTFILES_DIR'";
+      ExecStartPre = "${pkgs.bash}/bin/bash -c '[ -d $HOME/$DOTFILES_DIR ] || ${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL $HOME/$DOTFILES_DIR'";
       ExecStart    = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.gnumake}/bin/make install'";
       ExecReload   = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff origin master && ${pkgs.gnumake}/bin/make install'";
       ExecStop     = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.gnumake}/bin/make clean'";
