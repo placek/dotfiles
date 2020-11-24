@@ -168,7 +168,7 @@
 
   systemd.user.services.projects = {
     description = "Sync projects";
-    script = "${pkgs.bash}/bin/bash -c '${pkgs.rclone}/bin/rclone sync projects:/ $HOME/Projects'";
+    script = "${pkgs.bash}/bin/bash -c '${pkgs.rclone}/bin/rclone --config $HOME/.config/rclone/rclone.conf sync projects:/ $HOME/Projects'";
   };
 
   systemd.user.timers.projects = {
