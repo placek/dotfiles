@@ -160,11 +160,12 @@
         "GREP=${pkgs.busybox}/bin/grep"
         "GIT=${pkgs.git}/bin/git"
       ];
-      RemainAfterExit = "yes";
-      ExecStartPre = "${pkgs.bash}/bin/bash -c '[ -d $HOME/$DOTFILES_DIR ] || ${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL $HOME/$DOTFILES_DIR'";
-      ExecStart    = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.gnumake}/bin/make install'";
-      ExecReload   = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff-only origin master && ${pkgs.gnumake}/bin/make install'";
-      ExecStop     = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.gnumake}/bin/make clean'";
+      WorkingDirectory = "$HOME/$DOTFILES_DIR";
+      RemainAfterExit  = "yes";
+      ExecStartPre = "!${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL .";
+      ExecStart    = "${pkgs.gnumake}/bin/make install";
+      ExecReload   = "${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff-only origin master && ${pkgs.gnumake}/bin/make install";
+      ExecStop     = "${pkgs.gnumake}/bin/make clean";
     };
     wantedBy = [ "default.target" ];
   };
