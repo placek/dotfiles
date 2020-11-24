@@ -1,10 +1,10 @@
-CP  = /usr/bin/env cp
-LN  = /usr/bin/env ln -s
-MK  = /usr/bin/env mkdir -p
-RM  = /usr/bin/env rm -fr
-GIT = /usr/bin/env git
-ARG = /usr/bin/env xargs -I@
-EXC = /usr/bin/env grep -Ev ".vim/|Makefile|LICENSE|README|configuration.nix"
+CP  = cp
+LN  = ln -s
+MK  = mkdir -p
+RM  = rm -fr
+GIT = git
+ARG = xargs -I@
+EXC = grep -Ev ".vim/|Makefile|LICENSE|README|configuration.nix"
 
 .PHONY: clean install nix wall
 
