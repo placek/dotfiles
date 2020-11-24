@@ -176,8 +176,8 @@
       ];
       Restart      = "always";
       RestartSec   = 10;
-      ExecStart    = "${pkgs.rclone}/bin/rclone --config=$HOME/$CONFIG --vfs-cache-mode writes mount --daemon --allow-non-empty projects:/ $HOME/$TARGET";
-      ExecStop     = "${pkgs.fuse}/bin/fusermount -u $HOME/$TARGET";
+      ExecStart    = "${pkgs.bash}/bin/bash -c '${pkgs.rclone}/bin/rclone --config=$HOME/$CONFIG --vfs-cache-mode writes mount --daemon --allow-non-empty projects:/ $HOME/$TARGET'";
+      ExecStop     = "${pkgs.bash}/bin/bash -c '${pkgs.fuse}/bin/fusermount -u $HOME/$TARGET'";
     };
     wantedBy = [ "default.target" ];
   };
