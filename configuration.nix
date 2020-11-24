@@ -148,24 +148,6 @@
     device = "/dev/sda";
   };
 
-  systemd.user.services.dotfiles = {
-    description = "Dot files synchronization";
-    enable = true;
-    serviceConfig = {
-      Environment = [
-        "DOTFILES_URL=git@github.com:placek/dotfiles.git"
-        "DOTFILES_DIR=.config/dotfiles"
-      ];
-      Type             = "oneshot";
-      RemainAfterExit  = "yes";
-      ExecStartPre     = "-${pkgs.git}/bin/git clone --recurse-submodules --bare $DOTFILES_URL $HOME/$DOTFILES_DIR";
-      ExecStart        = "${pkgs.git}/bin/git --git-dir=$HOME/$DOTFILES_DIR --work-tree=$HOME config --local status.showUntrackedFiles no";
-      ExecReload       = "${pkgs.git}/bin/git --git-dir=$HOME/$DOTFILES_DIR --work-tree=$HOME checkout";
-      ExecStop         = "true";
-    };
-    wantedBy = [ "default.target" ];
-  };
-
   system = {
     autoUpgrade = {
       allowReboot = true;
