@@ -90,17 +90,9 @@ case "$1" in
         project="$projects/$name"
         if [ -d "$project" ]; then
           echo "projects: $project"
-          pushd "$project"
-            git fetch --all && echo "projects:   fetched"
-            for remote in $(git remote); do
-              for branch in $(git branch); do
-                label=$(git config "branch.$branch.note" | xargs)
-                if [ ! -z "$label" ]; then
-                  git push "$remote" "$branch":"$branch" >/dev/null 2>&1 && echo "projects:   pushed $branch on $remote"
-                fi
-              done
-            done
-          popd
+          rm -rf $project/**/tmp/*
+          rm -rf $project/**/log/*
+          rclone -v sync $project projects:/$name
         else
           >&2 echo "projects: could not cd to $project"
         fi

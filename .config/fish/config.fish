@@ -35,15 +35,6 @@ alias tb="nc termbin.com 9999"
 alias dotfiles="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
 
 # functions
-function sync-projects --description "sync projects with remote rclone 'projects' cloud"
-  set -l tmps $PROJECTS_DIR/**/tmp/*
-  set -l logs $PROJECTS_DIR/**/log/*
-  for file in $logs $temps
-    rm -rfv $file
-  end
-  rclone -v sync $PROJECTS_DIR projects:/
-end
-
 function rebuild-nix --description "copy configuration and rebuild system"
   sudo cp $HOME/.config/configuration.nix /etc/nixos/configuration.nix
   sudo nixos-rebuild switch
