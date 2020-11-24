@@ -114,7 +114,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
 myStartupHook = do
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xrdb -merge .Xresources &"
-  spawnOnce "feh --randomize --bg-fill .wall/* &"
+  spawnOnce "exec ~/.fehbg &"
   spawnOnce "greenclip daemon &"
   spawnOnce "dunst &"
 
