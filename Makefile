@@ -8,13 +8,16 @@ GIT = git
 .PHONY: clean install nix
 
 install: clean
+	${MK} ${HOME}/Downloads
+	${MK} ${HOME}/Music
+	${MK} ${HOME}/Projects
 	${MK} ${HOME}/.config/dunst
 	${MK} ${HOME}/.config/fish
 	${MK} ${HOME}/.config/termonad
 	${MK} ${HOME}/.config/qutebrowser
 	${MK} ${HOME}/.config/rofi
 	${MK} ${HOME}/.local/bin
-	${MK} ${HOME}/.moc
+	${MK} ${HOME}/.moc/themes
 	${MK} ${HOME}/.mutt
 	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/headers
 	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/messages
@@ -48,6 +51,7 @@ install: clean
 	${LN} ${PWD}/.mailcap ${HOME}
 	${LN} ${PWD}/.muttrc ${HOME}
 	${LN} ${PWD}/.moc/config ${HOME}/.moc/config
+	${LN} ${PWD}/.moc/themes/dylanwh ${HOME}/.moc/themes/dylanwh
 	${LN} ${PWD}/.tmux.conf ${HOME}
 	${LN} ${PWD}/.vim ${HOME}
 	${LN} ${PWD}/.vimrc ${HOME}
@@ -78,6 +82,7 @@ clean:
 	      ${HOME}/.mailcap \
 	      ${HOME}/.muttrc \
 	      ${HOME}/.moc/config \
+	      ${HOME}/.moc/themes/dylanwh \
 	      ${HOME}/.tmux.conf \
 	      ${HOME}/.vim \
 	      ${HOME}/.vimrc \
