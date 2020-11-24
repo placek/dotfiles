@@ -166,21 +166,6 @@
     wantedBy = [ "default.target" ];
   };
 
-  systemd.user.services.projects = {
-    description = "Sync projects";
-    script = "${pkgs.bash}/bin/bash -c '${pkgs.rclone}/bin/rclone --config $HOME/.config/rclone/rclone.conf sync projects:/ $HOME/Projects'";
-  };
-
-  systemd.user.timers.projects = {
-    description = "Run projects sync every minute";
-    wantedBy = [ "timers.target" ];
-
-    timerConfig = {
-      OnBootSec = "1m"; # first run 5min after boot up
-      OnUnitInactiveSec = "1m"; # run 5min after my-task has finished
-    };
-  };
-
   system = {
     autoUpgrade = {
       allowReboot = true;
