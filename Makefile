@@ -1,4 +1,3 @@
-CP  = cp -r
 LN  = ln -s
 MK  = mkdir -p
 RM  = rm -fr
@@ -27,7 +26,9 @@ install: clean
 	${MK} ${HOME}/.mutt/com.gmail.silquenarmo/messages
 	${MK} ${HOME}/.wall
 	${MK} ${HOME}/.xmonad
-	${CP} ${PWD}/.mutt/* ${HOME}/.mutt/
+	${LN} ${PWD}/.mutt/com.gmail.silquenarmo/account ${HOME}/.mutt/com.gmail.silquenarmo/account
+	${LN} ${PWD}/.mutt/com.gmail.placzynski.pawel/account ${HOME}/.mutt/com.gmail.placzynski.pawel/account
+	${LN} ${PWD}/.mutt/com.binarapps.p.placzynski/account ${HOME}/.mutt/com.binarapps.p.placzynski/account
 	${LN} ${PWD}/.Xresources ${HOME}
 	${LN} ${PWD}/.bash_profile ${HOME}
 	${LN} ${PWD}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
@@ -80,7 +81,7 @@ clean:
 	      ${HOME}/.local/bin/sc \
 	      ${HOME}/.logo.xpm \
 	      ${HOME}/.mailcap \
-	      ${HOME}/.muttrc \
+	      ${HOME}/.muttrc/**/account \
 	      ${HOME}/.moc/config \
 	      ${HOME}/.moc/themes/dylanwh \
 	      ${HOME}/.tmux.conf \
