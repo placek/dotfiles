@@ -1,3 +1,4 @@
+SHELL = ${SHELL}
 CP  = cp
 LN  = ln -s
 MK  = mkdir -p
