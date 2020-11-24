@@ -57,7 +57,6 @@
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
-    haskellPackages.xmonad-wallpaper
     keepassxc
     paper-icon-theme
     pinentry-qt
@@ -99,7 +98,6 @@
         xmonad
         xmonad-contrib
         xmonad-extras
-        xmonad-wallpaper
       ];
       enable = true;
     };

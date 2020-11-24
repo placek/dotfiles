@@ -1,8 +1,8 @@
 import Data.Monoid
 import System.Exit
 import XMonad
-import XMonad.Actions.CopyWindow
 import XMonad.Actions.CycleWS
+import XMonad.Actions.CopyWindow
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -10,7 +10,6 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
-import XMonad.Wallpaper
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -115,12 +114,12 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
 myStartupHook = do
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xrdb -merge .Xresources &"
+  spawnOnce "feh --randomize --bg-fill .wall/* &"
   spawnOnce "greenclip daemon &"
   spawnOnce "dunst &"
 
 main = do
   xmproc <- spawnPipe "xmobar"
-  setupRandomWallpaper ["$HOME/.wall"]
   xmonad $ docks (defaults xmproc)
 
 defaults xmproc = desktopConfig { terminal           = myTerminal
