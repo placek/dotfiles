@@ -156,12 +156,15 @@
       Environment = [
         "DOTFILES_URL=https://github.com/placek/dotfiles.git"
         "DOTFILES_DIR=.config/dotfiles"
+        "GIT=${pkgs.git}/bin/git"
+        "MAKE=${pkgs.gnumake}/bin/make"
+        "BASH=${pkgs.bash}/bin/bash"
       ];
       RemainAfterExit = "yes";
-      ExecStartPre = "${pkgs.bash}/bin/bash -c '[ -d $HOME/$DOTFILES_DIR ] || ${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL $HOME/$DOTFILES_DIR'";
-      ExecStart    = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make install'";
-      ExecReload   = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff-only origin master && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make install'";
-      ExecStop     = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make clean'";
+      ExecStartPre = "$BASH -c '[ -d $HOME/$DOTFILES_DIR ] || $GIT clone --recurse-submodules $DOTFILES_URL $HOME/$DOTFILES_DIR'";
+      ExecStart    = "$BASH -c 'cd $HOME/$DOTFILES_DIR && $MAKE install'";
+      ExecReload   = "$BASH -c 'cd $HOME/$DOTFILES_DIR && $GIT reset --hard && $GIT pull --ff-only origin master && $MAKE install'";
+      ExecStop     = "$BASH -c 'cd $HOME/$DOTFILES_DIR && $MAKE clean'";
     };
     wantedBy = [ "default.target" ];
   };
