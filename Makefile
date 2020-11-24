@@ -1,26 +1,23 @@
-CP  = cp
-LN  = ln -s
-MK  = mkdir -p
-RM  = rm -fr
-GIT = git
-ARG = xargs -I@
-EXC = grep -Ev ".vim/|Makefile|LICENSE|README|configuration.nix"
+GIT   ?= git
+XARGS ?= xargs
+GREP  ?= grep
+EXP    = -Ev "Makefile|LICENSE|README|configuration.nix"
 
 .PHONY: clean install nix wall
 
 install: clean
-	${MK} ${HOME}/Downloads
-	${MK} ${HOME}/Music
-	${MK} ${HOME}/Projects
-	${GIT} ls-files | ${ARG} dirname @ | sort -u | ${ARG} ${MK} ${HOME}/@
-	${GIT} ls-files  | ${EXC} | ${ARG} ${LN} ${PWD}/@ ${HOME}/@
+	mkdir -p ${HOME}/Downloads
+	mkdir -p ${HOME}/Music
+	mkdir -p ${HOME}/Projects
+	${GIT} ls-files | ${XARGS} -I@ dirname @ | sort -u | ${XARGS} -I@ mkdir -p ${HOME}/@
+	${GIT} ls-files  | ${GREP} ${EXP} | ${XARGS} -I@ ln -Ffs ${PWD}/@ ${HOME}/@
 
 clean:
-	${GIT} ls-files  | ${EXC} | ${ARG} ${RM} ${HOME}/@
+	${GIT} ls-files  | ${GREP} ${EXP} | ${XARGS} -I@ rm -fr ${HOME}/@
 
 wall:
 	${GIT} clone https://gitlab.com/dwt1/wallpapers.git .wall
 
 nix:
-	${CP} configuration.nix /etc/nixos/configuration.nix
+	cp configuration.nix /etc/nixos/configuration.nix
 	nixos-rebuild switch

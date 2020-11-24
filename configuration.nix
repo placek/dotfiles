@@ -156,8 +156,8 @@
       Environment = [
         "DOTFILES_URL=https://github.com/placek/dotfiles.git"
         "DOTFILES_DIR=.config/dotfiles"
-        #"BASH=${pkgs.bash}/bin/bash"
-        #"MAKE=${pkgs.gnumake}/bin/make"
+        "XARGS=${pkgs.busybox}/bin/xargs"
+        "GREP=${pkgs.busybox}/bin/grep"
         "GIT=${pkgs.git}/bin/git"
       ];
       RemainAfterExit = "yes";
