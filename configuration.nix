@@ -176,9 +176,12 @@
       ];
       Restart      = "always";
       RestartSec   = 10;
+      User         = "placek";
       ExecStart    = "${pkgs.bash}/bin/bash -c '${pkgs.rclone}/bin/rclone --config=$HOME/$CONFIG --vfs-cache-mode writes mount --daemon --allow-non-empty projects:/ $HOME/$TARGET'";
       ExecStop     = "${pkgs.bash}/bin/bash -c '${pkgs.fuse}/bin/fusermount -u $HOME/$TARGET'";
     };
+    requires = [ "network-online.service" ];
+    after    = [ "network-online.service" ];
     wantedBy = [ "default.target" ];
   };
 
