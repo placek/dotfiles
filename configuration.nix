@@ -155,6 +155,7 @@
     serviceConfig = {
       Type = "oneshot";
       Environment = [
+        "SHELL=${pkgs.bash}/bin/bash"
         "DOTFILES_URL=https://github.com/placek/dotfiles.git"
         "DOTFILES_DIR=.config/dotfiles"
       ];
