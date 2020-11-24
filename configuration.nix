@@ -164,7 +164,7 @@
       RemainAfterExit  = "yes";
       ExecStartPre     = "-${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL .";
       ExecStart        = "${pkgs.gnumake}/bin/make install";
-      ExecReload       = "${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff-only origin master && ${pkgs.gnumake}/bin/make install";
+      ExecReload       = "${pkgs.gnumake}/bin/make install";
       ExecStop         = "${pkgs.gnumake}/bin/make clean";
     };
     wantedBy = [ "default.target" ];
