@@ -153,19 +153,15 @@
     enable = true;
     serviceConfig = {
       Environment = [
-        "DOTFILES_URL=https://github.com/placek/dotfiles.git"
+        "DOTFILES_URL=git@github.com:placek/dotfiles.git"
         "DOTFILES_DIR=.config/dotfiles"
-        "XARGS=${pkgs.busybox}/bin/xargs"
-        "GREP=${pkgs.busybox}/bin/grep"
-        "GIT=${pkgs.git}/bin/git"
       ];
       Type             = "oneshot";
-      WorkingDirectory = "/home/placek/.config/dotfiles";
       RemainAfterExit  = "yes";
-      ExecStartPre     = "-${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL .";
-      ExecStart        = "${pkgs.gnumake}/bin/make install";
-      ExecReload       = "${pkgs.gnumake}/bin/make install";
-      ExecStop         = "${pkgs.gnumake}/bin/make clean";
+      ExecStartPre     = "-${pkgs.git}/bin/git clone --recurse-submodules --bare $DOTFILES_URL $HOME/$DOTFILES_DIR";
+      ExecStart        = "${pkgs.git}/bin/git --git-dir=$HOME/$DOTFILES_DIR --work-tree=$HOME config --local status.showUntrackedFiles no";
+      ExecReload       = "${pkgs.git}/bin/git --git-dir=$HOME/$DOTFILES_DIR --work-tree=$HOME checkout";
+      ExecStop         = "true";
     };
     wantedBy = [ "default.target" ];
   };
