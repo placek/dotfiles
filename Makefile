@@ -81,7 +81,9 @@ clean:
 	      ${HOME}/.mailcap \
 	      ${HOME}/.moc/config \
 	      ${HOME}/.moc/themes/dylanwh \
-	      ${HOME}/.mutt/**/account \
+	      ${HOME}/.mutt/com.binarapps.p.placzynski/account \
+	      ${HOME}/.mutt/com.gmail.placzynski.pawel/account \
+	      ${HOME}/.mutt/com.gmail.silquenarmo/account \
 	      ${HOME}/.muttrc \
 	      ${HOME}/.tmux.conf \
 	      ${HOME}/.vim \

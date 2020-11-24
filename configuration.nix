@@ -37,7 +37,7 @@
     gnumake
     libnotify
     moc
-    mutt
+    neomutt
     ncdu
     passExtensions.pass-otp
     (pass.withExtensions (ext: with ext; [pass-otp pass-import]))

@@ -30,7 +30,7 @@ abbr --add j "journalctl"
 abbr --add s "systemctl"
 
 # aliases
-alias mail="sc $HOME/.mutt/passwords.gpg mutt"
+alias mail="sc $HOME/.mutt/passwords.gpg neomutt"
 alias tb="nc termbin.com 9999"
 
 # functions
