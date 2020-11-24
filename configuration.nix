@@ -155,15 +155,14 @@
     serviceConfig = {
       Type = "oneshot";
       Environment = [
-        "SHELL=${pkgs.bash}/bin/bash"
         "DOTFILES_URL=https://github.com/placek/dotfiles.git"
         "DOTFILES_DIR=.config/dotfiles"
       ];
       RemainAfterExit = "yes";
       ExecStartPre = "bash -c '[ -d $HOME/$DOTFILES_DIR ] || git clone --recurse-submodules $DOTFILES_URL $HOME/$DOTFILES_DIR'";
-      ExecStart    = "bash -c 'cd $HOME/$DOTFILES_DIR && make install'";
-      ExecReload   = "bash -c 'cd $HOME/$DOTFILES_DIR && git reset --hard && git pull --ff origin master && make install'";
-      ExecStop     = "bash -c 'cd $HOME/$DOTFILES_DIR && make clean'";
+      ExecStart    = "bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash make install'";
+      ExecReload   = "bash -c 'cd $HOME/$DOTFILES_DIR && git reset --hard && git pull --ff origin master && SHELL=${pkgs.bash}/bin/bash make install'";
+      ExecStop     = "bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash make clean'";
     };
     wantedBy = [ "default.target" ];
   };
