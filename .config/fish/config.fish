@@ -34,7 +34,16 @@ alias mail="sc $HOME/.mutt/passwords.gpg neomutt"
 alias tb="nc termbin.com 9999"
 
 # functions
-function rebuild-nix
+function sync-projects --description "sync projects with remote rclone 'projects' cloud"
+  set -l tmps $PROJECTS_DIR/**/tmp/*
+  set -l logs $PROJECTS_DIR/**/log/*
+  for file in $logs $temps
+    rm -rfv $file
+  end
+  rclone -v sync $PROJECTS_DIR projects:/
+end
+
+function rebuild-nix --description "copy configuration and rebuild system"
   pushd $HOME/.config/dotfiles
   sudo make nix
   popd

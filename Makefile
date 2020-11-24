@@ -37,7 +37,7 @@ install: clean
 	${LN} ${PWD}/.config/termonad/termonad.hs ${HOME}/.config/termonad/termonad.hs
 	${LN} ${PWD}/.config/qutebrowser/config.py ${HOME}/.config/qutebrowser/config.py
 	${LN} ${PWD}/.config/rofi/config.rasi ${HOME}/.config/rofi/config.rasi
-	${LN} ${PWD}/.fehbg
+	${LN} ${PWD}/.fehbg ${HOME}/.fehbg
 	${LN} ${PWD}/.git_template ${HOME}
 	${LN} ${PWD}/.gitconfig ${HOME}
 	${LN} ${PWD}/.gitignore_global ${HOME}
