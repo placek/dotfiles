@@ -160,7 +160,7 @@
         "GREP=${pkgs.busybox}/bin/grep"
         "GIT=${pkgs.git}/bin/git"
       ];
-      WorkingDirectory = "$HOME/$DOTFILES_DIR";
+      WorkingDirectory = "/home/placek/.config/dotfiles";
       RemainAfterExit  = "yes";
       ExecStartPre = "!${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL .";
       ExecStart    = "${pkgs.gnumake}/bin/make install";
