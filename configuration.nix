@@ -83,7 +83,6 @@
       extraGroups = [ "wheel" "networkmanager" "docker" ];
       packages = [];
       shell = pkgs.fish;
-      environment.variables.DOT = "git@github.com:placek/dotfiles.git";
     };
   };
 
