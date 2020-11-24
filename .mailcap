@@ -1,1 +1,1 @@
-text/html; lynx -dump '%s' | more; nametemplate=%s.html; copiousoutput;
+text/html; qutebrowser '%s' | more; nametemplate=%s.html;
