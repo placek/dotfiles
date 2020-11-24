@@ -151,7 +151,6 @@
   systemd.user.services.dotfiles = {
     description = "Dot files synchronization";
     enable = true;
-    path = [ pkgs.bash pkgs.git pkgs.gnumake ];
     serviceConfig = {
       Type = "oneshot";
       Environment = [
@@ -159,10 +158,10 @@
         "DOTFILES_DIR=.config/dotfiles"
       ];
       RemainAfterExit = "yes";
-      ExecStartPre = "bash -c '[ -d $HOME/$DOTFILES_DIR ] || git clone --recurse-submodules $DOTFILES_URL $HOME/$DOTFILES_DIR'";
-      ExecStart    = "bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash make install'";
-      ExecReload   = "bash -c 'cd $HOME/$DOTFILES_DIR && git reset --hard && git pull --ff origin master && SHELL=${pkgs.bash}/bin/bash make install'";
-      ExecStop     = "bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash make clean'";
+      ExecStartPre = "${pkgs.bash}/bin/bash -c '[ -d $HOME/$DOTFILES_DIR ] || ${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL $HOME/$DOTFILES_DIR'";
+      ExecStart    = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make install'";
+      ExecReload   = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff origin master && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make install'";
+      ExecStop     = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make clean'";
     };
     wantedBy = [ "default.target" ];
   };
