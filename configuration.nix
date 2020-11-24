@@ -166,6 +166,22 @@
     wantedBy = [ "default.target" ];
   };
 
+  systemd.user.services.projects = {
+    description = "Project files synchronization";
+    serviceConfig = {
+      Type = "simple";
+      Environment = [
+        "CONFIG=.config/rclone/rclone.conf"
+        "TARGET=Projects"
+      ];
+      Restart      = "always";
+      RestartSec   = 10;
+      ExecStart    = "${pkgs.rclone}/bin/rclone --config=$HOME/$CONFIG --vfs-cache-mode writes mount --daemon --allow-non-empty "projects":/ $HOME/$TARGET";
+      ExecStop     = "${pkgs.fuse}/bin/fusermount -u $HOME/$TARGET";
+    };
+    wantedBy = [ "default.target" ];
+  };
+
   system = {
     autoUpgrade = {
       allowReboot = true;

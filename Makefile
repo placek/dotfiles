@@ -3,7 +3,7 @@ LN  = ln -s
 MK  = mkdir -p
 RM  = rm -fr
 
-.PHONY: clean install nix
+.PHONY: clean install nix wall
 
 install: clean
 	${MK} ${HOME}/Downloads
@@ -90,6 +90,9 @@ clean:
 	      ${HOME}/.vimrc \
 	      ${HOME}/.xmobarrc \
 	      ${HOME}/.xmonad/xmonad.hs
+
+wall:
+	git clone https://gitlab.com/dwt1/wallpapers.git .wall
 
 nix:
 	${CP} configuration.nix /etc/nixos/configuration.nix
