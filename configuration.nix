@@ -160,7 +160,7 @@
       RemainAfterExit = "yes";
       ExecStartPre = "${pkgs.bash}/bin/bash -c '[ -d $HOME/$DOTFILES_DIR ] || ${pkgs.git}/bin/git clone --recurse-submodules $DOTFILES_URL $HOME/$DOTFILES_DIR'";
       ExecStart    = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make install'";
-      ExecReload   = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff origin master && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make install'";
+      ExecReload   = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && ${pkgs.git}/bin/git reset --hard && ${pkgs.git}/bin/git pull --ff-only origin master && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make install'";
       ExecStop     = "${pkgs.bash}/bin/bash -c 'cd $HOME/$DOTFILES_DIR && SHELL=${pkgs.bash}/bin/bash ${pkgs.gnumake}/bin/make clean'";
     };
     wantedBy = [ "default.target" ];
