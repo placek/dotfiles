@@ -166,24 +166,24 @@
     wantedBy = [ "default.target" ];
   };
 
-  systemd.user.services.projects = {
-    description = "Project files synchronization";
-    serviceConfig = {
-      Type = "simple";
-      Environment = [
-        "CONFIG=.config/rclone/rclone.conf"
-        "TARGET=Projects"
-      ];
-      Restart      = "always";
-      RestartSec   = 10;
-      User         = "placek";
-      ExecStart    = "${pkgs.bash}/bin/bash -c '${pkgs.rclone}/bin/rclone --config=$HOME/$CONFIG --vfs-cache-mode writes mount --daemon --allow-non-empty projects:/ $HOME/$TARGET'";
-      ExecStop     = "${pkgs.bash}/bin/bash -c '${pkgs.fuse}/bin/fusermount -u $HOME/$TARGET'";
-    };
-    requires = [ "network-online.target" ];
-    after    = [ "network-online.target" ];
-    wantedBy = [ "default.target" ];
-  };
+  #systemd.user.services.projects = {
+  #  description = "Project files synchronization";
+  #  serviceConfig = {
+  #    Type = "simple";
+  #    Environment = [
+  #      "CONFIG=.config/rclone/rclone.conf"
+  #      "TARGET=Projects"
+  #    ];
+  #    Restart      = "always";
+  #    RestartSec   = 10;
+  #    User         = "placek";
+  #    ExecStart    = "${pkgs.bash}/bin/bash -c '${pkgs.rclone}/bin/rclone --config=$HOME/$CONFIG --vfs-cache-mode writes mount --daemon --allow-non-empty projects:/ $HOME/$TARGET'";
+  #    ExecStop     = "${pkgs.bash}/bin/bash -c '${pkgs.fuse}/bin/fusermount -u $HOME/$TARGET'";
+  #  };
+  #  requires = [ "network-online.target" ];
+  #  after    = [ "network-online.target" ];
+  #  wantedBy = [ "default.target" ];
+  #};
 
   system = {
     autoUpgrade = {
