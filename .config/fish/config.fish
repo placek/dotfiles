@@ -32,9 +32,6 @@ abbr --add s "systemctl"
 # aliases
 alias mail="sc $HOME/.mutt/passwords.gpg neomutt"
 alias tb="nc termbin.com 9999"
-# git clone --bare git@github.com:placek/dotfiles.git $HOME/.config/dotfiles"
-# dotfiles config --local status.showUntrackedFiles no
-# dotfiles checkout
 alias dotfiles="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
 
 # functions
@@ -48,9 +45,8 @@ function sync-projects --description "sync projects with remote rclone 'projects
 end
 
 function rebuild-nix --description "copy configuration and rebuild system"
-  pushd $HOME/.config/dotfiles
-  sudo make nix
-  popd
+  sudo cp $HOME/.config/configuration.nix /etc/nixos/configuration.nix
+  sudo nixos-rebuild switch
 end
 
 # colors
