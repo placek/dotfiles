@@ -2,6 +2,7 @@ CP  = cp
 LN  = ln -s
 MK  = mkdir -p
 RM  = rm -fr
+GIT = git
 ARG = xargs -I@
 EXC = grep -Ev ".vim/|Makefile|LICENSE|README|configuration.nix"
 
