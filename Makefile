@@ -1,3 +1,4 @@
+SHELL = /usr/bin/env bash
 CP  = cp
 LN  = ln -s
 MK  = mkdir -p
