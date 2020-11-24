@@ -1,8 +1,7 @@
+CP  = cp
 LN  = ln -s
 MK  = mkdir -p
 RM  = rm -fr
-NO  = yes n
-GIT = git
 
 .PHONY: clean install nix
 
@@ -17,7 +16,6 @@ install: clean
 	${MK} ${HOME}/.config/rofi
 	${MK} ${HOME}/.local/bin
 	${MK} ${HOME}/.moc/themes
-	${MK} ${HOME}/.mutt
 	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/headers
 	${MK} ${HOME}/.mutt/com.binarapps.p.placzynski/messages
 	${MK} ${HOME}/.mutt/com.gmail.placzynski.pawel/headers
@@ -63,13 +61,13 @@ clean:
 	${RM} ${HOME}/.Xresources \
 	      ${HOME}/.bash_profile \
 	      ${HOME}/.config/dunst/dunstrc \
-	      ${HOME}/.config/greenclip.cfg \
 	      ${HOME}/.config/fish/base16-flat.fish \
 	      ${HOME}/.config/fish/config.fish \
 	      ${HOME}/.config/fish/prompt.fish \
-	      ${HOME}/.config/termonad/termonad.hs \
+	      ${HOME}/.config/greenclip.cfg \
 	      ${HOME}/.config/qutebrowser/config.py \
 	      ${HOME}/.config/rofi/config.rasi \
+	      ${HOME}/.config/termonad/termonad.hs \
 	      ${HOME}/.git_template \
 	      ${HOME}/.gitconfig \
 	      ${HOME}/.gitignore_global \
@@ -81,9 +79,10 @@ clean:
 	      ${HOME}/.local/bin/sc \
 	      ${HOME}/.logo.xpm \
 	      ${HOME}/.mailcap \
-	      ${HOME}/.muttrc/**/account \
 	      ${HOME}/.moc/config \
 	      ${HOME}/.moc/themes/dylanwh \
+	      ${HOME}/.mutt/**/account \
+	      ${HOME}/.muttrc \
 	      ${HOME}/.tmux.conf \
 	      ${HOME}/.vim \
 	      ${HOME}/.vimrc \
