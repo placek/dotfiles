@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+echo "installation of dotfiles"
+
+# clone dotfiles repo
+git clone --bare git@github.com:placek/dotfiles.git $HOME/.config/dotfiles
+
+# set configuration to hide untracked files
+git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME config --local status.showUntrackedFiles no
+
+# "restore" files
+git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME restore --staged $HOME
+git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME restore $HOME
+
+# init submodules
+git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule init
+git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule update
+
+# install directories
+mkdir -p $HOME/{Projects,Documents,Downloads,Clouds,Pictures,Music}

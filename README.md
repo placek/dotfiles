@@ -6,34 +6,19 @@ This is a set of configuration files I use daily.
 
 ### Prerequisites
 
-To fully use the configuration you need to install corresponding software:
+Using NixOS instalation, fetch configuration like:
 
 ```sh
-nix-env -i bash curl git tmux vim tig silver-searcher ctags entr fish lynx mutt
-nix-env -i xmonad xmobar rofi keepassxc google-chrome rxvt-unicode xclip dunst feh xdotool paper-icon-theme xkill
+curl -s http://tiny.cc/nmf5tz -o /mnt/etc/nixos/configuration.nix
 ```
 
 ### Installation
 
-1. Clone the repo:
+Run:
+
 ```sh
-git clone https://github.com/placek/dotfiles.git
+curl https://raw.githubusercontent.com/placek/dotfiles/master/install | bash -
 ```
-2. Make a custom branch:
-```sh
-git checkout -B my-configuration
-```
-3. Run make:
-```sh
-make install
-```
-3. Feel free to edit specific entries and commit them:
-```sh
-vim <whatever-config-file-in-project>
-git add .
-git commit -m "my specific configuration"
-```
-...or use them "as is".
 
 ## Contributing
 
