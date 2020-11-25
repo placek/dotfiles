@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo "installation of dotfiles"
-
 # clone dotfiles repo
 git clone --bare git@github.com:placek/dotfiles.git $HOME/.config/dotfiles
 
