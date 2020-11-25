@@ -47,3 +47,6 @@ base16-flat
 
 # prompt
 source "$HOME/.config/fish/prompt.fish"
+
+# secrets
+[ -f "$HOME/.env.gpg" ] && gpg -dq "$HOME/.env.gpg" 2> /dev/null | source
