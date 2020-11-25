@@ -49,6 +49,7 @@
     tig
     tmux
     vim
+    wget
 
     chromium
     dunst
@@ -140,6 +141,17 @@
     #     pskRaw = "7ac564da03c01a69bd1f1465412038365e5b29f41f9d584aa8978d22110b5f6f";
     #   };
     # };
+  };
+
+  systemd.services.slock = {
+    description = "Lock screen after sleep/suspend/hibernate";
+    enable = true;
+    serviceConfig = {
+      Environment = [ "DISPLAY=:0" ];
+      ExecStart   = "${pkgs.slock}/bin/slock";
+    };
+    before   = [ "sleep.target" ];
+    wantedBy = [ "sleep.target" ];
   };
 
   boot.loader.grub = {

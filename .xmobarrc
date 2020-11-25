@@ -6,7 +6,7 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "<action=`/usr/bin/env slock`> <icon=/home/placek/.logo.xpm/> </action>%UnsafeStdinReader%}{<action=`/usr/bin/env urxvt -e top`>%cpu%%memory%</action><action=`/usr/bin/env urxvt -e ncdu /`>%disku%</action><action=`/usr/bin/env urxvt -e nmtui`>%wlan0wi%%enp0s3%</action><action=`/usr/bin/env urxvt -e alsamixer`>%default:Master%</action>%battery%<action=`/usr/bin/env chromium https://calendar.google.com`>%date%</action>"
+       , template        = "<action=`/usr/bin/env xdotool key alt+shift+l`> <icon=/home/placek/.logo.xpm/> </action>%UnsafeStdinReader%}{<action=`/usr/bin/env urxvt -e top`>%cpu%%memory%</action><action=`/usr/bin/env urxvt -e ncdu /`>%disku%</action><action=`/usr/bin/env urxvt -e nmtui`>%wlan0wi%%enp0s3%</action><action=`/usr/bin/env urxvt -e alsamixer`>%default:Master%</action>%battery%<action=`/usr/bin/env chromium https://calendar.google.com`>%date%</action>"
        , commands = [ Run Cpu              [ "-t", " CPU <total>% "
                                            , "-L", "3", "-H", "50"
                                            , "-n", "#2ECC71"

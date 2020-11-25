@@ -51,7 +51,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_4     ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
     , ((modm,               xK_c     ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
     , ((modm,               xK_s     ), spawn "rofi-pass")                                                         -- launch pass
-    , ((modm .|. shiftMask, xK_l     ), spawn "slock")                                                             -- lock screen
+    , ((modm .|. shiftMask, xK_l     ), spawn "systemctl suspend")                                                 -- lock screen
     ]
     ++
     -- mod-[1..4], switch to workspace N
