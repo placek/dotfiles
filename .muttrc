@@ -10,22 +10,29 @@ source ~/.mutt/com.gmail.placzynski.pawel/account
 macro index <esc>1 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.placzynski.pawel/account<enter><change-folder>!<enter>'
 macro index <esc>2 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.silquenarmo/account<enter><change-folder>!<enter>'
 macro index <esc>3 '<sync-mailbox><enter-command>source ~/.mutt/com.binarapps.p.placzynski/account<enter><change-folder>!<enter>'
-macro index c '<change-folder>?<change-dir><home>^K=<enter>'
-
-# fetch mail shortcut
-bind index G imap-fetch-mail
 
 # other global settings
 set abort_nosubject = no
 set copy = no
-set date_format="%y-%m-%d %T"
-set editor=$EDITOR
-set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
+set date_format = "%y-%m-%d %T"
+set editor = $EDITOR
+set imap_check_subscribed = yes
+set imap_keepalive = 900
+set index_format = "%2C | %Z [%d] %-30.30F (%-4.4c) %s"
 set mail_check = 60
+set mail_check_stats = yes
 set mailcap_path = "~/.mailcap"
-set send_charset="utf-8"
-set sort = "reverse-date-received"
+set move = no
+set send_charset = "utf-8"
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set sidebar_short_path=yes
+set sidebar_visible
+set sidebar_width = 30
+set sort = threads
+set sort_aux = last-date-received
 set ssl_force_tls = yes
+set ssl_starttls = yes
+set text_flowed = yes
 set timeout = 10
 
 # key bindings
@@ -37,6 +44,10 @@ bind pager g top
 bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
+bind index R imap-fetch-mail
+bind index,pager <C-Up> sidebar-prev
+bind index,pager <C-Down> sidebar-next
+bind index,pager <C-Right> sidebar-open
 
 # colors
 color index yellow default '.*'
