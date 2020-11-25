@@ -1,6 +1,6 @@
 # folder hooks
 folder-hook 'account.com.gmail.placzynski.pawel' 'source ~/.mutt/com.gmail.placzynski.pawel/account'
-folder-hook 'account.com.gmail.silquenarmo' 'source ~/.mutt/com.gmail.silquenarmo/account'
+folder-hook 'account.com.gmail.silquenarmo'      'source ~/.mutt/com.gmail.silquenarmo/account'
 folder-hook 'account.com.binarapps.p.placzynski' 'source ~/.mutt/com.binarapps.p.placzynski/account'
 
 # default account

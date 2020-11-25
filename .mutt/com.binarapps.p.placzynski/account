@@ -11,3 +11,5 @@ set trash = "+[Gmail]/Trash"
 set header_cache = ~/.mutt/com.binarapps.p.placzynski/headers
 set message_cachedir = ~/.mutt/com.binarapps.p.placzynski/messages
 set signature="~/.mutt/com.binarapps.p.placzynski/signature"
+
+account-hook $folder "set imap_user=p.placzynski@binarapps.com"

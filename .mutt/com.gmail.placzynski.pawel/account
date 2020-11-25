@@ -11,3 +11,5 @@ set trash = "+[Gmail]/Trash"
 set header_cache = ~/.mutt/com.gmail.placzynski.pawel/headers
 set message_cachedir = ~/.mutt/com.gmail.placzynski.pawel/messages
 set signature="~/.mutt/com.gmail.placzynski.pawel/signature"
+
+account-hook $folder "set imap_user=placzynski.pawel@gmail.com"
