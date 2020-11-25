@@ -32,7 +32,7 @@ abbr --add s "systemctl"
 # aliases
 alias mail="sc $HOME/.mutt/passwords.gpg neomutt"
 alias tb="nc termbin.com 9999"
-alias dotfiles="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
+alias dot="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
 
 # functions
 function rebuild-nix --description "copy configuration and rebuild system"

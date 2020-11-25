@@ -12,6 +12,12 @@ git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME config --local status.sho
 git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME restore --staged $HOME
 git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME restore $HOME
 
+# ignore meta files
+git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME update-index --assume-unchanged $HOME/LICENSE
+git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME update-index --assume-unchanged $HOME/README.md
+git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME update-index --assume-unchanged $HOME/install
+rm $HOME/LICENSE $HOME/README.md $HOME/install
+
 # init submodules
 rm -rf $HOME/.vim
 git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule init
