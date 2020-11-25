@@ -6,7 +6,6 @@ set from = "placzynski.pawel@gmail.com"
 set realname = "Paweł Placzyński"
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
-set postponed = "+[Gmail]/Drafts"
 set record = "+[Gmail]/Sent Mail"
 set trash = "+[Gmail]/Trash"
 set header_cache = ~/.mutt/com.gmail.placzynski.pawel/headers
