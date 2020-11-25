@@ -17,7 +17,7 @@ curl -s http://tiny.cc/nmf5tz -o /mnt/etc/nixos/configuration.nix
 Run:
 
 ```sh
-curl http://tiny.cc/sqf5tz | bash -
+curl -L http://tiny.cc/sqf5tz | bash -
 ```
 
 ## Contributing

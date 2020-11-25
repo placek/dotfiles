@@ -13,6 +13,7 @@ git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME restore --staged $HOME
 git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME restore $HOME
 
 # init submodules
+rm -rf $HOME/.vim
 git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule init
 git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule update
 
