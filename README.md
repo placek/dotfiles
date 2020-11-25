@@ -17,7 +17,7 @@ curl -s http://tiny.cc/nmf5tz -o /mnt/etc/nixos/configuration.nix
 Run:
 
 ```sh
-curl https://raw.githubusercontent.com/placek/dotfiles/master/install | bash -
+curl http://tiny.cc/sqf5tz | bash -
 ```
 
 ## Contributing
