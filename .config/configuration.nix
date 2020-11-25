@@ -14,7 +14,11 @@
   security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
   sound.enable = true;
   time.timeZone = "Europe/Warsaw";
-  virtualisation.docker.enable = true;
+
+  virtualisation.docker = {
+    autoPrune.dates = "daily";
+    enable = true;
+  };
 
   programs = {
     ssh.startAgent = false;
@@ -87,24 +91,36 @@
     };
   };
 
-  services.xserver = {
-    layout = "pl";
-    libinput.enable = true;
-    windowManager.xmonad = {
-      enableContribAndExtras = true;
-      haskellPackages = pkgs.haskell.packages.ghc865;
-      extraPackages = haskellPackages: with haskellPackages; [
-        alsa-core
-        alsa-mixer
-        xmonad
-        xmonad-contrib
-        xmonad-extras
-      ];
+  services = {
+    acpid.enable = true;
+    cron.enable = true;
+    printing.enable = true;
+    xserver = {
+      displayManager.defaultSession = "none+xmonad";
+      displayManager.lightdm.enable = true;
       enable = true;
+      layout = "pl";
+      libinput.enable = true;
+      windowManager.xmonad = {
+        enableContribAndExtras = true;
+        haskellPackages = pkgs.haskell.packages.ghc865;
+        extraPackages = haskellPackages: with haskellPackages; [
+          alsa-core
+          alsa-mixer
+          xmonad
+          xmonad-contrib
+          xmonad-extras
+        ];
+        enable = true;
+      };
+      xautolock = {
+        enable = true;
+        enableNotifier = true;
+        locker = ''${pkgs.xlockmore}/bin/xlock -mode blank'';
+        notifier =
+          ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
+      };
     };
-    displayManager.defaultSession = "none+xmonad";
-    displayManager.lightdm.enable = true;
-    enable = true;
   };
 
   fonts = {
@@ -141,17 +157,6 @@
     #     pskRaw = "7ac564da03c01a69bd1f1465412038365e5b29f41f9d584aa8978d22110b5f6f";
     #   };
     # };
-  };
-
-  systemd.services.slock = {
-    description = "Lock screen after sleep/suspend/hibernate";
-    enable = true;
-    serviceConfig = {
-      Environment = [ "DISPLAY=:0" ];
-      ExecStart   = "${pkgs.slock}/bin/slock";
-    };
-    before   = [ "sleep.target" ];
-    wantedBy = [ "sleep.target" ];
   };
 
   boot.loader.grub = {
