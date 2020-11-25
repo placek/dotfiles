@@ -116,9 +116,8 @@
       xautolock = {
         enable = true;
         enableNotifier = true;
-        locker = ''${pkgs.xlockmore}/bin/xlock -mode blank'';
-        notifier =
-          ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
+        locker = "${pkgs.slock}/bin/slock";
+        notifier = "${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'";
       };
     };
   };
