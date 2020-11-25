@@ -31,7 +31,7 @@ abbr --add j "journalctl"
 abbr --add s "systemctl"
 
 # aliases
-alias mail="sc $HOME/.mutt/passwords.gpg neomutt"
+alias mail="neomutt"
 alias tb="nc termbin.com 9999"
 alias dots="git --git-dir=$DOTFILES_DIR --work-tree=$HOME"
 
@@ -49,4 +49,7 @@ base16-flat
 source "$HOME/.config/fish/prompt.fish"
 
 # secrets
-[ -f "$HOME/.env.gpg" ] && gpg -dq "$HOME/.env.gpg" 2> /dev/null | source
+#   gpg -r your.email@example.com -e .env
+for file in (find $HOME -maxdepth 1 -type f | grep .env.gpg)
+  gpg -dq $file 2> /dev/null | source
+end
