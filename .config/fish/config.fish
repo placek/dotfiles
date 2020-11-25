@@ -1,5 +1,6 @@
 set -gx EDITOR vim
 set -gx PROJECTS_DIR "$HOME/Projects"
+set -gx DOTFILES_DIR "$HOME/.config/dotfiles"
 
 # pfetch greetings
 function fish_greeting
@@ -32,7 +33,7 @@ abbr --add s "systemctl"
 # aliases
 alias mail="sc $HOME/.mutt/passwords.gpg neomutt"
 alias tb="nc termbin.com 9999"
-alias dots="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
+alias dots="git --git-dir=$DOTFILES_DIR --work-tree=$HOME"
 
 # functions
 function rebuild-nix --description "copy configuration and rebuild system"

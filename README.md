@@ -9,7 +9,7 @@ This is a set of configuration files I use daily.
 Using NixOS instalation, fetch configuration like:
 
 ```sh
-curl -s http://tiny.cc/nmf5tz -o /mnt/etc/nixos/configuration.nix
+curl -Ls http://tiny.cc/nmf5tz -o /mnt/etc/nixos/configuration.nix
 ```
 
 ### Installation
