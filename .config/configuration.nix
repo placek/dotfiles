@@ -61,7 +61,6 @@
     chromium
     dunst
     feh
-    haskellPackages.greenclip
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
@@ -97,6 +96,7 @@
   services = {
     acpid.enable = true;
     cron.enable = true;
+    greenclip.enable = true;
     printing.enable = true;
     xserver = {
       displayManager.defaultSession = "none+xmonad";
