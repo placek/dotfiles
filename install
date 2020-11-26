@@ -24,5 +24,7 @@ git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule update
 # install directories
 mkdir -p $HOME/{Projects,Documents,Downloads,Clouds,Pictures,Music}
 
-# install fisher and fzf plugin
-fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher && fisher install PatrickF1/fzf.fish"
+# install fzf plugin for fish
+curl -L https://github.com/PatrickF1/fzf.fish/archive/v4.10.tar.gz | tar -xz -C /tmp
+cp /tmp/fzf.fish-4.10/conf.d/*.fish $HOME/.config/fish/conf.d
+cp /tmp/fzf.fish-4.10/functions/*.fish $HOME/.config/fish/functions
