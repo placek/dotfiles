@@ -45,9 +45,7 @@
     inxi
     libnotify
     moc
-    ncdu
     neomutt
-    passExtensions.pass-otp
     pinentry-curses
     rclone
     rsync
@@ -78,6 +76,7 @@
     xmobar
     xmonad-with-packages
     xorg.xkill
+    xorg.xmessage
     youtube-dl
   ];
 

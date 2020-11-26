@@ -48,10 +48,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
     , ((modm .|. shiftMask, xK_x     ), spawn "xkill")                                                             -- xkill
-    , ((modm .|. shiftMask, xK_4     ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
-    , ((modm,               xK_c     ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
+    , ((modm .|. shiftMask, xK_s     ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
     , ((modm,               xK_s     ), spawn "rofi-pass")                                                         -- launch pass
+    , ((modm,               xK_c     ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
     , ((modm .|. shiftMask, xK_l     ), spawn "slock")                                                             -- lock screen
+    , ((modm,               xK_i     ), spawn "bash -c 'inxi -v8 -xxx | xmessage -center -file -'")                -- system full info
     ]
     ++
     -- mod-[1..4], switch to workspace N
@@ -85,10 +86,13 @@ myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2)
     ratio   = 2/3
     delta   = 3/100
 
-myManageHook = composeAll [ className =? "Gimp" --> doFloat ]
+myManageHook = composeAll [ className =? "Gimp"         --> doFloat
+                          , className =? "Xmessage"     --> doFloat
+                          , className =? "Gcr-prompter" --> doFloat
+                          ]
 
 workspaceNames :: [String]
-workspaceNames = ["web", "dev", "misc", "kee"]
+workspaceNames = ["web", "dev", "sys", "misc"]
 
 myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
