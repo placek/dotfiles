@@ -101,14 +101,6 @@
       displayManager.lightdm = {
         enable = true;
         greeters.mini.enable = true;
-        greeters.mini.user = config.user.name;
-        greeters.mini.extraConfig = ''
-          text-color = "#ff79c6"
-          password-background-color = "#1E2029"
-          window-color = "#181a23"
-          border-color = "#181a23"
-        '';
-        };
       };
       enable = true;
       layout = "pl";
