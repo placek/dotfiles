@@ -53,3 +53,6 @@ source "$HOME/.config/fish/prompt.fish"
 for file in (find $HOME -maxdepth 1 -type f | grep .env.gpg)
   gpg -dq $file 2> /dev/null | source
 end
+
+# set vi mode
+fish_vi_key_bindings
