@@ -45,8 +45,8 @@
     inxi
     libnotify
     moc
+    ncdu
     neomutt
-    pinentry-curses
     rclone
     rsync
     silver-searcher
@@ -65,7 +65,7 @@
     haskellPackages.xmonad-extras
     keepassxc
     paper-icon-theme
-    pinentry-qt
+    pinentry
     qutebrowser
     rofi
     rofi-pass
@@ -98,7 +98,18 @@
     printing.enable = true;
     xserver = {
       displayManager.defaultSession = "none+xmonad";
-      displayManager.lightdm.enable = true;
+      displayManager.lightdm = {
+        enable = true;
+        greeters.mini.enable = true;
+        greeters.mini.user = config.user.name;
+        greeters.mini.extraConfig = ''
+          text-color = "#ff79c6"
+          password-background-color = "#1E2029"
+          window-color = "#181a23"
+          border-color = "#181a23"
+        '';
+        };
+      };
       enable = true;
       layout = "pl";
       libinput.enable = true;
