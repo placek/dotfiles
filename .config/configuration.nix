@@ -30,21 +30,23 @@
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
     bash
+    bat
     ctags
     curl
     docker-compose
     entr
+    fd
     fish
     fzf
     git
     gnumake
     libnotify
     moc
-    neomutt
     ncdu
+    neomutt
     passExtensions.pass-otp
-    (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
     pfetch
     pinentry-curses
     rclone
@@ -55,6 +57,7 @@
     vim
     wget
 
+    arandr
     chromium
     dunst
     feh

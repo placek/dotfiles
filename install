@@ -23,3 +23,6 @@ git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule update
 
 # install directories
 mkdir -p $HOME/{Projects,Documents,Downloads,Clouds,Pictures,Music}
+
+# install fisher and fzf plugin
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher && fisher install PatrickF1/fzf.fish
