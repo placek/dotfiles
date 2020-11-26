@@ -42,12 +42,12 @@
     fzf
     git
     gnumake
+    inxi
     libnotify
     moc
     ncdu
     neomutt
     passExtensions.pass-otp
-    pfetch
     pinentry-curses
     rclone
     rsync
@@ -57,6 +57,7 @@
     vim
     wget
 
+    alacritty
     arandr
     chromium
     dunst
@@ -70,10 +71,8 @@
     qutebrowser
     rofi
     rofi-pass
-    rxvt-unicode
     scrot
     slock
-    termonad-with-packages
     xclip
     xdotool
     xmobar

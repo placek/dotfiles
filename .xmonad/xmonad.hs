@@ -21,7 +21,7 @@ myFocusFollowsMouse  = True
 myFocusedBorderColor = "#3498DB"
 myModMask            = mod1Mask -- mod4Mask.
 myNormalBorderColor  = "#2C3E50"
-myTerminal           = "termonad"
+myTerminal           = "alacritty"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                                              -- launch a terminal
@@ -115,7 +115,6 @@ myStartupHook = do
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xrdb -merge .Xresources &"
   spawnOnce "exec ~/.fehbg &"
-  spawnOnce "greenclip daemon &"
   spawnOnce "dunst &"
 
 main = do

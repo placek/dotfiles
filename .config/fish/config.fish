@@ -4,7 +4,7 @@ set -gx DOTFILES_DIR "$HOME/.config/dotfiles"
 
 # pfetch greetings
 function fish_greeting
-  pfetch
+  inxi
 end
 
 # local binaries
