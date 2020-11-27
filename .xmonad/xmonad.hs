@@ -10,6 +10,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
+import XMonad.Hooks.ManageHelpers
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -52,7 +53,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_s     ), spawn "rofi-pass")                                                         -- launch pass
     , ((modm,               xK_c     ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
     , ((modm .|. shiftMask, xK_l     ), spawn "slock")                                                             -- lock screen
-    , ((modm,               xK_i     ), spawn "bash -c 'inxi -v8 -xxx | xmessage -center -file -'")                -- system full info
+    , ((modm,               xK_i     ), spawn "bash -c 'inxi -c0 -w -v8 -xxx | xmessage -center -file -'")         -- system full info
+    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
     ]
     ++
     -- mod-[1..4], switch to workspace N
@@ -88,7 +90,7 @@ myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2)
 
 myManageHook = composeAll [ className =? "Gimp"         --> doFloat
                           , className =? "Xmessage"     --> doFloat
-                          , className =? "Gcr-prompter" --> doFloat
+                          , className =? "Gcr-prompter" --> doCenterFloat
                           ]
 
 workspaceNames :: [String]
