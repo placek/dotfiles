@@ -52,7 +52,7 @@
     silver-searcher
     tig
     tmux
-    vim
+    vimHugeX
     wget
 
     alacritty

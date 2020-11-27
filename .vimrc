@@ -19,7 +19,7 @@ packadd! fugitive
 set backspace=indent,eol,start
 set backup
 set backupdir=/tmp
-set clipboard=unnamed
+set clipboard=unnamedplus
 set completeopt=longest,menuone
 set cursorline
 set dir=/tmp
