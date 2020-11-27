@@ -5,12 +5,17 @@ configuration {
   location: 2;
 }
 
+window {
+  border: 0 4px 4px 4px;
+  border-color: #3498DB;
+}
+
 * {
   background-color: #34495E;
   text-color: #ECF0F1;
   spacing: 0;
-  width: 512px;
-  font: "Iosevka 12";
+  width: 33%;
+  font: "Iosevka 18";
 }
 
 inputbar {
@@ -18,15 +23,13 @@ inputbar {
 }
 
 prompt {
-  padding: 8px;
-}
-
-textbox {
   padding: 4px;
+  background-color: #3498DB;
 }
 
 entry {
-  padding: 8px 16px;
+  padding: 4px;
+  background-color: #5F5F5F;
 }
 
 listview {
@@ -35,7 +38,7 @@ listview {
 }
 
 element {
-  padding: 8px;
+  padding: 4px;
 }
 
 element selected {

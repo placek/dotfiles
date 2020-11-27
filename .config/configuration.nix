@@ -101,6 +101,7 @@
       displayManager.defaultSession = "none+xmonad";
       displayManager.lightdm = {
         enable = true;
+        dpi = 144;
         greeters.mini.enable = true;
         greeters.mini.user = "placek";
         greeters.mini.extraConfig = ''
@@ -148,6 +149,7 @@
 
   fonts = {
     fonts = [
+      pkgs.corefonts
       pkgs.iosevka-bin
       pkgs.ubuntu_font_family
     ];
