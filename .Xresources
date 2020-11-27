@@ -45,23 +45,3 @@
 
 Xft.rgba:              none
 Xft.hintstyle:         hintfull
-
-URxvt*font:            xft:Iosevka:size=12:minspace=False
-URxvt*imFont:          xft:Iosevka:italic:size=12:minspace=False
-URxvt*boldFont:        xft:Iosevka:bold:size=12:minspace=False
-URxvt*italicFont:      xft:Iosevka:italic:size=12:minspace=False
-URxvt*boldItalicFont:  xft:Iosevka:bold italic:size=12:minspace=False
-URxvt*buffered:        true
-URxvt*loginShell:      true
-
-URxvt.xftAntialias:    true
-URxvt.xftHinting:	     true
-URxvt.letterSpace:     -1
-URxvt.lineSpace:       0
-URxvt.internalBorder:  4
-URxvt.cursorBlink:     false
-URxvt.cursorUnderline: false
-URxvt.saveline:        0
-URxvt.scrollBar:       false
-URxvt.scrollBar_right: false
-URxvt.urgentOnBell:    true
