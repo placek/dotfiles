@@ -147,7 +147,6 @@
 
   fonts = {
     fonts = [
-      pkgs.font-awesome
       pkgs.iosevka-bin
       pkgs.ubuntu_font_family
     ];
