@@ -103,10 +103,11 @@
         greeters.mini.enable = true;
         greeters.mini.user = "placek";
         greeters.mini.extraConfig = ''
-          text-color = "#FF0000"
-          password-background-color = "#00FF00"
-          window-color = "#0000FF"
-          border-color = "#FF00FF"
+          [greeter]
+            show-password-label = false
+          password-background-color = "#5F5F5F"
+          window-color = "#5F5F5F"
+          border-color = "#2ECC71"
         '';
       };
       enable = true;
