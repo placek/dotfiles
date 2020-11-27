@@ -108,15 +108,17 @@
           invalid-password-text = nope!
           show-input-cursor = false
           password-alignment = left
+          [greeter-theme]
           font = "Iosevka"
-          background-color = "##5F5F5F"
+          font-weight = normal
+          error-color = "#F5F5F5"
+          password-color = "#F5F5F5"
+          background-color = "#5F5F5F"
           window-color = "#2C3E50"
           border-color = "#3498DB"
-          border-width = 1px
-          password-background-color = "#5F5F5F"
-          password-color = "#F5F5F5"
-          password-border-color = "#3498DB"
-          password-border-width = 1px
+          border-width = 4px
+          password-background-color = "#2C3E50"
+          password-border-width = 0px
         '';
       };
       enable = true;
