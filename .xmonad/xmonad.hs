@@ -45,8 +45,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))                                             -- deincrement the number of windows in the master area
     , ((modm              , xK_Right ), nextWS)                                                                    -- go to next workspace
     , ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
-    , ((modm .|. shiftMask, xK_Right ), shiftToNextWS)                                                             -- move to next workspace
-    , ((modm .|. shiftMask, xK_Left  ), shiftToPrevWS)                                                             -- move to previous workspace
+    , ((modm .|. shiftMask, xK_Right ), shiftToNext)                                                               -- move to next workspace
+    , ((modm .|. shiftMask, xK_Left  ), shiftToPrev)                                                               -- move to previous workspace
     , ((modm              , xK_b     ), sendMessage ToggleStruts)                                                  -- toggle the status bar gap
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
