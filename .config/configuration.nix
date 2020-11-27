@@ -110,6 +110,7 @@
           invalid-password-text = nope!
           show-input-cursor = false
           password-alignment = left
+          password-input-width = 12
           [greeter-theme]
           font = "Iosevka"
           font-weight = normal
