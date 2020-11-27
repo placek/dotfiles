@@ -1,5 +1,5 @@
 Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
-       , additionalFonts = []
+       , additionalFonts = ["xft:FontAwesome:size=12:antialias=true:hinting=true"]
        , bgColor         = "#5F5F5F"
        , fgColor         = "#ECF0F1"
        , position        = TopW L 100
