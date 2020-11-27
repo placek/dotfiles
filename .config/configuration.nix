@@ -104,10 +104,19 @@
         greeters.mini.user = "placek";
         greeters.mini.extraConfig = ''
           [greeter]
-            show-password-label = false
+          show-password-label = false
+          invalid-password-text = nope!
+          show-input-cursor = false
+          password-alignment = left
+          font = "Iosevka"
+          background-color = "##5F5F5F"
+          window-color = "#2C3E50"
+          border-color = "#3498DB"
+          border-width = 1px
           password-background-color = "#5F5F5F"
-          window-color = "#5F5F5F"
-          border-color = "#2ECC71"
+          password-color = "#F5F5F5"
+          password-border-color = "#3498DB"
+          password-border-width = 1px
         '';
       };
       enable = true;
