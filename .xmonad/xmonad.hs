@@ -88,9 +88,11 @@ myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2)
     ratio   = 2/3
     delta   = 3/100
 
-myManageHook = composeAll [ className =? "Gimp"         --> doFloat
-                          , className =? "Xmessage"     --> doFloat
-                          , className =? "Gcr-prompter" --> doCenterFloat
+myManageHook = composeAll [ className =? "Gimp"             --> doFloat
+                          , className =? "Xmessage"         --> doFloat
+                          , className =? "Gcr-prompter"     --> doCenterFloat
+                          , className =? "qutebrowser"      --> doShift ( myWorkspaces !! 0 )
+                          , className =? "Chromium-browser" --> doShift ( myWorkspaces !! 0 )
                           ]
 
 workspaceNames :: [String]
@@ -118,8 +120,6 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
           "Spacing Full"        -> "full"
 
 myStartupHook = do
-  spawnOnce "xsetroot -cursor_name left_ptr"
-  spawnOnce "xrdb -merge .Xresources &"
   spawnOnce "exec ~/.fehbg &"
   spawnOnce "dunst &"
 

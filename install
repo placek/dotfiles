@@ -28,3 +28,6 @@ mkdir -p $HOME/{Projects,Documents,Downloads,Clouds,Pictures,Music}
 curl -L https://github.com/PatrickF1/fzf.fish/archive/v4.10.tar.gz | tar -xz -C /tmp
 cp /tmp/fzf.fish-4.10/conf.d/*.fish $HOME/.config/fish/conf.d
 cp /tmp/fzf.fish-4.10/functions/*.fish $HOME/.config/fish/functions
+
+# rebuild xresources config
+xrdb -merge .Xresources
