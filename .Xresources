@@ -43,10 +43,10 @@
 
 *termName:             xterm-256color
 
-Xft.dpi:               192
+Xft.dpi:               92
 Xft.autohint:          0
-Xft.lcdfilter:         lcddefault
+Xft.lcdfilter:         lcdfilter
 Xft.hintstyle:         hintfull
-Xft.hinting:           1
-Xft.antialias:         1
+Xft.hinting:           true
+Xft.antialias:         true
 Xft.rgba:              rgb
