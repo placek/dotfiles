@@ -101,6 +101,13 @@
       displayManager.lightdm = {
         enable = true;
         greeters.mini.enable = true;
+        greeters.mini.user = "placek";
+        greeters.mini.extraConfig = ''
+          text-color = "#FF0000"
+          password-background-color = "#00FF00"
+          window-color = "#0000FF"
+          border-color = "#FF00FF"
+        '';
       };
       enable = true;
       layout = "pl";
