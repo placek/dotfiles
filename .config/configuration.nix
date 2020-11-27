@@ -47,6 +47,7 @@
     moc
     ncdu
     neomutt
+    openvpn
     rclone
     rsync
     silver-searcher
