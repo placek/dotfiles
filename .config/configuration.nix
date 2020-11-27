@@ -98,10 +98,10 @@
     greenclip.enable = true;
     printing.enable = true;
     xserver = {
+      dpi = 144;
       displayManager.defaultSession = "none+xmonad";
       displayManager.lightdm = {
         enable = true;
-        dpi = 144;
         greeters.mini.enable = true;
         greeters.mini.user = "placek";
         greeters.mini.extraConfig = ''
