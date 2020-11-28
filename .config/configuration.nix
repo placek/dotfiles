@@ -48,6 +48,8 @@
     ncdu
     neomutt
     openvpn
+    paperkey
+    pinentry-curses
     rclone
     rsync
     silver-searcher
@@ -64,9 +66,8 @@
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
-    keepassxc
     paper-icon-theme
-    pinentry
+    pinentry-qt
     qutebrowser
     rofi
     rofi-pass

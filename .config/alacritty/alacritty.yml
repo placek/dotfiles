@@ -4,7 +4,7 @@ window:
   padding:
     x: 4
     y: 4
-  title: Alacritty
+  title: TTY
   class:
     instance: Alacritty
     general: Alacritty
@@ -32,8 +32,8 @@ colors:
     background: '0x2c3e50'
     foreground: '0xe0e0e0'
   cursor:
-    text: '0x2c3e50'
-    cursor: '0xe0e0e0'
+    text:    '0x2c3e50'
+    cursor:  '0xe0e0e0'
   normal:
     black:   '0x2c3e50'
     red:     '0xe74c3c'
