@@ -101,7 +101,7 @@ workspaceNames = ["web", "dev", "sys", "misc"]
 
 myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
-  where clickable (k, w) = xmobarAction ("xdotool key alt+" ++ show k) "1" w
+  where clickable (k, w) = xmobarAction ("xdotool key super+" ++ show k) "1" w
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
                                              , ppCurrent         = xmobarColor "#5F5F5F" "#2ECC71" . wrap " " " "
@@ -109,7 +109,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppHiddenNoWindows = wrap " " " "
                                              , ppVisible         = wrap "(" ")"
                                              , ppTitle           = xmobarColor "#F1C40F"  "" . shorten 40
-                                             , ppLayout          = xmobarAction "xdotool key alt+space" "1" . layout
+                                             , ppLayout          = xmobarAction "xdotool key super+space" "1" . layout
                                              , ppUrgent          = xmobarColor "#E74C3C" "#F1C40F"
                                              , ppWsSep           = ""
                                              , ppSep             = " \xE0B1 "
