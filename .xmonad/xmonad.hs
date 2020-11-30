@@ -112,6 +112,9 @@ myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
   where clickable (k, w) = xmobarAction ("xdotool key super+" ++ show k) "1" w
 
+windowCount :: X (Maybe String)
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
                                              , ppCurrent         = xmobarColor "#5F5F5F" "#2ECC71" . wrap " " " "
                                              , ppHidden          = xmobarColor "#2ECC71" "" . wrap " " " "
@@ -122,6 +125,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppUrgent          = xmobarColor "#E74C3C" "#F1C40F"
                                              , ppWsSep           = ""
                                              , ppSep             = " \xE0B1 "
+                                             , ppExtras          = [windowCount]
                                              }
   where layout a = case a of
           "Spacing Tall"        -> "tall"

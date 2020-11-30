@@ -88,7 +88,7 @@
       isNormalUser = true;
       description = "Paweł Placzyński";
       extraGroups = [ "wheel" "networkmanager" "docker" ];
-      packages = [
+      packages = with pkgs; [
         # arduino
         # blender
         # eagle
