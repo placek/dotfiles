@@ -88,7 +88,18 @@
       isNormalUser = true;
       description = "Paweł Placzyński";
       extraGroups = [ "wheel" "networkmanager" "docker" ];
-      packages = [];
+      packages = [
+        # arduino
+        # blender
+        # eagle
+        gimp
+        inkscape
+        # libreoffice-fresh
+        # mplayer
+        # musescore
+        shotwell
+        # virtualbox
+      ];
       shell = pkgs.fish;
     };
   };
@@ -180,6 +191,10 @@
     #   plackiplay = {
     #     ssid = "placki-play";
     #     pskRaw = "7ac564da03c01a69bd1f1465412038365e5b29f41f9d584aa8978d22110b5f6f";
+    #   };
+    #   binarapps = {
+    #     ssid = "BinarApps";
+    #     pskRaw = "1b3046f79a34b6e42c8717cfc969765bdf6e351950204e939ee2de10f2a660e4";
     #   };
     # };
   };

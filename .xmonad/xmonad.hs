@@ -1,4 +1,5 @@
 import Data.Monoid
+import Graphics.X11.ExtraTypes.XF86
 import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
@@ -56,6 +57,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_t     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
     , ((modm              , xK_q     ), kill)                                                                      -- close focused window
     , ((modm .|. shiftMask, xK_q     ), spawn "xkill")                                                             -- xkill
+    --, ((0, xF86XK_MonBrightnessDown), spawn "")
+    --, ((0, xF86XK_MonBrightnessUp  ), spawn "")
+    --
+    --, ((0, xF86XK_AudioPrev        ), spawn "")
+    --, ((0, xF86XK_AudioPlay        ), spawn "")
+    --, ((0, xF86XK_AudioNext        ), spawn "")
+    --, ((0, xF86XK_AudioMute        ), spawn "")
+    --, ((0, xF86XK_AudioLowerVolume ), spawn "")
+    --, ((0, xF86XK_AudioRaiseVolume ), spawn "")
     ]
     ++
     -- mod-[1..4], switch to workspace N
@@ -89,8 +99,7 @@ myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2)
     ratio   = 2/3
     delta   = 3/100
 
-myManageHook = composeAll [ className =? "Gimp"             --> doFloat
-                          , className =? "Xmessage"         --> doFloat
+myManageHook = composeAll [ className =? "Xmessage"         --> doFloat
                           , className =? "Gcr-prompter"     --> doCenterFloat
                           , className =? "qutebrowser"      --> doShift ( myWorkspaces !! 0 )
                           , className =? "Chromium-browser" --> doShift ( myWorkspaces !! 0 )
