@@ -1,7 +1,7 @@
 [core]
-  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-  excludesfile = ~/.gitignore_global
   attributesfile = ~/.gitattributes_global
+  excludesfile = ~/.gitignore_global
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 [apply]
   whitespace = nowarn
 [rerere]
