@@ -53,3 +53,7 @@ colors:
     cyan:    '0xbe643c'
     white:   '0xecf0f1'
 draw_bold_text_with_bright_colors: false
+
+key_bindings:
+  - { key: V, mods: Super, action: Paste }
+  - { key: C, mods: Super, action: Copy  }

@@ -11,7 +11,6 @@ import XMonad.Layout.Spiral
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 import XMonad.Hooks.ManageHelpers
-
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
@@ -20,43 +19,43 @@ myClickJustFocuses   = False
 myEventHook          = mempty
 myFocusFollowsMouse  = True
 myFocusedBorderColor = "#3498DB"
-myModMask            = mod1Mask -- mod4Mask.
+myModMask            = mod4Mask
 myNormalBorderColor  = "#2C3E50"
 myTerminal           = "alacritty"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                                              -- launch a terminal
-    , ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
+    [ ((modm .|. shiftMask, xK_Escape), spawn "slock")                                                             -- lock screen
     , ((modm              , xK_Return), windows W.swapMaster)                                                      -- swap the focused window and the master window
+    , ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+    , ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
+    , ((modm .|. shiftMask, xK_Left  ), shiftToPrev)                                                               -- move to previous workspace
     , ((modm              , xK_Right ), nextWS)                                                                    -- go to next workspace
+    , ((modm .|. shiftMask, xK_Right ), shiftToNext)                                                               -- move to next workspace
+    , ((modm              , xK_space ), sendMessage NextLayout)                                                    -- rotate through the available layouts
+    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)                                        -- reset the layouts on the current workspace to default
     , ((modm              , xK_b     ), sendMessage ToggleStruts)                                                  -- toggle the status bar gap
-    , ((modm              , xK_c     ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))                                                -- increment the number of windows in the master area
+    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
     , ((modm              , xK_h     ), sendMessage Shrink)                                                        -- shrink the master area
+    , ((modm .|. shiftMask, xK_h     ), sendMessage (IncMasterN 1))                                                -- increment the number of windows in the master area
     , ((modm              , xK_i     ), spawn "bash -c 'inxi -c0 -w -v8 -xxx | xmessage -center -file -'")         -- system full info
     , ((modm              , xK_j     ), windows W.focusDown)                                                       -- move focus to the next window
+    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )                                                      -- swap the focused window with the next window
     , ((modm              , xK_k     ), windows W.focusUp  )                                                       -- move focus to the previous window
+    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )                                                      -- swap the focused window with the previous window
     , ((modm              , xK_l     ), sendMessage Expand)                                                        -- expand the master area
+    , ((modm .|. shiftMask, xK_l     ), sendMessage (IncMasterN (-1)))                                             -- deincrement the number of windows in the master area
     , ((modm              , xK_m     ), windows W.focusMaster  )                                                   -- move focus to the master window
     , ((modm              , xK_n     ), refresh)                                                                   -- resize viewed windows to the correct size
+    , ((modm .|. shiftMask, xK_n     ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
     , ((modm              , xK_p     ), spawn "rofi -show combi")                                                  -- launch drun menu
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))                                             -- deincrement the number of windows in the master area
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
+    , ((modm .|. shiftMask, xK_p     ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
+    , ((modm              , xK_x     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
+    , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
     , ((modm              , xK_s     ), spawn "rofi-pass")                                                         -- launch pass
-    , ((modm              , xK_space ), sendMessage NextLayout)                                                    -- rotate through the available layouts
-    , ((modm              , xK_t     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
-    , ((modm .|. shiftMask, xK_Left  ), shiftToPrev)                                                               -- move to previous workspace
-    , ((modm .|. shiftMask, xK_Right ), shiftToNext)                                                               -- move to next workspace
-    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
-    , ((modm .|. shiftMask, xK_c     ), kill)                                                                      -- close focused window
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )                                                      -- swap the focused window with the next window
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )                                                      -- swap the focused window with the previous window
-    , ((modm .|. shiftMask, xK_l     ), spawn "slock")                                                             -- lock screen
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
     , ((modm .|. shiftMask, xK_s     ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)                                        -- reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_x     ), spawn "xkill")                                                             -- xkill
-    , ((modm .|. shiftMask, xK_z     ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
+    , ((modm              , xK_t     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
+    , ((modm              , xK_q     ), kill)                                                                      -- close focused window
+    , ((modm .|. shiftMask, xK_q     ), spawn "xkill")                                                             -- xkill
     ]
     ++
     -- mod-[1..4], switch to workspace N
