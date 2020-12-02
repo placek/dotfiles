@@ -1,33 +1,51 @@
 { config, pkgs, ... }:
 
 {
+  # imports
   imports = [
     ./hardware-configuration.nix
   ];
 
-  boot.cleanTmpDir = true;
-  console.keyMap = "pl";
-  hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = true;
-  i18n.defaultLocale = "pl_PL.UTF-8";
-  powerManagement.enable = true;
-  security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
-  sound.enable = true;
-  time.timeZone = "Europe/Warsaw";
+  # common setup
+  boot.cleanTmpDir                         = true;
+  console.keyMap                           = "pl";
+  fonts.enableDefaultFonts                 = true;
+  fonts.fontconfig.defaultFonts.monospace  = [ "Iosevka" ];
+  fonts.fontconfig.defaultFonts.sansSerif  = [ "Ubuntu" ];
+  fonts.fontconfig.defaultFonts.serif      = [ "Ubuntu" ];
+  fonts.fonts                              = [ pkgs.iosevka-bin pkgs.ubuntu_font_family ];
+  hardware.bluetooth.enable                = true;
+  hardware.pulseaudio.enable               = true;
+  i18n.defaultLocale                       = "pl_PL.UTF-8";
+  networking.firewall.allowPing            = false;
+  networking.firewall.allowedTCPPortRanges = [ { from = 3000; to = 3009; } ];
+  networking.firewall.enable               = true;
+  networking.hostName                      = "vm-nixos";
+  networking.networkmanager.enable         = true;
+  powerManagement.enable                   = true;
+  programs.gnupg.agent.enable              = true;
+  programs.gnupg.agent.enableSSHSupport    = true;
+  programs.ssh.startAgent                  = false;
+  security.wrappers.slock.source           = "${pkgs.slock.out}/bin/slock";
+  sound.enable                             = true;
+  system.autoUpgrade.allowReboot           = true;
+  system.autoUpgrade.channel               = https://nixos.org/channels/nixos-20.09;
+  system.autoUpgrade.enable                = true;
+  system.stateVersion                      = "20.09";
+  time.timeZone                            = "Europe/Warsaw";
+  virtualisation.docker.autoPrune.dates    = "daily";
+  virtualisation.docker.enable             = true;
 
-  virtualisation.docker = {
-    autoPrune.dates = "daily";
-    enable = true;
+  # boot loader
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable  = true;
+    version = 2;
+    device  = "/dev/sda";
   };
 
-  programs = {
-    ssh.startAgent = false;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-  };
-
+  # software
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
@@ -82,6 +100,7 @@
     youtube-dl
   ];
 
+  # users
   users.users = {
     placek = {
       uid = 1000;
@@ -92,13 +111,14 @@
         # arduino
         # blender
         # eagle
-        gimp
-        inkscape
+        # gimp
+        # inkscape
         # libreoffice-fresh
         # mplayer
         # musescore
-        shotwell
+        # shotwell
         # virtualbox
+        # vnstat
       ];
       shell = pkgs.fish;
     };
@@ -318,45 +338,5 @@
         notifier = "${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'";
       };
     };
-  };
-
-  fonts = {
-    fonts = [
-      pkgs.iosevka-bin
-      pkgs.ubuntu_font_family
-    ];
-    fontconfig = {
-      defaultFonts = {
-        serif = [ "Ubuntu" ];
-        sansSerif = [ "Ubuntu" ];
-        monospace = [ "Iosevka" ];
-      };
-    };
-    enableDefaultFonts = true;
-  };
-
-  networking = {
-    firewall.allowPing    = false;
-    firewall.enable       = true;
-    firewall.allowedTCPPortRanges = [
-      { from = 3000; to = 3009; }
-    ];
-    hostName              = "vm-nixos";
-    networkmanager.enable = true;
-  };
-
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    device = "/dev/sda";
-  };
-
-  system = {
-    autoUpgrade = {
-      allowReboot = true;
-      enable = true;
-      channel = https://nixos.org/channels/nixos-20.09;
-    };
-    stateVersion = "20.09";
   };
 }
