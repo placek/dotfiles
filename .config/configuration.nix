@@ -54,7 +54,11 @@
         plugins = with availablePlugins; [ python perl ];
         scripts = with pkgs.weechatScripts; [ weechat-notify-send wee-slack ];
         init = ''
+          /script install vimode.py
           /set weechat.bar.buflist.size_max 30
+          /set weechat.bar.input.items "mode_indicator+[input_prompt]+(away),[input_search], [input_paste],input_text,[vi_buffer]"
+          /set weechat.bar.vi_line_numbers.hidden off
+          /mouse enable
         '';
       };
     })
@@ -286,7 +290,7 @@
                                     ]
 
           workspaceNames :: [String]
-          workspaceNames = ["web", "dev", "sys", "misc"]
+          workspaceNames = ["web", "dev", "msg", "misc"]
 
           myWorkspaces :: [String]
           myWorkspaces = fmap clickable (zip [1..] workspaceNames)

@@ -40,8 +40,8 @@ mouse_middle_click = close_all
 mouse_right_click = close_current
 
 [shortcuts]
-history = mod1+grave
-context = mod1+slash
+history = mod4+grave
+close_all = mod4+shift+grave
 
 [base16_low]
 frame_color = "#2ECC71"
