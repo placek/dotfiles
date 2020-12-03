@@ -32,6 +32,7 @@ abbr --add s "systemctl"
 
 # aliases
 alias mail="neomutt"
+alias slack="weechat"
 alias tb="nc termbin.com 9999"
 alias dots="git --git-dir=$DOTFILES_DIR --work-tree=$HOME"
 
