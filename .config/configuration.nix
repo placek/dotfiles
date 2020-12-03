@@ -49,6 +49,15 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
+    (weechat.override {
+      configure = {availablePlugins, ...}: {
+        plugins = with availablePlugins; [ python perl ];
+        scripts = with pkgs.weechatScripts; [ weechat-notify-send wee-slack ];
+        init = ''
+          /set weechat.bar.buflist.size_max 30
+        '';
+      };
+    })
     bash
     bat
     ctags
