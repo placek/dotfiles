@@ -1,36 +1,36 @@
-[submodule "vim/.vim/pack/bundle/opt/nerdtree"]
-	path = vim/.vim/pack/bundle/opt/nerdtree
+[submodule "home/vim/.vim/pack/bundle/opt/nerdtree"]
+	path = home/vim/.vim/pack/bundle/opt/nerdtree
 	url = https://github.com/preservim/nerdtree.git
-[submodule "vim/.vim/pack/bundle/opt/fzf"]
-	path = vim/.vim/pack/bundle/opt/fzf
+[submodule "home/vim/.vim/pack/bundle/opt/fzf"]
+	path = home/vim/.vim/pack/bundle/opt/fzf
 	url = https://github.com/junegunn/fzf
-[submodule "vim/.vim/pack/bundle/opt/fzf_vim"]
-	path = vim/.vim/pack/bundle/opt/fzf_vim
+[submodule "home/vim/.vim/pack/bundle/opt/fzf_vim"]
+	path = home/vim/.vim/pack/bundle/opt/fzf_vim
 	url = https://github.com/junegunn/fzf.vim
-[submodule "vim/.vim/pack/bundle/opt/nerdtree_git_plugin"]
-	path = vim/.vim/pack/bundle/opt/nerdtree_git_plugin
+[submodule "home/vim/.vim/pack/bundle/opt/nerdtree_git_plugin"]
+	path = home/vim/.vim/pack/bundle/opt/nerdtree_git_plugin
 	url = https://github.com/xuyuanp/nerdtree-git-plugin
-[submodule "vim/.vim/pack/bundle/opt/vim_airline"]
-	path = vim/.vim/pack/bundle/opt/vim_airline
+[submodule "home/vim/.vim/pack/bundle/opt/vim_airline"]
+	path = home/vim/.vim/pack/bundle/opt/vim_airline
 	url = https://github.com/vim-airline/vim-airline
-[submodule "vim/.vim/pack/bundle/opt/vim_airline_themes"]
-	path = vim/.vim/pack/bundle/opt/vim_airline_themes
+[submodule "home/vim/.vim/pack/bundle/opt/vim_airline_themes"]
+	path = home/vim/.vim/pack/bundle/opt/vim_airline_themes
 	url = https://github.com/vim-airline/vim-airline-themes
-[submodule "vim/.vim/pack/bundle/opt/vim_gitgutter"]
-	path = vim/.vim/pack/bundle/opt/vim_gitgutter
+[submodule "home/vim/.vim/pack/bundle/opt/vim_gitgutter"]
+	path = home/vim/.vim/pack/bundle/opt/vim_gitgutter
 	url = https://github.com/airblade/vim-gitgutter
-[submodule "vim/.vim/pack/bundle/opt/tmuxline"]
-	path = vim/.vim/pack/bundle/opt/tmuxline
+[submodule "home/vim/.vim/pack/bundle/opt/tmuxline"]
+	path = home/vim/.vim/pack/bundle/opt/tmuxline
 	url = https://github.com/edkolev/tmuxline.vim
-[submodule "vim/.vim/pack/bundle/opt/tabular"]
-	path = vim/.vim/pack/bundle/opt/tabular
+[submodule "home/vim/.vim/pack/bundle/opt/tabular"]
+	path = home/vim/.vim/pack/bundle/opt/tabular
 	url = https://github.com/godlygeek/tabular
-[submodule "vim/.vim/pack/bundle/opt/syntastic"]
-	path = vim/.vim/pack/bundle/opt/syntastic
+[submodule "home/vim/.vim/pack/bundle/opt/syntastic"]
+	path = home/vim/.vim/pack/bundle/opt/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
-[submodule "vim/.vim/pack/bundle/opt/fugitive"]
-	path = vim/.vim/pack/bundle/opt/fugitive
+[submodule "home/vim/.vim/pack/bundle/opt/fugitive"]
+	path = home/vim/.vim/pack/bundle/opt/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim/.vim/pack/bundle/opt/ultisnips"]
-	path = vim/.vim/pack/bundle/opt/ultisnips
+[submodule "home/vim/.vim/pack/bundle/opt/ultisnips"]
+	path = home/vim/.vim/pack/bundle/opt/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
