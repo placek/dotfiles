@@ -39,7 +39,7 @@ abbr --add s "systemctl"
 alias mail="neomutt"
 alias slack="weechat"
 alias tb="nc termbin.com 9999"
-alias dots="stow --dir=$DOTFILES_DIR/home --target=$HOME -v"
+alias dots="stow --dir=$DOTFILES_DIR/home --target=$HOME --verbose"
 
 # functions
 function rebuild-nix --description "copy configuration and rebuild system"
