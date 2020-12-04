@@ -69,9 +69,9 @@ nnoremap <Leader>5 :set list!<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>/ :NERDTreeFind<CR>
 nnoremap <Leader>f :Ag<CR>
-vnoremap <Leader>f :call FzfSelectedWord()<CR>
+vnoremap <Leader>f :call <SID>FzfSelectedWord()<CR>
 nnoremap <Leader>F :FZF<CR>
-nnoremap <Leader>t :call s:FzfTagsCurrWord()<CR>
+nnoremap <Leader>t :call <SID>FzfTagsCurrentWord()<CR>
 nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>B :bufdo bd<CR>
@@ -91,7 +91,7 @@ nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
 nnoremap <Leader>R :split %:s?spec/?app/?:s?_spec.rb?.rb?<CR>
 nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
-nnoremap <Leader>c :silent exec "terminal ++close ++rows=8 ". b:termprg . " %:p"<CR>
+nnoremap <Leader>c :call <SID>OpenInTerminal()<CR>
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 vnoremap // y/<C-R>"<CR>
@@ -147,7 +147,7 @@ function! s:SearchProjectOperator(type)
   silent exec "vimgrep! /" . shellescape(@@) . "/gj **/*.rb"
 endfunction
 
-" search visual-selected word
+" FZF-search visual-selected word
 function! g:GetVisualSelectionText()
   let [line_start, column_start] = getpos("'<")[1:2]
   let [line_end, column_end] = getpos("'>")[1:2]
@@ -160,12 +160,12 @@ function! g:GetVisualSelectionText()
   return join(lines, "\n")
 endfunction
 
-function! FzfSelectedWord()
+function! s:FzfSelectedWord()
   let l:word = GetVisualSelectionText()
   call fzf#vim#ag(l:word, fzf#vim#with_preview())
 endfunction
 
-" search tags with word under a cursor
+" FZF-search tags with word under a cursor
 function! s:FzfTagsCurrentWord()
   let l:word = expand('<cword>')
   let l:list = taglist(l:word)
@@ -176,25 +176,32 @@ function! s:FzfTagsCurrentWord()
   endif
 endfunction
 
+" open terminal with proper command
+function! s:OpenInTerminal()
+  try
+    silent exec "terminal ++close ++rows=8 ". b:termprg
+  catch
+    silent exec "terminal ++close ++rows=8"
+  echo
+  endtry
+endfunction
+
 " autocommands
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufRead * normal zR
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal makeprg=cabal\ build
-autocmd FileType haskell let b:termprg="ghci"
+autocmd FileType haskell let b:termprg="ghci %:p"
 autocmd FileType nerdtree :vert resize 32
+autocmd FileType ruby let b:termprg="irb -r %:p"
 autocmd FileType ruby
   \ if expand("%") =~# '_spec\.rb$' |
   \   compiler rspec | setl makeprg=rspec\ --no-color\ % |
   \ else |
   \   setl makeprg=rubocop\ --format\ clang\ % |
   \ endif
-autocmd FileType ruby let b:termprg="irb -r"
-autocmd! FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " commands
 command! MakeTags !git ctags
