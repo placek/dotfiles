@@ -84,6 +84,7 @@
     rclone
     rsync
     silver-searcher
+    stow
     tig
     tmux
     vimHugeX
