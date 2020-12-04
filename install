@@ -1,33 +1,19 @@
 #!/usr/bin/env bash
 
 # clone dotfiles repo
-git clone --bare git@github.com:placek/dotfiles.git $HOME/.config/dotfiles
+git clone git@github.com:placek/dotfiles.git $HOME/.config/dotfiles
 
-# set configuration to hide untracked files
-git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME config --local status.showUntrackedFiles no
-
-# "restore" files
-git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME restore --staged $HOME
-git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME restore $HOME
-
-# ignore meta files
-git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME update-index --skip-worktree $HOME/LICENSE
-git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME update-index --skip-worktree $HOME/README.md
-git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME update-index --skip-worktree $HOME/install
-rm $HOME/LICENSE $HOME/README.md $HOME/install
-
-# init submodules
-rm -rf $HOME/.vim
-git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule init
-git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME submodule update
+# fetch vim plugins
+pushd $HOME/.config/dotfiles
+  git submodule init
+  git submodule update
+  pushd home
+    stow --target=$HOME --verbose --stow *
+  popd
+popd
 
 # install directories
 mkdir -p $HOME/{Projects,Documents,Downloads,Clouds,Pictures,Music}
-
-# install fzf plugin for fish
-curl -L https://github.com/PatrickF1/fzf.fish/archive/v4.10.tar.gz | tar -xz -C /tmp
-cp /tmp/fzf.fish-4.10/conf.d/*.fish $HOME/.config/fish/conf.d
-cp /tmp/fzf.fish-4.10/functions/*.fish $HOME/.config/fish/functions
 
 # rebuild xresources config
 xrdb -merge .Xresources
