@@ -4,3 +4,5 @@
 .tags
 .sw[op]
 *.key
+.local.dev.env
+.local.test.env

@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  web: &base
+    env_file:
+      - .local.dev.env
+    environment:
+      - RAILS_ENV=development
+    build:
+      context: .
+      dockerfile: .git/Dockerfile.local
+    command: bundle exec puma -C config/puma.rb -P /tmp/server.pid
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - db
+
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # Uncomment once you have sidekiq installed:
+  #sidekiq:
+  #  <<: *base
+  #  command: bundle exec sidekiq
+  #  ports:
+  #    - "3001:3001"
+  #  depends_on:
+  #    - db
+  #    - redis
+  #
+  # redis:
+  #   image: redis:alpine
+
+  # Uncomment once you have rspec installed:
+  #test:
+  #  <<: *base
+  #  env_file:
+  #    - .local.dev.env
+  #  environment:
+  #    - RAILS_ENV=test
+  #  command: spec
+  #  entrypoint: dumb-init bundle exec rspec -fp -fh --out .rspec.html
+  #  restart: "no"
+  #  ports:
+  #    - "3999:3000"
+
+  # Uncomment if you use swagger documentation:
+  #doc:
+  #  image: redocly/redoc
+  #  environment:
+  #    - SPEC_URL=swagger.yaml
+  #  volumes:
+  #    - ./doc/swagger.yaml:/usr/share/nginx/html/swagger.yaml
+  #  ports:
+  #    - "8080:80"
+
+volumes:
+  db_data:
