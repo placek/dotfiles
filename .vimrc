@@ -14,6 +14,7 @@ packadd! tmuxline
 packadd! tabular
 packadd! syntastic
 packadd! fugitive
+packadd! ultisnips
 
 " settings
 set backspace=indent,eol,start
@@ -83,6 +84,7 @@ nnoremap <Leader>g :GFiles<CR>
 nnoremap <Leader>G :GFiles?<CR>
 nnoremap <Leader>Gb :Gblame<CR>
 nnoremap <Leader>h :History<CR>
+nnoremap <Leader>S :Snippets<CR>
 nnoremap <Leader>q :set opfunc=<SID>SearchOperator<CR>g@
 vnoremap <Leader>q :<C-u>call <SID>SearchOperator(visualmode())<CR>
 nnoremap <Leader>Q :set opfunc=<SID>SearchProjectOperator<CR>g@
@@ -123,6 +125,9 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeWinSize = 32
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " search operator
 function! s:SearchOperator(type)
