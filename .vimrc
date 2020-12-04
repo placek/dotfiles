@@ -24,7 +24,8 @@ set completeopt=longest,menuone
 set cursorline
 set dir=/tmp
 set expandtab
-set foldmethod=indent
+set foldmethod=manual
+set foldcolumn=1
 set formatoptions=tcrqn
 set grepformat=%f:%l:%c:%m
 set grepprg=ag\ --vimgrep\ $*
@@ -192,6 +193,8 @@ autocmd FileType ruby
 autocmd FileType ruby let b:termprg="irb -r"
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
 
 " commands
 command! MakeTags !git ctags
@@ -199,6 +202,7 @@ command! Open !open %
 
 " colors
 hi SignColumn            ctermbg=0
+hi FoldColumn            ctermbg=0 ctermfg=7
 hi GitGutterAdd          ctermbg=0 ctermfg=2
 hi GitGutterChange       ctermbg=0 ctermfg=3
 hi GitGutterChangeDelete ctermbg=0 ctermfg=3
