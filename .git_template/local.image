@@ -8,4 +8,3 @@ RUN apt-get update -qq && \
 
 COPY Gemfile* ./
 RUN bundle install
-

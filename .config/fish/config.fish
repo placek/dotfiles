@@ -16,17 +16,22 @@ end
 bind -e \cv
 
 # abbreviations
-abbr --add be "bundle exec"
-abbr --add bi "bundle install"
+abbr --add dsp "docker system prune"
+abbr --add dspv "docker system prune --volumes"
 abbr --add dcb "docker-compose build"
 abbr --add dcr "docker-compose run --rm"
 abbr --add dcu "docker-compose up -d"
 abbr --add dcl "docker-compose logs"
-abbr --add dcd "docker-compose down"
-abbr --add dsp "docker system prune"
-abbr --add dspv "docker system prune --volumes"
+abbr --add dcd "docker-compose down --remove-orphans"
 abbr --add dcres "docker-compose restart"
 abbr --add dcps "docker-compose ps"
+abbr --add lcb "docker-compose -f .local.compose build"
+abbr --add lcr "docker-compose -f .local.compose run --rm"
+abbr --add lcu "docker-compose -f .local.compose up -d"
+abbr --add lcl "docker-compose -f .local.compose logs"
+abbr --add lcd "docker-compose -f .local.compose down --remove-orphans"
+abbr --add lcres "docker-compose -f .local.compose restart"
+abbr --add lcps "docker-compose -f .local.compose ps"
 abbr --add j "journalctl"
 abbr --add s "systemctl"
 

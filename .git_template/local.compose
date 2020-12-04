@@ -7,7 +7,7 @@ services:
       - RAILS_ENV=development
     build:
       context: .
-      dockerfile: .git/Dockerfile.local
+      dockerfile: .local.image
     command: bundle exec puma -C config/puma.rb -P /tmp/server.pid
     volumes:
       - .:/app
@@ -41,7 +41,7 @@ services:
   #test:
   #  <<: *base
   #  env_file:
-  #    - .local.dev.env
+  #    - .local.test.env
   #  environment:
   #    - RAILS_ENV=test
   #  command: spec
