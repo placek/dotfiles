@@ -68,8 +68,9 @@ nnoremap <Leader>5 :set list!<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>/ :NERDTreeFind<CR>
 nnoremap <Leader>f :Ag<CR>
+vnoremap <Leader>f :call FzfSelectedWord()<CR>
 nnoremap <Leader>F :FZF<CR>
-nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>t :call s:FzfTagsCurrWord()<CR>
 nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>B :bufdo bd<CR>
@@ -145,6 +146,35 @@ function! s:SearchProjectOperator(type)
   silent exec "vimgrep! /" . shellescape(@@) . "/gj **/*.rb"
 endfunction
 
+" search visual-selected word
+function! g:GetVisualSelectionText()
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+    return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - 2]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
+endfunction
+
+function! FzfSelectedWord()
+  let l:word = GetVisualSelectionText()
+  call fzf#vim#ag(l:word, fzf#vim#with_preview())
+endfunction
+
+" search tags with word under a cursor
+function! s:FzfTagsCurrentWord()
+  let l:word = expand('<cword>')
+  let l:list = taglist(l:word)
+  if len(l:list) == 1
+    execute ':tag ' . l:word
+  else
+    call fzf#vim#tags(l:word)
+  endif
+endfunction
+
 " autocommands
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufRead * normal zR
@@ -160,6 +190,8 @@ autocmd FileType ruby
   \   setl makeprg=rubocop\ --format\ clang\ % |
   \ endif
 autocmd FileType ruby let b:termprg="irb -r"
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " commands
 command! MakeTags !git ctags
