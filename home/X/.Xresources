@@ -41,7 +41,7 @@
 *color20:      base04
 *color21:      base06
 
-*termName:     xterm-256color
+*termName:     screen-256color
 
 Xft.dpi:       144
 Xft.autohint:  0
