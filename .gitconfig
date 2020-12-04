@@ -11,6 +11,7 @@
   co = checkout
   com = commit -m
   ctags = !.git/hooks/ctags
+  install-dev = !.git/hooks/install-dev
   info = for-each-ref --format='%(color:yellow)%(committerdate:iso8601) %(color:blue)%(objectname:short) %(color:magenta)%(authorname) %(color:green)%(refname:short) %(color:reset)%(contents:subject)' --sort -committerdate
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   label = "!git config branch.$(git symbolic-ref --short HEAD).note $(if [ $# -gt 0 ]; then $1; fi)"

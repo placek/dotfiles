@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+[ -f .local.compose ] || cp .git/local.compose .local.compose
+[ -f .local.image ] || cp .git/local.image .local.image
+touch .local.dev.env
+touch .local.test.env
