@@ -9,7 +9,7 @@ This is a set of configuration files I use daily.
 Using NixOS instalation, fetch configuration like:
 
 ```sh
-curl -Ls http://tiny.cc/nmf5tz -o /mnt/etc/nixos/configuration.nix
+curl -Ls https://tiny.cc/dots-config -o /mnt/etc/nixos/configuration.nix
 ```
 
 ### Installation
@@ -17,7 +17,7 @@ curl -Ls http://tiny.cc/nmf5tz -o /mnt/etc/nixos/configuration.nix
 Run:
 
 ```sh
-curl -L http://tiny.cc/sqf5tz | bash -
+curl -L https://tiny.cc/dots-install | bash -
 ```
 
 ## Contributing
