@@ -1,6 +1,7 @@
 set -gx EDITOR vim
 set -gx PROJECTS_DIR "$HOME/Projects"
 set -gx DOTFILES_DIR "$HOME/.config/dotfiles"
+set -gx TERM "screen-256color"
 
 # pfetch greetings
 function fish_greeting

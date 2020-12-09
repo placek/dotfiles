@@ -5,6 +5,7 @@ export EDITOR=vim
 export HISTSIZE=1000
 export HISTFILESIZE=2000
 export PROJECTS_DIR=${HOME}/Projects
+export TERM=screen-256color
 
 # bash options
 bind "set completion-ignore-case on"
