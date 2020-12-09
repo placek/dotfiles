@@ -42,7 +42,6 @@ set number
 set omnifunc=syntaxcomplete#Complete
 set path+=**
 set relativenumber
-set runtimepath+=/usr/local/opt/fzf
 set shiftwidth=2
 set showcmd
 set showtabline=2
