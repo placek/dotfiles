@@ -309,13 +309,14 @@
           fzfWrapper
           fzf-vim
           nerdtree
+          syntastic
+          tabular
+          ultisnips
           vim-airline
           vim-airline-themes
+          vim-fugitive
           vim-gitgutter
-          tabular
-          syntastic
           YouCompleteMe
-          ultisnips
         ];
       };
     })

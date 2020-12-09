@@ -10,7 +10,6 @@ packadd! nerdtree_git_plugin
 packadd! vim_airline
 packadd! vim_airline_themes
 packadd! vim_gitgutter
-packadd! tmuxline
 packadd! tabular
 packadd! syntastic
 packadd! fugitive
@@ -111,14 +110,6 @@ let g:airline_theme = 'base16_flat'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:tmuxline_preset = {
-      \'a'    : '#S',
-      \'win'  : '#I #W',
-      \'cwin' : '#I #W',
-      \'x'    : '#(hostname -I 2>/dev/null | cut -d " " -f 1)',
-      \'z'    : '#H',
-      \'options': { 'status-justify': 'left' }
-      \}
 let g:nerdtree_tabs_autoclose = 0
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
