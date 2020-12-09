@@ -14,7 +14,7 @@ packadd! tmuxline
 packadd! tabular
 packadd! syntastic
 packadd! fugitive
-packadd! ultisnips
+" packadd! ultisnips " you can turn it on on demand
 
 " settings
 set backspace=indent,eol,start
