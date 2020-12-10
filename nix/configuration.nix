@@ -128,7 +128,6 @@
         set swapfile
         set tabstop=2
         set tags+=.git/tags;
-        set term=screen-256color
         set timeoutlen=1000 ttimeoutlen=0
         set ttyfast
         set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*.tar.*,*.bmp,*.jpeg,*.avi,*.mov,*.mp7,*.ogg,*.flac

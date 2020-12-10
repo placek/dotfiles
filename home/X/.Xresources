@@ -41,12 +41,24 @@
 *color20:      base04
 *color21:      base06
 
-*termName:     screen-256color
+*termName:             xterm-256color
 
-Xft.dpi:       144
-Xft.autohint:  0
-Xft.lcdfilter: lcdfilter
-Xft.hintstyle: hintfull
-Xft.hinting:   true
-Xft.antialias: true
-Xft.rgba:      rgb
+Xft.dpi:               144
+Xft.autohint:          true
+Xft.lcdfilter:         lcdfilter
+Xft.hintstyle:         hintslight
+Xft.hinting:           true
+Xft.antialias:         true
+Xft.rgba:              rgb
+
+XTerm*locale:          true
+XTerm*utf8:            true
+XTerm*metaSendsEscape: true
+XTerm*backarrowKey:    false
+XTerm*saveLines:       4096
+XTerm*scrollBar:       false
+XTerm*faceName:        Iosevka
+XTerm*faceSize:        12
+XTerm*renderFont:      true
+XTerm.ttyModes:        erase ^?
+XTerm*scaleHeight:     0.95
