@@ -47,7 +47,7 @@ alias dots="stow --dir=$DOTFILES_DIR/home --target=$HOME --verbose"
 
 # functions
 function rebuild-nix --description "copy configuration and rebuild system"
-  sudo cp $DOTFILES_DIR/nix/configuration.nix /etc/nixos/configuration.nix
+  sudo cp $DOTFILES_DIR/nix/*.nix /etc/nixos/
   sudo nixos-rebuild switch
 end
 
