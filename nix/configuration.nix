@@ -69,10 +69,12 @@
     docker-compose
     entr
     fd
+    ffmpeg
     fish
     fzf
     git
     gnumake
+    imagemagick7
     inxi
     libnotify
     moc

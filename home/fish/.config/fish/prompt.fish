@@ -38,14 +38,6 @@ function git::is_repo
   test -d .git; or command git rev-parse --git-dir >/dev/null ^/dev/null
 end
 
-function ssh_agent::is_up
-  command ssh-add -l >/dev/null 2>/dev/null
-end
-
-function docker::is_up
-  command docker info >/dev/null 2>/dev/null
-end
-
 function git::ahead -a ahead behind diverged none
   not git::is_repo; and return
 
@@ -109,14 +101,6 @@ function fish_right_prompt
   end
 
   printf (yellow)"("(dim)$cwd(yellow)") "(off)
-
-  if ssh_agent::is_up
-    printf (yellow)"("(dim)ssh(yellow)") "(off)
-  end
-
-  if docker::is_up
-    printf (yellow)"("(dim)docker(yellow)") "(off)
-  end
 end
 
 function fish_prompt

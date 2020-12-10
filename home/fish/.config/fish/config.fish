@@ -1,7 +1,6 @@
 set -gx EDITOR vim
 set -gx PROJECTS_DIR "$HOME/Projects"
 set -gx DOTFILES_DIR "$HOME/.config/dotfiles"
-set -gx TERM "screen-256color"
 
 # pfetch greetings
 function fish_greeting
@@ -26,6 +25,7 @@ abbr --add dcl "docker-compose logs"
 abbr --add dcd "docker-compose down --remove-orphans"
 abbr --add dcres "docker-compose restart"
 abbr --add dcps "docker-compose ps"
+
 abbr --add lcb "docker-compose -f .local.compose build"
 abbr --add lcr "docker-compose -f .local.compose run --rm"
 abbr --add lcrt "docker-compose -f .local.compose run --rm test"
@@ -35,6 +35,7 @@ abbr --add lcl "docker-compose -f .local.compose logs"
 abbr --add lcd "docker-compose -f .local.compose down --remove-orphans"
 abbr --add lcres "docker-compose -f .local.compose restart"
 abbr --add lcps "docker-compose -f .local.compose ps"
+
 abbr --add j "journalctl"
 abbr --add s "systemctl"
 
