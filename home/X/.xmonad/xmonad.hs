@@ -22,7 +22,7 @@ myFocusFollowsMouse  = True
 myFocusedBorderColor = "#3498DB"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#2C3E50"
-myTerminal           = "xterm"
+myTerminal           = "termite"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Escape), spawn "slock")                                                             -- lock screen

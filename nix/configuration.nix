@@ -321,7 +321,6 @@
     })
     wget
 
-    alacritty
     arandr
     chromium
     dunst
@@ -336,6 +335,7 @@
     rofi-pass
     scrot
     slock
+    termite
     xclip
     xdotool
     xmobar
