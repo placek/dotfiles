@@ -16,6 +16,8 @@
   networking.firewall.enable               = true;
   networking.hostName                      = "vm-nixos";
   networking.networkmanager.enable         = true;
+  nix.gc.automatic                         = true;
+  nix.gc.options                           = "--delete-older-than 7d";
   powerManagement.enable                   = true;
   programs.gnupg.agent.enable              = true;
   programs.gnupg.agent.enableSSHSupport    = true;
