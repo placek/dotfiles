@@ -35,6 +35,7 @@
     moc
     ncdu
     neomutt
+    ngrok
     openvpn
     paperkey
     pinentry-curses
