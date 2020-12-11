@@ -44,7 +44,7 @@ alias mail="neomutt"
 alias slack="weechat"
 alias tb="nc termbin.com 9999"
 alias dots="stow --dir=$DOTFILES_DIR/home --target=$HOME --verbose"
-alias pair="docker-compose -f .remote.compose up -d"
+alias pair="docker-compose -f .remote.compose"
 
 # functions
 function rebuild-nix --description "copy configuration and rebuild system"
