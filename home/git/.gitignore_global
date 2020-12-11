@@ -8,4 +8,5 @@
 .local.test.env
 .local.compose
 .local.image
+.remote.compose
 .authorized_keys
