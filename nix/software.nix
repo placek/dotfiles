@@ -298,8 +298,6 @@
     xdotool
     xmobar
     xmonad-with-packages
-    xorg.xkill
-    xorg.xmessage
     youtube-dl
   ];
 }

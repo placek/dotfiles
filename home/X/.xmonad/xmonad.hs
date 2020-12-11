@@ -25,47 +25,47 @@ myNormalBorderColor  = "#2C3E50"
 myTerminal           = "termite"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-    [ ((modm .|. shiftMask, xK_Escape), spawn "slock")                                                             -- lock screen
-    , ((modm              , xK_Return), windows W.swapMaster)                                                      -- swap the focused window and the master window
-    , ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+    [
+    -- windows manipulation
     , ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
-    , ((modm .|. shiftMask, xK_Left  ), shiftToPrev)                                                               -- move to previous workspace
     , ((modm              , xK_Right ), nextWS)                                                                    -- go to next workspace
+    , ((modm .|. shiftMask, xK_Left  ), shiftToPrev)                                                               -- move to previous workspace
     , ((modm .|. shiftMask, xK_Right ), shiftToNext)                                                               -- move to next workspace
-    , ((modm              , xK_space ), sendMessage NextLayout)                                                    -- rotate through the available layouts
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)                                        -- reset the layouts on the current workspace to default
-    , ((modm              , xK_b     ), sendMessage ToggleStruts)                                                  -- toggle the status bar gap
-    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
-    , ((modm              , xK_h     ), sendMessage Shrink)                                                        -- shrink the master area
-    , ((modm .|. shiftMask, xK_h     ), sendMessage (IncMasterN 1))                                                -- increment the number of windows in the master area
-    , ((modm              , xK_i     ), spawn "bash -c 'inxi -c0 -w -v8 -xxx | xmessage -center -file -'")         -- system full info
-    , ((modm              , xK_j     ), windows W.focusDown)                                                       -- move focus to the next window
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )                                                      -- swap the focused window with the next window
     , ((modm              , xK_k     ), windows W.focusUp  )                                                       -- move focus to the previous window
+    , ((modm              , xK_j     ), windows W.focusDown)                                                       -- move focus to the next window
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )                                                      -- swap the focused window with the previous window
-    , ((modm              , xK_l     ), sendMessage Expand)                                                        -- expand the master area
-    , ((modm .|. shiftMask, xK_l     ), sendMessage (IncMasterN (-1)))                                             -- deincrement the number of windows in the master area
+    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )                                                      -- swap the focused window with the next window
     , ((modm              , xK_m     ), windows W.focusMaster  )                                                   -- move focus to the master window
-    , ((modm              , xK_n     ), refresh)                                                                   -- resize viewed windows to the correct size
-    , ((modm .|. shiftMask, xK_n     ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
-    , ((modm              , xK_p     ), spawn "rofi -show combi")                                                  -- launch drun menu
-    , ((modm .|. shiftMask, xK_p     ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
-    , ((modm              , xK_x     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
-    , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
-    , ((modm              , xK_s     ), spawn "rofi-pass")                                                         -- launch pass
-    , ((modm .|. shiftMask, xK_s     ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
+    , ((modm .|. shiftMask, xK_m     ), windows W.swapMaster)                                                      -- swap the focused window and the master window
+    , ((modm              , xK_h     ), sendMessage Shrink)                                                        -- shrink the master area
+    , ((modm              , xK_l     ), sendMessage Expand)                                                        -- expand the master area
+    , ((modm .|. shiftMask, xK_h     ), sendMessage (IncMasterN 1))                                                -- increment the number of windows in the master area
+    , ((modm .|. shiftMask, xK_l     ), sendMessage (IncMasterN (-1)))                                             -- deincrement the number of windows in the master area
+    , ((modm              , xK_n     ), sendMessage NextLayout)                                                    -- rotate through the available layouts
+    , ((modm .|. shiftMask, xK_n     ), setLayout $ XMonad.layoutHook conf)                                        -- reset the layouts on the current workspace to default
     , ((modm              , xK_t     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
+    , ((modm .|. shiftMask, xK_t     ), refresh)                                                                   -- resize viewed windows to the correct size
+    , ((modm              , xK_b     ), sendMessage ToggleStruts)                                                  -- toggle the status bar gap
     , ((modm              , xK_q     ), kill)                                                                      -- close focused window
-    , ((modm .|. shiftMask, xK_q     ), spawn "xkill")                                                             -- xkill
+    , ((modm .|. shiftMask, xK_q     ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
+    , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
+    -- launch stuff
+    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
+    , ((modm              , xK_space ), spawn "rofi -show combi")                                                  -- launch drun menu
+    , ((modm .|. shiftMask, xK_space ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
+    , ((modm              , xK_x     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
+    , ((modm              , xK_p     ), spawn "rofi-pass")                                                         -- launch pass
+    , ((modm              , xK_Return), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+    , ((modm              , xK_Escape), spawn "slock")                                                             -- lock screen
+    , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
+    , ((0, xF86XK_AudioPrev          ), spawn "mocp --previous")
+    , ((0, xF86XK_AudioPlay          ), spawn "mocp --play")
+    , ((0, xF86XK_AudioNext          ), spawn "mocp --next")
+    , ((0, xF86XK_AudioMute          ), spawn "amixer set Master mute")
+    , ((0, xF86XK_AudioLowerVolume   ), spawn "amixer set Master 5%- unmute")
+    , ((0, xF86XK_AudioRaiseVolume   ), spawn "amixer set Master 5%+ unmute")
     --, ((0, xF86XK_MonBrightnessDown  ), spawn "")
     --, ((0, xF86XK_MonBrightnessUp    ), spawn "")
-    --
-    --, ((0, xF86XK_AudioPrev          ), spawn "mocp --previous")
-    --, ((0, xF86XK_AudioPlay          ), spawn "mocp --play")
-    --, ((0, xF86XK_AudioNext          ), spawn "mocp --next")
-    --, ((0, xF86XK_AudioMute          ), spawn "amixer set Master mute")
-    --, ((0, xF86XK_AudioLowerVolume   ), spawn "amixer set Master 5%- unmute")
-    --, ((0, xF86XK_AudioRaiseVolume   ), spawn "amixer set Master 5%+ unmute")
     ]
     ++
     -- mod-[1..4], switch to workspace N
@@ -99,8 +99,7 @@ myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2)
     ratio   = 2/3
     delta   = 3/100
 
-myManageHook = composeAll [ className =? "Xmessage"         --> doFloat
-                          , className =? "Gcr-prompter"     --> doCenterFloat
+myManageHook = composeAll [ className =? "Gcr-prompter"     --> doCenterFloat
                           , className =? "qutebrowser"      --> doShift ( myWorkspaces !! 0 )
                           , className =? "Chromium-browser" --> doShift ( myWorkspaces !! 0 )
                           ]
@@ -121,7 +120,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppHiddenNoWindows = wrap " " " "
                                              , ppVisible         = wrap "(" ")"
                                              , ppTitle           = xmobarColor "#F1C40F"  "" . shorten 40
-                                             , ppLayout          = xmobarAction "xdotool key super+space" "1" . layout
+                                             , ppLayout          = xmobarAction "xdotool key super+n" "1" . layout
                                              , ppUrgent          = xmobarColor "#E74C3C" "#F1C40F"
                                              , ppWsSep           = ""
                                              , ppSep             = " \xE0B1 "
