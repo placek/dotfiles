@@ -1,7 +1,5 @@
 configuration {
   matching: "fuzzy";
-  modi: "drun,run,combi";
-  combi-modi: "drun,run";
   location: 2;
 }
 

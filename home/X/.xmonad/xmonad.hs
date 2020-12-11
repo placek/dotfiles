@@ -25,9 +25,8 @@ myNormalBorderColor  = "#2C3E50"
 myTerminal           = "termite"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-    [
     -- windows manipulation
-    , ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
+    [ ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
     , ((modm              , xK_Right ), nextWS)                                                                    -- go to next workspace
     , ((modm .|. shiftMask, xK_Left  ), shiftToPrev)                                                               -- move to previous workspace
     , ((modm .|. shiftMask, xK_Right ), shiftToNext)                                                               -- move to next workspace
@@ -51,10 +50,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
     -- launch stuff
     , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
-    , ((modm              , xK_space ), spawn "rofi -show combi")                                                  -- launch drun menu
-    , ((modm .|. shiftMask, xK_space ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
+    , ((modm              , xK_space ), spawn "rofi -combi-modi drun,clip,run -modi 'clip:greenclip print' -show combi -run-command '{cmd}'") -- drun & clipboard history
+    , ((modm .|. shiftMask, xK_space ), spawn "rofi-pass")                                                         -- launch pass
     , ((modm              , xK_x     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
-    , ((modm              , xK_p     ), spawn "rofi-pass")                                                         -- launch pass
     , ((modm              , xK_Return), spawn $ XMonad.terminal conf)                                              -- launch a terminal
     , ((modm              , xK_Escape), spawn "slock")                                                             -- lock screen
     , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
