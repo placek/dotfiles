@@ -34,3 +34,6 @@
 [submodule "home/vim/.vim/pack/bundle/opt/ultisnips"]
 	path = home/vim/.vim/pack/bundle/opt/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "home/X/.wall"]
+	path = home/X/.wall
+	url = https://gitlab.com/dwt1/wallpapers.git
