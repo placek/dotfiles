@@ -3,42 +3,56 @@ configuration {
   location: 2;
 }
 
-window {
-  border: 0 4px 4px 4px;
-  border-color: #3498DB;
-}
-
 * {
-  background-color: #34495E;
-  text-color: #ECF0F1;
-  spacing: 0;
-  width: 33%;
-  font: "Iosevka 18";
+  background-color:           #5f5f5f;
+  border-color:               #3498db;
+  text-color:                 #f5f5f5;
+  font:                       "Iosevka 18";
+  prompt-font:                "Iosevka 18";
+  prompt-background:          #2ecc71;
+  prompt-foreground:          #5f5f5f;
+  prompt-padding:             2px 0.5em;
+  selected-normal-background: #3498db;
+  selected-normal-foreground: #f5f5f5;
 }
 
-inputbar {
-  children: [prompt,entry];
+#window {
+  anchor: north;
+  location: north;
+  width: 100%;
+  padding: 0px;
+  children: [ horibox ];
 }
 
-prompt {
-  padding: 4px;
-  background-color: #3498DB;
+#horibox {
+  orientation: horizontal;
+  children: [ prompt, entry, listview ];
 }
 
-entry {
-  padding: 4px;
-  background-color: #5F5F5F;
+#prompt {
+  padding:          @prompt-padding;
+  background-color: @prompt-background;
+  text-color:       @prompt-foreground;
+  font:             @prompt-font;
 }
 
-listview {
-  cycle: false;
-  scrollbar: false;
+#listview {
+  layout: horizontal;
+  spacing: 2px;
+  lines: 100;
 }
 
-element {
-  padding: 4px;
+#entry {
+  padding: 2px 4px;
+  expand: false;
+  width: 10em;
 }
 
-element selected {
-  background-color: #3498DB;
+#element {
+  padding: 2px 8px;
+}
+
+#element selected {
+  background-color: @selected-normal-background;
+  text-color:       @selected-normal-foreground;
 }
