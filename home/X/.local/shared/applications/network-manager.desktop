@@ -1,0 +1,14 @@
+[Desktop Entry]
+StartupWMClass=nmtui
+Version=1.0
+Name=Network Manager
+GenericName=Network Manager
+GenericName[pl]=Menadżer sieci
+Comment=Setup the Internet
+Comment[pl]=Skonfiguruj sieć
+Exec=nmtui
+StartupNotify=true
+Terminal=true
+Icon=network
+Type=Application
+Categories=Network;

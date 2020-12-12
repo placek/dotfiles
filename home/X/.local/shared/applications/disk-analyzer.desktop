@@ -1,0 +1,12 @@
+[Desktop Entry]
+StartupWMClass=ncdu
+Version=1.0
+Name=DiskUsage
+GenericName=Disk Usage
+GenericName[pl]=Zużycie dysku
+Comment=Disk usage stats
+Comment[pl]=Analiza zużycia dysku
+Exec=ncdu
+Terminal=true
+Icon=disk
+Type=Application
