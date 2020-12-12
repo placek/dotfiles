@@ -7,15 +7,15 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , sepChar         = "%"
        , alignSep        = "}{"
        , template        = "%UnsafeStdinReader%}{%cpu%%memory%%disku%%wlan0wi%%enp0s3%%default:Master%%battery%%date%"
-       , commands = [ Run Cpu              [ "-t", " CPU <vbar>% "
+       , commands = [ Run Cpu              [ "-t", " CPU <vbar> "
                                            , "-L", "3", "-H", "50"
                                            , "-n", "#2ECC71"
                                            , "-h", "#E74C3C" ] 10
-                    , Run Memory           [ "-t", "\xE0B3 MEM <usedvbar>% " ] 10
-                    , Run DiskU            [ ("/", "\xE0B3 DRV <usedvbar>% ") ] [] 100
+                    , Run Memory           [ "-t", "\xE0B3 MEM <usedvbar> " ] 10
+                    , Run DiskU            [ ("/", "\xE0B3 DRV <usedvbar> ") ] [] 100
                     , Run Network "enp0s3" [ "-t", "<fc=#EEEEEE,#878787><rx>\x2193\x2191<tx> </fc>" ] 10
-                    , Run Wireless "wlan0" [ "-t", "<fc=#878787,#5F5F5F>\xE0B2</fc><fc=#EEEEEE,#878787> WIFI <qualityvbar>% </fc>"] 10
-                    , Run Battery          [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 <acstatus> <leftvbar>% </fc>"
+                    , Run Wireless "wlan0" [ "-t", "<fc=#878787,#5F5F5F>\xE0B2</fc><fc=#EEEEEE,#878787> WIFI <qualityvbar> </fc>"] 10
+                    , Run Battery          [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 <acstatus> <leftvbar> </fc>"
                                            , "--"
                                            , "-O", "AC"
                                            , "-i", "AC"
@@ -23,7 +23,7 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
                                            , "-h", "#2ECC71"
                                            , "-l", "#E74C3C" ] 10
                     , Run Volume "default" "Master"
-                                           [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 VOL <volumevbar>% </fc>" ] 10
+                                           [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 VOL <volumevbar> </fc>" ] 10
                     , Run Date "<fc=#2ECC71,#878787>\xE0B2</fc><fc=#5F5F5F,#2ECC71> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
                     , Run UnsafeStdinReader
                     ]
