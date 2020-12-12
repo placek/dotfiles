@@ -9,7 +9,6 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Spacing
-import XMonad.Layout.Spiral
 import XMonad.Prompt
 import XMonad.Prompt.Shell
 import XMonad.Util.Run
@@ -103,11 +102,10 @@ myPrompt = def { font = "xft:Iosevka:size=12:antialias=true:hinting=true"
                , maxComplRows = Just 5
                }
 
-myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ t ||| s ||| m ||| f
+myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ t ||| m ||| f
   where
     f       = Full
     m       = Mirror t
-    s       = spiral (6/7)
     t       = Tall nmaster delta ratio
     nmaster = 1
     ratio   = 2/3
@@ -122,8 +120,7 @@ workspaceNames :: [String]
 workspaceNames = ["web", "dev", "msg", "misc"]
 
 myWorkspaces :: [String]
-myWorkspaces = fmap clickable (zip [1..] workspaceNames)
-  where clickable (k, w) = xmobarAction ("xdotool key super+" ++ show k) "1" w
+myWorkspaces = workspaceNames
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -134,7 +131,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppHiddenNoWindows = wrap " " " "
                                              , ppVisible         = wrap "(" ")"
                                              , ppTitle           = xmobarColor "#F1C40F"  "" . shorten 40
-                                             , ppLayout          = xmobarAction "xdotool key super+n" "1" . layout
+                                             , ppLayout          = layout
                                              , ppUrgent          = xmobarColor "#E74C3C" "#F1C40F"
                                              , ppWsSep           = ""
                                              , ppSep             = " \xE0B1 "
@@ -143,7 +140,6 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
   where layout a = case a of
           "Spacing Tall"        -> "tall"
           "Spacing Mirror Tall" -> "mtall"
-          "Spacing Spiral"      -> "spiral"
           "Spacing Full"        -> "full"
 
 myStartupHook = do
@@ -170,4 +166,3 @@ defaults xmproc = desktopConfig { terminal           = myTerminal
                                 , logHook            = myLogHook xmproc
                                 , startupHook        = myStartupHook
                                 }
-

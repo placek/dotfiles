@@ -6,7 +6,7 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "%UnsafeStdinReader%}{<action=`termite -e top`>%cpu%%memory%</action><action=`termite -e ncdu /`>%disku%</action><action=`termite -e nmtui`>%wlan0wi%%enp0s3%</action><action=`termite -e alsamixer`>%default:Master%</action>%battery%<action=`qutebrowser https://calendar.google.com`>%date%</action>"
+       , template        = "%UnsafeStdinReader%}{%cpu%%memory%%disku%<action=`termite -e nmtui`>%wlan0wi%%enp0s3%</action>%default:Master%%battery%%date%"
        , commands = [ Run Cpu              [ "-t", " CPU <total>% "
                                            , "-L", "3", "-H", "50"
                                            , "-n", "#2ECC71"
