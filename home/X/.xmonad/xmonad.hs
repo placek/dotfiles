@@ -2,16 +2,18 @@ import Data.Monoid
 import Graphics.X11.ExtraTypes.XF86
 import System.Exit
 import XMonad
-import XMonad.Actions.CycleWS
 import XMonad.Actions.CopyWindow
+import XMonad.Actions.CycleWS
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral
+import XMonad.Prompt
+import XMonad.Prompt.Shell
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
-import XMonad.Hooks.ManageHelpers
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
@@ -50,10 +52,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
     -- launch stuff
     , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
-    , ((modm              , xK_space ), spawn "rofi -combi-modi drun,clip,run -modi 'clip:greenclip print' -show combi -run-command '{cmd}'") -- drun & clipboard history
+    , ((modm              , xK_space ), spawn "rofi -combi-modi drun,clip -modi 'clip:greenclip print' -show combi -run-command '{cmd}'") -- drun & clipboard history
     , ((modm .|. shiftMask, xK_space ), spawn "rofi-pass")                                                         -- launch pass
     , ((modm              , xK_x     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
     , ((modm              , xK_Return), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+    , ((modm              , xK_p     ), shellPrompt myPrompt)                                                      -- run prompt
     , ((modm              , xK_Escape), spawn "slock")                                                             -- lock screen
     , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
     , ((0, xF86XK_AudioPrev          ), spawn "mocp --previous")
@@ -86,6 +89,19 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, button3), (\w -> focus w >> mouseResizeWindow w     -- set the window to floating mode and resize by dragging
                                        >> windows W.shiftMaster))
     ]
+
+myPrompt = def { font = "xft:Iosevka:size=12:antialias=true:hinting=true"
+               , bgColor = "#5F5F5F"
+               , fgColor = "#F5F5F5"
+               , bgHLight = myFocusedBorderColor
+               , fgHLight = "#F5F5F5"
+               , promptBorderWidth = 0
+               , position = Top
+               , alwaysHighlight = True
+               , historySize = 256
+               , height = 35
+               , maxComplRows = Just 5
+               }
 
 myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ t ||| s ||| m ||| f
   where
