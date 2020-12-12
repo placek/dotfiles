@@ -15,17 +15,17 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
                                                     , "-L", "30", "-H", "70"
                                                     , "-n", "#F1C40F", "-h", "#E74C3C"
                                                     ] 10
-                    , Run DiskU                     [ ("/", "\xE0B3 DRV <usedvbar> ")
-                                                    , "-L", "30", "-H", "70"
+                    , Run DiskU                     [ ("/", "\xE0B3 DRV <usedvbar> ") ]
+                                                    [ "-L", "30", "-H", "70"
                                                     , "-n", "#F1C40F", "-h", "#E74C3C"
-                                                    ] [] 100
+                                                    ] 100
                     , Run Battery                   [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 <acstatus> <leftvbar> </fc>"
                                                     , "--"
                                                     , "-O", "AC"
                                                     , "-i", "AC"
                                                     , "-o", "BAT"
                                                     , "-L", "30", "-H", "70"
-                                                    , "-n", "#F1C40F", "-l", "#E74C3C"
+                                                    , "-m", "#F1C40F", "-l", "#E74C3C"
                                                     ] 10
                     , Run Volume "default" "Master" [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 VOL <volumevbar> </fc>" ] 10
                     , Run Network "enp0s3"          [ "-t", "<fc=#EEEEEE,#878787><rx>\x2193\x2191<tx> </fc>" ] 10
