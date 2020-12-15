@@ -49,11 +49,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_q     ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
     , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
     -- utils submap
-    , ((modm, xK_space               ), submap . M.fromList $
+    , ((modm, xK_space               ), submapDefault (spawn "rofi -modi drun -show drun") . M.fromList $
        [ ((0, xK_b                   ), spawn "bash -c '~/.fehbg'")                                                -- change background
        , ((0, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
        , ((0, xK_c                   ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
        , ((0, xK_space               ), spawn "rofi -modi drun -show drun")                                        -- drun
+       , ((0, xK_r                   ), spawn "rofi -modi run -show run")                                          -- run
        , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
        , ((0, xK_l                   ), spawn "slock")                                                             -- lock screen
        , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
