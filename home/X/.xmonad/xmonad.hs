@@ -4,6 +4,7 @@ import System.Exit
 import XMonad
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.CycleWS
+import XMonad.Actions.Submap
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -47,13 +48,17 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_q     ), kill)                                                                      -- close focused window
     , ((modm .|. shiftMask, xK_q     ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
     , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
-    -- launch stuff
-    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
-    , ((modm              , xK_space ), spawn "rofi -combi-modi drun,clip -modi 'clip:greenclip print' -show combi -run-command '{cmd}'") -- drun & clipboard history
-    , ((modm .|. shiftMask, xK_space ), spawn "rofi-pass")                                                         -- launch pass
-    , ((modm              , xK_x     ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
-    , ((modm              , xK_Return), spawn $ XMonad.terminal conf)                                              -- launch a terminal
-    , ((modm              , xK_Escape), spawn "slock")                                                             -- lock screen
+    -- utils submap
+    , ((modm, xK_space               ), submap . M.fromList $
+       [ ((0, xK_b                   ), spawn "bash -c '~/.fehbg'")                                                -- change background
+       , ((0, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+       , ((0, xK_c                   ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
+       , ((0, xK_space               ), spawn "rofi -modi drun -show drun")                                        -- drun
+       , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
+       , ((0, xK_l                   ), spawn "slock")                                                             -- lock screen
+       , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
+       ])
+    -- others
     , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
     , ((0, xF86XK_AudioPrev          ), spawn "mocp --previous")
     , ((0, xF86XK_AudioPlay          ), spawn "mocp --play")
