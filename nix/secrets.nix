@@ -1,13 +1,13 @@
 {
   users = [
-    {
-      name = "root";
-      extraGroups = [];
-      isNormalUser = false;
-      openssh.authorizedKeys.keys = [
-        # add public SSH keys here
-      ];
-    }
+    # {
+    #   name = "root";
+    #   extraGroups = [];
+    #   isNormalUser = false;
+    #   openssh.authorizedKeys.keys = [
+    #     # add public SSH keys here
+    #   ];
+    # }
     {
       name = "placek";
       uid = 1000;
