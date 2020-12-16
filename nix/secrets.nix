@@ -11,7 +11,7 @@
     {
       name = "placek";
       uid = 1000;
-      isNormalUser = false;
+      isNormalUser = true;
       description = "Paweł Placzyński";
       # hashedPassword = "secret password for that user";
     }
