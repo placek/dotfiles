@@ -1,7 +1,7 @@
 {
   users = [
     {
-      name = root;
+      name = "root";
       extraGroups = [];
       isNormalUser = false;
       openssh.authorizedKeys.keys = [
@@ -9,11 +9,12 @@
       ];
     }
     {
-      name = placek;
+      name = "placek";
       uid = 1000;
       isNormalUser = false;
       description = "Paweł Placzyński";
       # hashedPassword = "secret password for that user";
     }
+    # and so on...
   ];
 }

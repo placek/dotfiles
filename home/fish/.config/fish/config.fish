@@ -48,7 +48,7 @@ alias pair="docker-compose -f .remote.compose"
 
 # functions
 function rebuild-nix --description "copy configuration and rebuild system"
-  sudo cp $DOTFILES_DIR/nix/*.nix /etc/nixos/
+  sudo cp -vr $DOTFILES_DIR/nix/ /etc/nixos/
   sudo nixos-rebuild switch
 end
 
