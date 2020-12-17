@@ -32,7 +32,7 @@ popd () {
 }
 
 case "$1" in
-  "ls")
+  l*)
     if [ -z "$list" ]; then
       >&2 echo "projects: no projects available"
     else
@@ -40,7 +40,7 @@ case "$1" in
     fi
     ;;
 
-  "add")
+  a*)
     if [ -z "$(ls -1 "$projects" | sort -n)" ]; then
       >&2 echo "projects: no projects available under $projects"
     else
@@ -50,7 +50,7 @@ case "$1" in
     fi
     ;;
 
-  "new")
+  n*)
     target=$2
     if [ -z "$target" ]; then
       >&2 echo "projects: usage: projects new <project-name>"
@@ -67,7 +67,7 @@ case "$1" in
     fi
     ;;
 
-  "clone")
+  c*)
     uri=$2
     target=$(basename "$uri" .git)
     if [ -z "$target" ]; then
@@ -84,7 +84,7 @@ case "$1" in
     fi
     ;;
 
-  "sync")
+  s*)
     if [ -z "$list" ]; then
       >&2 echo "projects: nothing to sync"
     else
