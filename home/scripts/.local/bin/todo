@@ -3,9 +3,8 @@
 export SHELL=$(which fish)
 
 mv="mv -i"
-find="find"
 sed="sed"
-ag="ag --no-color --depth 0 -l"
+grep="grep -d skip -l"
 fzf="fzf"
 cat="cat"
 head="head"
@@ -29,12 +28,9 @@ case "$1" in
     ;;
 
   l*)
-    phrase=$2
-    if [ -z "$phrase" ]; then
-      files=$($find $todo -maxdepth 1 -type f)
-    else
-      files=$($ag "$phrase" $todo)
-    fi
+    shift
+    phrase=$@
+    files=$($grep $phrase $todo/*)
     for file in $files; do
       summary=$($head -1 $file)
       echo "$file" | $sed "s/^.*\/\(.*\)/\1 : $summary/"
@@ -78,7 +74,17 @@ case "$1" in
     fi
     ;;
 
+  t*)
+    target=$2
+    tag=$3
+    if [ -z "$target" ] || [ -z "$tag" ]; then
+      >&2 echo "todo: usage: todo tag <task-id> <tag>"
+    else
+      echo "$tag" >> $todo/$target*
+    fi
+    ;;
+
   *)
-    >&2 echo "usage: todo [ls|add|edit|show|remove|archive|help]"
+    >&2 echo "usage: todo [ls|add|edit|show|remove|archive|tag|help]"
     ;;
 esac
