@@ -1,0 +1,84 @@
+#!/usr/bin/env bash -e
+
+export SHELL=$(which fish)
+
+mv="mv -i"
+find="find"
+sed="sed"
+ag="ag --no-color --depth 0 -l"
+fzf="fzf"
+cat="cat"
+head="head"
+
+if ! command -v $EDITOR &> /dev/null; then
+  >&2 echo "todo: $EDITOR editor set by \$EDITOR env variable could not be found"
+  exit
+fi
+
+todo=${TODO_DIR:-"$HOME/.todo"}
+[ ! -d "$todo" ] && mkdir -p "$todo/archive"
+
+case "$1" in
+  ar*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "todo: usage: todo archive <task-id>"
+    else
+      $mv $todo/$target* $todo/archive
+    fi
+    ;;
+
+  l*)
+    phrase=$2
+    if [ -z "$phrase" ]; then
+      files=$($find $todo -maxdepth 1 -type f)
+    else
+      files=$($ag "$phrase" $todo)
+    fi
+    for file in $files; do
+      summary=$($head -1 $file)
+      echo "$file" | $sed "s/^.*\/\(.*\)/\1 : $summary/"
+    done
+    ;;
+
+  a*)
+    id=$(uuidgen)
+    $EDITOR $todo/$id
+    if [ -s $todo/$id ]; then
+      echo $id
+    else
+      >&2 echo "todo: nothing to add"
+    fi
+    ;;
+
+  r*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "todo: usage: todo remove <task-id>"
+    else
+      rm -i $todo/$target
+    fi
+    ;;
+
+  e*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "todo: usage: todo edit <task-id>"
+    else
+      $EDITOR $todo/$target*
+    fi
+    ;;
+
+  s*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "todo: usage: todo show <task-id>"
+    else
+      cat $todo/$target*
+    fi
+    ;;
+
+  *)
+    >&2 echo "usage: todo [ls|add|edit|show|remove|archive|help]"
+    ;;
+esac
