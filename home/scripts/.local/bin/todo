@@ -39,7 +39,13 @@ case "$1" in
 
   a*)
     id=$(date +%s | sha1sum - | cut -d ' ' -f 1)
-    $EDITOR $todo/$id
+    shift
+    summary=$@
+    if [ -z "$summary" ]; then
+      $EDITOR $todo/$id
+    else
+      echo "$summary" > $todo/$id
+    fi
     if [ -s $todo/$id ]; then
       echo $id
     else
