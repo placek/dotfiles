@@ -53,7 +53,7 @@ case "$1" in
     expression="$expression -print"
     for file in $(eval $expression); do
       summary=$(head -1 $file)
-      echo "$file" | sed "s/^.*\/\(.*\)/\1 : $summary/"
+      echo "$(echo "$file" | sed "s/^.*\///") : $summary"
     done
     ;;
 
