@@ -38,7 +38,7 @@ case "$1" in
     ;;
 
   a*)
-    id=$(uuidgen)
+    id=$(date +%s | sha1sum - | cut -d ' ' -f 1)
     $EDITOR $todo/$id
     if [ -s $todo/$id ]; then
       echo $id
