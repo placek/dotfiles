@@ -2,12 +2,7 @@
 
 export SHELL=$(which fish)
 
-mv="mv -i"
-sed="sed"
-grep="grep -d skip -l"
 fzf="fzf"
-cat="cat"
-head="head"
 
 if ! command -v $EDITOR &> /dev/null; then
   >&2 echo "todo: $EDITOR editor set by \$EDITOR env variable could not be found"
@@ -23,24 +18,34 @@ case "$1" in
     if [ -z "$target" ]; then
       >&2 echo "todo: usage: todo archive <task-id>"
     else
-      $mv $todo/$target* $todo/archive
+      mv -i $todo/$target* $todo/archive
     fi
     ;;
 
   l*)
+    expression="find $todo -type f -maxdepth 1"
     shift
-    phrase=$@
-    files=$($grep $phrase $todo/*)
-    for file in $files; do
-      summary=$($head -1 $file)
-      echo "$file" | $sed "s/^.*\/\(.*\)/\1 : $summary/"
+    for phrase in "$@"; do
+      case "${phrase:0:1}" in
+      "-")
+        expression="$expression -not -exec grep --quiet '+${phrase:1}' {} \;"
+        ;;
+      *)
+        expression="$expression -exec grep --quiet '$phrase' {} \;"
+        ;;
+      esac
+    done
+    expression="$expression -print"
+    for file in $(eval $expression); do
+      summary=$(head -1 $file)
+      echo "$file" | sed "s/^.*\/\(.*\)/\1 : $summary/"
     done
     ;;
 
   a*)
     id=$(date +%s | sha1sum - | cut -d ' ' -f 1)
     shift
-    summary=$@
+    summary=$*
     if [ -z "$summary" ]; then
       $EDITOR $todo/$id
     else
@@ -91,6 +96,6 @@ case "$1" in
     ;;
 
   *)
-    >&2 echo "usage: todo [ls|add|edit|show|remove|archive|tag|help]"
+    >&2 echo "usage: todo [list|add|edit|show|remove|archive|tag|help]"
     ;;
 esac
