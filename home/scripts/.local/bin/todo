@@ -1,9 +1,9 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
 
 export SHELL=$(which fish)
 
 if ! command -v $git &> /dev/null; then
-  >&2 echo "projects: git command could not be found"
+  >&2 echo "todo: git command could not be found"
   exit
 fi
 
@@ -22,7 +22,7 @@ fi
 function git_history() {
   message=$1
   git -C $todo add $todo > /dev/null
-  id=$(git -C $todo diff --cached --name-only)
+  id=$(git -C $todo diff --cached --name-only | sed "s/^.*\///")
   git -C $todo commit -m "$id $message" > /dev/null
 }
 

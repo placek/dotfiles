@@ -1,10 +1,13 @@
 set -gx EDITOR vim
-set -gx PROJECTS_DIR "$HOME/Projects"
 set -gx DOTFILES_DIR "$HOME/.config/dotfiles"
+set -gx PROJECTS_DIR "$HOME/Projects"
+set -gx TODO_DIR "$HOME/.todo"
 
 # pfetch greetings
 function fish_greeting
   inxi
+  echo (yellow)"-- TODO --" (off)
+  todo list -done
 end
 
 # local binaries
