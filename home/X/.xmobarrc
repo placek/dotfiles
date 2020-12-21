@@ -6,30 +6,29 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "%UnsafeStdinReader%}{%cpu%%memory%%disku%%wlan0wi%%enp0s3%%default:Master%%battery%%date%"
-       , commands = [ Run Cpu                       [ "-t", " CPU <vbar> "
+       , template        = "%UnsafeStdinReader%}{%cpu%%memory%%disku%%dynnetwork%%default:Master%%battery%%date%"
+       , commands = [ Run Cpu                       [ "-t", " cpu <vbar> "
                                                     , "-L", "30", "-H", "70"
                                                     , "-n", "#F1C40F", "-h", "#E74C3C"
                                                     ] 10
-                    , Run Memory                    [ "-t", "\xE0B3 MEM <usedvbar> "
+                    , Run Memory                    [ "-t", "\xE0B3 mem <usedvbar> "
                                                     , "-L", "30", "-H", "70"
                                                     , "-n", "#F1C40F", "-h", "#E74C3C"
                                                     ] 10
-                    , Run DiskU                     [ ("/", "\xE0B3 DRV <usedvbar> ") ]
+                    , Run DiskU                     [ ("/", "\xE0B3 drv <usedvbar> ") ]
                                                     [ "-L", "30", "-H", "70"
                                                     , "-n", "#F1C40F", "-h", "#E74C3C"
                                                     ] 100
                     , Run Battery                   [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 <acstatus> <leftvbar> </fc>"
                                                     , "--"
-                                                    , "-O", "AC"
-                                                    , "-i", "AC"
-                                                    , "-o", "BAT"
+                                                    , "-O", "ac"
+                                                    , "-i", "ac"
+                                                    , "-o", "bat"
                                                     , "-L", "30", "-H", "70"
                                                     , "-m", "#F1C40F", "-l", "#E74C3C"
                                                     ] 10
-                    , Run Volume "default" "Master" [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 VOL <volumevbar> </fc>" ] 10
-                    , Run Network "enp0s3"          [ "-t", "<fc=#EEEEEE,#878787><rx>\x2193\x2191<tx> </fc>" ] 10
-                    , Run Wireless "wlan0"          [ "-t", "<fc=#878787,#5F5F5F>\xE0B2</fc><fc=#EEEEEE,#878787> WIFI <qualityvbar> </fc>"] 10
+                    , Run Volume "default" "Master" [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 vol <volumevbar> </fc>" ] 10
+                    , Run DynNetwork                [ "-t", "<fc=#878787,#5F5F5F>\xE0B2</fc><fc=#EEEEEE,#878787> <dev> <rx>↓↑<tx> </fc>", "--", "--devices", "enp0s3"] 10
                     , Run Date "<fc=#2ECC71,#878787>\xE0B2</fc><fc=#5F5F5F,#2ECC71> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
                     , Run UnsafeStdinReader
                     ]
