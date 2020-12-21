@@ -87,6 +87,7 @@
     rofi-pass
     scrot
     slock
+    sxiv
     termite
     xclip
     xdotool
