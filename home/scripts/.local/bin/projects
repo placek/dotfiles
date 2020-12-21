@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 export SHELL=$(which fish)
-tmux="tmux -2"
+tmux="tmux"
 git="git"
 
-if ! command -v $tmux &> /dev/null; then
+if ! command -v "$tmux" &> /dev/null; then
   >&2 echo "projects: tmux command could not be found"
   exit
 fi
@@ -14,7 +14,7 @@ if ! command -v $git &> /dev/null; then
   exit
 fi
 
-if ! command -v $EDITOR &> /dev/null; then
+if ! command -v "$EDITOR" &> /dev/null; then
   >&2 echo "projects: $EDITOR editor set by \$EDITOR env variable could not be found"
   exit
 fi
@@ -92,9 +92,9 @@ case "$1" in
         project="$projects/$name"
         if [ -d "$project" ]; then
           echo "projects: $project"
-          rm -rf $project/**/tmp/*
-          rm -rf $project/**/log/*
-          rclone -v sync $project projects:/$name
+          rm -rf "$project"/**/tmp/*
+          rm -rf "$project"/**/log/*
+          rclone -v sync "$project" projects:/"$name"
         else
           >&2 echo "projects: could not cd to $project"
         fi
