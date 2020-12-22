@@ -59,6 +59,7 @@ in
       stow
       tig
       tmux
+      vifm-full
       wget
       youtube-dl
 
