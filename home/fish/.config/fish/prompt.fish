@@ -27,7 +27,7 @@ function white
 end
 
 function dim
-  set_color -o 34495E
+  set_color -o 858585
 end
 
 function off
@@ -100,7 +100,7 @@ function fish_right_prompt
     set cwd (echo $PWD | sed -e "s|$parent_root_folder/||")
   end
 
-  printf (yellow)"("(dim)$cwd(yellow)") "(off)
+  printf (dim)$cwd(off)
 end
 
 function fish_prompt
@@ -184,4 +184,3 @@ function fish_mode_prompt
   end
   off
 end
-
