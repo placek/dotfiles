@@ -43,16 +43,22 @@ case "$1" in
     for phrase in "$@"; do
       case "${phrase:0:2}" in
       /*)
-        expression="$expression -exec grep --quiet --regexp='${phrase:1}' {} \;"
+        expression="$expression -exec taskgrep -r '${phrase:1}' {} \;"
         ;;
       !/)
-        expression="$expression -not -exec grep --quiet --regexp='${phrase:2}' {} \;"
+        expression="$expression -not -exec taskgrep -r '${phrase:2}' {} \;"
+        ;;
+      @*)
+        expression="$expression -exec taskgrep -a '${phrase:1}' {} \;"
+        ;;
+      !@)
+        expression="$expression -exec taskgrep -b '${phrase:2}' {} \;"
         ;;
       !*)
-        expression="$expression -not -exec grep --quiet '${phrase:1}' {} \;"
+        expression="$expression -not -exec taskgrep -l '${phrase:1}' {} \;"
         ;;
       *)
-        expression="$expression -exec grep --quiet '$phrase' {} \;"
+        expression="$expression -exec taskgrep -l '$phrase' {} \;"
         ;;
       esac
     done

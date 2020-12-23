@@ -7,7 +7,7 @@ set -gx TODO_DIR "$HOME/.todo"
 function fish_greeting
   inxi
   echo (yellow)"-- TODO --" (off)
-  todo list -done
+  todo list !+done
 end
 
 # local binaries
