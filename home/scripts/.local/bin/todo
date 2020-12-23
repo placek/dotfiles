@@ -41,9 +41,15 @@ case "$1" in
     expression="find $todo -maxdepth 1 -type f"
     shift
     for phrase in "$@"; do
-      case "${phrase:0:1}" in
-      "-")
-        expression="$expression -not -exec grep --quiet '+${phrase:1}' {} \;"
+      case "${phrase:0:2}" in
+      /*)
+        expression="$expression -exec grep --quiet --regexp='${phrase:1}' {} \;"
+        ;;
+      !/)
+        expression="$expression -not -exec grep --quiet --regexp='${phrase:2}' {} \;"
+        ;;
+      !*)
+        expression="$expression -not -exec grep --quiet '${phrase:1}' {} \;"
         ;;
       *)
         expression="$expression -exec grep --quiet '$phrase' {} \;"
