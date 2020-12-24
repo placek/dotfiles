@@ -93,7 +93,7 @@
     xdotool
     xmobar
     xmonad-with-packages
-    zathura-with-plugins
+    zathura
 
     (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
     (weechat.override {
