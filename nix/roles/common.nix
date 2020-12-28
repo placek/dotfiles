@@ -38,6 +38,7 @@ in
     environment.systemPackages = with pkgs; [
       bash
       bat
+      cryptsetup
       ctags
       curl
       docker-compose
