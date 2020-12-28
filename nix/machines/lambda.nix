@@ -7,9 +7,8 @@
     ../services/dotfiles.nix
   ];
 
-  boot.loader.efi.canTouchEfiVariables       = true;
-  boot.loader.systemd-boot.enable            = true;
-  networking.hostName                        = "lambda";
-  services.xserver.libinput.naturalScrolling = false;
-  users.users.placek.packages                = with pkgs; [ arduino blender eagle gimp inkscape libreoffice-fresh mplayer musescore shotwell virtualbox vnstat ];
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable      = true;
+  networking.hostName                  = "lambda";
+  users.users.placek.packages          = with pkgs; [ arduino blender eagle gimp inkscape libreoffice-fresh mplayer musescore shotwell virtualbox vnstat ];
 }

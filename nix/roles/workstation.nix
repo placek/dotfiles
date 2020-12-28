@@ -37,7 +37,8 @@
           font-weight = normal
           error-color = "#F5F5F5"
           password-color = "#F5F5F5"
-          background-color = "#5F5F5F"
+          background-color = "#858585"
+          background-image = ""
           window-color = "#2C3E50"
           border-color = "#3498DB"
           border-width = 4px
