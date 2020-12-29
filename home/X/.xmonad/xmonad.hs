@@ -4,6 +4,7 @@ import System.Exit
 import XMonad
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.CycleWS
+import XMonad.Actions.KeyRemap
 import XMonad.Actions.Submap
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
@@ -23,6 +24,11 @@ myFocusedBorderColor = "#3498DB"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#2C3E50"
 myTerminal           = "termite"
+macMap               = KeymapTable [ ((myModMask, xK_a), (controlMask, xK_a))
+                                   , ((myModMask, xK_x), (controlMask, xK_x))
+                                   , ((myModMask, xK_c), (controlMask, xK_c))
+                                   , ((myModMask, xK_v), (controlMask, xK_v))
+                                   ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- windows manipulation
@@ -83,6 +89,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+    ++
+    -- remap for mac-like bindings
+    buildKeyRemapBindings [macMap]
 
 myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w       -- set the window to floating mode and move by dragging
@@ -133,6 +142,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
           "Spacing Full"        -> "full"
 
 myStartupHook = do
+  setDefaultKeyRemap macMap [macMap, emptyKeyRemap]
   spawnOnce "exec ~/.fehbg &"
   spawnOnce "dunst &"
   spawnOnce "xinput set-prop 11 'libinput Natural Scrolling Enabled' 1 &"
