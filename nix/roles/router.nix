@@ -13,7 +13,7 @@ in
       enable = true;
       allowPing = true;
       trustedInterfaces = [ "eno2" "eno3" "eno4" ];
-      checkReversePath = false; # https://github.com/NixOS/nixpkgs/issues/10101
+      checkReversePath = false;
       allowedTCPPorts = [
         22    # ssh
         80    # http
@@ -53,15 +53,6 @@ in
     services.dnsmasq = {
       enable = true;
       servers = [ "8.8.8.8" "8.8.4.4" ];
-      extraConfig = ''
-        domain=lan
-        interface=eno2
-        interface=eno3
-        interface=eno4
-        bind-interfaces
-        dhcp-range=192.168.2.10,192.168.2.254,24h
-        dhcp-range=192.168.3.10,192.168.3.254,24h
-        dhcp-range=192.168.4.10,192.168.4.254,24h
-      '';
+      extraConfig = builtins.readFile ../sources/dnsmasq/config;
     };
   }

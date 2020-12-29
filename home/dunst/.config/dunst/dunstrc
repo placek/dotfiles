@@ -1,5 +1,3 @@
-# vim: ft=cfg
-
 [global]
 font = Iosevka 12
 markup = yes

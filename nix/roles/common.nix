@@ -12,6 +12,11 @@ in
     nix.gc.automatic                         = true;
     nix.gc.options                           = "--delete-older-than 7d";
     nix.useSandbox                           = true;
+    nixpkgs.config.allowUnfree               = true;
+    services.cron.enable                     = true;
+    services.pcscd.enable                    = true;
+    services.printing.enable                 = true;
+    services.udev.packages                   = [ pkgs.yubikey-personalization ];
     system.autoUpgrade.allowReboot           = true;
     system.autoUpgrade.channel               = https://nixos.org/channels/nixos-20.09;
     system.autoUpgrade.enable                = true;
@@ -19,11 +24,6 @@ in
     time.timeZone                            = "Europe/Warsaw";
     virtualisation.docker.autoPrune.dates    = "daily";
     virtualisation.docker.enable             = true;
-    nixpkgs.config.allowUnfree               = true;
-    services.cron.enable                     = true;
-    services.printing.enable                 = true;
-    services.pcscd.enable                    = true;
-    services.udev.packages                   = [ pkgs.yubikey-personalization ];
 
     users.users = builtins.listToAttrs (map (user:
       {

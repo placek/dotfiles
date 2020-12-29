@@ -1,0 +1,8 @@
+domain=lan
+interface=eno2
+interface=eno3
+interface=eno4
+bind-interfaces
+dhcp-range=192.168.2.10,192.168.2.254,24h
+dhcp-range=192.168.3.10,192.168.3.254,24h
+dhcp-range=192.168.4.10,192.168.4.254,24h
