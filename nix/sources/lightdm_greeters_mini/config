@@ -1,0 +1,18 @@
+[greeter]
+show-password-label = false
+invalid-password-text = nope!
+show-input-cursor = false
+password-alignment = left
+password-input-width = 12
+[greeter-theme]
+font = "Iosevka"
+font-weight = normal
+error-color = "#F5F5F5"
+password-color = "#F5F5F5"
+background-color = "#858585"
+background-image = ""
+window-color = "#2C3E50"
+border-color = "#3498DB"
+border-width = 4px
+password-background-color = "#2C3E50"
+password-border-width = 0px

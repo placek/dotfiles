@@ -23,26 +23,7 @@
         enable = true;
         greeters.mini.enable = true;
         greeters.mini.user = "placek";
-        greeters.mini.extraConfig = ''
-          [greeter]
-          show-password-label = false
-          invalid-password-text = nope!
-          show-input-cursor = false
-          password-alignment = left
-          password-input-width = 12
-          [greeter-theme]
-          font = "Iosevka"
-          font-weight = normal
-          error-color = "#F5F5F5"
-          password-color = "#F5F5F5"
-          background-color = "#858585"
-          background-image = ""
-          window-color = "#2C3E50"
-          border-color = "#3498DB"
-          border-width = 4px
-          password-background-color = "#2C3E50"
-          password-border-width = 0px
-        '';
+        greeters.mini.extraConfig = builtins.readFile ../sources/lightdm_greeters_mini/config;
       };
       enable = true;
       layout = "pl";
@@ -95,16 +76,10 @@
 
     (pass.withExtensions (ext: with ext; [pass-otp pass-import]))
     (weechat.override {
-      configure = {availablePlugins, ...}: {
+      configure = { availablePlugins, ... }: {
         plugins = with availablePlugins; [ python perl ];
         scripts = with pkgs.weechatScripts; [ weechat-notify-send wee-slack ];
-        init = ''
-          /script install vimode.py
-          /set weechat.bar.buflist.size_max 30
-          /set weechat.bar.input.items "mode_indicator+[input_prompt]+(away),[input_search], [input_paste],input_text,[vi_buffer]"
-          /set weechat.bar.vi_line_numbers.hidden off
-          /mouse enable
-        '';
+        init = builtins.readFile ../sources/weechat/config;
       };
     })
   ];
