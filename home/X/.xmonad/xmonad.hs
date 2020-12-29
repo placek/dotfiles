@@ -62,7 +62,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- others
     , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
     , ((0, xF86XK_AudioPrev          ), spawn "mocp --previous")
-    , ((0, xF86XK_AudioPlay          ), spawn "mocp --play")
+    , ((0, xF86XK_AudioPlay          ), spawn "mocp --toggle-pause")
     , ((0, xF86XK_AudioNext          ), spawn "mocp --next")
     , ((0, xF86XK_AudioMute          ), spawn "amixer set Master mute")
     , ((0, xF86XK_AudioLowerVolume   ), spawn "amixer set Master 5%- unmute")
@@ -135,6 +135,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
 myStartupHook = do
   spawnOnce "exec ~/.fehbg &"
   spawnOnce "dunst &"
+  spawnOnce "xinput set-prop 11 'libinput Natural Scrolling Enabled' 1 &"
 
 main = do
   xmproc <- spawnPipe "xmobar"

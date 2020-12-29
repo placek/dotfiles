@@ -89,10 +89,8 @@
     sxiv
     termite
     xclip
-    xdotool
     xmobar
     xmonad-with-packages
-    xorg.xbacklight
     zathura
 
     (pass.withExtensions (ext: with ext; [pass-otp pass-import]))

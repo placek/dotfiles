@@ -1,7 +1,7 @@
 [user]
   name = Paweł Placzyński
   email = placzynski.pawel@gmail.com
-  signingkey = C6E4ECDDDD13326D324AA1992F32B4B85CBA349E
+  signingkey = 1D95E554315BC053
 [github]
   user = placek
 [core]
@@ -39,3 +39,5 @@
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
+[pull]
+  ff = only
