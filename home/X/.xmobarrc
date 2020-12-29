@@ -6,8 +6,9 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "%UnsafeStdinReader%}{%cpu%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
-       , commands = [ Run Cpu                       [ "-t", " cpu <vbar> "
+       , template        = "%UnsafeStdinReader%}{%EPLL%%cpu%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
+       , commands = [ Run Weather "EPLL"            [ "-t", "<tempC>℃ <rh>% <pressure>hPa <windCardinal>/<windKnots>kn " ] 1800
+                    , Run Cpu                       [ "-t", "\xE0B3 cpu <vbar> "
                                                     , "-L", "30", "-H", "70"
                                                     , "-n", "#F1C40F", "-h", "#E74C3C"
                                                     ] 10
