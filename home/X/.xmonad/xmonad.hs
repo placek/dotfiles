@@ -67,8 +67,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0, xF86XK_AudioMute          ), spawn "amixer set Master mute")
     , ((0, xF86XK_AudioLowerVolume   ), spawn "amixer set Master 5%- unmute")
     , ((0, xF86XK_AudioRaiseVolume   ), spawn "amixer set Master 5%+ unmute")
-    --, ((0, xF86XK_MonBrightnessUp    ), Bright.increase)
-    --, ((0, xF86XK_MonBrightnessDown  ), Bright.decrease)
+    , ((0, xF86XK_MonBrightnessUp    ), spawn "light -A 5.0")
+    , ((0, xF86XK_MonBrightnessDown  ), spawn "light -U 5.0")
     ]
     ++
     -- mod-[1..4], switch to workspace N

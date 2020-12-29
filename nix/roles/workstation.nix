@@ -6,8 +6,6 @@
   fonts.fontconfig.defaultFonts.sansSerif = [ "Ubuntu" ];
   fonts.fontconfig.defaultFonts.serif     = [ "Ubuntu" ];
   fonts.fonts                             = [ pkgs.iosevka-bin pkgs.ubuntu_font_family ];
-  hardware.bluetooth.enable               = true;
-  hardware.pulseaudio.enable              = true;
   networking.networkmanager.enable        = true;
   powerManagement.enable                  = true;
   programs.gnupg.agent.enable             = true;
@@ -48,7 +46,6 @@
       };
       enable = true;
       layout = "pl";
-      libinput.enable = true;
       windowManager.xmonad = {
         enableContribAndExtras = true;
         haskellPackages = pkgs.haskell.packages.ghc865;
@@ -71,6 +68,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    acpi
     arandr
     chromium
     dunst
@@ -94,6 +92,7 @@
     xdotool
     xmobar
     xmonad-with-packages
+    xorg.xbacklight
     zathura
 
     (pass.withExtensions (ext: with ext; [pass-otp pass-import]))

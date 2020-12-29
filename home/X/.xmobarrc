@@ -6,7 +6,7 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "%UnsafeStdinReader%}{%cpu%%memory%%disku%%default:Master%%battery%%dynnetwork%%date%"
+       , template        = "%UnsafeStdinReader%}{%cpu%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
        , commands = [ Run Cpu                       [ "-t", " cpu <vbar> "
                                                     , "-L", "30", "-H", "70"
                                                     , "-n", "#F1C40F", "-h", "#E74C3C"
@@ -19,6 +19,11 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
                                                     [ "-L", "30", "-H", "70"
                                                     , "-n", "#F1C40F", "-h", "#E74C3C"
                                                     ] 100
+                    , Run Volume "default" "Master" [ "-t", "\xE0B3 <status> <volumevbar> "
+                                                    , "--"
+                                                    , "-C", "#F5F5F5", "-c", "#F5F5F5"
+                                                    , "-O", "vol", "-o", "v̶o̶l̶"
+                                                    ] 10
                     , Run Battery                   [ "-t", "\xE0B3 <acstatus> <leftvbar> "
                                                     , "--"
                                                     , "-O", "ac"
@@ -27,12 +32,8 @@ Config { font            = "xft:Iosevka:size=12:antialias=true:hinting=true"
                                                     , "-L", "30", "-H", "70"
                                                     , "-m", "#F1C40F", "-l", "#E74C3C"
                                                     ] 10
-                    , Run Volume "default" "Master" [ "-t", "\xE0B3 <status> <volumevbar> "
-                                                    , "--"
-                                                    , "-C", "#F5F5F5", "-c", "#F5F5F5"
-                                                    , "-O", "vol", "-o", "v̶o̶l̶"
-                                                    ] 10
                     , Run DynNetwork                [ "-t", "<fc=#878787,#5F5F5F>\xE0B2</fc><fc=#EEEEEE,#878787> <dev> <rx>↓↑<tx> </fc>", "--", "--devices", "enp0s3"] 10
+                    , Run Wireless "wlp4s0"         [ "-t", "<fc=#EEEEEE,#878787>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10
                     , Run Date "<fc=#2ECC71,#878787>\xE0B2</fc><fc=#5F5F5F,#2ECC71> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
                     , Run UnsafeStdinReader
                     ]

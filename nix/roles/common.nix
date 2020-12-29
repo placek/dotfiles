@@ -11,6 +11,7 @@ in
     networking.firewall.enable               = true;
     nix.gc.automatic                         = true;
     nix.gc.options                           = "--delete-older-than 7d";
+    nix.useSandbox                           = true;
     system.autoUpgrade.allowReboot           = true;
     system.autoUpgrade.channel               = https://nixos.org/channels/nixos-20.09;
     system.autoUpgrade.enable                = true;
@@ -29,7 +30,7 @@ in
         name = user.name;
         value = {
           isNormalUser = true;
-          extraGroups = [ "wheel" "networkmanager" "docker" ];
+          extraGroups = [ "wheel" "docker" "networkmanager" "messagebus" "systemd-journal" "disk" "audio" "video" ];
           shell = pkgs.fish;
         } // (removeAttrs user [ "name" ]);
       }
@@ -38,6 +39,7 @@ in
     environment.systemPackages = with pkgs; [
       bash
       bat
+      bc
       cryptsetup
       ctags
       curl
