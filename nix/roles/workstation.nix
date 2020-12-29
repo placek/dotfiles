@@ -68,7 +68,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    acpi
     arandr
     chromium
     dunst
