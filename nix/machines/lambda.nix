@@ -24,5 +24,5 @@
   services.mbpfan.highTemp                   = 64;
   services.mbpfan.maxTemp                    = 84;
 
-  users.users.placek.packages                = with pkgs; [ arduino blender eagle gimp inkscape libreoffice-fresh mplayer musescore shotwell virtualbox vnstat ];
+  users.users.placek.packages                = with pkgs; [ arduino blender eagle fusuma gimp inkscape libreoffice-fresh mplayer musescore shotwell virtualbox vnstat ];
 }

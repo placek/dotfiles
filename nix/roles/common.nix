@@ -30,7 +30,7 @@ in
         name = user.name;
         value = {
           isNormalUser = true;
-          extraGroups = [ "wheel" "docker" "networkmanager" "messagebus" "systemd-journal" "disk" "audio" "video" ];
+          extraGroups = [ "wheel" "docker" "networkmanager" "messagebus" "systemd-journal" "disk" "audio" "video" "input" ];
           shell = pkgs.fish;
         } // (removeAttrs user [ "name" ]);
       }

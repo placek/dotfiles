@@ -89,6 +89,7 @@
     sxiv
     termite
     xclip
+    xdotool
     xmobar
     xmonad-with-packages
     zathura

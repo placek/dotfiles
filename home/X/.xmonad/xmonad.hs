@@ -136,6 +136,7 @@ myStartupHook = do
   spawnOnce "exec ~/.fehbg &"
   spawnOnce "dunst &"
   spawnOnce "xinput set-prop 11 'libinput Natural Scrolling Enabled' 1 &"
+  spawnOnce "fusuma -d &"
 
 main = do
   xmproc <- spawnPipe "xmobar"
