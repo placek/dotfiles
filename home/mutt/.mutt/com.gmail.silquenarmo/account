@@ -1,7 +1,7 @@
 set imap_user = "silquenarmo@gmail.com"
 set imap_pass = $MUTT_ACCOUNT_2
 set smtp_url = "smtp://silquenarmo@smtp.gmail.com:587/"
-set smtp_pass = $MUTT_ACCOUNT_3
+set smtp_pass = $MUTT_ACCOUNT_2
 set from = "silquenarmo@gmail.com"
 set realname = "Paweł Placzyński"
 set folder = "imaps://silquenarmo@gmail.com@imap.gmail.com:993"

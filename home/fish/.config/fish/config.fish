@@ -43,7 +43,7 @@ abbr --add j "journalctl"
 abbr --add s "systemctl"
 
 # aliases
-alias mail="neomutt"
+alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias slack="weechat"
 alias tb="nc termbin.com 9999"
 alias dots="stow --dir=$DOTFILES_DIR/home --target=$HOME --verbose"
