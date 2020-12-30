@@ -30,6 +30,7 @@ in
       projects = pkgs.callPackage ../derivations/projects {};
       sc = pkgs.callPackage ../derivations/sc {};
       todo = pkgs.callPackage ../derivations/todo {};
+      wallpapers = pkgs.callPackage ../derivations/wallpapers {};
     };
 
     users.users = builtins.listToAttrs (map (user:

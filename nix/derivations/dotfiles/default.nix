@@ -9,7 +9,6 @@ pkgs.stdenv.mkDerivation rec {
     repo            = "dotfiles";
     rev             = "0937da35d5bf303e3f4180955923f6f251a2b923";
     sha256          = "0fkmyxlc76jvmchrcn3hzwakmds2iap5g73b1nzgzkzslymiwkl9";
-    fetchSubmodules = true;
   };
 
   buildInputs = [];
