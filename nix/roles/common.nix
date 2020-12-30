@@ -27,6 +27,7 @@ in
 
     nixpkgs.config.packageOverrides = pkgs: rec {
       dotfiles = pkgs.callPackage ../derivations/dotfiles {};
+      projects = pkgs.callPackage ../derivations/projects {};
     };
 
     users.users = builtins.listToAttrs (map (user:
@@ -62,6 +63,7 @@ in
       openvpn
       paperkey
       pinentry-curses
+      projects
       rclone
       rsync
       silver-searcher
