@@ -29,6 +29,7 @@ in
       dotfiles = pkgs.callPackage ../derivations/dotfiles {};
       projects = pkgs.callPackage ../derivations/projects {};
       sc = pkgs.callPackage ../derivations/sc {};
+      todo = pkgs.callPackage ../derivations/todo {};
     };
 
     users.users = builtins.listToAttrs (map (user:
@@ -72,6 +73,7 @@ in
       stow
       tig
       tmux
+      todo
       vifm-full
       wget
       youtube-dl
