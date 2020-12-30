@@ -25,6 +25,10 @@ in
     virtualisation.docker.autoPrune.dates    = "daily";
     virtualisation.docker.enable             = true;
 
+    nixpkgs.config.packageOverrides = pkgs: rec {
+      dotfiles = pkgs.callPackage ../derivations/dotfiles {};
+    };
+
     users.users = builtins.listToAttrs (map (user:
       {
         name = user.name;
