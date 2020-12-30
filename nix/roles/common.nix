@@ -25,11 +25,6 @@ in
     virtualisation.docker.autoPrune.dates    = "daily";
     virtualisation.docker.enable             = true;
 
-    fileSystems."/mnt/backup" = {
-      device = "/dev/disk/by-label/BACKUP";
-      noCheck = true;
-    };
-
     users.users = builtins.listToAttrs (map (user:
       {
         name = user.name;

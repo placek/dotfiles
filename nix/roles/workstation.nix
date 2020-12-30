@@ -39,12 +39,6 @@
         ];
         enable = true;
       };
-      xautolock = {
-        enable = true;
-        enableNotifier = true;
-        locker = "${pkgs.slock}/bin/slock";
-        notifier = "${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'";
-      };
     };
   };
 

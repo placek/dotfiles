@@ -4,7 +4,6 @@
   imports = [
     ../roles/common.nix
     # ../roles/router.nix
-    ../services/dotfiles.nix
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;
