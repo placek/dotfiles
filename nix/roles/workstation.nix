@@ -62,6 +62,7 @@
     slock
     sxiv
     termite
+    wallpapers
     xclip
     xdotool
     xmobar
@@ -77,4 +78,12 @@
       };
     })
   ];
+
+  system.userActivationScripts = {
+    wallpapers = ''
+      rm -rf $HOME/.wall
+      ln -s ${pkgs.wallpapers}/shared $HOME/.wall
+      true
+    '';
+  };
 }
