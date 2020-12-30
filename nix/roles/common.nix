@@ -28,6 +28,7 @@ in
     nixpkgs.config.packageOverrides = pkgs: rec {
       dotfiles = pkgs.callPackage ../derivations/dotfiles {};
       projects = pkgs.callPackage ../derivations/projects {};
+      sc = pkgs.callPackage ../derivations/sc {};
     };
 
     users.users = builtins.listToAttrs (map (user:
@@ -66,6 +67,7 @@ in
       projects
       rclone
       rsync
+      sc
       silver-searcher
       stow
       tig
