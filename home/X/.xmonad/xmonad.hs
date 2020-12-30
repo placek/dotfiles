@@ -64,6 +64,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
        , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
        , ((0, xK_l                   ), spawn "slock")                                                             -- lock screen
        , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
+       , ((0, xK_4                   ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
        ])
     -- others
     , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
