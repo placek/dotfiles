@@ -17,33 +17,35 @@ packets=$(ls -1 $source_dir)
 
 case "$1" in
   i*)
+    $stow --dir=$target_dir --target=$HOME --verbose --delete $@
+    rm -rf $target_dir
     cp -vruTP $source_dir $target_dir
     ;;
 
   m*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$target_dir --target=$HOME --verbose --stow $packets
+      $stow --dir=$target_dir --target=$HOME --verbose --stow $packets
     else
-      stow --dir=$target_dir --target=$HOME --verbose --stow $@
+      $stow --dir=$target_dir --target=$HOME --verbose --stow $@
     fi
     ;;
 
   u*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$target_dir --target=$HOME --verbose --delete $packets
+      $stow --dir=$target_dir --target=$HOME --verbose --delete $packets
     else
-      stow --dir=$target_dir --target=$HOME --verbose --delete $@
+      $stow --dir=$target_dir --target=$HOME --verbose --delete $@
     fi
     ;;
 
   r*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$target_dir --target=$HOME --verbose --restow $packets
+      $stow --dir=$target_dir --target=$HOME --verbose --restow $packets
     else
-      stow --dir=$target_dir --target=$HOME --verbose --restow $@
+      $stow --dir=$target_dir --target=$HOME --verbose --restow $@
     fi
     ;;
 
