@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+stow="stow"
+
+if ! command -v "$stow" &> /dev/null; then
+  >&2 echo "dots: stow command could not be found"
+  exit
+fi
+
+script_file=$(realpath $0)
+script_dir=$(dirname $script_file)
+source_dir="$(dirname $script_dir)/share"
+target_dir="$HOME/.config/dotfiles"
+
+[ ! -d "$target_dir" ] && mkdir -p "$target_dir"
+
+case "$1" in
+  i*)
+    cp -vru $source_dir $target_dir
+    ;;
+
+  m*)
+    >&2 echo "dots: not implemented yet"
+    ;;
+
+  u*)
+    >&2 echo "dots: not implemented yet"
+    ;;
+
+  *)
+    >&2 echo "usage: dots [install|mount|umount|help]"
+    ;;
+esac
