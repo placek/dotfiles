@@ -11,20 +11,25 @@ script_file=$(realpath $0)
 script_dir=$(dirname $script_file)
 source_dir="$(dirname $script_dir)/share"
 target_dir="$HOME/.config/dotfiles"
+packets=$(ls -1 $source_dir)
 
 [ ! -d "$target_dir" ] && mkdir -p "$target_dir"
 
 case "$1" in
   i*)
-    cp -vru $source_dir $target_dir
+    cp -vruTP $source_dir $target_dir
     ;;
 
   m*)
-    >&2 echo "dots: not implemented yet"
+    stow --dir=$target_dir --target=$HOME --verbose --stow $packets
     ;;
 
   u*)
-    >&2 echo "dots: not implemented yet"
+    stow --dir=$target_dir --target=$HOME --verbose --delete $packets
+    ;;
+
+  r*)
+    stow --dir=$target_dir --target=$HOME --verbose --restow $packets
     ;;
 
   *)
