@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-read -r input
-
-[[ -v $TMUX ]] && echo -n "$input" | tmux loadb -
-echo -n "$input" | xclip -i -f -selection primary | xclip -i -f -selection clipboard

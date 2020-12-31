@@ -10,11 +10,6 @@ function fish_greeting
   todo list !+done
 end
 
-# local binaries
-if [ -d "$HOME/.local/bin" ]
-  set PATH $PATH "$HOME/.local/bin"
-end
-
 # unbind Ctrl-V
 bind -e \cv
 
@@ -47,12 +42,6 @@ alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias slack="weechat"
 alias tb="nc termbin.com 9999"
 alias pair="docker-compose -f .remote.compose"
-
-# functions
-function rebuild-nix --description "copy configuration and rebuild system"
-  sudo cp -vr $NIXFILES_DIR/* /etc/nixos/
-  sudo nixos-rebuild switch
-end
 
 # colors
 source "$HOME/.config/fish/base16-flat.fish"
