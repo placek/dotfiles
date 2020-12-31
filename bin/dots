@@ -4,7 +4,7 @@ stow="stow"
 
 if ! command -v "$stow" &> /dev/null; then
   >&2 echo "dots: stow command could not be found"
-  exit
+  exit 1
 fi
 
 script_file=$(realpath $0)
