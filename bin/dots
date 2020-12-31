@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-stow=$(/usr/bin/env stow)
+alias stow='/usr/bin/env stow'
 
-if ! command -v "$stow" &> /dev/null; then
+if ! command -v "stow" &> /dev/null; then
   >&2 echo "dots: stow command could not be found"
   exit 1
 fi
@@ -23,27 +23,27 @@ case "$1" in
   m*)
     shift
     if [ -z "$@" ]; then
-      $stow --dir=$target_dir --target=$HOME --verbose --stow $packets
+      stow --dir=$target_dir --target=$HOME --verbose --stow $packets
     else
-      $stow --dir=$target_dir --target=$HOME --verbose --stow $@
+      stow --dir=$target_dir --target=$HOME --verbose --stow $@
     fi
     ;;
 
   u*)
     shift
     if [ -z "$@" ]; then
-      $stow --dir=$target_dir --target=$HOME --verbose --delete $packets
+      stow --dir=$target_dir --target=$HOME --verbose --delete $packets
     else
-      $stow --dir=$target_dir --target=$HOME --verbose --delete $@
+      stow --dir=$target_dir --target=$HOME --verbose --delete $@
     fi
     ;;
 
   r*)
     shift
     if [ -z "$@" ]; then
-      $stow --dir=$target_dir --target=$HOME --verbose --restow $packets
+      stow --dir=$target_dir --target=$HOME --verbose --restow $packets
     else
-      $stow --dir=$target_dir --target=$HOME --verbose --restow $@
+      stow --dir=$target_dir --target=$HOME --verbose --restow $@
     fi
     ;;
 
