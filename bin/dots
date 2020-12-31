@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-stow=${STOW:-"stow"}
+stow=$(/usr/bin/env stow)
 
 if ! command -v "$stow" &> /dev/null; then
   >&2 echo "dots: stow command could not be found"
