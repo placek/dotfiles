@@ -21,15 +21,30 @@ case "$1" in
     ;;
 
   m*)
-    stow --dir=$target_dir --target=$HOME --verbose --stow $packets
+    shift
+    if [ -z "$@" ]; then
+      stow --dir=$target_dir --target=$HOME --verbose --stow $packets
+    else
+      stow --dir=$target_dir --target=$HOME --verbose --stow $@
+    fi
     ;;
 
   u*)
-    stow --dir=$target_dir --target=$HOME --verbose --delete $packets
+    shift
+    if [ -z "$@" ]; then
+      stow --dir=$target_dir --target=$HOME --verbose --delete $packets
+    else
+      stow --dir=$target_dir --target=$HOME --verbose --delete $@
+    fi
     ;;
 
   r*)
-    stow --dir=$target_dir --target=$HOME --verbose --restow $packets
+    shift
+    if [ -z "$@" ]; then
+      stow --dir=$target_dir --target=$HOME --verbose --restow $packets
+    else
+      stow --dir=$target_dir --target=$HOME --verbose --restow $@
+    fi
     ;;
 
   *)

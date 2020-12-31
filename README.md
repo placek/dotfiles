@@ -4,10 +4,19 @@ My `$HOME` configuration files stored in **gnustow** packages.
 
 ### installation
 
-1. Copy this directory to the target configuration path (like `$HOME/.config/dotfiles`).
-2. Run stow to link the files, like:
+1. Clone the repo.
+2. Run `dots` command like:
 ```
-stow --dir=$HOME/.config/dotfiles --target=$HOME -S <package1> <package2> ...
+dots install
+dots mount
+```
+3. To clear configuration run:
+```
+dots umount
+```
+4. To restore configuration run:
+```
+dots remount
 ```
 
 ### contributing
