@@ -1,7 +1,7 @@
 set -gx EDITOR vim
 set -gx DOTFILES_DIR "$HOME/.config/dotfiles"
 set -gx PROJECTS_DIR "$HOME/Projects"
-set -gx NIXFILES_DIR "$PROJECTS/nixfiles"
+set -gx NIXFILES_DIR "$HOME/Projects/nixfiles"
 set -gx TODO_DIR "$HOME/.todo"
 
 # pfetch greetings
