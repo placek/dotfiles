@@ -17,7 +17,7 @@ packets=$(ls -1 $source_dir)
 
 case "$1" in
   i*)
-    $stow --dir=$target_dir --target=$HOME --verbose --delete $@
+    $stow --dir=$target_dir --target=$HOME --verbose --delete $packets
     rm -rf $target_dir
     cp -vruTP $source_dir $target_dir
     ;;
