@@ -1,11 +1,14 @@
 # dotfiles
 
-This is a whole set of configuration files I use daily.
+My `$HOME` configuration files stored in **gnustow** packages.
 
-### documentation
+### installation
 
-* [HOME](home/README.md)
-* [NIX](nix/README.md)
+1. Copy this directory to the target configuration path (like `$HOME/.config/dotfiles`).
+2. Run stow to link the files, like:
+```
+stow --dir=$HOME/.config/dotfiles --target=$HOME -S <package1> <package2> ...
+```
 
 ### contributing
 

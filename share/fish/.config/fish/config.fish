@@ -1,6 +1,7 @@
 set -gx EDITOR vim
 set -gx DOTFILES_DIR "$HOME/.config/dotfiles"
 set -gx PROJECTS_DIR "$HOME/Projects"
+set -gx NIXFILES_DIR "$PROJECTS/nixfiles"
 set -gx TODO_DIR "$HOME/.todo"
 
 # pfetch greetings
@@ -46,12 +47,11 @@ abbr --add s "systemctl"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias slack="weechat"
 alias tb="nc termbin.com 9999"
-alias dots="stow --dir=$DOTFILES_DIR/home --target=$HOME --verbose"
 alias pair="docker-compose -f .remote.compose"
 
 # functions
 function rebuild-nix --description "copy configuration and rebuild system"
-  sudo cp -vr $DOTFILES_DIR/nix/* /etc/nixos/
+  sudo cp -vr $NIXFILES_DIR/* /etc/nixos/
   sudo nixos-rebuild switch
 end
 
