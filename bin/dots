@@ -17,7 +17,7 @@ packets=$(ls -1 $source_dir)
 
 case "$1" in
   i*)
-    [ ! -d "$target_dir" ] && cp -vruTP $source_dir $target_dir
+    cp -vruTP $source_dir $target_dir
     ;;
 
   m*)
