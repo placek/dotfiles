@@ -10,6 +10,10 @@ My `$HOME` configuration files stored in **gnustow** packages.
 dots install
 dots mount
 ```
+One can also mount only one package, like:
+```
+dots mount common
+```
 3. To clear configuration run:
 ```
 dots umount
