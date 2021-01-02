@@ -84,8 +84,6 @@ fileviewer *.[1-8] man ./%c | col -b
 
 " images
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-        \ {View in sxiv}
-        \ sxiv -ia %f &,
         \ {View in feh}
         \ feh %d &,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
