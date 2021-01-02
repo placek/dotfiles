@@ -10,40 +10,43 @@ fi
 script_file=$(realpath $0)
 script_dir=$(dirname $script_file)
 source_dir="$(dirname $script_dir)/share"
-target_dir="$HOME/.config/dotfiles"
+target_dir=$HOME
 packets=$(ls -1 $source_dir)
 
 [ ! -d "$target_dir" ] && mkdir -p "$target_dir"
 
 case "$1" in
   i*)
-    cp -vruTP $source_dir $target_dir
+    for dir in $(find $source_dir/* -mindepth 1 -type d -printf "%P\n"); do
+      mkdir -p  $target_dir/$dir
+      chmod 700 $target_dir/$dir
+    done
     ;;
 
   m*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$target_dir --target=$HOME --verbose --stow $packets
+      stow --dir=$source_dir --target=$target_dir --verbose --stow $packets
     else
-      stow --dir=$target_dir --target=$HOME --verbose --stow $@
+      stow --dir=$source_dir --target=$target_dir --verbose --stow $@
     fi
     ;;
 
   u*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$target_dir --target=$HOME --verbose --delete $packets
+      stow --dir=$source_dir --target=$target_dir --verbose --delete $packets
     else
-      stow --dir=$target_dir --target=$HOME --verbose --delete $@
+      stow --dir=$source_dir --target=$target_dir --verbose --delete $@
     fi
     ;;
 
   r*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$target_dir --target=$HOME --verbose --restow $packets
+      stow --dir=$source_dir --target=$target_dir --verbose --restow $packets
     else
-      stow --dir=$target_dir --target=$HOME --verbose --restow $@
+      stow --dir=$source_dir --target=$target_dir --verbose --restow $@
     fi
     ;;
 
