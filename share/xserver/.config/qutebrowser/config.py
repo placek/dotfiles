@@ -130,7 +130,7 @@ c.fonts.debug_console = '12pt "Iosevka"'
 c.fonts.prompts = 'default_size sans-serif'
 c.fonts.statusbar = '12pt "Iosevka"'
 
-config.bind('Ym', 'hint links spawn urxvt -e youtube-dl -x {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
-config.bind('Yv', 'hint links spawn urxvt -e youtube-dl {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
+config.bind('Ym', 'hint links spawn kitty -e youtube-dl -x {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
+config.bind('Yv', 'hint links spawn kitty -e youtube-dl {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
 config.bind('t', 'set-cmd-text -s :open -t')
 config.bind('xt', 'config-cycle tabs.show always never')

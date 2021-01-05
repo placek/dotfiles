@@ -23,7 +23,7 @@ myFocusFollowsMouse  = True
 myFocusedBorderColor = "#3498DB"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#2C3E50"
-myTerminal           = "termite"
+myTerminal           = "kitty"
 macMap               = KeymapTable [ ((myModMask, xK_a), (controlMask, xK_a))
                                    , ((myModMask, xK_x), (controlMask, xK_x))
                                    , ((myModMask, xK_c), (controlMask, xK_c))
