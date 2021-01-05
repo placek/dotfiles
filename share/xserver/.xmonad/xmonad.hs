@@ -139,8 +139,8 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              }
   where layout a = case a of
           "Spacing Tall"        -> "tall"
-          "Spacing Mirror Tall" -> "mtall"
-          "Spacing Full"        -> "full"
+          "Spacing Mirror Tall" -> "fat"
+          "Spacing Full"        -> "mono"
 
 myStartupHook = do
   setDefaultKeyRemap macMap [macMap, emptyKeyRemap]
