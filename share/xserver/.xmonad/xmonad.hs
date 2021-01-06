@@ -51,9 +51,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_t     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
     , ((modm .|. shiftMask, xK_t     ), refresh)                                                                   -- resize viewed windows to the correct size
     , ((modm              , xK_b     ), sendMessage ToggleStruts)                                                  -- toggle the status bar gap
-    , ((modm              , xK_q     ), kill)                                                                      -- close focused window
-    , ((modm .|. shiftMask, xK_q     ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
-    , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))                                                 -- quit xmonad
     -- utils submap
     , ((modm, xK_space               ), submapDefault (spawn "rofi -modi drun -show drun") . M.fromList $
        [ ((0, xK_b                   ), spawn "bash -c '~/.fehbg'")                                                -- change background
@@ -64,9 +61,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
        , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
        , ((0, xK_l                   ), spawn "slock")                                                             -- lock screen
        , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
-       , ((0, xK_4                   ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
+       ])
+    -- quit submap
+    , ((modm, xK_q                   ), submap . M.fromList $
+       [ ((modm, xK_q                ), kill)                                                                      -- close focused window
+       , ((modm, xK_c                ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
+       , ((modm, xK_x                ), io (exitWith ExitSuccess))                                                 -- quit xmonad
        ])
     -- others
+    , ((0, xF86XK_LaunchB            ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot (F4)
     , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
     , ((0, xF86XK_AudioPrev          ), spawn "mocp --previous")
     , ((0, xF86XK_AudioPlay          ), spawn "mocp --toggle-pause")
