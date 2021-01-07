@@ -13,8 +13,8 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Spacing
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
-import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import qualified XMonad.StackSet as W
 
 myBorderWidth        = 4
 myClickJustFocuses   = False
@@ -24,10 +24,15 @@ myFocusedBorderColor = "#3498DB"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#2C3E50"
 myTerminal           = "kitty"
-macMap               = KeymapTable [ ((myModMask, xK_a), (controlMask, xK_a))
-                                   , ((myModMask, xK_x), (controlMask, xK_x))
-                                   , ((myModMask, xK_c), (controlMask, xK_c))
-                                   , ((myModMask, xK_v), (controlMask, xK_v))
+macMap               = KeymapTable [ ((myModMask, xK_a), (controlMask, xK_a))                             -- select all
+                                   , ((myModMask, xK_w), (controlMask, xK_w))                             -- close tab
+                                   , ((myModMask, xK_r), (controlMask, xK_r))                             -- reload
+                                   , ((myModMask, xK_t), (controlMask, xK_t))                             -- new tab
+                                   , ((myModMask, xK_z), (controlMask, xK_z))                             -- undo
+                                   , ((myModMask, xK_x), (controlMask, xK_x))                             -- cut
+                                   , ((myModMask, xK_c), (controlMask, xK_c))                             -- copy
+                                   , ((myModMask, xK_v), (controlMask, xK_v))                             -- paste
+                                   , ((myModMask .|. shiftMask, xK_t), (controlMask .|. shiftMask, xK_t)) -- restore tab
                                    ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -48,24 +53,23 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_l     ), sendMessage (IncMasterN (-1)))                                             -- deincrement the number of windows in the master area
     , ((modm              , xK_n     ), sendMessage NextLayout)                                                    -- rotate through the available layouts
     , ((modm .|. shiftMask, xK_n     ), setLayout $ XMonad.layoutHook conf)                                        -- reset the layouts on the current workspace to default
-    , ((modm              , xK_t     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
-    , ((modm .|. shiftMask, xK_t     ), refresh)                                                                   -- resize viewed windows to the correct size
     , ((modm              , xK_b     ), sendMessage ToggleStruts)                                                  -- toggle the status bar gap
+    , ((modm              , xK_f     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
+    , ((modm .|. shiftMask, xK_f     ), refresh)                                                                   -- resize viewed windows to the correct size
     -- utils submap
     , ((modm, xK_space               ), submapDefault (spawn "rofi -modi drun -show drun") . M.fromList $
-       [ ((0, xK_b                   ), spawn "bash -c '~/.fehbg'")                                                -- change background
-       , ((0, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+       [ ((0, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+       , ((0, xK_b                   ), spawn "bash -c '~/.fehbg'")                                                -- change background
        , ((0, xK_c                   ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
-       , ((0, xK_space               ), spawn "rofi -modi drun -show drun")                                        -- drun
-       , ((0, xK_r                   ), spawn "rofi -modi run -show run")                                          -- run
-       , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
        , ((0, xK_l                   ), spawn "slock")                                                             -- lock screen
+       , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
+       , ((0, xK_r                   ), spawn "rofi -modi run -show run")                                          -- run
        , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
        ])
     -- quit submap
     , ((modm, xK_q                   ), submap . M.fromList $
        [ ((modm, xK_q                ), kill)                                                                      -- close focused window
-       , ((modm, xK_c                ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
+       , ((modm .|. shiftMask, xK_q  ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
        , ((modm, xK_x                ), io (exitWith ExitSuccess))                                                 -- quit xmonad
        ])
     -- others
@@ -91,7 +95,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-{w,e,r}, switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, move client to screen 1, 2, or 3
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+        | (key, sc) <- zip [xK_i, xK_o, xK_p] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
     -- remap for mac-like bindings
@@ -152,10 +156,6 @@ myStartupHook = do
   spawnOnce "xinput set-prop 11 'libinput Natural Scrolling Enabled' 1 &"
   spawnOnce "fusuma -d &"
 
-main = do
-  xmproc <- spawnPipe "xmobar"
-  xmonad $ docks (defaults xmproc)
-
 defaults xmproc = desktopConfig { terminal           = myTerminal
                                 , focusFollowsMouse  = myFocusFollowsMouse
                                 , clickJustFocuses   = myClickJustFocuses
@@ -172,3 +172,7 @@ defaults xmproc = desktopConfig { terminal           = myTerminal
                                 , logHook            = myLogHook xmproc
                                 , startupHook        = myStartupHook
                                 }
+
+main = do
+  xmproc <- spawnPipe "xmobar"
+  xmonad $ docks (defaults xmproc)
