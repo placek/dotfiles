@@ -10,6 +10,7 @@ import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
@@ -109,7 +110,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
                                        >> windows W.shiftMaster))
     ]
 
-myLayout = avoidStruts . spacingRaw False (Border 2 2 2 2) True (Border 2 2 2 2) True $ t ||| m ||| f
+myLayout = avoidStruts . spacingRaw True (Border 4 4 4 4) True (Border 4 4 4 4) True . smartBorders $ t ||| m ||| f
   where
     f       = Full
     m       = Mirror t
