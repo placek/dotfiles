@@ -21,8 +21,8 @@ case "$1" in
   i*)
     rm -rf $dotfiles_dir
     mkdir $dotfiles_dir
-    cp -rv $source_dir $dotfiles_dir
-    for file in $(find $target_dir/.config/dotfiles -name "*.mustache" -type f); do
+    cp -rv $source_dir/* $dotfiles_dir
+    for file in $(find $dotfiles_dir -name "*.mustache" -type f); do
       target_dot=$(echo $file | sed 's/\.mustache$//')
       haskell-mustache $file $data_file > $target_dot
       rm -f $file
@@ -36,27 +36,27 @@ case "$1" in
   m*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$source_dir --target=$target_dir --verbose --stow $packets
+      stow --dir=$dotfiles_dir --target=$target_dir --verbose --stow $packets
     else
-      stow --dir=$source_dir --target=$target_dir --verbose --stow $@
+      stow --dir=$dotfiles_dir --target=$target_dir --verbose --stow $@
     fi
     ;;
 
   u*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$source_dir --target=$target_dir --verbose --delete $packets
+      stow --dir=$dotfiles_dir --target=$target_dir --verbose --delete $packets
     else
-      stow --dir=$source_dir --target=$target_dir --verbose --delete $@
+      stow --dir=$dotfiles_dir --target=$target_dir --verbose --delete $@
     fi
     ;;
 
   r*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$source_dir --target=$target_dir --verbose --restow $packets
+      stow --dir=$dotfiles_dir --target=$target_dir --verbose --restow $packets
     else
-      stow --dir=$source_dir --target=$target_dir --verbose --restow $@
+      stow --dir=$dotfiles_dir --target=$target_dir --verbose --restow $@
     fi
     ;;
 
