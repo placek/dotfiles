@@ -44,7 +44,7 @@ alias tb="nc termbin.com 9999"
 alias pair="docker-compose -f .remote.compose"
 
 # colors
-source "$HOME/.config/fish/base16-flat.fish"
+source "$HOME/.config/fish/base16.fish"
 base16
 
 # prompt
