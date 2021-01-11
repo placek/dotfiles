@@ -22,6 +22,7 @@ case "$1" in
     rm -rf $dotfiles_dir
     mkdir $dotfiles_dir
     cp -rv $source_dir/* $dotfiles_dir
+    chmod -R +w $dotfiles_dir
     for file in $(find $dotfiles_dir -name "*.mustache" -type f); do
       target_dot=$(echo $file | sed 's/\.mustache$//')
       haskell-mustache $file $data_file > $target_dot
