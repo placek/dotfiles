@@ -19,11 +19,9 @@ close_on_child_death          yes
 command_on_bell               none
 confirm_os_window_close       0
 copy_on_select                no
-cursor                        #F5F5F5
 cursor_blink_interval         -1
 cursor_shape                  block
 cursor_stop_blinking_after    15.0
-cursor_text_color             #2C3E50
 default_pointer_shape         beam
 detect_urls                   yes
 dim_opacity                   0.75
@@ -55,8 +53,6 @@ scrollback_lines              2000
 scrollback_pager              less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
 scrollback_pager_history_size 0
 select_by_word_characters     @-./_~?&=%+#
-selection_background          #F1C40F
-selection_foreground          #2C3E50
 single_window_margin_width    -1
 startup_session               none
 strip_trailing_spaces         never
@@ -72,7 +68,6 @@ term                          xterm-256color
 terminal_select_modifiers     shift
 touch_scroll_multiplier       1.0
 update_check_interval         0
-url_color                     #3498DB
 url_prefixes                  http https file ftp
 url_style                     curly
 visual_bell_duration          0.0
@@ -80,32 +75,48 @@ wheel_scroll_multiplier       5.0
 window_alert_on_bell          no
 window_border_width           4
 window_margin_width           0
-window_padding_width          0
+window_padding_width          4
 window_resize_step_cells      2
 window_resize_step_lines      2
-
-background                    #2c3e50
-foreground                    #e0e0e0
-color0                        #2C3E50
-color1                        #E74C3C
-color2                        #2ECC71
-color3                        #F1C40F
-color4                        #3498DB
-color5                        #9B59B6
-color6                        #1ABC9C
-color7                        #E0E0E0
-color8                        #95A5A6
-color9                        #E74C3C
-color10                       #2ECC71
-color11                       #F1C40F
-color12                       #3498DB
-color13                       #9B59B6
-color14                       #1ABC9C
-color15                       #ECF0F1
-color16                       #E67E22
 
 map super+c                   copy_to_clipboard
 map super+v                   paste_from_clipboard
 map ctrl+plus                 change_font_size all +2.0
 map ctrl+minus                change_font_size all -2.0
 map ctrl+0                    change_font_size all 0
+
+background                    #{{base00-hex}}
+foreground                    #{{base05-hex}}
+selection_background          #{{base05-hex}}
+selection_foreground          #{{base00-hex}}
+url_color                     #{{base04-hex}}
+cursor                        #{{base05-hex}}
+active_border_color           #{{base03-hex}}
+inactive_border_color         #{{base01-hex}}
+active_tab_background         #{{base00-hex}}
+active_tab_foreground         #{{base05-hex}}
+inactive_tab_background       #{{base01-hex}}
+inactive_tab_foreground       #{{base04-hex}}
+tab_bar_background            #{{base01-hex}}
+color0                        #{{base00-hex}}
+color1                        #{{base08-hex}}
+color2                        #{{base0B-hex}}
+color3                        #{{base0A-hex}}
+color4                        #{{base0D-hex}}
+color5                        #{{base0E-hex}}
+color6                        #{{base0C-hex}}
+color7                        #{{base05-hex}}
+color8                        #{{base03-hex}}
+color9                        #{{base08-hex}}
+color10                       #{{base0B-hex}}
+color11                       #{{base0A-hex}}
+color12                       #{{base0D-hex}}
+color13                       #{{base0E-hex}}
+color14                       #{{base0C-hex}}
+color15                       #{{base07-hex}}
+color16                       #{{base09-hex}}
+color17                       #{{base0F-hex}}
+color18                       #{{base01-hex}}
+color19                       #{{base02-hex}}
+color20                       #{{base04-hex}}
+color21                       #{{base06-hex}}

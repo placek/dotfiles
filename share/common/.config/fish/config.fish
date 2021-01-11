@@ -45,7 +45,7 @@ alias pair="docker-compose -f .remote.compose"
 
 # colors
 source "$HOME/.config/fish/base16-flat.fish"
-base16-flat
+base16
 
 # prompt
 source "$HOME/.config/fish/prompt.fish"

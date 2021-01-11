@@ -21,9 +21,9 @@ myBorderWidth        = 4
 myClickJustFocuses   = False
 myEventHook          = mempty
 myFocusFollowsMouse  = True
-myFocusedBorderColor = "#3498DB"
+myFocusedBorderColor = "#{{base09-hex}}"
 myModMask            = mod4Mask
-myNormalBorderColor  = "#2C3E50"
+myNormalBorderColor  = "#{{base00-hex}}"
 myTerminal           = "kitty"
 macMap               = KeymapTable [ ((myModMask, xK_a), (controlMask, xK_a))                             -- select all
                                    , ((myModMask, xK_w), (controlMask, xK_w))                             -- close tab
@@ -134,13 +134,13 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
-                                             , ppCurrent         = xmobarColor "#5F5F5F" "#2ECC71" . wrap " " " "
-                                             , ppHidden          = xmobarColor "#2ECC71" "" . wrap " " " "
+                                             , ppCurrent         = xmobarColor "#{{base05-hex}}" "#{{base09-hex}}" . wrap " " " "
+                                             , ppHidden          = xmobarColor "#{{base0A-hex}}" "" . wrap " " " "
                                              , ppHiddenNoWindows = wrap " " " "
                                              , ppVisible         = wrap "(" ")"
-                                             , ppTitle           = xmobarColor "#F1C40F"  "" . shorten 40
+                                             , ppTitle           = xmobarColor "#{{base0A-hex}}"  "" . shorten 40
                                              , ppLayout          = layout
-                                             , ppUrgent          = xmobarColor "#E74C3C" "#F1C40F"
+                                             , ppUrgent          = xmobarColor "#{{base08-hex}}" "#{{base05-hex}}"
                                              , ppWsSep           = ""
                                              , ppSep             = " \xE0B1 "
                                              , ppExtras          = [windowCount]
