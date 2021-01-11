@@ -134,7 +134,7 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
-                                             , ppCurrent         = xmobarColor "#{{base05-hex}}" "#{{base09-hex}}" . wrap " " " "
+                                             , ppCurrent         = xmobarColor "#{{base00-hex}}" "#{{base09-hex}}" . wrap " " " "
                                              , ppHidden          = xmobarColor "#{{base0A-hex}}" "" . wrap " " " "
                                              , ppHiddenNoWindows = wrap " " " "
                                              , ppVisible         = wrap "(" ")"
