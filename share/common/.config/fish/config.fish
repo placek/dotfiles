@@ -43,10 +43,6 @@ alias slack="weechat"
 alias tb="nc termbin.com 9999"
 alias pair="docker-compose -f .remote.compose"
 
-# colors
-source "$HOME/.config/fish/base16.fish"
-base16
-
 # prompt
 source "$HOME/.config/fish/prompt.fish"
 
