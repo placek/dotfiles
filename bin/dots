@@ -10,6 +10,8 @@ fi
 script_file=$(realpath $0)
 script_dir=$(dirname $script_file)
 source_dir="$(dirname $script_dir)/share"
+data_file="$(dirname $script_dir)/data.json"
+dotfiles_dir=$HOME/.config/dotfiles
 target_dir=$HOME
 packets=$(ls -1 $source_dir)
 
@@ -17,6 +19,14 @@ packets=$(ls -1 $source_dir)
 
 case "$1" in
   i*)
+    rm -rf $dotfiles_dir
+    mkdir $dotfiles_dir
+    cp -rv $source_dir $dotfiles_dir
+    for file in $(find $target_dir/.config/dotfiles -name "*.mustache" -type f); do
+      target_dot=$(echo $file | sed 's/\.mustache$//')
+      haskell-mustache $file $data_file > $target_dot
+      rm -f $file
+    done
     for dir in $(find $source_dir/* -mindepth 1 -type d -printf "%P\n"); do
       mkdir -p  $target_dir/$dir
       chmod 700 $target_dir/$dir
