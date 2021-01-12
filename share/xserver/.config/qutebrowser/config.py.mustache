@@ -123,12 +123,12 @@ c.colors.tabs.selected.odd.bg = base02
 c.colors.tabs.selected.even.fg = base05
 c.colors.tabs.selected.even.bg = base02
 
-c.fonts.default_family = '"Iosevka"'
-c.fonts.default_size = '12pt'
-c.fonts.completion.entry = '12pt "Iosevka"'
-c.fonts.debug_console = '12pt "Iosevka"'
+c.fonts.default_family = '"{{font}}"'
+c.fonts.default_size = '{{font-size}}pt'
+c.fonts.completion.entry = '{{font-size}}pt "{{font}}"'
+c.fonts.debug_console = '{{font-size}}pt "{{font}}"'
 c.fonts.prompts = 'default_size sans-serif'
-c.fonts.statusbar = '12pt "Iosevka"'
+c.fonts.statusbar = '{{font-size}}pt "{{font}}"'
 
 config.bind('Ym', 'hint links spawn kitty -e youtube-dl -x {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
 config.bind('Yv', 'hint links spawn kitty -e youtube-dl {hint-url} -o ~/Downloads/%(title)s.%(ext)s')

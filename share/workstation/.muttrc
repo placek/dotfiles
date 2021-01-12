@@ -12,23 +12,23 @@ macro index <esc>2 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.silque
 macro index <esc>3 '<sync-mailbox><enter-command>source ~/.mutt/com.binarapps.p.placzynski/account<enter><change-folder>!<enter>'
 
 # other global settings
-set abort_nosubject = no
-set copy = no
-set date_format = "%y-%m-%d %T"
-set editor = $EDITOR
+set abort_nosubject       = no
+set copy                  = no
+set date_format           = "%y-%m-%d %T"
+set editor                = $EDITOR
 set imap_check_subscribed = yes
-set imap_keepalive = 900
-set index_format = "%2C | %Z [%d] %-30.30F (%-4.4c) %s"
-set mail_check = 60
-set mail_check_stats = yes
-set mailcap_path = "~/.mailcap"
-set move = no
-set send_charset = "utf-8"
-set sort = "reverse-date-received"
-set ssl_force_tls = yes
-set ssl_starttls = yes
-set text_flowed = yes
-set timeout = 10
+set imap_keepalive        = 900
+set index_format          = "%2C | %Z [%d] %-30.30F (%-4.4c) %s"
+set mail_check            = 60
+set mail_check_stats      = yes
+set mailcap_path          = "~/.mailcap"
+set move                  = no
+set send_charset          = "utf-8"
+set sort                  = "reverse-date-received"
+set ssl_force_tls         = yes
+set ssl_starttls          = yes
+set text_flowed           = yes
+set timeout               = 10
 
 # key bindings
 bind pager j next-line

@@ -1,32 +1,32 @@
-set syscalls
-set trash
-set history=100
-set nofollowlinks
-set sortnumbers
-set undolevels=100
-set novimhelp
-set norunexec
 colorscheme default
+mark h ~/
+set history=100
+set ignorecase
+set incsearch
+set nofollowlinks
+set nohlsearch
+set norunexec
+set novimhelp
+set scrolloff=4
+set smartcase
+set sortnumbers
+set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+set syscalls
 set timefmt="%d.%m.%y %H:%M"
+set trash
+set undolevels=100
 set wildmenu
 set wildstyle=popup
-set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
-set ignorecase
-set smartcase
-set nohlsearch
-set incsearch
-set scrolloff=4
-set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
-mark h ~/
 
 command! df df -h %m 2> /dev/null
 command! diff vim -d %f %F
-command! zip zip -r %f.zip %f
-command! run !! ./%f
 command! make !!make %a
 command! mkcd :mkdir %a | cd %a
-command! vgrep vim "+grep %a"
 command! reload :write | restart
+command! run !! ./%f
+command! vgrep vim "+grep %a"
+command! zip zip -r %f.zip %f
 
 " pdf
 filextype *.pdf zathura %c %i &

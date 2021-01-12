@@ -1,44 +1,44 @@
 [user]
-  name = Paweł Placzyński
-  email = placzynski.pawel@gmail.com
-  signingkey = 1D95E554315BC053
+  name             = Paweł Placzyński
+  email            = placzynski.pawel@gmail.com
+  signingkey       = 1D95E554315BC053
 [github]
-  user = placek
+  user             = placek
 [core]
-  attributesfile = ~/.gitattributes_global
-  excludesfile = ~/.gitignore_global
-  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  attributesfile   = ~/.gitattributes_global
+  excludesfile     = ~/.gitignore_global
+  whitespace       = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 [apply]
-  whitespace = nowarn
+  whitespace       = nowarn
 [rerere]
-  enabled = 1
+  enabled          = 1
 [alias]
-  amend = commit --amend --no-edit
-  co = checkout
-  com = commit -m
-  ctags = !.git/hooks/ctags
-  diffc = diff --cached
-  install-dev = !.git/hooks/install-dev
-  info = for-each-ref --format='%(color:yellow)%(committerdate:iso8601) %(color:blue)%(objectname:short) %(color:magenta)%(authorname) %(color:green)%(refname:short) %(color:reset)%(contents:subject)' --sort -committerdate
-  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  label = "!git config branch.$(git symbolic-ref --short HEAD).note $(if [ $# -gt 0 ]; then $1; fi)"
-  purge = reset --hard
-  root = rev-parse --show-toplevel
-  sch = "!git checkout $(git branch --all | fzf | tr -d '[:space:]')"
-  st = status -sb
-  stashp = stash push -p
+  amend            = commit --amend --no-edit
+  co               = checkout
+  com              = commit -m
+  ctags            = !.git/hooks/ctags
+  diffc            = diff --cached
+  install-dev      = !.git/hooks/install-dev
+  info             = for-each-ref --format='%(color:yellow)%(committerdate:iso8601) %(color:blue)%(objectname:short) %(color:magenta)%(authorname) %(color:green)%(refname:short) %(color:reset)%(contents:subject)' --sort -committerdate
+  l                = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  label            = "!git config branch.$(git symbolic-ref --short HEAD).note $(if [ $# -gt 0 ]; then $1; fi)"
+  purge            = reset --hard
+  root             = rev-parse --show-toplevel
+  sch              = "!git checkout $(git branch --all | fzf | tr -d '[:space:]')"
+  st               = status -sb
+  stashp           = stash push -p
 [format]
-  pretty = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'
+  pretty           = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'
 [gpg]
-  program = gpg
+  program          = gpg
 [init]
-  templatedir = ~/.git_template
+  templatedir      = ~/.git_template
 [status]
   submoduleSummary = true
 [diff]
-	tool = vimdiff
+	tool             = vimdiff
 [merge]
-	tool = vimdiff
-	conflictstyle = diff3
+	tool             = vimdiff
+	conflictstyle    = diff3
 [pull]
-  ff = only
+  ff               = only

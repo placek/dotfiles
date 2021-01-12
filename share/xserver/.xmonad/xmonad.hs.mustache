@@ -17,7 +17,7 @@ import XMonad.Util.SpawnOnce
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
-myBorderWidth        = 4
+myBorderWidth        = {{border-size}}
 myClickJustFocuses   = False
 myEventHook          = mempty
 myFocusFollowsMouse  = True
@@ -110,7 +110,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
                                        >> windows W.shiftMaster))
     ]
 
-myLayout = avoidStruts . spacingRaw True (Border 4 4 4 4) True (Border 4 4 4 4) True . smartBorders $ t ||| m ||| f
+myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True . smartBorders $ t ||| m ||| f
   where
     f       = Full
     m       = Mirror t

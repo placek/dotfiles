@@ -1,8 +1,8 @@
-font_family                   Iosevka
-bold_font                     Iosevka Bold
-italic_font                   Iosevka Italic
-bold_italic_font              Iosevka BoldItalic
-font_size                     12.0
+font_family                   {{font}}
+bold_font                     {{font}} Bold
+italic_font                   {{font}} Italic
+bold_italic_font              {{font}} BoldItalic
+font_size                     {{font-size}}.0
 
 active_border_color           none
 adjust_column_width           0
@@ -12,7 +12,7 @@ allow_remote_control          no
 background_opacity            1.0
 background_tint               0.0
 bell_on_tab                   no
-box_drawing_scale             0.001, 1, 1.5, 2
+box_drawing_scale             0.001, 1, 1.5, {{border-half-size}}
 click_interval                -1.0
 clipboard_control             write-clipboard write-primary
 close_on_child_death          yes
@@ -73,11 +73,11 @@ url_style                     curly
 visual_bell_duration          0.0
 wheel_scroll_multiplier       5.0
 window_alert_on_bell          no
-window_border_width           4
+window_border_width           {{border-size}}
 window_margin_width           0
-window_padding_width          4
-window_resize_step_cells      2
-window_resize_step_lines      2
+window_padding_width          {{border-size}}
+window_resize_step_cells      {{border-half-size}}
+window_resize_step_lines      {{border-half-size}}
 
 map super+c                   copy_to_clipboard
 map super+v                   paste_from_clipboard

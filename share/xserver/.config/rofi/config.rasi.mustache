@@ -11,9 +11,9 @@ configuration {
   prompt-foreground:          #{{base00-hex}};
   selected-normal-background: #{{base09-hex}};
   selected-normal-foreground: #{{base00-hex}};
-  font:                       "Iosevka 18";
-  prompt-font:                "Iosevka 18";
-  prompt-padding:             2px 0.5em;
+  font:                       "{{font}} {{font-size-in-dpi}}";
+  prompt-font:                "{{font}} {{font-size-in-dpi}}";
+  prompt-padding:             {{border-half-size}}px 0.5em;
 }
 
 #window {
@@ -38,18 +38,18 @@ configuration {
 
 #listview {
   layout: horizontal;
-  spacing: 2px;
+  spacing: {{border-half-size}}px;
   lines: 100;
 }
 
 #entry {
-  padding: 2px 4px;
+  padding: {{border-half-size}}px {{border-size}}px;
   expand: false;
   width: 10em;
 }
 
 #element {
-  padding: 2px 8px;
+  padding: {{border-half-size}}px {{border-double-size}}px;
 }
 
 #element selected {
