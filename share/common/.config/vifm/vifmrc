@@ -34,6 +34,8 @@ filextype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
        \ {play using mplayer}
        \ mplayer %c,
+fileviewer *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus,
+       \ vifmimg audio %pw %ph %c
 
 " video
 filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
