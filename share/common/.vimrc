@@ -199,6 +199,8 @@ hi DiffDelete            cterm=BOLD ctermfg=0 ctermbg=1
 hi DiffChange            cterm=BOLD ctermfg=0 ctermbg=3
 hi DiffText              cterm=BOLD ctermfg=0 ctermbg=2
 hi Directory             ctermfg=blue
+hi Visual                ctermbg=7 ctermfg=0
+hi Search                ctermbg=2 ctermfg=0
 
 " FZF extension
 function! s:build_quickfix_list(lines)
