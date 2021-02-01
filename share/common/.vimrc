@@ -190,17 +190,19 @@ command! Open !open %
 " colors
 hi SignColumn            ctermbg=0
 hi FoldColumn            ctermbg=0 ctermfg=7
+hi Folded                ctermbg=6 ctermfg=0
 hi GitGutterAdd          ctermbg=0 ctermfg=2
 hi GitGutterChange       ctermbg=0 ctermfg=3
 hi GitGutterChangeDelete ctermbg=0 ctermfg=3
 hi GitGutterDelete       ctermbg=0 ctermfg=1
-hi DiffAdd               cterm=BOLD ctermfg=0 ctermbg=2
-hi DiffDelete            cterm=BOLD ctermfg=0 ctermbg=1
-hi DiffChange            cterm=BOLD ctermfg=0 ctermbg=3
-hi DiffText              cterm=BOLD ctermfg=0 ctermbg=2
-hi Directory             ctermfg=blue
+hi DiffAdd               ctermbg=2 ctermfg=0 cterm=BOLD
+hi DiffDelete            ctermbg=1 ctermfg=0 cterm=BOLD
+hi DiffChange            ctermbg=3 ctermfg=0 cterm=BOLD
+hi DiffText              ctermbg=2 ctermfg=0 cterm=BOLD
 hi Visual                ctermbg=7 ctermfg=0
 hi Search                ctermbg=2 ctermfg=0
+hi Directory             ctermfg=blue
+hi Pmenu                 ctermbg=4
 
 " FZF extension
 function! s:build_quickfix_list(lines)
