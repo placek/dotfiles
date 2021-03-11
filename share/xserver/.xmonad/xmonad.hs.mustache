@@ -124,7 +124,7 @@ myManageHook = composeAll [ className =? "Gcr-prompter"     --> doCenterFloat
                           ]
 
 workspaceNames :: [String]
-workspaceNames = ["web", "dev", "msg", "misc"]
+workspaceNames = ["web", "dev", "util", "misc", "fun"]
 
 myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
