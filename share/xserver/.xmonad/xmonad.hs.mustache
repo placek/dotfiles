@@ -127,7 +127,8 @@ workspaceNames :: [String]
 workspaceNames = ["web", "dev", "msg", "misc"]
 
 myWorkspaces :: [String]
-myWorkspaces = workspaceNames
+myWorkspaces = fmap clickable (zip [1..] workspaceNames)
+  where clickable (k, w) = xmobarAction ("xdotool key super+" ++ show k) "1" w
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
