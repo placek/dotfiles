@@ -60,8 +60,6 @@ nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>B :bufdo bd<CR>
 nnoremap <Leader>m :Marks<CR>
-nnoremap <Leader>l :Lines<CR>
-nnoremap <Leader>L :BLines<CR>
 nnoremap <Leader>C :Commits<CR>
 nnoremap <Leader>g :GFiles<CR>
 nnoremap <Leader>G :GFiles?<CR>
@@ -88,6 +86,18 @@ cnoreabbrev W w
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev Q q
+
+" language server
+let g:LanguageClient_serverCommands = {
+  \  'haskell': [ 'haskell-language-server-wrapper', '--lsp' ]
+  \ }
+map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
+map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
+map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+map <Leader>lb :call LanguageClient#textDocument_references()<CR>
+map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " options
 let g:fzf_tags_command = 'git ctags'
