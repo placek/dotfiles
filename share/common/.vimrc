@@ -24,7 +24,6 @@ set nocompatible
 set noshowmode
 set nospell
 set number
-set omnifunc=syntaxcomplete#Complete
 set path+=**
 set relativenumber
 set shiftwidth=2
