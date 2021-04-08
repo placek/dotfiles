@@ -88,10 +88,9 @@ cnoreabbrev WQ wq
 cnoreabbrev Q q
 
 " language server
-let g:LanguageClient_serverCommands = {
-  \  'haskell': [ 'haskell-language-server-wrapper', '--lsp' ]
-  \  'ruby':    [ 'solargraph', 'stdio' ]
-  \ }
+let g:LanguageClient_serverCommands = { 'haskell': [ 'haskell-language-server-wrapper', '--lsp' ]
+                                    \ , 'ruby':    [ 'solargraph', 'stdio' ]
+                                    \ }
 map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
 map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
 map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
