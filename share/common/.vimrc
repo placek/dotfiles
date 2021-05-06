@@ -77,6 +77,7 @@ nnoremap <Leader>Q :set opfunc=<SID>SearchProjectOperator<CR>g@
 vnoremap <Leader>Q :<C-u>call <SID>SearchProjectOperator(visualmode())<CR>
 nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
 nnoremap <Leader>R :split %:s?spec/?app/?:s?_spec.rb?.rb?<CR>
+nnoremap <Leader>S :Snippets<CR>
 nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
 nnoremap <Leader>C :call <SID>OpenInTerminal()<CR>
@@ -106,17 +107,16 @@ nmap <Leader>ca <Plug>(coc-codeaction)
 xmap <Leader>cs <Plug>(coc-codeaction-selected)
 nmap <Leader>cs <Plug>(coc-codeaction-selected)
 nmap <Leader>cq <Plug>(coc-fix-current)
-
 inoremap <silent><expr> <c-@> coc#refresh()
 nnoremap <silent><nowait> <space>d :call <SID>show_documentation()<CR>
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-nnoremap <silent><nowait> <space>g  :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>e :<C-u>CocList extensions<CR>
+nnoremap <silent><nowait> <space>c :<C-u>CocList commands<CR>
+nnoremap <silent><nowait> <space>g :<C-u>CocList diagnostics<CR>
+nnoremap <silent><nowait> <space>o :<C-u>CocList outline<CR>
+nnoremap <silent><nowait> <space>s :<C-u>CocList -I symbols<CR>
+nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>p :<C-u>CocListResume<CR>
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -127,7 +127,7 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! s:show_documentation()
@@ -256,7 +256,7 @@ hi DiffText              ctermbg=2 ctermfg=0 cterm=BOLD
 hi Visual                ctermbg=7 ctermfg=0
 hi Search                ctermbg=2 ctermfg=0
 hi Directory             ctermfg=blue
-hi Pmenu                 ctermbg=18
+hi Pmenu                 ctermbg=8
 hi CocHighlightText      ctermbg=18 ctermfg=2
 
 
