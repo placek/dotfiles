@@ -4,5 +4,5 @@ set -e
 dir="`git rev-parse --git-dir`"
 trap 'rm -f "$dir/$$.tags*"' EXIT
 git ls-files | ctags -a --tag-relative -L - -f "$dir/$$.tags" --languages=ruby,javascript
-git ls-files | hasktags -a -c -o "$dir/$$.tags" STDIN
+hasktags -acxLRo "$dir/$$.tags" tags .
 mv "$dir/$$.tags" "$dir/tags"

@@ -159,7 +159,7 @@ function! s:FzfTagsCurrentWord()
   let l:word = expand('<cword>')
   let l:list = taglist(l:word)
   if len(l:list) == 1
-    execute ':tag ' . l:word
+    call fzf#vim#tags("")
   else
     call fzf#vim#tags(l:word)
   endif
