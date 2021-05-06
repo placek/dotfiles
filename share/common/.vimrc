@@ -6,15 +6,18 @@ set backspace=indent,eol,start
 set backup
 set backupdir=/tmp
 set clipboard=unnamedplus
+set cmdheight=2
 set completeopt=longest,menuone
 set cursorline
 set dir=/tmp
+set encoding=utf-8
 set expandtab
-set foldmethod=manual
 set foldcolumn=1
+set foldmethod=manual
 set formatoptions=tcrqn
 set grepformat=%f:%l:%c:%m
 set grepprg=ag\ --vimgrep\ $*
+set hidden
 set hlsearch
 set incsearch
 set laststatus=2
@@ -27,19 +30,23 @@ set number
 set path+=**
 set relativenumber
 set shiftwidth=2
+set shortmess+=c
 set showcmd
 set showtabline=2
+set signcolumn=yes
 set softtabstop=2
 set splitbelow
 set splitright
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function',''')}
 set swapfile
 set tabstop=2
 set tags+=.git/tags;
 set timeoutlen=1000 ttimeoutlen=0
 set ttyfast
+set updatetime=300
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*.tar.*,*.bmp,*.jpeg,*.avi,*.mov,*.mp7,*.ogg,*.flac
-set wrapmargin=0
 set wildmenu
+set wrapmargin=0
 
 " mapping
 nnoremap <Leader>v :vsplit<CR>
@@ -59,10 +66,10 @@ nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>B :bufdo bd<CR>
 nnoremap <Leader>m :Marks<CR>
-nnoremap <Leader>C :Commits<CR>
-nnoremap <Leader>g :GFiles<CR>
-nnoremap <Leader>G :GFiles?<CR>
-nnoremap <Leader>Gb :Gblame<CR>
+nnoremap <Leader>gc :Commits<CR>
+nnoremap <Leader>gf :GFiles<CR>
+nnoremap <Leader>gF :GFiles?<CR>
+nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>q :set opfunc=<SID>SearchOperator<CR>g@
 vnoremap <Leader>q :<C-u>call <SID>SearchOperator(visualmode())<CR>
@@ -70,10 +77,9 @@ nnoremap <Leader>Q :set opfunc=<SID>SearchProjectOperator<CR>g@
 vnoremap <Leader>Q :<C-u>call <SID>SearchProjectOperator(visualmode())<CR>
 nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
 nnoremap <Leader>R :split %:s?spec/?app/?:s?_spec.rb?.rb?<CR>
-nnoremap <Leader>S :Snippets<CR>
 nnoremap <Leader>o o<esc>
 nnoremap <Leader>O O<esc>
-nnoremap <Leader>c :call <SID>OpenInTerminal()<CR>
+nnoremap <Leader>C :call <SID>OpenInTerminal()<CR>
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 vnoremap // y/<C-R>"<CR>
@@ -86,17 +92,59 @@ cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev Q q
 
-" language server
-let g:LanguageClient_serverCommands = { 'haskell': [ 'haskell-language-server-wrapper', '--lsp' ]
-                                    \ , 'ruby':    [ 'solargraph', 'stdio' ]
-                                    \ }
-map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
-map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
-map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
-map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
-map <Leader>lb :call LanguageClient#textDocument_references()<CR>
-map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
-map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+" coc
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <Leader>cn <Plug>(coc-rename)
+xmap <Leader>cf <Plug>(coc-format-selected)
+nmap <Leader>cf <Plug>(coc-format-selected)
+nmap <Leader>ca <Plug>(coc-codeaction)
+xmap <Leader>cs <Plug>(coc-codeaction-selected)
+nmap <Leader>cs <Plug>(coc-codeaction-selected)
+nmap <Leader>cq <Plug>(coc-fix-current)
+
+inoremap <silent><expr> <c-@> coc#refresh()
+nnoremap <silent><nowait> <space>d :call <SID>show_documentation()<CR>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>g  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " options
 let g:fzf_tags_command = 'git ctags'
@@ -109,9 +157,6 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeWinSize = 32
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " search operator
 function! s:SearchOperator(type)
@@ -211,7 +256,9 @@ hi DiffText              ctermbg=2 ctermfg=0 cterm=BOLD
 hi Visual                ctermbg=7 ctermfg=0
 hi Search                ctermbg=2 ctermfg=0
 hi Directory             ctermfg=blue
-hi Pmenu                 ctermbg=4
+hi Pmenu                 ctermbg=18
+hi CocHighlightText      ctermbg=18 ctermfg=2
+
 
 " FZF extension
 function! s:build_quickfix_list(lines)
@@ -223,4 +270,3 @@ endfunction
 let g:fzf_action = { 'ctrl-q': function('s:build_quickfix_list'), 'ctrl-t': 'tab split', 'ctrl-s': 'split', 'ctrl-v': 'vsplit' }
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 let $FZF_DEFAULT_COMMAND = 'git ls-files'
-
