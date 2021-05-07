@@ -19,7 +19,8 @@ set hidden
 set hlsearch
 set incsearch
 set laststatus=2
-set listchars=tab:→\ ,space:·,eol:¬,nbsp:◦
+set list
+set listchars=tab:»\ ,nbsp:␣,trail:·,extends:›,precedes:‹
 set mouse=a
 set nobackup
 set nocompatible
@@ -54,7 +55,6 @@ nnoremap <Leader>1 :set number!<CR>
 nnoremap <Leader>2 :set relativenumber!<CR>
 nnoremap <Leader>3 :GitGutterToggle<CR>
 nnoremap <Leader>4 :set hlsearch!<CR>
-nnoremap <Leader>5 :set list!<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>/ :NERDTreeFind<CR>
 nnoremap <Leader>f :Ag<CR>
@@ -74,11 +74,7 @@ nnoremap <Leader>q :set opfunc=<SID>SearchOperator<CR>g@
 vnoremap <Leader>q :<C-u>call <SID>SearchOperator(visualmode())<CR>
 nnoremap <Leader>Q :set opfunc=<SID>SearchProjectOperator<CR>g@
 vnoremap <Leader>Q :<C-u>call <SID>SearchProjectOperator(visualmode())<CR>
-nnoremap <Leader>r :split %:s?app/?spec/?:s?.rb?_spec.rb?<CR>
-nnoremap <Leader>R :split %:s?spec/?app/?:s?_spec.rb?.rb?<CR>
 nnoremap <Leader>S :Snippets<CR>
-nnoremap <Leader>o o<esc>
-nnoremap <Leader>O O<esc>
 nnoremap <Leader>C :call <SID>OpenInTerminal()<CR>
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
@@ -87,10 +83,6 @@ vnoremap <Leader>a{ :Tabularize /^[^{]*/<CR>
 vnoremap <Leader>a= :Tabularize /^[^=]*/<CR>
 vnoremap <Leader>a: :Tabularize /:/<CR>
 vnoremap <Leader>A: :Tabularize /:\zs/<CR>
-cnoreabbrev W w
-cnoreabbrev Wq wq
-cnoreabbrev WQ wq
-cnoreabbrev Q q
 
 " coc
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -236,7 +228,6 @@ hi Search                ctermbg=2 ctermfg=0
 hi Directory             ctermfg=blue
 hi Pmenu                 ctermbg=8
 hi CocHighlightText      ctermbg=18 ctermfg=2
-
 
 " FZF extension
 function! s:build_quickfix_list(lines)
