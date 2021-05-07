@@ -3,8 +3,6 @@ syntax enable
 
 " settings
 set backspace=indent,eol,start
-set backup
-set backupdir=/tmp
 set clipboard=unnamedplus
 set cmdheight=2
 set completeopt=longest,menuone
@@ -23,9 +21,11 @@ set incsearch
 set laststatus=2
 set listchars=tab:→\ ,space:·,eol:¬,nbsp:◦
 set mouse=a
+set nobackup
 set nocompatible
 set noshowmode
 set nospell
+set nowritebackup
 set number
 set path+=**
 set relativenumber
