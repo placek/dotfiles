@@ -37,7 +37,6 @@ set signcolumn=yes
 set softtabstop=2
 set splitbelow
 set splitright
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function',''')}
 set swapfile
 set tabstop=2
 set tags+=.git/tags;
@@ -100,35 +99,14 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <Leader>cn <Plug>(coc-rename)
-xmap <Leader>cf <Plug>(coc-format-selected)
-nmap <Leader>cf <Plug>(coc-format-selected)
-nmap <Leader>ca <Plug>(coc-codeaction)
-xmap <Leader>cs <Plug>(coc-codeaction-selected)
-nmap <Leader>cs <Plug>(coc-codeaction-selected)
-nmap <Leader>cq <Plug>(coc-fix-current)
-inoremap <silent><expr> <c-@> coc#refresh()
+nmap <silent><nowait> <space>a <Plug>(coc-codeaction)
+nmap <silent><nowait> <space>r <Plug>(coc-rename)
 nnoremap <silent><nowait> <space>d :call <SID>show_documentation()<CR>
 nnoremap <silent><nowait> <space>e :<C-u>CocList extensions<CR>
 nnoremap <silent><nowait> <space>c :<C-u>CocList commands<CR>
 nnoremap <silent><nowait> <space>g :<C-u>CocList diagnostics<CR>
 nnoremap <silent><nowait> <space>o :<C-u>CocList outline<CR>
-nnoremap <silent><nowait> <space>s :<C-u>CocList -I symbols<CR>
-nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
-nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
-nnoremap <silent><nowait> <space>p :<C-u>CocListResume<CR>
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
