@@ -100,14 +100,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <Leader>cn <Plug>(coc-rename)
-xmap <Leader>cf <Plug>(coc-format-selected)
-nmap <Leader>cf <Plug>(coc-format-selected)
-nmap <Leader>ca <Plug>(coc-codeaction)
-xmap <Leader>cs <Plug>(coc-codeaction-selected)
-nmap <Leader>cs <Plug>(coc-codeaction-selected)
-nmap <Leader>cq <Plug>(coc-fix-current)
 inoremap <silent><expr> <c-@> coc#refresh()
+nnoremap <silent><nowait> <space>a <Plug>(coc-codeaction)
+nnoremap <silent><nowait> <space>r <Plug>(coc-rename)
 nnoremap <silent><nowait> <space>d :call <SID>show_documentation()<CR>
 nnoremap <silent><nowait> <space>e :<C-u>CocList extensions<CR>
 nnoremap <silent><nowait> <space>c :<C-u>CocList commands<CR>
@@ -127,8 +122,7 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -256,7 +250,7 @@ hi DiffText              ctermbg=2 ctermfg=0 cterm=BOLD
 hi Visual                ctermbg=7 ctermfg=0
 hi Search                ctermbg=2 ctermfg=0
 hi Directory             ctermfg=blue
-hi Pmenu                 ctermbg=8
+hi Pmenu                 ctermbg=8 ctermfg=7
 hi CocHighlightText      ctermbg=18 ctermfg=2
 
 
