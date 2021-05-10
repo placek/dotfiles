@@ -53,57 +53,51 @@ nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>1 :set number!<CR>
 nnoremap <Leader>2 :set relativenumber!<CR>
-nnoremap <Leader>3 :GitGutterToggle<CR>
-nnoremap <Leader>4 :set hlsearch!<CR>
+nnoremap <Leader>3 :set hlsearch!<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>/ :NERDTreeFind<CR>
 nnoremap <Leader>f :Ag<CR>
-vnoremap <Leader>f :call <SID>FzfSelectedWord()<CR>
 nnoremap <Leader>F :FZF<CR>
-nnoremap <Leader>t :call <SID>FzfTagsCurrentWord()<CR>
+nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>B :bufdo bd<CR>
 nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>gc :Commits<CR>
 nnoremap <Leader>gf :GFiles<CR>
-nnoremap <Leader>gF :GFiles?<CR>
-nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :GFiles?<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>q :set opfunc=<SID>SearchOperator<CR>g@
 vnoremap <Leader>q :<C-u>call <SID>SearchOperator(visualmode())<CR>
 nnoremap <Leader>Q :set opfunc=<SID>SearchProjectOperator<CR>g@
 vnoremap <Leader>Q :<C-u>call <SID>SearchProjectOperator(visualmode())<CR>
 nnoremap <Leader>S :Snippets<CR>
-nnoremap <Leader>C :call <SID>OpenInTerminal()<CR>
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
+nnoremap <Leader>c :terminal ++close ++rows=8<CR>
 vnoremap // y/<C-R>"<CR>
-vnoremap <Leader>a{ :Tabularize /^[^{]*/<CR>
-vnoremap <Leader>a= :Tabularize /^[^=]*/<CR>
-vnoremap <Leader>a: :Tabularize /:/<CR>
-vnoremap <Leader>A: :Tabularize /:\zs/<CR>
 
 " coc
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> [h <Plug>(coc-git-prevchunk)
 nmap <silent> ]h <Plug>(coc-git-nextchunk)
+nmap <silent> [b :bprevious<CR>
+nmap <silent> ]b :bnext<CR>
 nmap <silent> [c <Plug>(coc-git-prevconflict)
 nmap <silent> ]c <Plug>(coc-git-nextconflict)
-nmap <silent> gs <Plug>(coc-git-chunkinfo)
-nmap <silent> gc <Plug>(coc-git-commit)
 omap <silent> ig <Plug>(coc-git-chunk-inner)
 xmap <silent> ig <Plug>(coc-git-chunk-inner)
 omap <silent> ag <Plug>(coc-git-chunk-outer)
 xmap <silent> ag <Plug>(coc-git-chunk-outer)
+nmap <silent> gh :call <SID>show_documentation()<CR>
+nmap <silent> gs <Plug>(coc-git-chunkinfo)
+nmap <silent> gb :Gblame<CR>
+nmap <silent> gc <Plug>(coc-git-commit)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent><nowait> <space>a <Plug>(coc-codeaction)
 nmap <silent><nowait> <space>r <Plug>(coc-rename)
-nnoremap <silent><nowait> <space>d :call <SID>show_documentation()<CR>
 nnoremap <silent><nowait> <space>e :<C-u>CocList extensions<CR>
 nnoremap <silent><nowait> <space>c :<C-u>CocList commands<CR>
 nnoremap <silent><nowait> <space>g :<C-u>CocList diagnostics<CR>
@@ -173,41 +167,13 @@ function! g:GetVisualSelectionText()
   return join(lines, "\n")
 endfunction
 
-function! s:FzfSelectedWord()
-  let l:word = GetVisualSelectionText()
-  call fzf#vim#ag(l:word, fzf#vim#with_preview())
-endfunction
-
-" FZF-search tags with word under a cursor
-function! s:FzfTagsCurrentWord()
-  let l:word = expand('<cword>')
-  let l:list = taglist(l:word)
-  if len(l:list) == 1
-    call fzf#vim#tags("")
-  else
-    call fzf#vim#tags(l:word)
-  endif
-endfunction
-
-" open terminal with proper command
-function! s:OpenInTerminal()
-  try
-    silent exec "terminal ++close ++rows=8 ". b:termprg
-  catch
-    silent exec "terminal ++close ++rows=8"
-  echo
-  endtry
-endfunction
-
 " autocommands
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufRead * normal zR
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal makeprg=cabal\ build
-autocmd FileType haskell let b:termprg="ghci %:p"
 autocmd FileType nerdtree :vert resize 32
-autocmd FileType ruby let b:termprg="irb -r %:p"
 autocmd FileType ruby
   \ if expand("%") =~# '_spec\.rb$' |
   \   compiler rspec | setl makeprg=rspec\ --no-color\ % |
