@@ -93,6 +93,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent><nowait> <space>a <Plug>(coc-codeaction)
 nmap <silent><nowait> <space>r <Plug>(coc-rename)
+nmap <silent><nowait> <space>v <Plug>(coc-git-chunkinfo)
 nnoremap <silent><nowait> <space>d :call <SID>show_documentation()<CR>
 nnoremap <silent><nowait> <space>e :<C-u>CocList extensions<CR>
 nnoremap <silent><nowait> <space>c :<C-u>CocList commands<CR>
@@ -113,8 +114,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold   :call CocAction('fold', <f-args>)
-command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
+let g:coc_global_extensions = ['coc-tag', 'coc-git']
 
 " options
 let g:fzf_tags_command = 'git ctags'
