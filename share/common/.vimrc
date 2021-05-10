@@ -88,6 +88,14 @@ omap <silent> ig <Plug>(coc-git-chunk-inner)
 xmap <silent> ig <Plug>(coc-git-chunk-inner)
 omap <silent> ag <Plug>(coc-git-chunk-outer)
 xmap <silent> ag <Plug>(coc-git-chunk-outer)
+xmap <silent> if <Plug>(coc-funcobj-i)
+omap <silent> if <Plug>(coc-funcobj-i)
+xmap <silent> af <Plug>(coc-funcobj-a)
+omap <silent> af <Plug>(coc-funcobj-a)
+xmap <silent> ic <Plug>(coc-classobj-i)
+omap <silent> ic <Plug>(coc-classobj-i)
+xmap <silent> ac <Plug>(coc-classobj-a)
+omap <silent> ac <Plug>(coc-classobj-a)
 nmap <silent> gh :call <SID>show_documentation()<CR>
 nmap <silent> gs <Plug>(coc-git-chunkinfo)
 nmap <silent> gb :Gblame<CR>
@@ -102,6 +110,7 @@ nnoremap <silent><nowait> <space>e :<C-u>CocList extensions<CR>
 nnoremap <silent><nowait> <space>c :<C-u>CocList commands<CR>
 nnoremap <silent><nowait> <space>g :<C-u>CocList diagnostics<CR>
 nnoremap <silent><nowait> <space>o :<C-u>CocList outline<CR>
+nnoremap <silent><nowait> <space><space> :<C-u>CocList<CR>
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! s:show_documentation()
