@@ -87,13 +87,22 @@ vnoremap <Leader>A: :Tabularize /:\zs/<CR>
 " coc
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [h <Plug>(coc-git-prevchunk)
+nmap <silent> ]h <Plug>(coc-git-nextchunk)
+nmap <silent> [c <Plug>(coc-git-prevconflict)
+nmap <silent> ]c <Plug>(coc-git-nextconflict)
+nmap <silent> gs <Plug>(coc-git-chunkinfo)
+nmap <silent> gc <Plug>(coc-git-commit)
+omap <silent> ig <Plug>(coc-git-chunk-inner)
+xmap <silent> ig <Plug>(coc-git-chunk-inner)
+omap <silent> ag <Plug>(coc-git-chunk-outer)
+xmap <silent> ag <Plug>(coc-git-chunk-outer)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent><nowait> <space>a <Plug>(coc-codeaction)
 nmap <silent><nowait> <space>r <Plug>(coc-rename)
-nmap <silent><nowait> <space>v <Plug>(coc-git-chunkinfo)
 nnoremap <silent><nowait> <space>d :call <SID>show_documentation()<CR>
 nnoremap <silent><nowait> <space>e :<C-u>CocList extensions<CR>
 nnoremap <silent><nowait> <space>c :<C-u>CocList commands<CR>
@@ -212,22 +221,23 @@ command! MakeTags !git ctags
 command! Open !open %
 
 " colors
-hi SignColumn            ctermbg=0
-hi FoldColumn            ctermbg=0 ctermfg=7
-hi Folded                ctermbg=6 ctermfg=0
-hi GitGutterAdd          ctermbg=0 ctermfg=2
-hi GitGutterChange       ctermbg=0 ctermfg=3
-hi GitGutterChangeDelete ctermbg=0 ctermfg=3
-hi GitGutterDelete       ctermbg=0 ctermfg=1
-hi DiffAdd               ctermbg=2 ctermfg=0 cterm=BOLD
-hi DiffDelete            ctermbg=1 ctermfg=0 cterm=BOLD
-hi DiffChange            ctermbg=3 ctermfg=0 cterm=BOLD
-hi DiffText              ctermbg=2 ctermfg=0 cterm=BOLD
-hi Visual                ctermbg=7 ctermfg=0
-hi Search                ctermbg=2 ctermfg=0
-hi Directory             ctermfg=blue
-hi Pmenu                 ctermbg=8
-hi CocHighlightText      ctermbg=18 ctermfg=2
+hi SignColumn              ctermbg=0
+hi FoldColumn              ctermbg=0 ctermfg=7
+hi Folded                  ctermbg=6 ctermfg=0
+hi CocGitAddedSign         ctermbg=0 ctermfg=2
+hi CocGitRemovedSign       ctermbg=0 ctermfg=1
+hi CocGitTopRemovedSign    ctermbg=0 ctermfg=1
+hi CocGitChangedSign       ctermbg=0 ctermfg=3
+hi CocGitChangeRemovedSign ctermbg=0 ctermfg=3
+hi DiffAdd                 ctermbg=2 ctermfg=0 cterm=BOLD
+hi DiffDelete              ctermbg=1 ctermfg=0 cterm=BOLD
+hi DiffChange              ctermbg=3 ctermfg=0 cterm=BOLD
+hi DiffText                ctermbg=2 ctermfg=0 cterm=BOLD
+hi Visual                  ctermbg=7 ctermfg=0
+hi Search                  ctermbg=2 ctermfg=0
+hi Directory               ctermfg=blue
+hi Pmenu                   ctermbg=8
+hi CocHighlightText        ctermbg=18 ctermfg=2
 
 " FZF extension
 function! s:build_quickfix_list(lines)
