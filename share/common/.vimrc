@@ -5,7 +5,6 @@ syntax enable
 set backspace=indent,eol,start
 set clipboard=unnamedplus
 set cmdheight=2
-set completeopt=longest,menuone
 set cursorline
 set dir=/tmp
 set encoding=utf-8
@@ -67,10 +66,6 @@ nnoremap <Leader>gc :Commits<CR>
 nnoremap <Leader>gf :GFiles<CR>
 nnoremap <Leader>gs :GFiles?<CR>
 nnoremap <Leader>h :History<CR>
-nnoremap <Leader>q :set opfunc=<SID>SearchOperator<CR>g@
-vnoremap <Leader>q :<C-u>call <SID>SearchOperator(visualmode())<CR>
-nnoremap <Leader>Q :set opfunc=<SID>SearchProjectOperator<CR>g@
-vnoremap <Leader>Q :<C-u>call <SID>SearchProjectOperator(visualmode())<CR>
 nnoremap <Leader>S :Snippets<CR>
 nnoremap <Leader>c :terminal ++close ++rows=8<CR>
 vnoremap // y/<C-R>"<CR>
@@ -140,41 +135,21 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeWinSize = 32
 
-" search operator
-function! s:SearchOperator(type)
-  if a:type ==# 'v'
-    silent exec "normal! `<v`>\"ry"
-  elseif a:type ==# 'char'
-    silent exec "normal! `[v`]\"ry"
-  else
-    return
-  endif
-  let @/=@r
+" search selection
+function! s:getSelectedText()
+  let l:old_reg = getreg('"')
+  let l:old_regtype = getregtype('"')
+  norm gvy
+  let l:ret = getreg('"')
+  call setreg('"', l:old_reg, l:old_regtype)
+  exe "norm \<Esc>"
+  return l:ret
 endfunction
 
-function! s:SearchProjectOperator(type)
-  if a:type ==# 'v'
-    silent exec "normal! `<v`>\"ry"
-  elseif a:type ==# 'char'
-    silent exec "normal! `[v`]\"ry"
-  else
-    return
-  endif
-  silent exec "vimgrep! /" . shellescape(@@) . "/gj **/*.rb"
-endfunction
-
-" FZF-search visual-selected word
-function! g:GetVisualSelectionText()
-  let [line_start, column_start] = getpos("'<")[1:2]
-  let [line_end, column_end] = getpos("'>")[1:2]
-  let lines = getline(line_start, line_end)
-  if len(lines) == 0
-    return ""
-  endif
-  let lines[-1] = lines[-1][: column_end - 2]
-  let lines[0] = lines[0][column_start - 1:]
-  return join(lines, "\n")
-endfunction
+vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent> q :<C-u>call fzf#vim#ag(<SID>getSelectedText())<CR>
+vnoremap <silent> Q :<C-u>execute "vimgrep! /" . <SID>getSelectedText() . "/g **/*"<CR>
 
 " autocommands
 autocmd BufWritePre * :%s/\s\+$//e
