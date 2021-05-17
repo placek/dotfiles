@@ -6,6 +6,7 @@ set backspace=indent,eol,start
 set clipboard=unnamedplus
 set cmdheight=2
 set cursorline
+set colorcolumn=80,160
 set dir=/tmp
 set encoding=utf-8
 set expandtab
@@ -40,6 +41,7 @@ set splitright
 set swapfile
 set tabstop=2
 set tags+=.git/tags;
+set termencoding=utf-8
 set timeoutlen=1000 ttimeoutlen=0
 set ttyfast
 set updatetime=300
@@ -149,7 +151,6 @@ endfunction
 vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent> q :<C-u>call fzf#vim#ag(<SID>getSelectedText())<CR>
-vnoremap <silent> Q :<C-u>execute "vimgrep! /" . <SID>getSelectedText() . "/g **/*"<CR>
 
 " autocommands
 autocmd BufWritePre * :%s/\s\+$//e
@@ -188,6 +189,7 @@ hi Search                  ctermbg=2 ctermfg=0
 hi Directory               ctermfg=blue
 hi Pmenu                   ctermbg=8
 hi CocHighlightText        ctermbg=18 ctermfg=2
+hi ColorColumn             ctermbg=18
 
 " FZF extension
 function! s:build_quickfix_list(lines)
