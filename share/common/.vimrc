@@ -156,12 +156,19 @@ vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+'
 vnoremap <silent> f :<C-u>call fzf#vim#ag(<SID>getSelectedText())<CR>
 vnoremap <silent> t :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
 
+function! s:fzfNERDTreeNode()
+  call NERDTreeCopyPath()
+  let l:path = getreg('+')
+  call fzf#run(fzf#wrap({'source': 'git ls-files ' . l:path}))
+endfunction
+
 " autocommands
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal makeprg=cabal\ build
 autocmd FileType nerdtree :vert resize 32
+autocmd FileType nerdtree nnoremap <leader>gf :call <SID>fzfNERDTreeNode()<CR>
 autocmd FileType ruby
   \ if expand("%") =~# '_spec\.rb$' |
   \   compiler rspec | setl makeprg=rspec\ --no-color\ % |
