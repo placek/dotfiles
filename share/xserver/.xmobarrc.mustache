@@ -11,10 +11,11 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                            , Run MultiCpu                  [ "-t", "<autovbar> "
                                                            , "-L", "30", "-H", "70"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
+                                                           ] 10
                             , Run MultiCoreTemp            [ "-t", "<avg>°C | <avgpc>% "
                                                            , "-L", "60", "-H", "80"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
-                                                           , "--", "--mintemp", "20", "--maxtemp", "100"] 50
+                                                           , "--", "--mintemp", "20", "--maxtemp", "100"
                                                            ] 10
                            , Run Memory                    [ "-t", "\xE0B3 mem <usedvbar> "
                                                            , "-L", "30", "-H", "70"
