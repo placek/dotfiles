@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-ssh-add -l >/dev/null 2>/dev/null && echo ' gpg '
+ssh-add -l >/dev/null 2>/dev/null && echo 'gpg  '
