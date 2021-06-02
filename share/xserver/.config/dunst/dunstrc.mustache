@@ -7,7 +7,7 @@ dmenu                = /home/placek/.nix-profile/bin/rofi -dmenu
 follow               = none
 format               = "<b>%a: %s</b>\n%b\n%p"
 frame_width          = {{border-size}}
-geometry             = "0x50-0+30"
+geometry             = "0x50-0+26"
 hide_duplicate_count = yes
 history_length       = 15
 horizontal_padding   = {{border-double-size}}
@@ -21,7 +21,6 @@ markup               = yes
 max_icon_size        = 48
 monitor              = 0
 mouse_left_click     = do_action
-mouse_middle_click   = close_all
 mouse_right_click    = close_current
 padding              = {{border-double-size}}
 plain_text           = no
@@ -36,10 +35,6 @@ startup_notification = false
 sticky_history       = yes
 transparency         = 5
 word_wrap            = yes
-
-[shortcuts]
-history              = mod4+grave
-close_all            = mod4+shift+grave
 
 [base16_low]
 frame_color          = "#{{base04-hex}}"

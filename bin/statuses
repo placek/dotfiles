@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+OPTIND=1
+
+red="#ff0000"
+
+while getopts "r:" opt; do
+  case "$opt" in
+  r) red=$OPTARG
+  ;;
+  esac
+done
+
+shift $((OPTIND-1))
+
+[ "${1:-}" = "--" ] && shift
+
+# dunst notifications status
+if [ $(dunstctl is-paused) == "false" ]; then
+  printf "<fc=$red>"
+  [ $(dunstctl count waiting) == "0" ] && printf "\\u2690" || printf "\\u2691"
+  printf "</fc> "
+else
+  printf "\\u2690 "
+fi
+
+# gpg smart card status
+ssh-add -l >/dev/null 2>/dev/null && printf "\\uE0A2 "
+
+# right separator
+printf "\\uE0B3 "

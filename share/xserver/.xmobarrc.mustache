@@ -6,13 +6,13 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "%UnsafeStdinReader%}{%gpg%%multicpu%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
-       , commands        = [ Run ComX                     "gpg-card-status" [] "" "gpg" 100
+       , template        = "%UnsafeStdinReader%}{%statuses%%multicpu%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
+       , commands        = [ Run ComX                     "statuses" [] "" "statuses" 100
                            , Run MultiCpu                  [ "-t", "<autovbar> "
                                                            , "-L", "30", "-H", "70"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
                                                            ] 10
-                            , Run MultiCoreTemp            [ "-t", "<avg>°C | <avgpc>% "
+                            , Run MultiCoreTemp            [ "-t", "\xE0B3 <avg>°C "
                                                            , "-L", "60", "-H", "80"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
                                                            , "--", "--mintemp", "20", "--maxtemp", "100"
@@ -32,10 +32,10 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                                                            ] 10
                            , Run Battery                   [ "-t", "\xE0B3 <acstatus> "
                                                            , "--"
-                                                           , "-O", "ac"
-                                                           , "-i", "ac"
+                                                           , "-O", "ac <leftvbar>"
+                                                           , "-i", "ac <leftvbar>"
                                                            , "-o", "bat <timeleft> <leftvbar>"
-                                                           , "-a", "notify-send -u critical 'battery running out!'", "-A", "10"
+                                                           , "-a", "notify-send -u critical 'battery low'", "-A", "10"
                                                            ] 50
                            , Run DynNetwork                [ "-t", "<fc=#{{base02-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base05-hex}},#{{base02-hex}}> <dev> <rx>↓↑<tx> </fc>", "--", "--devices", "enp0s3"] 10
                            , Run Wireless "wlp4s0"         [ "-t", "<fc=#{{base05-hex}},#{{base02-hex}}>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10

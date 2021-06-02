@@ -72,6 +72,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
        , ((modm .|. shiftMask, xK_q  ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
        , ((modm, xK_x                ), io (exitWith ExitSuccess))                                                 -- quit xmonad
        ])
+    -- notifications submap
+    , ((modm, xK_grave               ), submap . M.fromList $
+       [ ((modm .|. shiftMask, xK_q  ), spawn "dunstctl close-all")                                                -- close all notifications
+       , ((modm, xK_q                ), spawn "dunstctl set-paused toggle")                                        -- toggle notifications
+       , ((modm, xK_grave            ), spawn "dunstctl history-pop")                                              -- pop notification from history
+       ])
     -- others
     , ((0, xF86XK_LaunchB            ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot (F4)
     , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
