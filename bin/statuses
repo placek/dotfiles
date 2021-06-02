@@ -15,13 +15,13 @@ shift $((OPTIND-1))
 
 [ "${1:-}" = "--" ] && shift
 
+# right separator
+printf "\\uE0B3 "
+
 # dunst notifications status
-[ $(dunstctl is-paused) == "false" ] && printf "<fc=$red>"
+[ $(dunstctl is-paused) == "true" ] && printf "<fc=$red>"
 [ $(dunstctl count waiting) == "0" ] && printf "\\u2690 " || printf "\\u2691 "
-[ $(dunstctl is-paused) == "false" ] && printf "</fc>"
+[ $(dunstctl is-paused) == "true" ] && printf "</fc> "
 
 # gpg smart card status
 ssh-add -l >/dev/null 2>/dev/null && printf "\\uE0A2 "
-
-# right separator
-printf "\\uE0B3 "
