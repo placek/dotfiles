@@ -16,13 +16,9 @@ shift $((OPTIND-1))
 [ "${1:-}" = "--" ] && shift
 
 # dunst notifications status
-if [ $(dunstctl is-paused) == "false" ]; then
-  printf "<fc=$red>"
-  [ $(dunstctl count waiting) == "0" ] && printf "\\u2690" || printf "\\u2691"
-  printf "</fc> "
-else
-  printf "\\u2690 "
-fi
+[ $(dunstctl is-paused) == "false" ] && printf "<fc=$red>"
+[ $(dunstctl count waiting) == "0" ] && printf "\\u2690 " || printf "\\u2691 "
+[ $(dunstctl is-paused) == "false" ] && printf "</fc>"
 
 # gpg smart card status
 ssh-add -l >/dev/null 2>/dev/null && printf "\\uE0A2 "

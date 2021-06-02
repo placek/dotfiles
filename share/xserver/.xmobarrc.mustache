@@ -6,7 +6,7 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "%UnsafeStdinReader%}{%statuses%%multicpu%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
+       , template        = "%UnsafeStdinReader%}{%multicpu%%statuses%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
        , commands        = [ Run ComX                     "statuses" [] "" "statuses" 100
                            , Run MultiCpu                  [ "-t", "<autovbar> "
                                                            , "-L", "30", "-H", "70"
