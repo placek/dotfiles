@@ -160,7 +160,6 @@ myStartupHook = do
   setDefaultKeyRemap macMap [macMap, emptyKeyRemap]
   spawnOnce "exec ~/.fehbg &"
   spawnOnce "xinput set-prop 11 'libinput Natural Scrolling Enabled' 1 &"
-  spawnOnce "fusuma -d &"
 
 defaults xmproc = desktopConfig { terminal           = myTerminal
                                 , focusFollowsMouse  = myFocusFollowsMouse
