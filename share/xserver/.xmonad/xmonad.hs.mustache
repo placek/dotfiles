@@ -159,7 +159,6 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
 myStartupHook = do
   setDefaultKeyRemap macMap [macMap, emptyKeyRemap]
   spawnOnce "exec ~/.fehbg &"
-  spawnOnce "dunst &"
   spawnOnce "xinput set-prop 11 'libinput Natural Scrolling Enabled' 1 &"
   spawnOnce "fusuma -d &"
 
