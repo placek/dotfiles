@@ -37,9 +37,9 @@
 [status]
   submoduleSummary = true
 [diff]
-	tool             = vimdiff
+  tool             = vimdiff
 [merge]
-	tool             = vimdiff
-	conflictstyle    = diff3
+  tool             = vimdiff
+  conflictstyle    = diff3
 [pull]
   ff               = only
