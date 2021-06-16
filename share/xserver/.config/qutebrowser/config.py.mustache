@@ -15,24 +15,32 @@ base0D = "#{{base0D-hex}}"
 base0E = "#{{base0E-hex}}"
 base0F = "#{{base0F-hex}}"
 
+config.load_autoconfig(False)
+
 config.set('content.images', True, 'chrome-devtools://*')
 config.set('content.images', True, 'devtools://*')
 config.set('content.javascript.enabled', True, 'chrome-devtools://*')
 config.set('content.javascript.enabled', True, 'devtools://*')
 config.set('content.javascript.enabled', True, 'chrome://*/*')
 config.set('content.javascript.enabled', True, 'qute://*/*')
-config.set('content.notifications', True, 'https://www.youtube.com')
+config.set('content.notifications.enabled', True, 'https://app.slack.com/*')
+config.set('content.notifications.enabled', True, 'https://messages.google.com/*')
+
+config.set('tabs.padding', {"bottom": 4, "left": 4, "right": 4, "top": 4})
+config.set('tabs.tooltips', False)
+config.set('tabs.indicator.width', 0);
 
 c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'}
 c.downloads.location.directory = '/home/placek/Downloads'
-c.tabs.show = 'never'
+c.tabs.show = 'always'
 c.url.start_pages = ['https://www.google.com']
 c.url.searchengines = {
   'DEFAULT': 'https://www.google.com/search?q={}',
-  'duck': 'https://duckduckgo.com/?q={}',
-  'hoog': 'https://hoogle.haskell.org/?hoogle={}',
+  'hoogle': 'https://hoogle.haskell.org/?hoogle={}',
+  'nixos': 'https://search.nixos.org/packages?query={}',
   'wiki': 'https://en.wikipedia.org/wiki/{}',
-  'yt': 'https://www.youtube.com/results?search_query={}'
+  'yt': 'https://www.youtube.com/results?search_query={}',
+  'duck': 'https://duckduckgo.com/?q={}'
 }
 
 c.colors.completion.fg = base05
@@ -132,5 +140,5 @@ c.fonts.statusbar = '{{font-size}}pt "{{font}}"'
 
 config.bind('Ym', 'hint links spawn kitty -e youtube-dl -x {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
 config.bind('Yv', 'hint links spawn kitty -e youtube-dl {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
-config.bind('t', 'set-cmd-text -s :open -t')
+config.bind('gt', 'set-cmd-text -s :open -t')
 config.bind('xt', 'config-cycle tabs.show always never')
