@@ -25,15 +25,9 @@ myFocusedBorderColor = "#{{base09-hex}}"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#{{base00-hex}}"
 myTerminal           = "kitty"
-macMap               = KeymapTable [ ((myModMask, xK_a), (controlMask, xK_a))                             -- select all
-                                   , ((myModMask, xK_w), (controlMask, xK_w))                             -- close tab
-                                   , ((myModMask, xK_r), (controlMask, xK_r))                             -- reload
-                                   , ((myModMask, xK_t), (controlMask, xK_t))                             -- new tab
-                                   , ((myModMask, xK_z), (controlMask, xK_z))                             -- undo
-                                   , ((myModMask, xK_x), (controlMask, xK_x))                             -- cut
+macMap               = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))                             -- cut
                                    , ((myModMask, xK_c), (controlMask, xK_c))                             -- copy
                                    , ((myModMask, xK_v), (controlMask, xK_v))                             -- paste
-                                   , ((myModMask .|. shiftMask, xK_t), (controlMask .|. shiftMask, xK_t)) -- restore tab
                                    ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -126,7 +120,6 @@ myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}}
 
 myManageHook = composeAll [ className =? "Gcr-prompter"     --> doCenterFloat
                           , className =? "qutebrowser"      --> doShift ( myWorkspaces !! 0 )
-                          , className =? "Chromium-browser" --> doShift ( myWorkspaces !! 0 )
                           ]
 
 workspaceNames :: [String]

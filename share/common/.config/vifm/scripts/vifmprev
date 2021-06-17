@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+case $1 in
+  audio)
+    ffprobe -hide_banner -i "$4"
+    ;;
+  image)
+    tiv -w $2 -h $3 -256 "$4" 2> /dev/null
+    identify "$4"
+    ;;
+  video)
+    thumbnail="$(mktemp).jpg"
+    ffmpeg -i "$4" -ss 00:00:01 -vframes 1 $thumbnail 2> /dev/null
+    tiv -w $2 -h $3 -256 $thumbnail 2> /dev/null
+    ffprobe -hide_banner -i "$4"
+    ;;
+  code)
+    bat --theme ansi --terminal-width $2 --line-range :$3 --color always --decorations never "$4"
+    ;;
+esac
+
