@@ -1,9 +1,9 @@
 {
   "font": "Iosevka",
   "font-size": "12",
-  "font-size-in-dpi": "18",
   "border-half-size": "2",
   "border-size": "4",
+  "border-double-size": "8",
 
   "base00-hex": "32302f",
   "base01-hex": "3c3836",

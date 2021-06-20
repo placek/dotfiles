@@ -26,10 +26,12 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 config.set('content.notifications.enabled', True, 'https://app.slack.com/*')
 config.set('content.notifications.enabled', True, 'https://messages.google.com/*')
 
-config.set('tabs.padding', {"bottom": 4, "left": 4, "right": 4, "top": 4})
+config.set('tabs.padding', {"bottom": {{border-size}}, "left": {{border-double-size}}, "right": {{border-double-size}}, "top": {{border-size}}})
 config.set('tabs.tooltips', False)
-config.set('tabs.indicator.width', 0);
-config.set('set window.title_format', '{current_title}')
+config.set('tabs.indicator.width', 0)
+config.set('window.title_format', '{current_title}')
+config.set('tabs.favicons.show', 'never')
+config.set('tabs.mousewheel_switching', False)
 
 c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'}
 c.downloads.location.directory = '/home/placek/Downloads'
@@ -116,21 +118,21 @@ c.colors.tabs.indicator.start = base0D
 c.colors.tabs.indicator.stop = base0C
 c.colors.tabs.indicator.error = base08
 c.colors.tabs.odd.fg = base05
-c.colors.tabs.odd.bg = base01
+c.colors.tabs.odd.bg = base00
 c.colors.tabs.even.fg = base05
 c.colors.tabs.even.bg = base00
-c.colors.tabs.pinned.even.bg = base0C
+c.colors.tabs.pinned.even.bg = base00
 c.colors.tabs.pinned.even.fg = base07
-c.colors.tabs.pinned.odd.bg = base0B
+c.colors.tabs.pinned.odd.bg = base00
 c.colors.tabs.pinned.odd.fg = base07
-c.colors.tabs.pinned.selected.even.bg = base02
-c.colors.tabs.pinned.selected.even.fg = base05
-c.colors.tabs.pinned.selected.odd.bg = base02
-c.colors.tabs.pinned.selected.odd.fg = base05
-c.colors.tabs.selected.odd.fg = base05
-c.colors.tabs.selected.odd.bg = base02
-c.colors.tabs.selected.even.fg = base05
-c.colors.tabs.selected.even.bg = base02
+c.colors.tabs.pinned.selected.even.bg = base00
+c.colors.tabs.pinned.selected.even.fg = base0A
+c.colors.tabs.pinned.selected.odd.bg = base00
+c.colors.tabs.pinned.selected.odd.fg = base0A
+c.colors.tabs.selected.odd.fg = base0A
+c.colors.tabs.selected.odd.bg = base00
+c.colors.tabs.selected.even.fg = base0A
+c.colors.tabs.selected.even.bg = base00
 
 c.fonts.default_family = '"{{font}}"'
 c.fonts.default_size = '{{font-size}}pt'
