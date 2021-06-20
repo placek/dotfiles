@@ -25,3 +25,5 @@ printf "\\uE0B3 "
 
 # gpg smart card status
 ssh-add -l >/dev/null 2>/dev/null && printf "\\uE0A2 "
+
+exit 0

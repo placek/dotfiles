@@ -9,7 +9,7 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
        , template        = "%UnsafeStdinReader%}{%multicpu%%statuses%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
        , commands        = [ Run ComX                     "statuses" [
                                                              "-r", "#{{base08-hex}}"
-                                                           ] "" "statuses" 10
+                                                           ] "\xE0B3 " "statuses" 10
                            , Run MultiCpu                  [ "-t", "<autovbar> "
                                                            , "-L", "30", "-H", "70"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
