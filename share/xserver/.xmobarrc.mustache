@@ -7,7 +7,9 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
        , sepChar         = "%"
        , alignSep        = "}{"
        , template        = "%UnsafeStdinReader%}{%multicpu%%statuses%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
-       , commands        = [ Run ComX                     "statuses" [] "" "statuses" 100
+       , commands        = [ Run ComX                     "statuses" [
+                                                             "-r", "#{{base08-hex}}"
+                                                           ] "" "statuses" 100
                            , Run MultiCpu                  [ "-t", "<autovbar> "
                                                            , "-L", "30", "-H", "70"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"

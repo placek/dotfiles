@@ -2,3 +2,6 @@
 :def hlint const . return $ ":! hlint \"src\""
 :def hoogle \s -> return $ ":! hoogle --count=15 \"" ++ s ++ "\""
 :set +m
+:set +t
+:set +s
+:set -ferror-spans -freverse-errors -fprint-expanded-synonyms

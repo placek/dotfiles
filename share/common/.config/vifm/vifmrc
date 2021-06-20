@@ -15,9 +15,14 @@ set syscalls
 set timefmt="%d.%m.%y %H:%M"
 set trash
 set undolevels=100
+set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,phistory,fhistory,dirstack,registers,bookmarks,bmarks
 set wildmenu
 set wildstyle=popup
 
+nnoremap w :view<cr>
+nnoremap f :file<cr>
+
+mark h ~/
 command! archive tar -cvf %a.tar %f
 command! compress gzip -9 %f
 command! du ncdu %c
