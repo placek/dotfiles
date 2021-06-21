@@ -17,29 +17,45 @@ base0F = "#{{base0F-hex}}"
 
 config.load_autoconfig(False)
 
+config.set('aliases',                       {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'})
+config.set('content.blocking.method',       'both')
+config.set('content.default_encoding',      'utf-8')
 config.set('content.notifications.enabled', True)
-config.set('content.default_encoding', 'utf-8')
-config.set('content.blocking.method', 'both')
-config.set('tabs.padding', {"bottom": {{border-size}}, "left": {{border-double-size}}, "right": {{border-double-size}}, "top": {{border-size}}})
-config.set('tabs.tooltips', False)
-config.set('tabs.indicator.width', 0)
-config.set('window.title_format', '{current_title}')
-config.set('tabs.title.format', '{current_title} {audio}')
-config.set('tabs.favicons.show', 'never')
-config.set('tabs.mousewheel_switching', False)
-
-c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'}
-c.downloads.location.directory = '/home/placek/Downloads'
-c.tabs.show = 'always'
-c.url.start_pages = ['https://www.google.com']
-c.url.searchengines = {
+config.set('downloads.location.directory',  '~/Downloads')
+config.set('fonts.completion.entry',        '{{font-size}}pt "{{font}}"')
+config.set('fonts.contextmenu',             '{{font-size}}pt "{{font}}"')
+config.set('fonts.debug_console',           '{{font-size}}pt "{{font}}"')
+config.set('fonts.default_family',          '"{{font}}"')
+config.set('fonts.default_size',            '{{font-size}}pt')
+config.set('fonts.prompts',                 '{{font-size}}pt "{{font}}"')
+config.set('fonts.statusbar',               '{{font-size}}pt "{{font}}"')
+config.set('hints.border',                  'none')
+config.set('hints.radius',                  {{border-size}})
+config.set('statusbar.padding',             {'bottom': {{border-size}}, 'left': {{border-size}}, 'right': {{border-size}}, 'top': {{border-size}}})
+config.set('tabs.favicons.show',            'never')
+config.set('tabs.indicator.width',          0)
+config.set('tabs.mousewheel_switching',     False)
+config.set('tabs.padding',                  {'bottom': {{border-size}}, 'left': {{border-size}}, 'right': {{border-size}}, 'top': {{border-size}}})
+config.set('tabs.padding',                  {'bottom': {{border-size}}, 'left': {{border-double-size}}, 'right': {{border-double-size}}, 'top': {{border-size}}})
+config.set('tabs.show',                     'always')
+config.set('tabs.title.format',             '{current_title} {audio}')
+config.set('tabs.tooltips',                 False)
+config.set('url.start_pages',               ['https://www.google.com'])
+config.set('window.title_format',           '{current_title}')
+config.set('url.searchengines', {
   'DEFAULT': 'https://www.google.com/search?q={}',
-  'hoogle': 'https://hoogle.haskell.org/?hoogle={}',
-  'nixos': 'https://search.nixos.org/packages?query={}',
-  'wiki': 'https://en.wikipedia.org/wiki/{}',
-  'yt': 'https://www.youtube.com/results?search_query={}',
-  'duck': 'https://duckduckgo.com/?q={}'
-}
+  'hoogle':  'https://hoogle.haskell.org/?hoogle={}',
+  'nixos':   'https://search.nixos.org/packages?query={}',
+  'wiki':    'https://en.wikipedia.org/wiki/{}',
+  'yt':      'https://www.youtube.com/results?search_query={}',
+  'duck':    'https://duckduckgo.com/?q={}'
+})
+
+config.bind('<Ctrl-Shift-H>', 'tab-clone ;; home')
+config.bind('Ym', 'hint links spawn kitty -e youtube-dl -x {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
+config.bind('Yv', 'hint links spawn kitty -e youtube-dl {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
+config.bind('gt', 'set-cmd-text -s :open -t')
+config.bind('xt', 'config-cycle tabs.show always never')
 
 c.colors.completion.fg = base05
 c.colors.completion.odd.bg = base01
@@ -56,6 +72,8 @@ c.colors.completion.item.selected.match.fg = base0B
 c.colors.completion.match.fg = base0B
 c.colors.completion.scrollbar.fg = base05
 c.colors.completion.scrollbar.bg = base00
+c.colors.contextmenu.disabled.bg = base00
+c.colors.contextmenu.disabled.fg =  base02
 c.colors.contextmenu.menu.bg = base00
 c.colors.contextmenu.menu.fg =  base05
 c.colors.contextmenu.selected.bg = base02
@@ -116,28 +134,15 @@ c.colors.tabs.odd.fg = base05
 c.colors.tabs.odd.bg = base00
 c.colors.tabs.even.fg = base05
 c.colors.tabs.even.bg = base00
-c.colors.tabs.pinned.even.bg = base00
+c.colors.tabs.pinned.even.bg = base01
 c.colors.tabs.pinned.even.fg = base07
-c.colors.tabs.pinned.odd.bg = base00
+c.colors.tabs.pinned.odd.bg = base02
 c.colors.tabs.pinned.odd.fg = base07
-c.colors.tabs.pinned.selected.even.bg = base00
+c.colors.tabs.pinned.selected.even.bg = base01
 c.colors.tabs.pinned.selected.even.fg = base0A
-c.colors.tabs.pinned.selected.odd.bg = base00
+c.colors.tabs.pinned.selected.odd.bg = base02
 c.colors.tabs.pinned.selected.odd.fg = base0A
 c.colors.tabs.selected.odd.fg = base0A
 c.colors.tabs.selected.odd.bg = base00
 c.colors.tabs.selected.even.fg = base0A
 c.colors.tabs.selected.even.bg = base00
-
-c.fonts.default_family = '"{{font}}"'
-c.fonts.default_size = '{{font-size}}pt'
-c.fonts.completion.entry = '{{font-size}}pt "{{font}}"'
-c.fonts.debug_console = '{{font-size}}pt "{{font}}"'
-c.fonts.prompts = 'default_size sans-serif'
-c.fonts.statusbar = '{{font-size}}pt "{{font}}"'
-
-config.bind('Ym', 'hint links spawn kitty -e youtube-dl -x {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
-config.bind('Yv', 'hint links spawn kitty -e youtube-dl {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
-config.bind('gt', 'set-cmd-text -s :open -t')
-config.bind('xt', 'config-cycle tabs.show always never')
-config.bind('<Ctrl-Shift-H>', 'tab-clone ;; home')

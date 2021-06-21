@@ -53,10 +53,10 @@ bind index,pager \Cl sidebar-open
 
 # colors
 color sidebar_indicator default blue
-color sidebar_highlight white grey
+color sidebar_highlight blue default
 color sidebar_spoolfile yellow default
 color sidebar_flagged red default
-color sidebar_divider grey default
+color sidebar_divider white default
 color sidebar_new brightblue default
 
 color index yellow default '.*'
