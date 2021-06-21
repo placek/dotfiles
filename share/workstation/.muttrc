@@ -7,9 +7,9 @@ folder-hook 'account.com.binarapps.p.placzynski' 'source ~/.mutt/com.binarapps.p
 source ~/.mutt/com.gmail.placzynski.pawel/account
 
 # macros for switching accounts
-macro index <esc>1 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.placzynski.pawel/account<enter><change-folder>!<enter>'
-macro index <esc>2 '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.silquenarmo/account<enter><change-folder>!<enter>'
-macro index <esc>3 '<sync-mailbox><enter-command>source ~/.mutt/com.binarapps.p.placzynski/account<enter><change-folder>!<enter>'
+macro index <esc>1 '<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source ~/.mutt/com.gmail.placzynski.pawel/account<enter><change-folder>!<enter>'
+macro index <esc>2 '<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source ~/.mutt/com.gmail.silquenarmo/account<enter><change-folder>!<enter>'
+macro index <esc>3 '<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source ~/.mutt/com.binarapps.p.placzynski/account<enter><change-folder>!<enter>'
 
 # other global settings
 set abort_nosubject       = no
@@ -24,6 +24,13 @@ set mail_check_stats      = yes
 set mailcap_path          = "~/.mailcap"
 set move                  = no
 set send_charset          = "utf-8"
+set sidebar_divider_char  = '│'
+set sidebar_folder_indent = yes
+set sidebar_indent_string = '  '
+set sidebar_short_path
+set sidebar_short_path    = yes
+set sidebar_sort_method   = 'alpha'
+set sidebar_visible       = yes
 set sort                  = "reverse-date-received"
 set ssl_force_tls         = yes
 set ssl_starttls          = yes
@@ -40,8 +47,18 @@ bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
 bind index R imap-fetch-mail
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
+bind index,pager \Cl sidebar-open
 
 # colors
+color sidebar_indicator default blue
+color sidebar_highlight white grey
+color sidebar_spoolfile yellow default
+color sidebar_flagged red default
+color sidebar_divider grey default
+color sidebar_new brightblue default
+
 color index yellow default '.*'
 color index_author red default '.*'
 color index_number blue default
