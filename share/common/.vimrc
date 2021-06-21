@@ -14,7 +14,7 @@ set foldcolumn=1
 set foldmethod=manual
 set formatoptions=tcrqn
 set grepformat=%f:%l:%c:%m
-set grepprg=ag\ --vimgrep\ $*
+set grepprg=rg\ --vimgrep\ $*
 set hidden
 set hlsearch
 set incsearch
