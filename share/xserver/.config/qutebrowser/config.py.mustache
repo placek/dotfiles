@@ -1,47 +1,53 @@
-base00 = "#{{base00-hex}}"
-base01 = "#{{base01-hex}}"
-base02 = "#{{base02-hex}}"
-base03 = "#{{base03-hex}}"
-base04 = "#{{base04-hex}}"
-base05 = "#{{base05-hex}}"
-base06 = "#{{base06-hex}}"
-base07 = "#{{base07-hex}}"
-base08 = "#{{base08-hex}}"
-base09 = "#{{base09-hex}}"
-base0A = "#{{base0A-hex}}"
-base0B = "#{{base0B-hex}}"
-base0C = "#{{base0C-hex}}"
-base0D = "#{{base0D-hex}}"
-base0E = "#{{base0E-hex}}"
-base0F = "#{{base0F-hex}}"
+base00 = '#{{base00-hex}}'
+base01 = '#{{base01-hex}}'
+base02 = '#{{base02-hex}}'
+base03 = '#{{base03-hex}}'
+base04 = '#{{base04-hex}}'
+base05 = '#{{base05-hex}}'
+base06 = '#{{base06-hex}}'
+base07 = '#{{base07-hex}}'
+base08 = '#{{base08-hex}}'
+base09 = '#{{base09-hex}}'
+base0A = '#{{base0A-hex}}'
+base0B = '#{{base0B-hex}}'
+base0C = '#{{base0C-hex}}'
+base0D = '#{{base0D-hex}}'
+base0E = '#{{base0E-hex}}'
+base0F = '#{{base0F-hex}}'
 
 config.load_autoconfig(False)
 
-config.set('aliases',                       {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'})
-config.set('content.blocking.method',       'both')
-config.set('content.default_encoding',      'utf-8')
-config.set('content.notifications.enabled', True)
-config.set('downloads.location.directory',  '~/Downloads')
-config.set('fonts.completion.entry',        '{{font-size}}pt "{{font}}"')
-config.set('fonts.contextmenu',             '{{font-size}}pt "{{font}}"')
-config.set('fonts.debug_console',           '{{font-size}}pt "{{font}}"')
-config.set('fonts.default_family',          '"{{font}}"')
-config.set('fonts.default_size',            '{{font-size}}pt')
-config.set('fonts.prompts',                 '{{font-size}}pt "{{font}}"')
-config.set('fonts.statusbar',               '{{font-size}}pt "{{font}}"')
-config.set('hints.border',                  'none')
-config.set('hints.radius',                  {{border-size}})
-config.set('statusbar.padding',             {'bottom': {{border-size}}, 'left': {{border-size}}, 'right': {{border-size}}, 'top': {{border-size}}})
-config.set('tabs.favicons.show',            'never')
-config.set('tabs.indicator.width',          0)
-config.set('tabs.mousewheel_switching',     False)
-config.set('tabs.padding',                  {'bottom': {{border-size}}, 'left': {{border-size}}, 'right': {{border-size}}, 'top': {{border-size}}})
-config.set('tabs.padding',                  {'bottom': {{border-size}}, 'left': {{border-double-size}}, 'right': {{border-double-size}}, 'top': {{border-size}}})
-config.set('tabs.show',                     'always')
-config.set('tabs.title.format',             '{current_title} {audio}')
-config.set('tabs.tooltips',                 False)
-config.set('url.start_pages',               ['https://www.google.com'])
-config.set('window.title_format',           '{current_title}')
+config.set('aliases',                           {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'})
+config.set('content.blocking.method',           'both')
+config.set('content.default_encoding',          'utf-8')
+config.set('content.notifications.enabled',     True)
+config.set('downloads.location.directory',      '~/Downloads')
+config.set('editor.command',                    ['kitty', '-e', 'vim', '-f', '{file}', '-c', 'normal {line}G{column0}l'])
+config.set('fileselect.folder.command',         ['kitty', '-e', 'vifm', '--choose-dir', '{}']')
+config.set('fileselect.handler',                'external')
+config.set('fileselect.multiple_files.command', ['kitty', '-e', 'vifm', '--choose-files', '{}'])
+config.set('fileselect.single_file.command',    ['kitty', '-e', 'vifm', '--choose-files', '{}'])
+config.set('fonts.completion.entry',            '{{font-size}}pt "{{font}}"')
+config.set('fonts.contextmenu',                 '{{font-size}}pt "{{font}}"')
+config.set('fonts.debug_console',               '{{font-size}}pt "{{font}}"')
+config.set('fonts.default_family',              '"{{font}}"')
+config.set('fonts.default_size',                '{{font-size}}pt')
+config.set('fonts.prompts',                     '{{font-size}}pt "{{font}}"')
+config.set('fonts.statusbar',                   '{{font-size}}pt "{{font}}"')
+config.set('hints.border',                      'none')
+config.set('hints.radius',                      {{border-size}})
+config.set('statusbar.padding',                 {'bottom': {{border-size}}, 'left': {{border-size}}, 'right': {{border-size}}, 'top': {{border-size}}})
+config.set('tabs.favicons.show',                'never')
+config.set('tabs.indicator.width',              0)
+config.set('tabs.mousewheel_switching',         False)
+config.set('tabs.padding',                      {'bottom': {{border-size}}, 'left': {{border-double-size}}, 'right': {{border-double-size}}, 'top': {{border-size}}})
+config.set('tabs.padding',                      {'bottom': {{border-size}}, 'left': {{border-size}}, 'right': {{border-size}}, 'top': {{border-size}}})
+config.set('tabs.show',                         'always')
+config.set('tabs.title.format',                 '{current_title} {audio}')
+config.set('tabs.tooltips',                     False)
+config.set('url.start_pages',                   ['https://www.google.com'])
+config.set('window.title_format',               '{current_title}')
+
 config.set('url.searchengines', {
   'DEFAULT': 'https://www.google.com/search?q={}',
   'hoogle':  'https://hoogle.haskell.org/?hoogle={}',
