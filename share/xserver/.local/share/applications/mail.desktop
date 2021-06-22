@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Mail
+GenericName=Mail
+GenericName[pl]=Poczta
+Exec=mail-gui
+Terminal=true
+Icon=email
+StartupNotify=true

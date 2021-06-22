@@ -1,10 +1,8 @@
 [Desktop Entry]
-StartupWMClass=nmtui
-Version=1.0
+Type=Application
 Name=Network manager
 GenericName=Network Manager
 GenericName[pl]=Menadżer sieci
-Exec=nmtui
+Exec=kitty -e nmtui
 Terminal=true
 Icon=network
-Type=Application

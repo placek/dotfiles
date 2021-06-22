@@ -1,10 +1,8 @@
 [Desktop Entry]
-StartupWMClass=ncdu
-Version=1.0
+Type=Application
 Name=Disk usage
 GenericName=Disk Usage
 GenericName[pl]=Zużycie dysku
-Exec=ncdu
+Exec=kitty -e ncdu
 Terminal=true
 Icon=disk
-Type=Application
