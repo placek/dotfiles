@@ -4,5 +4,4 @@ Name=Disk usage
 GenericName=Disk Usage
 GenericName[pl]=Zużycie dysku
 Exec=kitty -e ncdu
-Terminal=true
 Icon=disk

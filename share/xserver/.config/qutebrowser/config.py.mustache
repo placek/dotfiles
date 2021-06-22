@@ -56,6 +56,7 @@ config.set('url.searchengines', {
   'duck':    'https://duckduckgo.com/?q={}'
 })
 
+config.bind(';D', 'hint links spawn kitty -e aria2c {hint-url} -d ~/Downloads')
 config.bind(';m', 'hint links spawn kitty -e youtube-dl -x {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
 config.bind(';v', 'hint links spawn kitty -e youtube-dl {hint-url} -o ~/Downloads/%(title)s.%(ext)s')
 config.bind('gt', 'set-cmd-text -s :open -t')

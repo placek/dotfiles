@@ -4,5 +4,4 @@ Name=Network manager
 GenericName=Network Manager
 GenericName[pl]=Menadżer sieci
 Exec=kitty -e nmtui
-Terminal=true
 Icon=network
