@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+export EDITOR=vim
+
 sc $HOME/.password-store/envs/mail.gpg kitty -e neomutt $@ 2> /dev/null
