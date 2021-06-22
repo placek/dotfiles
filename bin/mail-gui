@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-sc $HOME/.password-store/envs/mail.gpg kitty -e neomutt $@
+sc $HOME/.password-store/envs/mail.gpg kitty -e neomutt $@ 2> /dev/null
