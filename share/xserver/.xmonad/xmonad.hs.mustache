@@ -1,3 +1,5 @@
+-- vim: set syntax=haskell
+
 import Data.Monoid
 import Graphics.X11.ExtraTypes.XF86
 import System.Exit
@@ -25,9 +27,9 @@ myFocusedBorderColor = "#{{base09-hex}}"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#{{base00-hex}}"
 myTerminal           = "kitty"
-macMap               = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))                             -- cut
-                                   , ((myModMask, xK_c), (controlMask, xK_c))                             -- copy
-                                   , ((myModMask, xK_v), (controlMask, xK_v))                             -- paste
+macMap               = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))                                      -- cut
+                                   , ((myModMask, xK_c), (controlMask, xK_c))                                      -- copy
+                                   , ((myModMask, xK_v), (controlMask, xK_v))                                      -- paste
                                    ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -57,14 +59,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
        , ((0, xK_b                   ), spawn "bash -c '~/.fehbg'")                                                -- change background
        , ((0, xK_c                   ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
        , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
-       , ((0, xK_r                   ), spawn "rofi -modi run -show run")                                          -- run
-       , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
        ])
     -- quit submap
     , ((modm, xK_q                   ), submap . M.fromList $
-       [ ((modm, xK_q                ), kill)                                                                      -- close focused window
-       , ((modm .|. shiftMask, xK_q  ), killAllOtherCopies)                                                        -- toggle window state back by killing all copies
+       [ ((modm, xK_q                ), kill1)                                                                     -- close focused window or just remove a current copy of it
        , ((modm, xK_x                ), io (exitWith ExitSuccess))                                                 -- quit xmonad
+       , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
        ])
     -- notifications submap
     , ((modm, xK_grave               ), submap . M.fromList $
@@ -73,8 +73,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
        , ((modm, xK_grave            ), spawn "dunstctl history-pop")                                              -- pop notification from history
        ])
     -- others
-    , ((0, xF86XK_LaunchB            ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot (F4)
-    , ((0, xK_Print                  ), spawn "scrot -q100 /tmp/ss_%Y%m%d_%H%M%S.png")                             -- screenshot
+    , ((0, xF86XK_LaunchB            ), spawn "scrot -q100 ~/Downloads/ss_%Y%m%d_%H%M%S.png")                      -- screenshot (F4)
+    , ((0, xK_Print                  ), spawn "scrot -q100 ~/Downloads/ss_%Y%m%d_%H%M%S.png")                      -- screenshot
     , ((0, xF86XK_AudioPrev          ), spawn "mocp --previous")
     , ((0, xF86XK_AudioPlay          ), spawn "mocp --toggle-pause")
     , ((0, xF86XK_AudioNext          ), spawn "mocp --next")
@@ -118,12 +118,12 @@ myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}}
     ratio   = 2/3
     delta   = 3/100
 
-myManageHook = composeAll [ className =? "Gcr-prompter"     --> doCenterFloat
-                          , className =? "qutebrowser"      --> doShift ( myWorkspaces !! 0 )
+myManageHook = composeAll [ className =? "Gcr-prompter" --> doCenterFloat
+                          , className =? "qutebrowser"  --> doShift ( myWorkspaces !! 0 )
                           ]
 
 workspaceNames :: [String]
-workspaceNames = ["web", "dev", "util", "misc", "fun"]
+workspaceNames = ["web", "dev", "mail", "misc", "fun"]
 
 myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)

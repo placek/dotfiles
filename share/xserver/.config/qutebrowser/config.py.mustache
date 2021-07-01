@@ -18,6 +18,7 @@ base0F = '#{{base0F-hex}}'
 config.load_autoconfig(False)
 
 config.set('aliases',                           {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'})
+config.set('confirm_quit',                      ['multiple-tabs', 'downloads'])
 config.set('content.blocking.method',           'both')
 config.set('content.default_encoding',          'utf-8')
 config.set('content.notifications.enabled',     True)
@@ -39,6 +40,7 @@ config.set('hints.radius',                      {{border-size}})
 config.set('statusbar.padding',                 {'bottom': {{border-size}}, 'left': {{border-size}}, 'right': {{border-size}}, 'top': {{border-size}}})
 config.set('tabs.favicons.show',                'never')
 config.set('tabs.indicator.width',              0)
+config.set('tabs.last_close',                   'close')
 config.set('tabs.mousewheel_switching',         False)
 config.set('tabs.padding',                      {'bottom': {{border-size}}, 'left': {{border-double-size}}, 'right': {{border-double-size}}, 'top': {{border-size}}})
 config.set('tabs.show',                         'always')
@@ -53,6 +55,7 @@ config.set('url.searchengines', {
   'wiki':    'https://en.wikipedia.org/wiki/{}',
   'yt':      'https://www.youtube.com/results?search_query={}',
   'allegro': 'https://allegro.pl/listing?string={}',
+  'ang':     'https://context.reverso.net/t%C5%82umaczenie/polski-angielski/{}',
   'duck':    'https://duckduckgo.com/?q={}'
 })
 

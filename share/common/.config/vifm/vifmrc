@@ -31,15 +31,20 @@ command! make !!make %a
 command! run !! ./%c
 
 " code
-fileviewer *.rb,*.hs,*.lhs,*.html,*.css,*.erb,*.yaml,*.yml,*.json,*.sass,*.haml,*.js,
+fileviewer *.rb,*.hs,*.lhs,*.css,*.erb,*.yaml,*.yml,*.sass,*.haml,*.js,*.md,*.htm,*.html,*.svg,*.xml,
        \ vifmprev code %pw %ph %c
+
+" web browser related
+filextype *.htm,*.html,*.svg,*.xml
+       \ {view in browser}
+       \ qutebrowser %c &,
+       \ {edit in vim}
+       \ vim %c
 
 " pdf / ps / djvu / epub
 filextype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu,*.epub
        \ {view in zathura}
        \ zathura %c &
-fileviewer *.pdf,*.ps,*.eps,*.ps.gz,*.djvu,*.epub,
-       \ file %c
 
 " audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
@@ -91,6 +96,9 @@ filetype *.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz,*.tar.xz,*.txz
 filetype *.rar
        \ {extract here}
        \ unrar x %c
+filetype *.gz
+       \ {extract here}
+       \ gunzip %c
 fileviewer *.tar.bz2,*.tbz2,
        \ tar -jtf %c
 fileviewer *.tgz,*.tar.gz,
@@ -101,3 +109,7 @@ fileviewer *.zip,*.jar,*.war,*.ear,*.oxt,*.apkg,
        \ unzip -l %c
 fileviewer *.rar,
        \ unrar l %c
+
+" others
+fileviewer *.*,
+       \ file %c

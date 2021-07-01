@@ -43,8 +43,5 @@ alias tb="nc termbin.com 9999"
 alias pair="docker-compose -f .remote.compose"
 alias cdt="cd (mktemp -d)"
 
-# prompt
-source "$HOME/.config/fish/prompt.fish"
-
 # set vi mode
 fish_vi_key_bindings

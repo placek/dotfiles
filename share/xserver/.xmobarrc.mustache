@@ -37,7 +37,7 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                                                            , "-O", "ac <leftvbar>"
                                                            , "-i", "ac <leftvbar>"
                                                            , "-o", "bat <timeleft> <leftvbar>"
-                                                           , "-a", "notify-send -u critical 'battery low'", "-A", "10"
+                                                           , "-a", "notify-send -u critical 'battery' 'below 10%'", "-A", "10"
                                                            ] 50
                            , Run DynNetwork                [ "-t", "<fc=#{{base02-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base05-hex}},#{{base02-hex}}> <dev> <rx>↓↑<tx> </fc>", "--", "--devices", "enp0s3"] 10
                            , Run Wireless "wlp4s0"         [ "-t", "<fc=#{{base05-hex}},#{{base02-hex}}>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10
