@@ -63,7 +63,7 @@ nnoremap <leader>/  :NERDTreeFind<CR>
 nnoremap <leader>b  :Buffers<CR>
 nnoremap <leader>B  :bufdo bd<CR>
 nnoremap <leader>c  :terminal ++close ++rows=8<CR>
-nnoremap <leader>f  :Ag<CR>
+nnoremap <leader>f  :Rg<CR>
 nnoremap <leader>F  :FZF<CR>
 nnoremap <leader>gc :Commits<CR>
 nnoremap <leader>gf :GFiles<CR>
@@ -73,6 +73,7 @@ nnoremap <leader>m  :Marks<CR>
 nnoremap <leader>S  :Snippets<CR>
 nnoremap <leader>t  :Tags<CR>
 nnoremap <leader>T  :BTags<CR>
+nnoremap <leader>u  :MundoToggle<CR>
 
 " coc
 nmap <silent> [b :bprevious<CR>
@@ -138,6 +139,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16_colors'
 let g:fzf_tags_command = 'git ctags'
+let g:mundo_right = 1
 let g:nerdtree_tabs_autoclose = 0
 
 " search selection
