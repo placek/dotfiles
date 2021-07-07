@@ -80,6 +80,25 @@ function __fzf_search_git_log --description "Search the git log of the current g
   commandline --function repaint
 end
 
+function __fzf_search_git_branch --description "Search the git branches of the current git repository. Insert the selected branch name into the commandline at the cursor."
+  if not git rev-parse --git-dir >/dev/null 2>&1
+    echo '__fzf_search_git_log: Not in a git repository.' >&2
+  else
+    set --local --export SHELL (command --search fish)
+
+    set selected_branch_name (
+      git branch --all --list --format '%(refname)' | \
+      fzf --ansi --tiebreak=index --preview='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --color=always --abbrev-commit {}'
+    )
+    if test $status -eq 0
+      set branch_name (string split --max 1 " " $selected_branch_name)[1]
+      commandline --insert $branch_name
+    end
+  end
+
+  commandline --function repaint
+end
+
 function __fzf_search_git_status --description "Search the git status of the current git repository. Insert the selected file paths into the commandline at the cursor."
   if not git rev-parse --git-dir >/dev/null 2>&1
     echo '__fzf_search_git_status: Not in a git repository.' >&2
@@ -147,5 +166,6 @@ if not set --query fzf_fish_custom_keybindings
     bind --mode insert \cv '__fzf_search_shell_variables'
     bind --mode insert \e\cl '__fzf_search_git_log'
     bind --mode insert \e\cs '__fzf_search_git_status'
+    bind --mode insert \e\cb '__fzf_search_git_branch'
   end
 end

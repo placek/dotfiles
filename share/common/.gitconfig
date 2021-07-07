@@ -25,7 +25,6 @@
   pu               = push --tags origin
   purge            = reset --hard
   root             = rev-parse --show-toplevel
-  sch              = "!git checkout $(git branch --all | fzf | tr -d '[:space:]')"
   st               = status -sb
   stashp           = stash push -p
 [format]
