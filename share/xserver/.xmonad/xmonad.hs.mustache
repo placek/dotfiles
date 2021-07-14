@@ -59,6 +59,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
        , ((0, xK_b                   ), spawn "bash -c '~/.fehbg'")                                                -- change background
        , ((0, xK_c                   ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
        , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
+       , ((0, xK_a                   ), spawn "bash -c 'cat ~/.abbr | rofi -dmenu | xargs xdotool type'")          -- run abbreviations
        ])
     -- quit submap
     , ((modm, xK_q                   ), submap . M.fromList $
@@ -145,9 +146,9 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppExtras          = [windowCount]
                                              }
   where layout a = case a of
-          "Spacing Tall"        -> "tall"
-          "Spacing Mirror Tall" -> "fat"
-          "Spacing Full"        -> "mono"
+          "Spacing Tall"        -> "█ "
+          "Spacing Mirror Tall" -> "▀▀"
+          "Spacing Full"        -> "██"
 
 myStartupHook = do
   setDefaultKeyRemap macMap [macMap, emptyKeyRemap]
