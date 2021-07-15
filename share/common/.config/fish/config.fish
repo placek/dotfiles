@@ -38,6 +38,7 @@ abbr --add j "journalctl"
 abbr --add s "systemctl"
 
 # aliases
+alias ls="lsd --icon-theme unicode"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias tb="nc termbin.com 9999"
 alias pair="docker-compose -f .remote.compose"
