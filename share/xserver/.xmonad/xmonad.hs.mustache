@@ -14,6 +14,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 import qualified Data.Map        as M
@@ -32,7 +33,7 @@ macMap               = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))   
                                    , ((myModMask, xK_v), (controlMask, xK_v))                                      -- paste
                                    ]
 
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     -- windows manipulation
     [ ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
     , ((modm              , xK_Right ), nextWS)                                                                    -- go to next workspace
@@ -60,11 +61,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
        , ((0, xK_c                   ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
        , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
        , ((0, xK_a                   ), spawn "bash -c 'cat ~/.abbr | rofi -dmenu | xargs xdotool type'")          -- run abbreviations
+       , ((0, xK_m                   ), namedScratchpadAction myScratchPads "music")                               -- run mocp scratchpad
+       , ((modm, xK_m                ), namedScratchpadAction myScratchPads "mail")                                -- run mail scratchpad
        ])
     -- quit submap
     , ((modm, xK_q                   ), submap . M.fromList $
        [ ((modm, xK_q                ), kill1)                                                                     -- close focused window or just remove a current copy of it
-       , ((modm, xK_x                ), io (exitWith ExitSuccess))                                                 -- quit xmonad
+       , ((modm, xK_x                ), io exitSuccess)                                                            -- quit xmonad
        , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
        ])
     -- notifications submap
@@ -102,12 +105,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- remap for mac-like bindings
     buildKeyRemapBindings [macMap]
 
-myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
-    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w       -- set the window to floating mode and move by dragging
-                                       >> windows W.shiftMaster))
-    , ((modm, button2), (\w -> focus w >> windows W.shiftMaster)) -- raise the window to the top of the stack
-    , ((modm, button3), (\w -> focus w >> mouseResizeWindow w     -- set the window to floating mode and resize by dragging
-                                       >> windows W.shiftMaster))
+myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
+    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w       -- set the window to floating mode and move by dragging
+                                      >> windows W.shiftMaster)
+    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)  -- raise the window to the top of the stack
+    , ((modm, button3), \w -> focus w >> mouseResizeWindow w     -- set the window to floating mode and resize by dragging
+                                      >> windows W.shiftMaster)
     ]
 
 myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True . smartBorders $ t ||| m ||| f
@@ -121,14 +124,26 @@ myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}}
 
 myManageHook = composeAll [ className =? "Gcr-prompter" --> doCenterFloat
                           , className =? "qutebrowser"  --> doShift ( myWorkspaces !! 0 )
-                          ]
+                          ] <+> namedScratchpadManageHook myScratchPads
 
 workspaceNames :: [String]
-workspaceNames = ["web", "dev", "mail", "misc", "fun"]
+workspaceNames = ["web", "dev", "util", "misc", "fun"]
 
 myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
   where clickable (k, w) = xmobarAction ("xdotool key super+" ++ show k) "1" w
+
+myScratchPads :: [NamedScratchpad]
+myScratchPads = [ NS "music" spawnMocp findMocp manageMocp
+                , NS "mail"  spawnMail findMail manageMail
+                ]
+  where
+    spawnMocp  = myTerminal ++ " -T music -e mocp"
+    findMocp   = title =? "music"
+    manageMocp = customFloating $ W.RationalRect (1/6) (1/6)  (2/3) (2/3)
+    spawnMail  = "mail-gui"
+    findMail   = title =? "mail"
+    manageMail = customFloating $ W.RationalRect (1/6) (1/6)  (2/3) (2/3)
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -166,7 +181,7 @@ defaults xmproc = desktopConfig { terminal           = myTerminal
                                 , keys               = myKeys
                                 , mouseBindings      = myMouseBindings
                                 , layoutHook         = myLayout
-                                , manageHook         = manageDocks <+> myManageHook <+> manageHook desktopConfig
+                                , manageHook         = myManageHook <+> manageDocks <+> manageHook desktopConfig
                                 , handleEventHook    = myEventHook
                                 , logHook            = myLogHook xmproc
                                 , startupHook        = myStartupHook
