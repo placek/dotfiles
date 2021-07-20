@@ -98,7 +98,7 @@ xmap <silent> ig <Plug>(coc-git-chunk-inner)
 omap <silent> ag <Plug>(coc-git-chunk-outer)
 xmap <silent> ag <Plug>(coc-git-chunk-outer)
 
-nmap <localleader>,       :call <SID>show_documentation()<CR>
+nnoremap <silent>K        :call <SID>show_documentation()<CR>
 nmap <localleader>a       <Plug>(coc-codeaction-cursor)
 nmap <localleader>b       :Gblame<CR>
 nmap <localleader>c       <Plug>(coc-git-commit)
@@ -124,11 +124,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-command! -nargs=0 Format :call CocAction('format')
-let g:coc_global_extensions = ['coc-tag', 'coc-git']
-
 " options
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeDirArrows = 1
@@ -138,6 +133,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16_colors'
+let g:ale_disable_lsp = 1
+let g:coc_global_extensions = ['coc-tag', 'coc-git']
 let g:fzf_tags_command = 'git ctags'
 let g:mundo_right = 1
 let g:nerdtree_tabs_autoclose = 0
@@ -166,11 +163,12 @@ endfunction
 
 " autocommands
 autocmd BufWritePre * :%s/\s\+$//e
-autocmd FileType git nnoremap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
+autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd FileType git nmap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal makeprg=cabal\ build
 autocmd FileType nerdtree :vert resize 32
-autocmd FileType nerdtree nnoremap <leader>gf :call <SID>fzfNERDTreeNode()<CR>
+autocmd FileType nerdtree nmap <leader>gf :call <SID>fzfNERDTreeNode()<CR>
 autocmd FileType ruby
   \ if expand("%") =~# '_spec\.rb$' |
   \   compiler rspec | setl makeprg=rspec\ --no-color\ % |
@@ -180,8 +178,10 @@ autocmd FileType ruby
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " commands
-command! MakeTags !git ctags
-command! Open !open %
+command! MakeTags        !git ctags
+command! Open            !open %
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 
 " colors
 hi CocGitAddedSign         ctermbg=0 ctermfg=2
