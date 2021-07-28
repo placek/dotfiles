@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+displays=($(ls "$HOME"/.screenlayout/*.sh))
+[ ! -f "$HOME"/.screenlayout/.current ] && echo "$HOME/.screenlayout/default.sh" > "$HOME"/.screenlayout/.current
+current=$(cat "$HOME"/.screenlayout/.current)
+
+for (( i = 0; i < ${#displays[@]}; i++ )); do
+  if [ 0 == "$i" ]; then
+    previous=$((${#displays[@]} - 1))
+  else
+    previous=$((i - 1))
+  fi
+  if [ "${displays[i]}" == "$current" ]; then
+    echo "${displays[previous]}" > "$HOME"/.screenlayout/.current
+    bash "$HOME"/.screenlayout/.current
+  fi
+done
