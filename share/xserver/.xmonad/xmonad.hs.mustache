@@ -8,6 +8,7 @@ import XMonad.Actions.CopyWindow
 import XMonad.Actions.CycleWS
 import XMonad.Actions.KeyRemap
 import XMonad.Actions.Submap
+import XMonad.Actions.SpawnOn
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -89,6 +90,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((0, xF86XK_MonBrightnessUp    ), spawn "light -A 5.0")
     , ((0, xF86XK_MonBrightnessDown  ), spawn "light -U 5.0")
     , ((0, xF86XK_Display            ), spawn "rotate-displays")
+    , ((0, xF86XK_Favorites          ), spawnOn "web" "qutebrowser" <> spawnOn "dev" myTerminal)
     ]
     ++
     -- mod-[1..4], switch to workspace N
