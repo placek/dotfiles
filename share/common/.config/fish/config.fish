@@ -36,12 +36,14 @@ abbr --add lcps "docker-compose -f .local.compose ps"
 
 abbr --add j "journalctl"
 abbr --add s "systemctl"
+# abbr --add pair "docker-compose -f .remote.compose"
+abbr --add tb "nc termbin.com 9999"
+abbr --add nsf "nix-shell --run fish"
 
 # aliases
 alias ls="lsd --icon-theme unicode"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
-alias tb="nc termbin.com 9999"
-alias pair="docker-compose -f .remote.compose"
+alias agenda="gcalcli --calendar p.placzynski@binarapps.com agenda"
 alias cdt="cd (mktemp -d)"
 
 # set vi mode
