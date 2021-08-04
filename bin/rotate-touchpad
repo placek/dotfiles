@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+device=${XINPUTDEVICE:-"12"}
+current=$(cat $HOME/.xinput_current 2> /dev/null || echo "0")
+
+if [ "$current" == 0 ]; then
+  echo "1" > $HOME/.xinput_current
+  xinput set-prop "$device" "Device Enabled" 1
+else
+  echo "0" > $HOME/.xinput_current
+  xinput set-prop "$device" "Device Enabled" 0
+fi

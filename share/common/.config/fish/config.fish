@@ -8,6 +8,7 @@ function fish_greeting
   inxi
   echo (yellow)"-- TODO --" (off)
   todo list !+done
+  echo (yellow)"-- AGENDA --" (off)
   agenda 2> /dev/null
 end
 
@@ -44,7 +45,7 @@ abbr --add nsf "nix-shell --run fish"
 # aliases
 alias ls="lsd --icon-theme unicode"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
-alias agenda="gcalcli agenda --military --tsv --details 'calendar' | cut -f1,2,5,6 | grep -v Teal | grep -v Urlopy"
+alias agenda="gcalcli agenda --military --tsv --details 'calendar' | cut -f1,2,5,6 | grep -v Teal | grep -v Urlopy | cut -f1-3"
 alias cdt="cd (mktemp -d)"
 
 # set vi mode
