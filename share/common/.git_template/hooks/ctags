@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-
-set -e
-dir="`git rev-parse --git-dir`"
-trap 'rm -f "$dir/$$.tags*"' EXIT
-git ls-files | ctags -a --tag-relative -L - -f "$dir/$$.tags" --languages=ruby,javascript
-hasktags -acxLRo "$dir/$$.tags" tags .
-mv "$dir/$$.tags" "$dir/tags"

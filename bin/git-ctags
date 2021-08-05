@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+dir="$(git rev-parse --git-dir)"
+
+trap 'rm -f "$dir/$$.tags"' EXIT
+
+git ls-files | xargs ctags --append=yes --sort=no --tag-relative -f "$dir/$$.tags"
+git ls-files | xargs hasktags --ctags --append --extendedctag --follow-symlinks -f "$dir/$$.tags"
+
+mv "$dir/$$.tags" "$dir/tags"
