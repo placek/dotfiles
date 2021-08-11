@@ -58,11 +58,12 @@ nnoremap <leader>2  :set relativenumber!<CR>
 nnoremap <leader>3  :set hlsearch!<CR>
 nnoremap <leader>v  :vsplit<CR>
 nnoremap <leader>s  :split<CR>
-nnoremap <leader>\  :NERDTreeToggle<CR>
-nnoremap <leader>/  :NERDTreeFind<CR>
+nnoremap <leader>\  :Lexplore<CR>
+nnoremap <leader>/  :LexploreFind<CR>
 nnoremap <leader>b  :Buffers<CR>
 nnoremap <leader>B  :bufdo bd<CR>
 nnoremap <leader>c  :terminal ++close ++rows=8<CR>
+nnoremap <leader>d  :diffthis<CR>
 nnoremap <leader>f  :Rg<CR>
 nnoremap <leader>F  :FZF<CR>
 nnoremap <leader>gc :Commits<CR>
@@ -125,10 +126,6 @@ function! s:show_documentation()
 endfunction
 
 " options
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeDirArrows = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeWinSize = 32
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_powerline_fonts = 1
@@ -137,7 +134,9 @@ let g:ale_disable_lsp = 1
 let g:coc_global_extensions = ['coc-tag', 'coc-git']
 let g:fzf_tags_command = 'git ctags'
 let g:mundo_right = 1
-let g:nerdtree_tabs_autoclose = 0
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_preview = 1
 
 " search selection
 function! s:getSelectedText()
@@ -150,34 +149,30 @@ function! s:getSelectedText()
   return l:ret
 endfunction
 
-vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent> f :<C-u>call fzf#vim#ag(<SID>getSelectedText())<CR>
-vnoremap <silent> t :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
-
-function! s:fzfNERDTreeNode()
-  call NERDTreeCopyPath()
-  let l:path = getreg('+')
-  call fzf#run(fzf#wrap({'source': 'git ls-files ' . l:path}))
+function! s:rgFZF(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
+vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent> f :<C-u>call <SID>rgFZF(<SID>getSelectedText(), 0)<CR>
+vnoremap <silent> t :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
+
 " autocommands
-autocmd BufWritePre * :%s/\s\+$//e
-autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd FileType git nmap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
-autocmd FileType make setlocal noexpandtab
-autocmd FileType haskell setlocal makeprg=cabal\ build
-autocmd FileType nerdtree :vert resize 32
-autocmd FileType nerdtree nmap <leader>gf :call <SID>fzfNERDTreeNode()<CR>
-autocmd FileType ruby
-  \ if expand("%") =~# '_spec\.rb$' |
-  \   compiler rspec | setl makeprg=rspec\ --no-color\ % |
-  \ else |
-  \   setl makeprg=rubocop\ --format\ clang\ % |
-  \ endif
+autocmd! BufWritePre * :%s/\s\+$//e
+autocmd! CursorHold * silent call CocActionAsync('highlight')
+autocmd! FileType git nmap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
+autocmd! FileType make setlocal noexpandtab
+autocmd! FileType netrw :vert resize 32
+autocmd! FileType haskell setlocal makeprg=ghcid
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " commands
+command! LexploreFind    let @/=expand("%:t") | execute 'Lexplore' expand("%:h") | normal n
 command! MakeTags        !git ctags
 command! Open            !open %
 command! -nargs=0 Format :call CocAction('format')
@@ -201,7 +196,9 @@ hi Folded                  ctermbg=6 ctermfg=0
 hi Pmenu                   ctermbg=8
 hi Search                  ctermbg=2 ctermfg=0
 hi SignColumn              ctermbg=0
+hi VertSplit               ctermbg=8 ctermfg=8
 hi Visual                  ctermbg=7 ctermfg=0
+hi netrwTreeBar            ctermfg=8
 
 " FZF extension
 function! s:build_quickfix_list(lines)
