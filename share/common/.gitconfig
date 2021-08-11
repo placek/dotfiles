@@ -16,7 +16,6 @@
   amend            = commit --amend --no-edit
   co               = checkout
   com              = commit -m
-  ctags            = !.git/hooks/ctags
   diffc            = diff --cached
   install-dev      = !.git/hooks/install-dev
   info             = for-each-ref --format='%(color:yellow)%(committerdate:iso8601) %(color:blue)%(objectname:short) %(color:magenta)%(authorname) %(color:green)%(refname:short) %(color:reset)%(contents:subject)' --sort -committerdate

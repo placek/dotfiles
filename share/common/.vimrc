@@ -12,7 +12,7 @@ set encoding=utf-8
 set expandtab
 set foldcolumn=1
 set foldmethod=manual
-set formatoptions=tcrqn
+set formatprg=par
 set grepformat=%f:%l:%c:%m
 set grepprg=rg\ --vimgrep\ $*
 set hidden
@@ -140,30 +140,38 @@ let g:netrw_preview = 1
 
 " search selection
 function! s:getSelectedText()
-  let l:old_reg = getreg('"')
-  let l:old_regtype = getregtype('"')
-  norm gvy
-  let l:ret = getreg('"')
-  call setreg('"', l:old_reg, l:old_regtype)
+  norm gv"sy
+  let l:ret = getreg('s')
   exe "norm \<Esc>"
   return l:ret
 endfunction
 
-function! s:rgFZF(query, fullscreen)
+function! s:searchWithRg(query)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), 0)
+endfunction
+
+function! s:searchWithVimgrep(query)
+  exe "vimgrep /" a:query "/g **/*"
+endfunction
+
+function! s:searchTags(query)
+  exe "tselect /" a:query
 endfunction
 
 vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent> f :<C-u>call <SID>rgFZF(<SID>getSelectedText(), 0)<CR>
+vnoremap <silent> f :<C-u>call <SID>searchWithRg(<SID>getSelectedText())<CR>
+vnoremap <silent> F :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
 vnoremap <silent> t :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
+vnoremap <silent> T :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
 
 " autocommands
 autocmd! BufWritePre * :%s/\s\+$//e
+autocmd! BufWritePost * :silent! MakeTags
 autocmd! CursorHold * silent call CocActionAsync('highlight')
 autocmd! FileType git nmap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
 autocmd! FileType make setlocal noexpandtab
