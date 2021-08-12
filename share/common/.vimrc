@@ -1,6 +1,21 @@
 filetype plugin indent on
 syntax enable
 
+packadd ale
+packadd coc-fzf
+packadd coc-nvim
+packadd coc-snippets
+
+packadd fzf
+packadd fzf-vim
+packadd ultisnips
+
+packadd tabular
+
+packadd vim-airline
+packadd vim-airline-themes
+packadd vim-mundo
+
 " settings
 set backspace=indent,eol,start
 set clipboard=unnamedplus
@@ -101,7 +116,7 @@ xmap <silent> ag <Plug>(coc-git-chunk-outer)
 
 nnoremap <silent>K        :call <SID>show_documentation()<CR>
 nmap <localleader>a       <Plug>(coc-codeaction-cursor)
-nmap <localleader>b       :Gblame<CR>
+nmap <localleader>b       :Blame<CR>
 nmap <localleader>c       <Plug>(coc-git-commit)
 nmap <localleader>d       <Plug>(coc-definition)
 nmap <localleader>e       <Plug>(coc-diagnostic-info)
@@ -114,6 +129,17 @@ nmap <localleader>q       <Plug>(coc-refactor)
 nmap <localleader>r       <Plug>(coc-references)
 nmap <localleader>y       <Plug>(coc-type-definition)
 nmap <localleader><space> :<C-u>CocFzfList<CR>
+
+function! s:Blame(bufnr, filename, ...)
+  execute 'leftabove 40 vnew'
+  execute 'autocmd BufWipeout <buffer> call setbufvar(' . a:bufnr .', "&cursorbind", 0)'
+  execute 'read!git blame --date short --minimal ' . shellescape(a:filename)
+  set buftype=nofile bufhidden=wipe nowrap noswapfile nonumber norelativenumber cursorbind nowrap foldcolumn=0 nofoldenable winfixwidth filetype=git
+  0delete _
+  wincmd p
+  set cursorbind
+endfunction
+command! -count Blame call <SID>Blame(bufnr('%'), expand('%:p'), <f-args>)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -134,9 +160,9 @@ let g:ale_disable_lsp = 1
 let g:coc_global_extensions = ['coc-tag', 'coc-git']
 let g:fzf_tags_command = 'git ctags'
 let g:mundo_right = 1
-let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_preview = 1
+let g:netrw_altv = 1
 
 " search selection
 function! s:getSelectedText()
@@ -155,11 +181,11 @@ function! s:searchWithRg(query)
 endfunction
 
 function! s:searchWithVimgrep(query)
-  exe "vimgrep /" a:query "/g **/*"
+  exe "vimgrep /".a:query."/g **/*"
 endfunction
 
 function! s:searchTags(query)
-  exe "tselect /" a:query
+  exe "tselect /".a:query
 endfunction
 
 vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
@@ -173,10 +199,12 @@ vnoremap <silent> T :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
 autocmd! BufWritePre * :%s/\s\+$//e
 autocmd! BufWritePost * :silent! MakeTags
 autocmd! CursorHold * silent call CocActionAsync('highlight')
-autocmd! FileType git nmap <C-]> ?^diff<CR>/ b<CR>3lv$h"fy:e <C-R>f<CR>
+autocmd! FileType git noremap yy 0viwy
 autocmd! FileType make setlocal noexpandtab
-autocmd! FileType netrw :vert resize 32
+autocmd! FileType netrw :vert resize 40
 autocmd! FileType haskell setlocal makeprg=ghcid
+autocmd! FileType haskell packadd haskell-vim
+autocmd! FileType ruby packadd coc-solargraph
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " commands
