@@ -4,17 +4,11 @@ syntax enable
 packadd ale
 packadd coc-fzf
 packadd coc-nvim
-packadd coc-snippets
-
 packadd fzf
 packadd fzf-vim
-packadd ultisnips
-
 packadd tabular
-
 packadd vim-airline
 packadd vim-airline-themes
-packadd vim-mundo
 
 " settings
 set backspace=indent,eol,start
@@ -86,49 +80,12 @@ nnoremap <leader>gf :GFiles<CR>
 nnoremap <leader>gs :GFiles?<CR>
 nnoremap <leader>h  :History<CR>
 nnoremap <leader>m  :Marks<CR>
-nnoremap <leader>S  :Snippets<CR>
 nnoremap <leader>t  :Tags<CR>
 nnoremap <leader>T  :BTags<CR>
-nnoremap <leader>u  :MundoToggle<CR>
 
-" coc
-nmap <silent> [b :bprevious<CR>
-nmap <silent> ]b :bnext<CR>
-nmap <silent> [c <Plug>(coc-git-prevconflict)
-nmap <silent> ]c <Plug>(coc-git-nextconflict)
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> [h <Plug>(coc-git-prevchunk)
-nmap <silent> ]h <Plug>(coc-git-nextchunk)
-
-xmap <silent> ic <Plug>(coc-classobj-i)
-omap <silent> ic <Plug>(coc-classobj-i)
-xmap <silent> ac <Plug>(coc-classobj-a)
-omap <silent> ac <Plug>(coc-classobj-a)
-xmap <silent> if <Plug>(coc-funcobj-i)
-omap <silent> if <Plug>(coc-funcobj-i)
-xmap <silent> af <Plug>(coc-funcobj-a)
-omap <silent> af <Plug>(coc-funcobj-a)
-omap <silent> ig <Plug>(coc-git-chunk-inner)
-xmap <silent> ig <Plug>(coc-git-chunk-inner)
-omap <silent> ag <Plug>(coc-git-chunk-outer)
-xmap <silent> ag <Plug>(coc-git-chunk-outer)
-
-nnoremap <silent>K        :call <SID>show_documentation()<CR>
-nmap <localleader>a       <Plug>(coc-codeaction-cursor)
-nmap <localleader>b       :Blame<CR>
-nmap <localleader>c       <Plug>(coc-git-commit)
-nmap <localleader>d       <Plug>(coc-definition)
-nmap <localleader>e       <Plug>(coc-diagnostic-info)
-nmap <localleader>f       <Plug>(coc-format)
-vmap <localleader>f       <Plug>(coc-format-selected)
-nmap <localleader>h       <Plug>(coc-git-chunkinfo)
-nmap <localleader>i       <Plug>(coc-implementation)
-nmap <localleader>n       <Plug>(coc-rename)
-nmap <localleader>q       <Plug>(coc-refactor)
-nmap <localleader>r       <Plug>(coc-references)
-nmap <localleader>y       <Plug>(coc-type-definition)
-nmap <localleader><space> :<C-u>CocFzfList<CR>
+nmap <silent>       [b :bprevious<CR>
+nmap <silent>       ]b :bnext<CR>
+nmap <localleader>b :Blame<CR>
 
 function! s:Blame(bufnr, filename, ...)
   execute 'leftabove 40 vnew'
@@ -141,25 +98,12 @@ function! s:Blame(bufnr, filename, ...)
 endfunction
 command! -count Blame call <SID>Blame(bufnr('%'), expand('%:p'), <f-args>)
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
 " options
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16_colors'
-let g:ale_disable_lsp = 1
-let g:coc_global_extensions = ['coc-tag', 'coc-git']
 let g:fzf_tags_command = 'git ctags'
-let g:mundo_right = 1
 let g:netrw_liststyle = 3
 let g:netrw_preview = 1
 let g:netrw_altv = 1
@@ -208,33 +152,26 @@ autocmd! FileType ruby packadd coc-solargraph
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " commands
-command! LexploreFind    let @/=expand("%:t") | execute 'Lexplore' expand("%:h") | normal n
-command! MakeTags        !git ctags
-command! Open            !open %
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+command! LexploreFind let @/=expand("%:t") | execute 'Lexplore' expand("%:h") | normal n
+command! MakeTags     !git ctags
+command! Open         !open %
 
 " colors
-hi CocGitAddedSign         ctermbg=0 ctermfg=2
-hi CocGitChangeRemovedSign ctermbg=0 ctermfg=3
-hi CocGitChangedSign       ctermbg=0 ctermfg=3
-hi CocGitRemovedSign       ctermbg=0 ctermfg=1
-hi CocGitTopRemovedSign    ctermbg=0 ctermfg=1
-hi CocHighlightText        ctermbg=18 ctermfg=2
-hi ColorColumn             ctermbg=18
-hi DiffAdd                 ctermbg=2 ctermfg=0 cterm=BOLD
-hi DiffChange              ctermbg=3 ctermfg=0 cterm=BOLD
-hi DiffDelete              ctermbg=1 ctermfg=0 cterm=BOLD
-hi DiffText                ctermbg=2 ctermfg=0 cterm=BOLD
-hi Directory               ctermfg=blue
-hi FoldColumn              ctermbg=0 ctermfg=7
-hi Folded                  ctermbg=6 ctermfg=0
-hi Pmenu                   ctermbg=8
-hi Search                  ctermbg=2 ctermfg=0
-hi SignColumn              ctermbg=0
-hi VertSplit               ctermbg=8 ctermfg=8
-hi Visual                  ctermbg=7 ctermfg=0
-hi netrwTreeBar            ctermfg=8
+hi ColorColumn  ctermbg=18
+hi DiffAdd      ctermbg=2 ctermfg=0 cterm=BOLD
+hi DiffChange   ctermbg=3 ctermfg=0 cterm=BOLD
+hi DiffDelete   ctermbg=1 ctermfg=0 cterm=BOLD
+hi DiffText     ctermbg=2 ctermfg=0 cterm=BOLD
+hi Directory    ctermfg=4
+hi FoldColumn   ctermbg=0 ctermfg=7
+hi Folded       ctermbg=6 ctermfg=0
+hi Pmenu        ctermbg=8
+hi Search       ctermbg=2 ctermfg=0
+hi SignColumn   ctermbg=0
+hi VertSplit    ctermbg=8 ctermfg=8
+hi Visual       ctermbg=7 ctermfg=0
+hi netrwTreeBar ctermfg=8
+hi netrwComment ctermfg=8
 
 " FZF extension
 function! s:build_quickfix_list(lines)
@@ -246,3 +183,15 @@ endfunction
 let g:fzf_action = { 'ctrl-q': function('s:build_quickfix_list'), 'ctrl-t': 'tab split', 'ctrl-s': 'split', 'ctrl-v': 'vsplit' }
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 let $FZF_DEFAULT_COMMAND = 'git ls-files'
+
+function! s:load_plugins_config()
+  if exists(":CocInfo")
+    source ~/.vim/coc.vim
+  endif
+
+  if exists(":ALEInfo")
+    source ~/.vim/ale.vim
+  endif
+endfunction
+
+autocmd VimEnter * :call <SID>load_plugins_config()

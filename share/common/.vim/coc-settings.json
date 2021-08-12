@@ -1,0 +1,10 @@
+{
+  "languageserver": {
+    "haskell": {
+      "command": "haskell-language-server",
+      "args": [ "--lsp" ],
+      "rootPatterns": [ ".stack.yaml", ".hie-bios", "cabal.config", "package.yaml" ],
+      "filetypes": [ "hs", "lhs", "haskell" ]
+    }
+  }
+}
