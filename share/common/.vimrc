@@ -7,8 +7,6 @@ packadd coc-nvim
 packadd fzf
 packadd fzf-vim
 packadd tabular
-packadd vim-airline
-packadd vim-airline-themes
 
 " functions
 function! s:gitBlame(bufnr, filename, ...)
@@ -52,11 +50,15 @@ endfunction
 
 function! s:loadPluginsConfig()
   if exists(":CocInfo")
-    source ~/.vim/coc.vim
+    if !empty(expand(glob("~/.vim/coc.vim")))
+      source ~/.vim/coc.vim
+    endif
   endif
 
   if exists(":ALEInfo")
-    source ~/.vim/ale.vim
+    if !empty(expand(glob("~/.vim/ale.vim")))
+      source ~/.vim/ale.vim
+    endif
   endif
 endfunction
 
@@ -92,7 +94,6 @@ set relativenumber
 set shiftwidth=2
 set shortmess+=c
 set showcmd
-set showtabline=2
 set signcolumn=yes
 set softtabstop=2
 set splitbelow
@@ -111,10 +112,6 @@ set wrapmargin=0
 " options
 let $FZF_DEFAULT_COMMAND = 'git ls-files'
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'base16_colors'
 let g:fzf_action = { 'ctrl-q': function('s:buildQuickfixList'), 'ctrl-t': 'tab split', 'ctrl-o': 'split', 'ctrl-v': 'vsplit' }
 let g:fzf_tags_command = 'git ctags'
 let g:mapleader = "\\"
@@ -192,3 +189,8 @@ autocmd! FileType haskell packadd haskell-vim
 autocmd! FileType ruby packadd coc-solargraph
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 autocmd! VimEnter * :call <SID>loadPluginsConfig()
+
+" additions
+if !empty(expand(glob("~/.vim/status.vim")))
+  source ~/.vim/status.vim
+endif
