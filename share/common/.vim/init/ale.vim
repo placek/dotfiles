@@ -1,3 +1,5 @@
+packadd ale
+
 " options
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_format = '%severity%: %s'
