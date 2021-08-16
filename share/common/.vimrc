@@ -2,8 +2,6 @@ filetype plugin indent on
 syntax enable
 
 packadd ale
-packadd coc-fzf
-packadd coc-nvim
 packadd fzf
 packadd fzf-vim
 packadd tabular
@@ -49,12 +47,6 @@ function! s:buildQuickfixList(lines)
 endfunction
 
 function! s:loadPluginsConfig()
-  if exists(":CocInfo")
-    if !empty(expand(glob("~/.vim/coc.vim")))
-      source ~/.vim/coc.vim
-    endif
-  endif
-
   if exists(":ALEInfo")
     if !empty(expand(glob("~/.vim/ale.vim")))
       source ~/.vim/ale.vim
@@ -126,8 +118,8 @@ nnoremap <leader>2  :set relativenumber!<CR>
 nnoremap <leader>3  :set hlsearch!<CR>
 nnoremap <leader>v  :vsplit<CR>
 nnoremap <leader>o  :split<CR>
-nnoremap <leader>\  :Lexplore<CR>
-nnoremap <leader>/  :LexploreFind<CR>
+nnoremap <leader>\  :Vexplore<CR>
+nnoremap <leader>/  :VexploreFind<CR>
 nnoremap <leader>b  :Buffers<CR>
 nnoremap <leader>B  :bufdo bd<CR>
 nnoremap <leader>c  :terminal ++close ++rows=8<CR>
@@ -155,7 +147,7 @@ vnoremap <silent> t :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
 vnoremap <silent> T :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
 
 " commands
-command! LexploreFind let @/=expand("%:t") | execute 'Lexplore' expand("%:h") | normal n
+command! VexploreFind let @/=expand("%:t") | execute 'Vexplore' expand("%:h") | normal n
 command! MakeTags     !git ctags
 command! Open         !open %
 command! -count Blame call <SID>gitBlame(bufnr('%'), expand('%:p'), <f-args>)
@@ -180,13 +172,10 @@ hi netrwComment ctermfg=8
 " autocommands
 autocmd! BufWritePre * :%s/\s\+$//e
 autocmd! BufWritePost * :silent! MakeTags
-autocmd! CursorHold * silent call CocActionAsync('highlight')
 autocmd! FileType git noremap yy 0viwy
 autocmd! FileType make setlocal noexpandtab
-autocmd! FileType netrw :vert resize 40
 autocmd! FileType haskell setlocal makeprg=ghcid
 autocmd! FileType haskell packadd haskell-vim
-autocmd! FileType ruby packadd coc-solargraph
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 autocmd! VimEnter * :call <SID>loadPluginsConfig()
 
