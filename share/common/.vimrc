@@ -47,10 +47,12 @@ function! s:buildQuickfixList(lines)
 endfunction
 
 function! s:loadPluginsConfig()
-  if exists(":ALEInfo")
-    if !empty(expand(glob("~/.vim/ale.vim")))
-      source ~/.vim/ale.vim
-    endif
+  if !empty(expand(glob("~/.vim/ale.vim")))
+    source ~/.vim/ale.vim
+  endif
+
+  if !empty(expand(glob("~/.vim/status.vim")))
+    source ~/.vim/status.vim
   endif
 endfunction
 
@@ -178,8 +180,3 @@ autocmd! FileType haskell setlocal makeprg=ghcid
 autocmd! FileType haskell packadd haskell-vim
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 autocmd! VimEnter * :call <SID>loadPluginsConfig()
-
-" additions
-if !empty(expand(glob("~/.vim/status.vim")))
-  source ~/.vim/status.vim
-endif

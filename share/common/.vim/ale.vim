@@ -12,6 +12,9 @@ let g:ale_sign_style_error = 'S'
 let g:ale_sign_style_warning = 's'
 let g:ale_sign_warning = 'W'
 
+" mappings
+nnoremap <silent>K :ALEHover<CR>
+
 " colors
 hi ALEErrorSign ctermbg=0 ctermfg=1 cterm=BOLD
 hi ALEWarningSign ctermbg=0 ctermfg=9 cterm=BOLD
