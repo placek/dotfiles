@@ -1,3 +1,4 @@
+packadd fzf
 packadd fzf-vim
 
 " functions

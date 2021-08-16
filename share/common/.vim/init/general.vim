@@ -168,3 +168,4 @@ autocmd! BufWritePost * :silent! MakeTags
 autocmd! BufWritePre * :%s/\s\+$//e
 autocmd! FileType git noremap yy 0viwy
 autocmd! FileType make setlocal noexpandtab
+autocmd! FileType haskell packadd haskell-vim | syntax on
