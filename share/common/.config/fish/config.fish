@@ -40,13 +40,14 @@ abbr --add j "journalctl"
 abbr --add s "systemctl"
 # abbr --add pair "docker-compose -f .remote.compose"
 abbr --add tb "nc termbin.com 9999"
-abbr --add nsf "nix-shell --run fish"
+abbr --add nsf "nix-shell"
 
 # aliases
 alias ls="lsd --icon-theme unicode"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias agenda="gcalcli agenda --military --tsv --details 'calendar' | cut -f1,2,5,6 | grep -v Teal | grep -v Urlopy | cut -f1-3"
 alias cdt="cd (mktemp -d)"
+alias vi="vim --clean"
 
 # set vi mode
 fish_vi_key_bindings
