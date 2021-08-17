@@ -76,7 +76,7 @@ set termencoding=utf-8
 set timeoutlen=1000 ttimeoutlen=0
 set ttyfast
 set updatetime=300
-set wildignore+=.git/
+set wildignore=.*,.git/
 
 " status
 set statusline=
