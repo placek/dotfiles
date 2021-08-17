@@ -57,9 +57,6 @@ set foldcolumn=1
 set foldmethod=manual
 set grepformat=%f:%l:%c:%m
 set grepprg=rg\ --vimgrep\ $*
-set hidden
-set hlsearch
-set incsearch
 set laststatus=2
 set list
 set listchars=tab:»\ ,nbsp:␣,trail:·,extends:›,precedes:‹
@@ -67,14 +64,11 @@ set mouse=a
 set noshowmode
 set nospell
 set number
-set path+=**
 set relativenumber
 set shiftwidth=2
 set shortmess=a
 set showcmd
 set softtabstop=2
-set splitbelow
-set splitright
 set swapfile
 set tabstop=2
 set tags+=.git/tags;
@@ -83,7 +77,6 @@ set timeoutlen=1000 ttimeoutlen=0
 set ttyfast
 set updatetime=300
 set wildignore+=.git/
-set wildmenu
 
 " status
 set statusline=
