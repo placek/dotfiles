@@ -1,7 +1,5 @@
-filetype plugin indent on
-syntax enable
-
 packadd tabular
+packadd matchit
 
 " functions
 function! s:getSelectedText()
@@ -22,11 +20,11 @@ function! s:gitBlame(bufnr, filename, ...)
 endfunction
 
 function! s:searchTags(query)
-  exe "tselect /".a:query
+  execute "tselect /".a:query
 endfunction
 
 function! s:searchWithVimgrep(query)
-  exe "vimgrep /".a:query."/g **/*"
+  execute "lvimgrep /".a:query."/g **/*"
 endfunction
 
 function! StatusLineMode()
@@ -35,8 +33,12 @@ function! StatusLineMode()
     return "  NORMAL "
   elseif l:mode==?"v"
     return "  VISUAL "
+  elseif l:mode==#""
+    return "  VISUAL BLK "
   elseif l:mode==#"i"
     return "  INSERT "
+  elseif l:mode==#"t"
+    return "  TERMINAL "
   elseif l:mode==#"R"
     return "  REPLACE "
   endif
@@ -53,7 +55,6 @@ set encoding=utf-8
 set expandtab
 set foldcolumn=1
 set foldmethod=manual
-set formatprg=par
 set grepformat=%f:%l:%c:%m
 set grepprg=rg\ --vimgrep\ $*
 set hidden
@@ -63,18 +64,14 @@ set laststatus=2
 set list
 set listchars=tab:»\ ,nbsp:␣,trail:·,extends:›,precedes:‹
 set mouse=a
-set nobackup
-set nocompatible
 set noshowmode
 set nospell
-set nowritebackup
 set number
 set path+=**
 set relativenumber
 set shiftwidth=2
-set shortmess+=c
+set shortmess=a
 set showcmd
-set signcolumn=yes
 set softtabstop=2
 set splitbelow
 set splitright
@@ -85,9 +82,8 @@ set termencoding=utf-8
 set timeoutlen=1000 ttimeoutlen=0
 set ttyfast
 set updatetime=300
-set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.rar,*.zip,*.tar.*,*.bmp,*.jpeg,*.avi,*.mov,*.mp7,*.ogg,*.flac
+set wildignore+=.git/
 set wildmenu
-set wrapmargin=0
 
 " status
 set statusline=
@@ -95,7 +91,7 @@ set statusline+=%#StatusLineMode#
 set statusline+=%{StatusLineMode()}
 set statusline+=%#StatusLineInfo#
 set statusline+=\ %n
-set statusline+=%#StatusLineNormal#
+set statusline+=%#StatusLine#
 set statusline+=\ %f:%l:%c
 set statusline+=%#StatusLineInfo#%=
 set statusline+=\ %m
@@ -108,7 +104,6 @@ set statusline+=\ \[%p%%\ %L\]
 let g:mapleader = "\\"
 let g:maplocalleader = ","
 let g:netrw_altv = 1
-let g:netrw_liststyle = 3
 let g:netrw_preview = 1
 
 " mapping
@@ -120,9 +115,9 @@ nnoremap <leader>3  :set hlsearch!<CR>
 nnoremap <leader>b  :ls<CR>
 nnoremap <leader>B  :bufdo bd<CR>
 nnoremap <leader>\  :Vexplore<CR>
-nnoremap <leader>c  :terminal ++close ++rows=8<CR>
+nnoremap <leader>c  :terminal ++close ++rows=10<CR>
 nnoremap <leader>d  :diffthis<CR>
-nnoremap <leader>f  :call <SID>searchWithVimgrep(input("Search phrase: "))<CR>
+nnoremap <leader>f  :call <SID>searchWithVimgrep(input("/"))<CR>
 nnoremap <leader>s  :set cursorbind!<CR>
 nnoremap <leader>o  :split<CR>
 nnoremap <leader>v  :vsplit<CR>
@@ -141,6 +136,7 @@ command! Open         !open %
 command! VexploreFind let @/=expand("%:t") | execute 'Vexplore' expand("%:h") | normal n
 
 " colors
+hi clear StatusLineNC
 hi ColorColumn      ctermbg=18
 hi DiffAdd          ctermbg=2 ctermfg=0 cterm=BOLD
 hi DiffChange       ctermbg=3 ctermfg=0 cterm=BOLD
@@ -153,8 +149,8 @@ hi Pmenu            ctermbg=8
 hi Search           ctermbg=2 ctermfg=0
 hi SignColumn       ctermbg=0
 hi StatusLineMode   ctermbg=9 ctermfg=0 cterm=BOLD
-hi StatusLineNormal ctermbg=0 ctermfg=7
-hi StatusLineinfo   ctermbg=0 ctermfg=8 cterm=BOLD
+hi StatusLine       ctermbg=0 ctermfg=7 cterm=NONE
+hi StatusLineInfo   ctermbg=0 ctermfg=8 cterm=BOLD
 hi TabLine          ctermbg=0 ctermfg=7 cterm=NONE
 hi TabLineFill      ctermbg=0 ctermfg=0
 hi TabLineSel       ctermbg=0 ctermfg=9 cterm=NONE
@@ -166,6 +162,6 @@ hi netrwTreeBar     ctermfg=8
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
 autocmd! BufWritePre * :%s/\s\+$//e
-autocmd! FileType git noremap yy 0viwy
+autocmd! FileType git nnoremap yy 0viwy
 autocmd! FileType make setlocal noexpandtab
 autocmd! FileType haskell packadd haskell-vim | syntax on
