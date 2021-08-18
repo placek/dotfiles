@@ -23,8 +23,8 @@ function! s:searchTags(query)
   execute "tselect /".a:query
 endfunction
 
-function! s:searchWithVimgrep(query)
-  execute "lvimgrep /".a:query."/g **/*"
+function! s:searchWithVimgrep(query, files = "**/*")
+  execute "lvimgrep /".a:query."/g ".a:files
 endfunction
 
 function! StatusLineMode()
@@ -71,7 +71,6 @@ set showcmd
 set softtabstop=2
 set swapfile
 set tabstop=2
-set tags+=.git/tags;
 set termencoding=utf-8
 set timeoutlen=1000 ttimeoutlen=0
 set ttyfast
@@ -100,23 +99,35 @@ let g:netrw_altv = 1
 let g:netrw_preview = 1
 
 " mapping
-nnoremap <C-\><C-\> :Explore<CR>
-nnoremap <leader>/  :VexploreFind<CR>
+nnoremap <C-\><C-\> :Lexplore<CR>
+nnoremap <leader>/  :ExploreFind<CR>
+nnoremap <leader>\  :Explore<CR>
 nnoremap <leader>1  :set number!<CR>
 nnoremap <leader>2  :set relativenumber!<CR>
 nnoremap <leader>3  :set hlsearch!<CR>
+
 nnoremap <leader>b  :ls<CR>
-nnoremap <leader>B  :bufdo bd<CR>
-nnoremap <leader>\  :Vexplore<CR>
 nnoremap <leader>c  :terminal ++close ++rows=10<CR>
 nnoremap <leader>d  :diffthis<CR>
 nnoremap <leader>f  :call <SID>searchWithVimgrep(input("/"))<CR>
+nnoremap <leader>F  :find
+nnoremap <leader>gc :!git l<CR>
+nnoremap <leader>gf :call <SID>searchWithVimgrep(system("git ls-files"))<CR>
+nnoremap <leader>gs :!git st<CR>
+nnoremap <leader>h  :jumps<CR>
+nnoremap <leader>m  :marks<CR>
 nnoremap <leader>s  :set cursorbind!<CR>
-nnoremap <leader>o  :split<CR>
-nnoremap <leader>v  :vsplit<CR>
+nnoremap <leader>T  :call <SID>searchTags(".*")<CR>
+
 nmap <silent>       [b :bprevious<CR>
 nmap <silent>       ]b :bnext<CR>
+nmap <silent>       [t :tabprevious<CR>
+nmap <silent>       ]t :tabnext<CR>
+nmap <silent>       [w <C-w>W
+nmap <silent>       ]w <C-w>w
+
 nmap <localleader>b :Blame<CR>
+
 vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent> F :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
@@ -126,7 +137,7 @@ vnoremap <silent> T :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
 command! -count Blame call <SID>gitBlame(bufnr('%'), expand('%:p'), <f-args>)
 command! MakeTags     !git ctags
 command! Open         !open %
-command! VexploreFind let @/=expand("%:t") | execute 'Vexplore' expand("%:h") | normal n
+command! ExploreFind  let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
 
 " colors
 hi clear StatusLineNC
