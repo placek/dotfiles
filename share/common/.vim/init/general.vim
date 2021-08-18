@@ -112,7 +112,7 @@ nnoremap <leader>d  :diffthis<CR>
 nnoremap <leader>f  :call <SID>searchWithVimgrep(input("/"))<CR>
 nnoremap <leader>F  :find
 nnoremap <leader>gc :!git l<CR>
-nnoremap <leader>gf :call <SID>searchWithVimgrep(system("git ls-files"))<CR>
+nnoremap <leader>gf :!git ls-files<CR>
 nnoremap <leader>gs :!git st<CR>
 nnoremap <leader>h  :jumps<CR>
 nnoremap <leader>m  :marks<CR>
@@ -152,7 +152,7 @@ hi Folded           ctermbg=6 ctermfg=0
 hi Pmenu            ctermbg=8
 hi Search           ctermbg=2 ctermfg=0
 hi SignColumn       ctermbg=0
-hi StatusLineMode   ctermbg=9 ctermfg=0 cterm=BOLD
+hi StatusLineMode   ctermbg=16 ctermfg=0
 hi StatusLine       ctermbg=0 ctermfg=7 cterm=NONE
 hi StatusLineInfo   ctermbg=0 ctermfg=8 cterm=BOLD
 hi TabLine          ctermbg=0 ctermfg=7 cterm=NONE
