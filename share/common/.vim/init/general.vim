@@ -20,11 +20,15 @@ function! s:gitBlame(bufnr, filename, ...)
 endfunction
 
 function! s:searchTags(query)
-  execute "tselect /".a:query
+  if len(a:query) != 0
+    execute "tselect /".a:query
+  endif
 endfunction
 
 function! s:searchWithVimgrep(query, files = "**/*")
-  execute "lvimgrep /".a:query."/g ".a:files
+  if len(a:query) != 0
+    execute "lvimgrep /".a:query."/g ".a:files
+  endif
 endfunction
 
 function! StatusLineMode()
@@ -108,7 +112,6 @@ nnoremap <leader>3  :set hlsearch!<CR>
 
 nnoremap <leader>b  :ls<CR>
 nnoremap <leader>c  :terminal ++close ++rows=10<CR>
-nnoremap <leader>d  :diffthis<CR>
 nnoremap <leader>f  :call <SID>searchWithVimgrep(input("/"))<CR>
 nnoremap <leader>F  :find
 nnoremap <leader>gc :!git l<CR>
