@@ -1,5 +1,4 @@
 packadd tabular
-packadd matchit
 
 " functions
 function! s:getSelectedText()
