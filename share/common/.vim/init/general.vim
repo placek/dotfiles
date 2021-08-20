@@ -1,5 +1,3 @@
-packadd tabular
-
 " functions
 function! s:getSelectedText()
   norm gv"sy
@@ -101,7 +99,7 @@ let g:maplocalleader = ","
 let g:netrw_altv = 1
 let g:netrw_preview = 1
 
-" mapping
+" mappings
 nnoremap <C-\><C-\> :Lexplore<CR>
 nnoremap <leader>/  :ExploreFind<CR>
 nnoremap <leader>\  :Explore<CR>
