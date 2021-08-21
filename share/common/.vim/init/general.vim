@@ -45,6 +45,18 @@ function! StatusLineMode()
   endif
 endfunction
 
+function! MakeTagsResult(job, status)
+  if a:status == 0
+    echom "MakeTags: done"
+  else
+    echom "MakeTags: tags generation failed"
+  endif
+endfunction
+
+function! s:makeTags()
+  let tags_job = job_start("git ctags", #{ exit_cb: function('MakeTagsResult') })
+endfunction
+
 " settings
 set backspace=indent,eol,start
 set clipboard=unnamedplus
@@ -135,7 +147,7 @@ vnoremap <silent> T :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
 
 " commands
 command! -count Blame call <SID>gitBlame(bufnr('%'), expand('%:p'), <f-args>)
-command! MakeTags     !git ctags
+command! MakeTags     call <SID>makeTags()
 command! Open         !open %
 command! ExploreFind  let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
 
