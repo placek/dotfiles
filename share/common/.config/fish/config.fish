@@ -50,6 +50,7 @@ alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias agenda="gcalcli agenda --military --tsv --details 'calendar' | cut -f1,2,5,6 | grep -v Teal | grep -v Urlopy | cut -f1-3"
 alias cdt="cd (mktemp -d)"
 alias vi="vim --clean"
+alias view="vim -R"
 
 # set vi mode
 fish_vi_key_bindings
