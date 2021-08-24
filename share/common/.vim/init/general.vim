@@ -75,7 +75,6 @@ set cursorline
 set dir=/tmp
 set encoding=utf-8
 set expandtab
-set exrc
 set foldcolumn=1
 set foldmethod=manual
 set grepformat=%f:%l:%c:%m
@@ -88,7 +87,6 @@ set noshowmode
 set nospell
 set number
 set relativenumber
-set secure
 set shiftwidth=2
 set shortmess=a
 set showcmd
