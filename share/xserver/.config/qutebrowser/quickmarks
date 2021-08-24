@@ -2,6 +2,7 @@ BA::Slack https://app.slack.com/client/T02GP5QUP/unreads
 BA::Calendar https://calendar.google.com/calendar/u/1/r?tab=mc&pli=1
 BA::Jira https://jira.binarapps.com/secure/Dashboard.jspa
 BA::Meet https://meet.google.com/?hs=197&pli=1&authuser=1
+BA::GitLab https://gitlab.binarapps.com/dashboard/groups
 Carmen::Slack https://app.slack.com/client/T0217T0H875/unreads
 Carmen::Jira https://getcarmen.atlassian.net/secure/RapidBoard.jspa?projectKey=CARMEN
 SMS https://messages.google.com/web/conversations
@@ -13,4 +14,3 @@ YouTube https://www.youtube.com/
 Pocket https://getpocket.com/my-list
 Keep https://keep.google.com/u/0/
 GitHub https://github.com/
-BA::GitLab https://gitlab.binarapps.com/dashboard/groups

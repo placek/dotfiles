@@ -57,10 +57,20 @@ function! s:makeTags()
   let tags_job = job_start("git ctags", #{ exit_cb: function('MakeTagsResult') })
 endfunction
 
+function! CleverTab()
+  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+    return "\<Tab>"
+  elseif exists(":ALEInfo")
+    return "\<C-X>\<C-O>"
+  else
+    return "\<C-N>"
+  endif
+endfunction
+
 " settings
 set backspace=indent,eol,start
 set clipboard=unnamedplus
-set cmdheight=2
+set cmdheight=1
 set colorcolumn=80,160
 set cursorline
 set dir=/tmp
@@ -144,6 +154,8 @@ vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+'
 vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent> F :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
 vnoremap <silent> T :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
+
+inoremap <Tab> <C-R>=CleverTab()<CR>
 
 " commands
 command! -count Blame call <SID>gitBlame(bufnr('%'), expand('%:p'), <f-args>)
