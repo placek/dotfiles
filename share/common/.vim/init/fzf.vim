@@ -40,8 +40,8 @@ nnoremap <leader>gs :GFiles?<CR>
 nnoremap <leader>h  :History<CR>
 nnoremap <leader>m  :Marks<CR>
 nnoremap <leader>t  :Tags<CR>
-vnoremap <silent> f :<C-u>call <SID>searchWithRg(<SID>getSelectedText())<CR>
-vnoremap <silent> t :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
+vnoremap <leader>f  :<C-u>call <SID>searchWithRg(<SID>getSelectedText())<CR>
+vnoremap <silent>g] :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
 
 " autocommands
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler

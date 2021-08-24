@@ -16,12 +16,6 @@ function! s:gitBlame(bufnr, filename, ...)
   set cursorbind
 endfunction
 
-function! s:searchTags(query)
-  if len(a:query) != 0
-    execute "tselect /".escape(a:query, '^$.*?/\[]')
-  endif
-endfunction
-
 function! s:searchWithVimgrep(query, files = "**/*")
   if len(a:query) != 0
     execute "lvimgrep /".escape(a:query, '^$.*?/\[]')."/g ".a:files
@@ -144,7 +138,6 @@ nnoremap <leader>gs :!git st<CR>
 nnoremap <leader>h  :jumps<CR>
 nnoremap <leader>m  :marks<CR>
 nnoremap <leader>s  :set cursorbind!<CR>
-nnoremap <leader>T  :call <SID>searchTags(".*")<CR>
 
 nmap <silent>       [b :bprevious<CR>
 nmap <silent>       ]b :bnext<CR>
@@ -155,13 +148,12 @@ nmap <silent>       ]w <C-w>w
 
 nmap <localleader>b :Blame<CR>
 
-vnoremap <silent> *  :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent> #  :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent> F  :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
-vnoremap <silent> T  :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
-vnoremap <silent> g/ :call <SID>placeComment()<CR>
+vnoremap <leader>F  :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
+vnoremap <silent>*  :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent>#  :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent>g/ :call <SID>placeComment()<CR>
 
-inoremap <Tab> <C-R>=CleverTab()<CR>
+inoremap <Tab>      <C-R>=CleverTab()<CR>
 
 " commands
 command! -count Blame call <SID>gitBlame(bufnr('%'), expand('%:p'), <f-args>)
