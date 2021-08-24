@@ -18,13 +18,13 @@ endfunction
 
 function! s:searchTags(query)
   if len(a:query) != 0
-    execute "tselect /".a:query
+    execute "tselect /".escape(a:query, '^$.*?/\[]')
   endif
 endfunction
 
 function! s:searchWithVimgrep(query, files = "**/*")
   if len(a:query) != 0
-    execute "lvimgrep /".a:query."/g ".a:files
+    execute "lvimgrep /".escape(a:query, '^$.*?/\[]')."/g ".a:files
   endif
 endfunction
 
@@ -65,6 +65,11 @@ function! CleverTab()
   else
     return "\<C-N>"
   endif
+endfunction
+
+function! s:placeComment()
+  let l:comment_pattern = substitute(escape(&commentstring, '^$.*?/\[]'), '%s', "\\&", '')
+  execute 's/\%V.*/'.l:comment_pattern
 endfunction
 
 " settings
@@ -150,10 +155,11 @@ nmap <silent>       ]w <C-w>w
 
 nmap <localleader>b :Blame<CR>
 
-vnoremap <silent> * :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent> # :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent> F :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
-vnoremap <silent> T :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
+vnoremap <silent> *  :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent> #  :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent> F  :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
+vnoremap <silent> T  :<C-u>call <SID>searchTags(<SID>getSelectedText())<CR>
+vnoremap <silent> g/ :call <SID>placeComment()<CR>
 
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
