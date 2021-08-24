@@ -129,7 +129,7 @@ nnoremap <leader>2  :set relativenumber!<CR>
 nnoremap <leader>3  :set hlsearch!<CR>
 
 nnoremap <leader>b  :ls<CR>
-nnoremap <leader>c  :terminal ++close ++rows=10<CR>
+nnoremap <leader>c  :terminal ++close<CR>
 nnoremap <leader>f  :call <SID>searchWithVimgrep(input("/"))<CR>
 nnoremap <leader>F  :find
 nnoremap <leader>gc :!git l<CR>
