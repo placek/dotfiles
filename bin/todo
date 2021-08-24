@@ -115,6 +115,11 @@ case "$1" in
     fi
     ;;
 
+  sy*)
+    git -C "$todo" pull --rebase origin master > /dev/null
+    git -C "$todo" push origin master > /dev/null
+    ;;
+
   s*)
     target=$2
     if [ -z "$target" ]; then
@@ -136,6 +141,6 @@ case "$1" in
     ;;
 
   *)
-    >&2 echo "usage: todo [list|add|edit|show|remove|archive|tag|history|help]"
+    >&2 echo "usage: todo [list|add|edit|show|remove|archive|tag|history|sync|help]"
     ;;
 esac
