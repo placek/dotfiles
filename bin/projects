@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+export SHELL=$(which fish)
+alias tmux="/usr/bin/env tmux"
+alias git="/usr/bin/env git"
+alias fzf="/usr/bin/env fzf"
+
+if ! command -v "tmux" &> /dev/null; then
+  >&2 echo "projects: tmux command could not be found"
+  exit
+fi
+
+if ! command -v git &> /dev/null; then
+  >&2 echo "projects: git command could not be found"
+  exit
+fi
+
+if ! command -v fzf &> /dev/null; then
+  >&2 echo "projects: fzf command could not be found"
+  exit
+fi
+
+if ! command -v "$EDITOR" &> /dev/null; then
+  >&2 echo "projects: $EDITOR editor set by \$EDITOR env variable could not be found"
+  exit
+fi
+
+projects=${PROJECTS_DIR:-"$HOME/Projects"}
+list=$(tmux -L projects ls 2> /dev/null | cut -f1 -d':' | sort)
+
+[ ! -d "$projects" ] && mkdir -p "$projects"
+
+pushd () {
+  command pushd "$@" > /dev/null
+}
+popd () {
+  command popd "$@" > /dev/null
+}
+
+case "$1" in
+  l*)
+    if [ -z "$list" ]; then
+      >&2 echo "projects: no projects available"
+    else
+      echo "$list"
+    fi
+    ;;
+
+  a*)
+    if [ -z "$(ls -1 "$projects" | sort -n)" ]; then
+      >&2 echo "projects: no projects available under $projects"
+    else
+      if [ -z "$2" ]; then
+        target=$(ls -1 "$projects" | sort -n | fzf --prompt "Projects> ")
+      else
+        target=$2
+      fi
+      tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; rename-window code
+    fi
+    ;;
+
+  n*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "projects: usage: projects new <project-name>"
+    else
+      if [ -d "$projects/$target" ]; then
+        >&2 echo "projects: $target already exists"
+      else
+        mkdir -p "$projects"/"$2"
+        pushd "$projects/$target" || exit
+          git init
+        popd
+        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR"
+      fi
+    fi
+    ;;
+
+  c*)
+    uri=$2
+    target=$(basename "$uri" .git)
+    if [ -z "$target" ]; then
+      >&2 echo "projects: usage: projects clone <project-git-uri>"
+    else
+      if [ -d "$projects/$target" ]; then
+        >&2 echo "projects: $target already exists"
+      else
+        pushd "$projects"
+          git clone "$uri"
+        popd
+        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR"
+      fi
+    fi
+    ;;
+
+  s*)
+    if [ -z "$list" ]; then
+      >&2 echo "projects: nothing to sync"
+    else
+      for name in $list; do
+        project="$projects/$name"
+        if [ -d "$project" ]; then
+          echo "projects: $project"
+          branch=$(cat "$project/.git/HEAD" | cut -d "/" -f3)
+          git push backup "$branch"
+        else
+          >&2 echo "projects: could not cd to $project"
+        fi
+      done
+    fi
+    ;;
+
+  *)
+    if [ -n "$TMUX" ]; then
+      >&2 echo "usage: projects [add|new|clone|ls|sync|help]"
+    else
+      tmux -L projects attach
+    fi
+    ;;
+esac

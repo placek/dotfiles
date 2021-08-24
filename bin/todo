@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+
+export SHELL=$(which fish)
+todo=${TODO_DIR:-"$HOME/.todo"}
+archive="$todo/archive"
+
+if ! command -v git &> /dev/null; then
+  >&2 echo "todo: git command could not be found"
+  exit
+fi
+
+if ! command -v "$EDITOR" &> /dev/null; then
+  >&2 echo "todo: $EDITOR editor set by \$EDITOR env variable could not be found"
+  exit
+fi
+
+if [ ! -d "$todo" ]; then
+  git init "$todo"
+  mkdir -p "$archive"
+fi
+
+function git_history() {
+  message=$1
+  git -C "$todo" add "$todo" > /dev/null
+  id=$(git -C "$todo" diff --cached --name-only | sed "s/^.*\///")
+  git -C "$todo" commit -m "$id $message" > /dev/null
+}
+
+case "$1" in
+  ar*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "todo: usage: todo archive <task-id>"
+    else
+      mv -i "$todo"/"$target"* "$archive"
+    fi
+    git_history "archived"
+    ;;
+
+  l*)
+    expression="find $todo -maxdepth 1 -type f"
+    shift
+    for phrase in "$@"; do
+      case "${phrase:0:2}" in
+      /*)
+        expression="$expression -exec taskgrep -r '${phrase:1}' {} \;"
+        ;;
+      !/)
+        expression="$expression -not -exec taskgrep -r '${phrase:2}' {} \;"
+        ;;
+      @*)
+        expression="$expression -exec taskgrep -a '${phrase:1}' {} \;"
+        ;;
+      !@)
+        expression="$expression -exec taskgrep -b '${phrase:2}' {} \;"
+        ;;
+      !*)
+        expression="$expression -not -exec taskgrep -l '${phrase:1}' {} \;"
+        ;;
+      *)
+        expression="$expression -exec taskgrep -l '$phrase' {} \;"
+        ;;
+      esac
+    done
+    expression="$expression -print"
+    for file in $(eval "$expression"); do
+      summary=$(head -1 "$file")
+      echo "$(echo "$file" | sed "s/^.*\///") : $summary"
+    done
+    ;;
+
+  h*)
+    id=$2
+    if [ -z "$id" ]; then
+      git -C "$todo" log --format="%ci : %s"
+    else
+      git -C "$todo" log -p --format="%n%ci : %s" -- "$id"
+    fi
+    ;;
+
+  a*)
+    id=$(date +%s | sha1sum - | cut -d ' ' -f 1)
+    shift
+    summary=$*
+    if [ -z "$summary" ]; then
+      $EDITOR "$todo"/"$id"
+    else
+      echo "$summary" > "$todo"/"$id"
+    fi
+    if [ -s "$todo"/"$id" ]; then
+      git_history "added"
+      echo "$id"
+    else
+      >&2 echo "todo: nothing to add"
+    fi
+    ;;
+
+  r*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "todo: usage: todo remove <task-id>"
+    else
+      rm -i "$todo"/"$target"
+      git_history "removed"
+    fi
+    ;;
+
+  e*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "todo: usage: todo edit <task-id>"
+    else
+      $EDITOR "$todo"/"$target"*
+      git_history "edited"
+    fi
+    ;;
+
+  s*)
+    target=$2
+    if [ -z "$target" ]; then
+      >&2 echo "todo: usage: todo show <task-id>"
+    else
+      cat "$todo"/"$target"*
+    fi
+    ;;
+
+  t*)
+    target=$2
+    tag=$3
+    if [ -z "$target" ] || [ -z "$tag" ]; then
+      >&2 echo "todo: usage: todo tag <task-id> <tag>"
+    else
+      echo "$tag" >> "$todo"/"$target"*
+      git_history "tagged"
+    fi
+    ;;
+
+  *)
+    >&2 echo "usage: todo [list|add|edit|show|remove|archive|tag|history|help]"
+    ;;
+esac
