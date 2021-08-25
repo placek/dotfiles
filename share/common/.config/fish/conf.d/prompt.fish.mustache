@@ -91,6 +91,10 @@ function git::untracked
   end
 end
 
+function nix::is_in_shell
+  test "$IN_NIX_SHELL" != ""
+end
+
 function fish_right_prompt
   set cwd (prompt_pwd)
 
@@ -155,6 +159,10 @@ function fish_prompt
     end
 
     echo -n -s (red)") "(off)
+  end
+
+  if nix::is_in_shell
+    echo -n -s (dim)"nix "(off)
   end
 
   if test "$code" = 0
