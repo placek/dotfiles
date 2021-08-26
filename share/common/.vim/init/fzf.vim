@@ -40,7 +40,8 @@ nnoremap <leader>gs :GFiles?<CR>
 nnoremap <leader>h  :History<CR>
 nnoremap <leader>m  :Marks<CR>
 nnoremap <leader>t  :Tags<CR>
-vnoremap <leader>f  :<C-u>call <SID>searchWithRg(<SID>getSelectedText())<CR>
+
+vnoremap <silent>f/ :<C-u>call <SID>searchWithRg(<SID>getSelectedText())<CR>
 vnoremap <silent>g] :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
 
 " autocommands

@@ -12,6 +12,8 @@ let g:ale_echo_msg_info_str = 'I'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_hover_cursor=1
 let g:ale_loclist_msg_format = '%s'
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 let g:ale_sign_error = 'E'
 let g:ale_sign_info = 'I'
 let g:ale_sign_style_error = 'S'
@@ -19,10 +21,16 @@ let g:ale_sign_style_warning = 's'
 let g:ale_sign_warning = 'W'
 
 let g:ale_haskell_hls_executable = 'haskell-language-server'
+let g:ale_fixers = #{ haskell: 'stylish-haskell' }
 
 " mappings
 nnoremap <silent>K  :ALEHover<CR>
 nnoremap <silent>gd :ALEGoToDefinition<CR>
+
+nnoremap <localleader>f :ALEFix<CR>
+nnoremap <localleader>c :ALECodeAction<CR>
+nnoremap <localleader>d :ALEDetail<CR>
+nnoremap <localleader>r :ALERename<CR>
 
 " colors
 hi ALEError ctermbg=8

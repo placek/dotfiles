@@ -69,9 +69,12 @@ endfunction
 " settings
 set backspace=indent,eol,start
 set clipboard=unnamedplus
-set cmdheight=1
+set cmdheight=2
 set colorcolumn=80,160
 set cursorline
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
+set diffopt-=internal
 set dir=/tmp
 set encoding=utf-8
 set expandtab
@@ -139,19 +142,25 @@ nnoremap <leader>h  :jumps<CR>
 nnoremap <leader>m  :marks<CR>
 nnoremap <leader>s  :set cursorbind!<CR>
 
+nmap <silent>       [a :previous<CR>
+nmap <silent>       ]a :next<CR>
 nmap <silent>       [b :bprevious<CR>
 nmap <silent>       ]b :bnext<CR>
 nmap <silent>       [t :tabprevious<CR>
 nmap <silent>       ]t :tabnext<CR>
 nmap <silent>       [w <C-w>W
 nmap <silent>       ]w <C-w>w
+nmap <silent>       [e :cprevious<CR>
+nmap <silent>       ]e :cnext<CR>
+nmap <silent>       [l :lprevious<CR>
+nmap <silent>       ]l :lnext<CR>
 
 nmap <localleader>b :Blame<CR>
 
-vnoremap <leader>F  :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
 vnoremap <silent>*  :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent>#  :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent>g/ :call <SID>placeComment()<CR>
+vnoremap <silent>g/ :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
+vnoremap <silent>g# :call <SID>placeComment()<CR>
 
 inoremap <Tab>      <C-R>=CleverTab()<CR>
 
@@ -191,3 +200,9 @@ autocmd! BufWritePre * :%s/\s\+$//e
 autocmd! FileType git nnoremap yy 0viwy
 autocmd! FileType make setlocal noexpandtab
 autocmd! FileType haskell packadd haskell-vim | syntax on
+
+" non-text files
+autocmd! BufRead,BufNewFile *.avi,*.mp4,*.mkv,*.mov,*.mpg set filetype=nontext
+autocmd! BufRead,BufNewFile *.mp3,*.flac,*.wav,*.ogg set filetype=nontext
+autocmd! BufRead,BufNewFile *.png,*.jpg,*.jpeg,*.gif,*.tiff set filetype=nontext
+autocmd! BufRead,BufNewFile *.ps,*.pdf,*.epub set filetype=nontext
