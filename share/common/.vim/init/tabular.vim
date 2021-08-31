@@ -1,4 +1,4 @@
 packadd tabular
 
 " mappings
-nnoremap <leader>a :Tabularize /
+nnoremap <localleader>a :Tabularize /

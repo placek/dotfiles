@@ -30,19 +30,21 @@ let g:fzf_action = { 'ctrl-q': function('s:buildQuickfixList'), 'ctrl-t': 'tab s
 let g:fzf_tags_command = 'git ctags'
 
 " mappings
-nnoremap <leader>F  :FZF<CR>
-nnoremap <leader>T  :BTags<CR>
 nnoremap <leader>b  :Buffers<CR>
 nnoremap <leader>f  :Rg<CR>
+nnoremap <leader>F  :FZF<CR>
 nnoremap <leader>gc :Commits<CR>
 nnoremap <leader>gf :GFiles<CR>
 nnoremap <leader>gs :GFiles?<CR>
 nnoremap <leader>h  :History<CR>
 nnoremap <leader>m  :Marks<CR>
 nnoremap <leader>t  :Tags<CR>
+nnoremap <leader>T  :BTags<CR>
 
-vnoremap <silent>f/ :<C-u>call <SID>searchWithRg(<SID>getSelectedText())<CR>
+nnoremap <silent>g/ :call <SID>searchWithRg(expand('<cword>'))<CR>
+vnoremap <silent>g/ :<C-u>call <SID>searchWithRg(<SID>getSelectedText())<CR>
+nnoremap <silent>g] :call fzf#vim#tags(expand('<cword>'))<CR>
 vnoremap <silent>g] :<C-u>call fzf#vim#tags(<SID>getSelectedText())<CR>
 
 " autocommands
-autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+autocmd! FileType fzf set laststatus=0 | autocmd BufLeave <buffer> set laststatus=2

@@ -2,13 +2,4 @@
 *.kdbx?
 *~
 .DS_Store
-.gnupg/
-.password-store/
-.ssh/
 .sw[op]
-Clouds/
-Documents/
-Downloads/
-Music/
-Pictures/
-Projects/

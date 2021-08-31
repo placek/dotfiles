@@ -6,19 +6,36 @@ function! s:getSelectedText()
   return l:ret
 endfunction
 
-function! s:gitBlame(bufnr, filename, ...)
-  execute 'leftabove 40 vnew'
-  execute 'autocmd BufWipeout <buffer> call setbufvar(' . a:bufnr .', "&cursorbind", 0)'
-  execute 'read!git blame --date short --minimal ' . shellescape(a:filename)
-  set buftype=nofile bufhidden=wipe nowrap noswapfile nonumber norelativenumber cursorbind nowrap foldcolumn=0 nofoldenable winfixwidth filetype=git
-  0delete _
-  wincmd p
-  set cursorbind
+function! s:placeComment()
+  let l:comment_pattern = substitute(escape(&commentstring, '^$.*?/\[]'), '%s', "\\&", '')
+  execute 's/\%V.*/'.l:comment_pattern
+endfunction
+
+function! s:makeTags()
+  let tags_job = job_start("git ctags", #{ exit_cb: function('MakeTagsResult') })
 endfunction
 
 function! s:searchWithVimgrep(query, files = "**/*")
   if len(a:query) != 0
     execute "lvimgrep /".escape(a:query, '^$.*?/\[]')."/g ".a:files
+  endif
+endfunction
+
+function! CleverTab()
+  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+    return "\<Tab>"
+  elseif exists(":ALEInfo")
+    return "\<C-X>\<C-O>"
+  else
+    return "\<C-N>"
+  endif
+endfunction
+
+function! MakeTagsResult(job, status)
+  if a:status == 0
+    echom "MakeTags: done"
+  else
+    echom "MakeTags: tags generation failed"
   endif
 endfunction
 
@@ -37,33 +54,6 @@ function! StatusLineMode()
   elseif l:mode==#"R"
     return "  REPLACE "
   endif
-endfunction
-
-function! MakeTagsResult(job, status)
-  if a:status == 0
-    echom "MakeTags: done"
-  else
-    echom "MakeTags: tags generation failed"
-  endif
-endfunction
-
-function! s:makeTags()
-  let tags_job = job_start("git ctags", #{ exit_cb: function('MakeTagsResult') })
-endfunction
-
-function! CleverTab()
-  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-    return "\<Tab>"
-  elseif exists(":ALEInfo")
-    return "\<C-X>\<C-O>"
-  else
-    return "\<C-N>"
-  endif
-endfunction
-
-function! s:placeComment()
-  let l:comment_pattern = substitute(escape(&commentstring, '^$.*?/\[]'), '%s', "\\&", '')
-  execute 's/\%V.*/'.l:comment_pattern
 endfunction
 
 " settings
@@ -155,20 +145,18 @@ nmap <silent>       ]e :cnext<CR>
 nmap <silent>       [l :lprevious<CR>
 nmap <silent>       ]l :lnext<CR>
 
-nmap <localleader>b :Blame<CR>
-
-vnoremap <silent>*  :call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent>#  :call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+nnoremap <silent>g/ :call <SID>searchWithVimgrep(expand('<cword>'))<CR>
+vnoremap <silent>*  :<C-u>call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent>#  :<C-u>call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent>g/ :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
 vnoremap <silent>g# :call <SID>placeComment()<CR>
 
 inoremap <Tab>      <C-R>=CleverTab()<CR>
 
 " commands
-command! -count Blame call <SID>gitBlame(bufnr('%'), expand('%:p'), <f-args>)
-command! MakeTags     call <SID>makeTags()
-command! Open         !open %
-command! ExploreFind  let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
+command! -count MakeTags     call <SID>makeTags()
+command! -count Open         !open %
+command! -count ExploreFind  let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
 
 " colors
 hi clear StatusLineNC
