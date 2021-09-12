@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+trap 'rm -f "transforms.trf"' EXIT
+
+case "$1" in
+  i*) # info
+    ffmpeg -i "$2" && exit 0
+    ;;
+
+  as*) # add subtitles
+    ffmpeg -loglevel fatal -i "$3" -i "$2" -codec:v copy -codec:a copy -codec:s mov_text "${3%.*}_with_subtitles.mp4" && exit 0
+    ;;
+
+  aw*) # add watermark
+    ffmpeg -loglevel fatal -i "$3" -i "$2" -filter_complex "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2" "${3%.*}_with_watermark.mp4" && exit 0
+    ;;
+
+  c*) # crop
+    ffmpeg -loglevel fatal -i "$6" -filter:v "crop=$4:$5:$2:$3" "${6%.*}_cropped.mp4" && exit 0
+    ;;
+
+  m*) # merge (side-by-side)
+    second=$(basename -- "$3")
+    ffmpeg -loglevel fatal -i "$2" -i "$3" -filter_complex "[0:v][1:v]hstack,format=yuv420p[v];[0:a][1:a]amerge[a]" -map "[v]" -map "[a]" -codec:v libx264 -crf 18 -ac 2 "${2%.*}"_"${second%.*}_merged.mp4" && exit 0
+    ;;
+
+  p*) # preview
+    ffplay "$2" && exit 0
+    ;;
+
+  re*) # resize
+    ffmpeg -loglevel fatal -i "$4" -filter:v "scale=$2:$3" "${4%.*}_resized.mp4" && exit 0
+    ;;
+
+  ro*) # rotate 90 deg clockwise
+    ffmpeg -loglevel fatal -i "$2" -filter:v "transpose=dir=clock" "${2%.*}_rotated.mp4" && exit 0
+    ;;
+
+  sc*) # screen capture with sound
+    ffmpeg -video_size 1920x1080 -framerate 25 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i 1 -acodec aac -strict experimental "$2" && exit 0
+    ;;
+
+  st*) # anti-shock
+    ffmpeg -loglevel fatal -i "$2" -filter:v "vidstabdetect=stepsize=32:shakiness=10:accuracy=10:result=transforms.trf" -f null - && ffmpeg -loglevel fatal -i "$2" -filter:v "vidstabtransform=input=transforms.trf:zoom=0:smoothing=10,unsharp=5:5:0.8:3:3:0.4" -codec:v libx264 -tune film -codec:a copy -preset slow "${2%.*}_no_shock.mp4" && exit 0
+    ;;
+
+  t*) # trim
+    ffmpeg -loglevel fatal -i "$4" -ss "$2" -t "$3" -codec:v copy -codec:a copy "${4%.*}_trimmed.mp4" && exit 0
+    ;;
+
+  *)
+    >&2 echo "usage: $0 info filename"
+    >&2 echo "       $0 asubtitles filename1 filename2"
+    >&2 echo "       $0 awatermark filename1 filename2"
+    >&2 echo "       $0 crop x y w h filename"
+    >&2 echo "       $0 merge filename1 filename2"
+    >&2 echo "       $0 resize w h filename"
+    >&2 echo "       $0 rotate filename"
+    >&2 echo "       $0 screen-capture filename"
+    >&2 echo "       $0 stabilize filename"
+    >&2 echo "       $0 trim from to filename"
+    exit 0
+    ;;
+esac
