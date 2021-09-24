@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 export SHELL=$(which fish)
+export VIM_IDE=yes
+
 alias tmux="/usr/bin/env tmux"
 alias git="/usr/bin/env git"
 alias fzf="/usr/bin/env fzf"

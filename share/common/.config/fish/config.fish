@@ -38,7 +38,7 @@ abbr --add j "journalctl"
 abbr --add s "systemctl"
 # abbr --add pair "docker-compose -f .remote.compose"
 abbr --add tb "nc termbin.com 9999"
-abbr --add ns "nix-shell shell.nix --run "
+abbr --add ns "nix-shell shell.nix --run $SHELL"
 abbr --add p "projects"
 abbr --add t "todo"
 
@@ -48,6 +48,10 @@ alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias cdt="cd (mktemp -d)"
 alias vi="vim --clean"
 alias view="vim -R"
+
+function ghc-shell --description 'run nix-shell with ghc and some packages'
+  nix-shell -p "ghc.withPackages (pkgs: with pkgs; [ cabal-install $argv ])" --run $SHELL
+end
 
 # set vi mode
 fish_vi_key_bindings
