@@ -1,3 +1,5 @@
+packadd supertab
+
 " functions
 function! s:getSelectedText()
   norm gv"sy
@@ -150,8 +152,6 @@ vnoremap <silent>*  :<C-u>call setreg("/", substitute(<SID>getSelectedText(), '\
 vnoremap <silent>#  :<C-u>call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent>g/ :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
 vnoremap <silent>g# :call <SID>placeComment()<CR>
-
-inoremap <Tab>      <C-R>=CleverTab()<CR>
 
 " commands
 command! -count MakeTags     call <SID>makeTags()
