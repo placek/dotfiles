@@ -139,10 +139,10 @@ nmap <silent>       [a :previous<CR>
 nmap <silent>       ]a :next<CR>
 nmap <silent>       [b :bprevious<CR>
 nmap <silent>       ]b :bnext<CR>
-nmap <silent>       [t :tabprevious<CR>
-nmap <silent>       ]t :tabnext<CR>
 nmap <silent>       [w <C-w>W
 nmap <silent>       ]w <C-w>w
+nmap <silent>       [t :tabprevious<CR>
+nmap <silent>       ]t :tabnext<CR>
 nmap <silent>       [e :cprevious<CR>
 nmap <silent>       ]e :cnext<CR>
 nmap <silent>       [l :lprevious<CR>
@@ -161,27 +161,27 @@ command! -count ExploreFind  let @/=expand("%:t") | execute 'Explore' expand("%:
 
 " colors
 hi clear StatusLineNC
-hi ColorColumn      ctermbg=18
-hi DiffAdd          ctermbg=2 ctermfg=0 cterm=BOLD
-hi DiffChange       ctermbg=3 ctermfg=0 cterm=BOLD
-hi DiffDelete       ctermbg=1 ctermfg=0 cterm=BOLD
-hi DiffText         ctermbg=2 ctermfg=0 cterm=BOLD
-hi Directory        ctermfg=4
-hi FoldColumn       ctermbg=0 ctermfg=7
-hi Folded           ctermbg=6 ctermfg=0
-hi Pmenu            ctermbg=8
-hi Search           ctermbg=2 ctermfg=0
-hi SignColumn       ctermbg=0
-hi StatusLineMode   ctermbg=16 ctermfg=0
-hi StatusLine       ctermbg=0 ctermfg=7 cterm=NONE
-hi StatusLineInfo   ctermbg=0 ctermfg=8 cterm=BOLD
-hi TabLine          ctermbg=0 ctermfg=7 cterm=NONE
-hi TabLineFill      ctermbg=0 ctermfg=0
-hi TabLineSel       ctermbg=0 ctermfg=9 cterm=NONE
-hi VertSplit        ctermbg=8 ctermfg=8
-hi Visual           ctermbg=7 ctermfg=0
-hi netrwComment     ctermfg=8
-hi netrwTreeBar     ctermfg=8
+hi ColorColumn    ctermbg=18
+hi DiffAdd        ctermbg=2 ctermfg=0 cterm=BOLD
+hi DiffChange     ctermbg=3 ctermfg=0 cterm=BOLD
+hi DiffDelete     ctermbg=1 ctermfg=0 cterm=BOLD
+hi DiffText       ctermbg=2 ctermfg=0 cterm=BOLD
+hi Directory      ctermfg=4
+hi FoldColumn     ctermbg=0 ctermfg=7
+hi Folded         ctermbg=6 ctermfg=0
+hi Pmenu          ctermbg=8
+hi Search         ctermbg=2 ctermfg=0
+hi SignColumn     ctermbg=0
+hi StatusLineMode ctermbg=16 ctermfg=0
+hi StatusLine     ctermbg=0 ctermfg=7 cterm=NONE
+hi StatusLineInfo ctermbg=0 ctermfg=8 cterm=BOLD
+hi TabLine        ctermbg=0 ctermfg=7 cterm=NONE
+hi TabLineFill    ctermbg=0 ctermfg=0
+hi TabLineSel     ctermbg=0 ctermfg=9 cterm=NONE
+hi VertSplit      ctermbg=8 ctermfg=8
+hi Visual         ctermbg=7 ctermfg=0
+hi netrwComment   ctermfg=8
+hi netrwTreeBar   ctermfg=8
 
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
