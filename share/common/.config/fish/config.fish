@@ -54,7 +54,7 @@ function envup --description 'load dotenv-like files as an env'
 end
 
 function ghc-shell --description 'run nix-shell with ghc and some packages'
-  nix-shell -p "ghc.withPackages (pkgs: with pkgs; [ cabal-install $argv ])" --run $SHELL
+  nix-shell -p "ghc.withPackages (pkgs: with pkgs; [ cabal-install hlint $argv ])" --run $SHELL
 end
 
 # set vi mode

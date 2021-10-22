@@ -114,7 +114,6 @@ let g:mapleader = "\\"
 let g:maplocalleader = ","
 let g:netrw_altv = 1
 let g:netrw_preview = 1
-let g:netrw_keepdir = 0
 
 " mappings
 nnoremap <C-\><C-\> :Lexplore<CR>

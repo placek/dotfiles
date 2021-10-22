@@ -20,8 +20,6 @@ let g:ale_sign_style_error      = 'S'
 let g:ale_sign_style_warning    = 's'
 let g:ale_sign_warning          = 'W'
 
-let g:ale_fixers = #{ haskell: 'stylish-haskell' }
-
 " mappings
 nnoremap <silent>K  :ALEHover<CR>
 nnoremap <silent>gd :ALEGoToDefinition<CR>
@@ -40,3 +38,21 @@ hi ALEStyleWarning     ctermbg=8
 hi ALEStyleWarningSign ctermbg=0 ctermfg=9
 hi ALEWarning          ctermbg=8
 hi ALEWarningSign      ctermbg=0 ctermfg=9 cterm=BOLD
+
+" hack for haskell:
+" creates a separate cabal linter that does not cd into a file dir and uses
+" cwd as a project directory
+call ale#linter#Define('haskell', {
+\  'name':          'my_cabal',
+\  'aliases':       ['my-cabal'],
+\  'output_stream': 'stderr',
+\  'executable':    'cabal',
+\  'command':       '%e build -fno-code -v0 -- %s </dev/null',
+\  'callback':      'ale#handlers#haskell#HandleGHCFormat',
+\})
+
+if !exists('g:ale_linters')
+  let g:ale_linters = {}
+endif
+let g:ale_linters.haskell = ['my-cabal', 'hls', 'hlint']
+let g:ale_fixers.haskell = 'stylish-haskell'
