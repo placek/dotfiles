@@ -56,3 +56,4 @@ if !exists('g:ale_linters')
 endif
 let g:ale_linters.haskell = ['my-cabal', 'hls', 'hlint']
 let g:ale_fixers.haskell = 'stylish-haskell'
+let g:ale_haskell_hls_executable = 'haskell-language-server'
