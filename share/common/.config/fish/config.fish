@@ -49,6 +49,8 @@ alias cdt="cd (mktemp -d)"
 alias vi="vim --clean"
 alias view="vim -R"
 
+thefuck --alias | source
+
 function envup --description 'load dotenv-like files as an env'
   export (grep --no-filename --color=never --invert-match '^#' $argv)
 end
