@@ -108,7 +108,6 @@ function fish_right_prompt
 end
 
 function fish_prompt
-  set -l symbol "λ "
   set -l code $status
 
   if test -n "$ssh_client"
@@ -166,7 +165,7 @@ function fish_prompt
   end
 
   if test "$code" = 0
-    echo -n -s (green)"$symbol"(off)
+    echo -n -s (green)"$SYMBOL"(off)
   else
     echo -n -s (red)"$symbol"(off)
   end
