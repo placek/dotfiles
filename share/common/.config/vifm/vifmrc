@@ -21,6 +21,7 @@ set wildstyle=popup
 
 nnoremap w :view<cr>
 nnoremap f :file<cr>
+nnoremap s :sync %d<cr>
 
 mark h ~/
 command! archive tar -cvf %a.tar %f
