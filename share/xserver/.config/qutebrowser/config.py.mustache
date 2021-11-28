@@ -52,14 +52,15 @@ config.set('window.title_format',               '{current_title}')
 
 config.set('url.searchengines', {
   'DEFAULT': 'https://www.google.com/search?q={}',
-  'hoogle':  'https://hoogle.haskell.org/?hoogle={}',
-  'ruby':    'https://ruby-doc.com/search.html?q={}',
-  'nixos':   'https://search.nixos.org/packages?query={}',
-  'wiki':    'https://en.wikipedia.org/wiki/{}',
-  'yt':      'https://www.youtube.com/results?search_query={}',
   'allegro': 'https://allegro.pl/listing?string={}',
   'ang':     'https://context.reverso.net/t%C5%82umaczenie/polski-angielski/{}',
-  'duck':    'https://duckduckgo.com/?q={}'
+  'docker':  'https://hub.docker.com/search?q={}&type=image',
+  'duck':    'https://duckduckgo.com/?q={}',
+  'hoogle':  'https://hoogle.haskell.org/?hoogle={}',
+  'nixos':   'https://search.nixos.org/packages?query={}',
+  'ruby':    'https://ruby-doc.com/search.html?q={}',
+  'wiki':    'https://en.wikipedia.org/wiki/{}',
+  'youtube': 'https://www.youtube.com/results?search_query={}'
 })
 
 config.bind(';D', 'hint links spawn kitty -e aria2c {hint-url} -d Downloads')
