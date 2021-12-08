@@ -7,7 +7,7 @@ set -gx TODO_DIR "$HOME/.todo"
 function fish_greeting
   inxi
   echo (yellow)"-- TODO --" (off)
-  todoist --color --indent --namespace --header ltodoist --color --indent --namespace --header list
+  todoist --color --indent --namespace --header list
 end
 
 # unbind Ctrl-V
