@@ -38,9 +38,7 @@ abbr --add j "journalctl"
 abbr --add s "systemctl"
 # abbr --add pair "docker-compose -f .remote.compose"
 abbr --add tb "nc termbin.com 9999"
-abbr --add ns "nix-shell shell.nix --run $SHELL"
 abbr --add p "projects"
-abbr --add t "todo"
 
 # aliases
 alias ls="lsd --icon-theme unicode"
