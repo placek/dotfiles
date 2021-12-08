@@ -56,10 +56,14 @@ case "$1" in
       else
         target=$2
       fi
-      if [ -f "$projects/$target/shell.nix" ]; then
-        nix-shell "$projects/$target/shell.nix" --run "tmux -L projects new-session -d -s \"$target\" -c \"$projects/$target\" \"$EDITOR\" \; rename-window code \; set-option -g default-shell \"$SHELL\""
+      if [ -d "$projects/$target" ]; then
+        if [ -f "$projects/$target/shell.nix" ]; then
+          nix-shell "$projects/$target/shell.nix" --run "tmux -L projects new-session -d -s \"$target\" -c \"$projects/$target\" \"$EDITOR\" \; rename-window code \; set-option -g default-shell \"$SHELL\""
+        else
+          tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; rename-window code \; set-option -g default-shell "$SHELL"
+        fi
       else
-        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; rename-window code \; set-option -g default-shell "$SHELL"
+        >&2 echo "projects: $target does not exist"
       fi
     fi
     ;;
