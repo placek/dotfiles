@@ -2,25 +2,6 @@
 
 export VIM_IDE=yes
 
-alias tmux="/usr/bin/env tmux"
-alias git="/usr/bin/env git"
-alias fzf="/usr/bin/env fzf"
-
-if ! command -v "tmux" &> /dev/null; then
-  >&2 echo "projects: tmux command could not be found"
-  exit
-fi
-
-if ! command -v git &> /dev/null; then
-  >&2 echo "projects: git command could not be found"
-  exit
-fi
-
-if ! command -v fzf &> /dev/null; then
-  >&2 echo "projects: fzf command could not be found"
-  exit
-fi
-
 if ! command -v "$EDITOR" &> /dev/null; then
   >&2 echo "projects: $EDITOR editor set by \$EDITOR env variable could not be found"
   exit
@@ -56,7 +37,7 @@ case "$1" in
       else
         target=$2
       fi
-      if [ -d "$projects/$target" ]; then
+      if [ -d "$projects/$target" ] || [ -z "$target" ]; then
         if [ -f "$projects/$target/shell.nix" ]; then
           nix-shell "$projects/$target/shell.nix" --run "tmux -L projects new-session -d -s \"$target\" -c \"$projects/$target\" \"$EDITOR\" \; rename-window code \; set-option -g default-shell \"$SHELL\""
         else
