@@ -20,10 +20,10 @@ printf "\\uE0B3 "
 
 # dunst notifications status
 [ $(dunstctl is-paused) == "true" ] && printf "<fc=$red>"
-[ $(dunstctl count waiting) == "0" ] && printf "\\u2690 " || printf "\\u2691 "
+[ $(dunstctl count waiting) == "0" ] && printf "<fn=1></fn> " || printf "<fn=1></fn> "
 [ $(dunstctl is-paused) == "true" ] && printf "</fc>"
 
 # gpg smart card status
-ssh-add -l >/dev/null 2>/dev/null && printf "\\uE0A2 "
+ssh-add -l >/dev/null 2>/dev/null && printf "<fn=1></fn> "
 
 exit 0

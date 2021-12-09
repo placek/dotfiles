@@ -1,5 +1,5 @@
 Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinting=true"
-       , additionalFonts = []
+       , additionalFonts = [ "xft:Font Awesome 5 Free:{{font-size}}:style=solid:antialias=true:hinting=true" ]
        , bgColor         = "#{{base00-hex}}"
        , fgColor         = "#{{base05-hex}}"
        , position        = TopW L 100
@@ -14,29 +14,29 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                                                            , "-L", "30", "-H", "70"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
                                                            ] 10
-                            , Run MultiCoreTemp            [ "-t", "\xE0B3 <avg>\x2103 "
+                            , Run MultiCoreTemp            [ "-t", "\xE0B3 <fn=1>\xf2c9</fn> <avg>\x2103 "
                                                            , "-L", "60", "-H", "80"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
                                                            , "--", "--mintemp", "20", "--maxtemp", "100"
                                                            ] 10
-                           , Run Memory                    [ "-t", "\xE0B3 mem <usedvbar> "
+                           , Run Memory                    [ "-t", "\xE0B3 <fn=1>\xf538</fn> <usedvbar> "
                                                            , "-L", "30", "-H", "70"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
                                                            ] 10
-                           , Run DiskU                     [ ("/", "\xE0B3 drv <usedvbar> ") ]
+                           , Run DiskU                     [ ("/", "\xE0B3 <fn=1>\xf0a0</fn> <usedvbar> ") ]
                                                            [ "-L", "30", "-H", "70"
                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
                                                            ] 100
-                           , Run Volume "default" "Master" [ "-t", "\xE0B3 <status> <volumevbar> "
+                           , Run Volume "default" "Master" [ "-t", "\xE0B3 <fn=1><status></fn> <volumevbar> "
                                                            , "--"
                                                            , "-C", "#{{base05-hex}}", "-c", "#{{base05-hex}}"
-                                                           , "-O", "vol", "-o", "v̶o̶l̶"
+                                                           , "-O", "\xf028", "-o", "\xf6a9"
                                                            ] 10
                            , Run Battery                   [ "-t", "\xE0B3 <acstatus> "
                                                            , "--"
-                                                           , "-O", "ac <leftvbar>"
-                                                           , "-i", "ac <leftvbar>"
-                                                           , "-o", "bat <timeleft> <leftvbar>"
+                                                           , "-O", "<fn=1>\xf0e7</fn> <leftvbar>"
+                                                           , "-i", "<fn=1>\xf0e7</fn> <leftvbar>"
+                                                           , "-o", "<fn=1>\xf242</fn> <timeleft> <leftvbar>"
                                                            , "-a", "notify-send -u critical 'battery' 'below 10%'", "-A", "10"
                                                            ] 50
                            , Run DynNetwork                [ "-t", "<fc=#{{base02-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base05-hex}},#{{base02-hex}}> <dev> <rx>↓↑<tx> </fc>", "--", "--devices", "enp0s3"] 10
