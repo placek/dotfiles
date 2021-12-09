@@ -6,7 +6,7 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "%UnsafeStdinReader%}{%multicpu%%statuses%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
+       , template        = "%UnsafeStdinReader%}{%multicpu%%statuses%%EPLL%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlp4s0wi%%date%"
        , commands        = [ Run ComX                     "statuses" [
                                                              "-r", "#{{base08-hex}}"
                                                            ] "\xE0B3 " "statuses" 10
@@ -42,6 +42,19 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                            , Run DynNetwork                [ "-t", "<fc=#{{base02-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base05-hex}},#{{base02-hex}}> <dev> <rx>↓↑<tx> </fc>", "--", "--devices", "enp0s3"] 10
                            , Run Wireless "wlp4s0"         [ "-t", "<fc=#{{base05-hex}},#{{base02-hex}}>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10
                            , Run Date "<fc=#{{base03-hex}},#{{base02-hex}}>\xE0B2</fc><fc=#{{base05-hex}},#{{base03-hex}}> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
+                           , Run WeatherX "EPLL"           [ ("clear", "\xf185")
+                                                           , ("sunny", "\xf185")
+                                                           , ("mostly clear", "\xf6c4")
+                                                           , ("mostly sunny", "\xf6c4")
+                                                           , ("partly sunny", "\xf6c4")
+                                                           , ("fair", "\xf186")
+                                                           , ("cloudy","\xf0c2")
+                                                           , ("overcast","\xf0c2")
+                                                           , ("partly cloudy", "\xf6c4")
+                                                           , ("mostly cloudy", "\xf0c2")
+                                                           , ("considerable cloudiness", "\xf740")]
+                                                           [ "-t", "<fn=1><skyConditionS></fn> <tempC>° <rh>% <windKnots>kn " ]
+                                                           18000
                            , Run UnsafeStdinReader
                            ]
        }
