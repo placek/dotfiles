@@ -20,7 +20,7 @@ printf "\\uE0B3 "
 
 # dunst notifications status
 [ $(dunstctl is-paused) == "true" ] && printf "<fc=$red>"
-[ $(dunstctl count waiting) == "0" ] && printf "<fn=1></fn> " || printf "<fn=1></fn> "
+[ $(dunstctl count waiting) == "0" ] && printf "<fn=1></fn> " || printf "<fn=1></fn> "
 [ $(dunstctl is-paused) == "true" ] && printf "</fc>"
 
 # gpg smart card status

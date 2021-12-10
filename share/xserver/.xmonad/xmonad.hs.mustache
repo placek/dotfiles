@@ -52,12 +52,12 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm              , xK_n     ), sendMessage NextLayout)                                                    -- rotate through the available layouts
     , ((modm .|. shiftMask, xK_n     ), setLayout $ XMonad.layoutHook conf)                                        -- reset the layouts on the current workspace to default
     , ((modm              , xK_b     ), sendMessage ToggleStruts)                                                  -- toggle the status bar gap
+    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
     , ((modm              , xK_f     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
     , ((modm .|. shiftMask, xK_f     ), refresh)                                                                   -- resize viewed windows to the correct size
     -- utils submap
     , ((modm, xK_space               ), submapDefault (spawn "rofi -modi drun -show drun") . M.fromList $
        [ ((0, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
-       , ((0, xK_b                   ), spawn "bash -c '~/.fehbg'")                                                -- change background
        , ((0, xK_c                   ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
        , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
        , ((0, xK_a                   ), spawn "bash -c 'cat ~/.abbr | rofi -dmenu | xargs xdotool type'")          -- run abbreviations
@@ -70,13 +70,12 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
        , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
        ])
     -- notifications submap
-    , ((modm, xK_grave               ), submap . M.fromList $
+    , ((modm, xK_Escape              ), submap . M.fromList $
        [ ((modm .|. shiftMask, xK_q  ), spawn "dunstctl close-all")                                                -- close all notifications
        , ((modm, xK_q                ), spawn "dunstctl set-paused toggle")                                        -- toggle notifications
-       , ((modm, xK_grave            ), spawn "dunstctl history-pop")                                              -- pop notification from history
+       , ((modm, xK_Escape           ), spawn "dunstctl history-pop")                                              -- pop notification from history
        ])
     -- others
-    , ((0, xF86XK_LaunchB            ), spawn "scrot -q100 ~/Downloads/ss_%Y%m%d_%H%M%S.png")                      -- screenshot (F4)
     , ((0, xK_Print                  ), spawn "scrot -q100 ~/Downloads/ss_%Y%m%d_%H%M%S.png")                      -- screenshot
     , ((0, xF86XK_AudioPrev          ), spawn "spotify_control previous")
     , ((0, xF86XK_AudioPlay          ), spawn "spotify_control playpause")
@@ -87,9 +86,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((0, xF86XK_MonBrightnessUp    ), spawn "light -A 5.0")
     , ((0, xF86XK_MonBrightnessDown  ), spawn "light -U 5.0")
     , ((0, xF86XK_Reload             ), spawn "rotate-displays")
-    -- thinkpad only
-    , ((0, xF86XK_Tools              ), spawn "rotate-touchpad")
-    , ((0, 0x1008ffb2                ), spawn "amixer set Capture toggle")
+    , ((0, xF86XK_Sleep              ), spawn "slock")
+    , ((0, xF86XK_PowerOff           ), spawn "slock")
     ]
     ++
     -- mod-[1..4], switch to workspace N
@@ -130,7 +128,7 @@ myManageHook = composeAll [ className =? "Gcr-prompter" --> doCenterFloat
                           ] <+> namedScratchpadManageHook myScratchPads
 
 workspaceNames :: [String]
-workspaceNames = ["web", "dev", "util", "misc", "fun"]
+workspaceNames = ["\xF43F", "\xF445", "\xF447", "\xF441", "\xF443"]
 
 myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
@@ -147,11 +145,11 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
-                                             , ppCurrent         = xmobarColor "#{{base00-hex}}" "#{{base09-hex}}" . wrap " " " "
-                                             , ppHidden          = xmobarColor "#{{base0A-hex}}" "" . wrap " " " "
-                                             , ppHiddenNoWindows = wrap " " " "
-                                             , ppVisible         = xmobarColor "#{{base09-hex}}" "#{{base00-hex}}" . wrap ":" ":"
-                                             , ppTitle           = xmobarColor "#{{base0A-hex}}"  "" . shorten 40
+                                             , ppHiddenNoWindows = xmobarColor "#{{base04-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppHidden          = xmobarColor "#{{base09-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppCurrent         = xmobarColor "#{{base0A-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppVisible         = xmobarColor "#{{base06-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppTitle           = xmobarColor "#{{base0A-hex}}" "" . shorten 40
                                              , ppLayout          = layout
                                              , ppUrgent          = xmobarColor "#{{base08-hex}}" "#{{base05-hex}}"
                                              , ppWsSep           = ""
