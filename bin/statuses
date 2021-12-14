@@ -2,7 +2,7 @@
 
 OPTIND=1
 
-red="#ff0000"
+red="#fb4934"
 
 while getopts "r:" opt; do
   case "$opt" in
