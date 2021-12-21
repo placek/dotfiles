@@ -1,5 +1,6 @@
 packadd vim-gitgutter
 packadd vim-fugitive
+packadd nerdtree-git-plugin
 
 " options
 let g:gitgutter_map_keys = 0

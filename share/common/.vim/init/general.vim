@@ -1,3 +1,4 @@
+packadd nerdtree
 packadd supertab
 
 " functions
@@ -112,13 +113,14 @@ set statusline+=\ \[%p%%\ %L\]
 " options
 let g:mapleader = "\\"
 let g:maplocalleader = ","
-let g:netrw_altv = 1
-let g:netrw_preview = 1
+let g:NERDTreeMapOpenSplit = "s"
+let g:NERDTreeMapPreviewSplit = "gs"
+let g:NERDTreeMapOpenVSplit = "v"
+let g:NERDTreeMapPreviewVSplit = "gv"
 
 " mappings
-nnoremap <C-\><C-\> :Lexplore<CR>
-nnoremap <leader>/  :ExploreFind<CR>
-nnoremap <leader>\  :Explore<CR>
+nnoremap <leader>/  :NERDTreeFind<CR>
+nnoremap <leader>\  :NERDTreeToggleVCS<CR>
 nnoremap <leader>1  :set number!<CR>
 nnoremap <leader>2  :set relativenumber!<CR>
 nnoremap <leader>3  :set hlsearch!<CR>
@@ -179,8 +181,6 @@ hi TabLineFill    ctermbg=0 ctermfg=0
 hi TabLineSel     ctermbg=0 ctermfg=9 cterm=NONE
 hi VertSplit      ctermbg=8 ctermfg=8
 hi Visual         ctermbg=7 ctermfg=0
-hi netrwComment   ctermfg=8
-hi netrwTreeBar   ctermfg=8
 
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
