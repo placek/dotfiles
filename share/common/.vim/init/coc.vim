@@ -60,9 +60,12 @@ let g:coc_global_extensions = ['coc-tag', 'coc-git', 'coc-explorer']
 
 " colors
 hi CocGitAddedSign         ctermbg=0  ctermfg=2
+hi CocExplorerGitAdded     ctermbg=0  ctermfg=2
 hi CocGitChangeRemovedSign ctermbg=0  ctermfg=3
-hi CocGitChangedSign       ctermbg=0  ctermfg=3
+hi CocGitChangedSign       ctermbg=0  ctermfg=16
+hi CocExplorerGitModified  ctermbg=0  ctermfg=16
 hi CocGitRemovedSign       ctermbg=0  ctermfg=1
+hi CocExplorerGitDeleted   ctermbg=0  ctermfg=1
 hi CocGitTopRemovedSign    ctermbg=0  ctermfg=1
 hi CocHighlightText        ctermbg=18 ctermfg=2
 
