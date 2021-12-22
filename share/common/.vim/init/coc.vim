@@ -45,7 +45,7 @@ nmap <localleader>q       <Plug>(coc-refactor)
 nmap <localleader>R       <Plug>(coc-references)
 nmap <localleader>t       <Plug>(coc-type-definition)
 nmap <localleader><space> :<C-u>CocFzfList<CR>
-nmap <leader>\            :CocCommand explorer --toggle --sources=files+<CR>
+nmap <leader>\            :CocCommand explorer --toggle --sources=file+<CR>
 
 " autocmd
 autocmd CursorHold * silent call CocActionAsync('highlight')
