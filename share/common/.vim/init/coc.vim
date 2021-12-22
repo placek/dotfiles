@@ -1,4 +1,5 @@
 packadd coc-nvim
+packadd coc-fzf
 
 " functions
 function! s:show_documentation()
@@ -54,7 +55,7 @@ command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 command! -nargs=0 OR     :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " options
-let g:coc_global_extensions = ['coc-tag', 'coc-git', 'coc-fzf']
+let g:coc_global_extensions = ['coc-tag', 'coc-git']
 
 " colors
 hi CocGitAddedSign         ctermbg=0  ctermfg=2
