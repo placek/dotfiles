@@ -1,0 +1,18 @@
+{
+  "languageserver": {
+    "haskell": {
+      "command": "haskell-language-server",
+      "args": ["--lsp"],
+      "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
+      "filetypes": ["haskell", "lhaskell"]
+    }
+  },
+  "explorer": {
+    "width": 30,
+    "previewAction.onHover": false,
+    "file.root.template": "[icon] [fullpath]",
+    "keyMappings.global": {
+      "<cr>": ["wait", "expandable?", ["expanded?", "collapse", "expand"], "open"]
+    }
+  }
+}
