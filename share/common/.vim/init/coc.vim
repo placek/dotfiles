@@ -61,4 +61,18 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 command! -nargs=0 OR     :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" status
+set statusline=
+set statusline+=%#StatusLineMode#
+set statusline+=%{StatusLineMode()}
+set statusline+=%#StatusLineInfo#
+set statusline+=\ %n
+set statusline+=%#StatusLine#
+set statusline+=\ %f:%l:%c
+set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline+=%#StatusLineInfo#%=
+set statusline+=\ %m
+set statusline+=\ %y
+set statusline+=\ \[%{&fileencoding?&fileencoding:&encoding}\]
+set statusline+=\ \[%{&fileformat}\]
+set statusline+=\ \[%p%%\ %L\]
