@@ -1,5 +1,4 @@
 packadd nerdtree
-packadd supertab
 
 " functions
 function! s:getSelectedText()
@@ -64,6 +63,7 @@ set backspace=indent,eol,start
 set clipboard=unnamedplus
 set cmdheight=2
 set colorcolumn=80,160
+set completeopt=longest,menuone,noselect
 set cursorline
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
@@ -79,13 +79,17 @@ set laststatus=2
 set list
 set listchars=tab:»\ ,nbsp:␣,trail:·,extends:›,precedes:‹
 set mouse=a
+set nobackup
 set noshowmode
 set nospell
+set nowritebackup
 set number
+set omnifunc=syntaxcomplete#Complete
 set relativenumber
 set shiftwidth=2
 set shortmess=a
 set showcmd
+set signcolumn=yes
 set softtabstop=2
 set swapfile
 set tabstop=2
