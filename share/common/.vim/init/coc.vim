@@ -12,54 +12,57 @@ function! s:show_documentation()
 endfunction
 
 " mappings
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent>K        :call <SID>show_documentation()<CR>
+nmap <silent> [c          <Plug>(coc-git-prevconflict)
+nmap <silent> ]c          <Plug>(coc-git-nextconflict)
+nmap <silent> [g          <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g          <Plug>(coc-diagnostic-next)
+nmap <silent> [h          <Plug>(coc-git-prevchunk)
+nmap <silent> ]h          <Plug>(coc-git-nextchunk)
+xmap <silent> ic          <Plug>(coc-classobj-i)
+omap <silent> ic          <Plug>(coc-classobj-i)
+xmap <silent> ac          <Plug>(coc-classobj-a)
+omap <silent> ac          <Plug>(coc-classobj-a)
+xmap <silent> if          <Plug>(coc-funcobj-i)
+omap <silent> if          <Plug>(coc-funcobj-i)
+xmap <silent> af          <Plug>(coc-funcobj-a)
+omap <silent> af          <Plug>(coc-funcobj-a)
+omap <silent> ih          <Plug>(coc-git-chunk-inner)
+xmap <silent> ih          <Plug>(coc-git-chunk-inner)
+omap <silent> ah          <Plug>(coc-git-chunk-outer)
+xmap <silent> ah          <Plug>(coc-git-chunk-outer)
+nmap <localleader>a       <Plug>(coc-codeaction-cursor)
+nmap <localleader>c       <Plug>(coc-git-commit)
+nmap <localleader>d       <Plug>(coc-definition)
+nmap <localleader>f       <Plug>(coc-format)
+vmap <localleader>f       <Plug>(coc-format-selected)
+nmap <localleader>g       <Plug>(coc-diagnostic-info)
+nmap <localleader>h       <Plug>(coc-git-chunkinfo)
+nmap <localleader>i       <Plug>(coc-implementation)
+nmap <localleader>r       <Plug>(coc-rename)
+nmap <localleader>q       <Plug>(coc-refactor)
+nmap <localleader>R       <Plug>(coc-references)
+nmap <localleader>t       <Plug>(coc-type-definition)
+nmap <localleader><space> :<C-u>CocFzfList<CR>
 
-xmap <localleader>f  <Plug>(coc-format-selected)
-nmap <localleader>f  <Plug>(coc-format-selected)
-xmap <localleader>a  <Plug>(coc-codeaction-selected)
-nmap <localleader>a  <Plug>(coc-codeaction-selected)
-nmap <localleader>ac  <Plug>(coc-codeaction)
-nmap <localleader>qf  <Plug>(coc-fix-current)
-nmap <localleader>cl  <Plug>(coc-codelens-action)
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
+" autocmd
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" commands
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 command! -nargs=0 OR     :call CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+" options
+let g:coc_global_extensions = ['coc-tag', 'coc-git', 'coc-fzf']
+
+" colors
+hi CocGitAddedSign         ctermbg=0  ctermfg=2
+hi CocGitChangeRemovedSign ctermbg=0  ctermfg=3
+hi CocGitChangedSign       ctermbg=0  ctermfg=3
+hi CocGitRemovedSign       ctermbg=0  ctermfg=1
+hi CocGitTopRemovedSign    ctermbg=0  ctermfg=1
+hi CocHighlightText        ctermbg=18 ctermfg=2
 
 " status
 set statusline=
@@ -69,7 +72,7 @@ set statusline+=%#StatusLineInfo#
 set statusline+=\ %n
 set statusline+=%#StatusLine#
 set statusline+=\ %f:%l:%c
-set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline+=\ %{coc#status()}
 set statusline+=%#StatusLineInfo#%=
 set statusline+=\ %m
 set statusline+=\ %y

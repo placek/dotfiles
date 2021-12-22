@@ -1,4 +1,6 @@
 packadd nerdtree
+packadd tabular
+packadd vim-fugitive
 
 " functions
 function! s:getSelectedText()
@@ -136,6 +138,7 @@ nnoremap <leader>F  :find
 nnoremap <leader>gc :!git l<CR>
 nnoremap <leader>gf :!git ls-files<CR>
 nnoremap <leader>gs :!git st<CR>
+nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>h  :jumps<CR>
 nnoremap <leader>m  :marks<CR>
 nnoremap <leader>s  :set cursorbind!<CR>
