@@ -1,6 +1,7 @@
 packadd nerdtree
 packadd tabular
 packadd vim-fugitive
+packadd vim-signature
 
 " functions
 function! s:getSelectedText()
