@@ -46,6 +46,8 @@ nmap <localleader>R       <Plug>(coc-references)
 nmap <localleader>t       <Plug>(coc-type-definition)
 nmap <localleader><space> :<C-u>CocFzfList<CR>
 
+nmap <leader>\            :CocCommand explorer --toggle<CR>
+
 " autocmd
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -55,7 +57,7 @@ command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 command! -nargs=0 OR     :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " options
-let g:coc_global_extensions = ['coc-tag', 'coc-git']
+let g:coc_global_extensions = ['coc-tag', 'coc-git', 'coc-explorer']
 
 " colors
 hi CocGitAddedSign         ctermbg=0  ctermfg=2

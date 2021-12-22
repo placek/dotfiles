@@ -1,4 +1,3 @@
-packadd nerdtree
 packadd tabular
 packadd vim-fugitive
 packadd vim-signature
@@ -126,8 +125,6 @@ let g:NERDTreeMapOpenVSplit = "v"
 let g:NERDTreeMapPreviewVSplit = "gv"
 
 " mappings
-nnoremap <leader>/  :NERDTreeFind<CR>
-nnoremap <leader>\  :NERDTreeToggleVCS<CR>
 nnoremap <leader>1  :set number!<CR>
 nnoremap <leader>2  :set relativenumber!<CR>
 nnoremap <leader>3  :set hlsearch!<CR>
@@ -166,7 +163,6 @@ vnoremap <silent>g# :call <SID>placeComment()<CR>
 " commands
 command! -count MakeTags     call <SID>makeTags()
 command! -count Open         !open %
-command! -count ExploreFind  let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
 
 " colors
 hi clear StatusLineNC
