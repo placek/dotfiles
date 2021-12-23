@@ -13,7 +13,16 @@
         name         = "dotfiles";
         version      = "test";
         src          = ./.;
-        buildPhase   = "";
+        buildInputs  = [ pkgs.haskellPackages.mustache ];
+        buildPhase   = ''
+          export LANG=C.utf8
+          data_file="data.json"
+          for file in $(find . -name "*.mustache" -type f); do
+            target=$(echo $file | sed 's/\.mustache$//')
+            ${pkgs.haskellPackages.mustache}/bin/haskell-mustache $file $data_file > $target
+            rm -f $file
+          done
+        '';
         installPhase = ''
           mkdir -p $out
           cp -r {bin,share,data.json} $out
