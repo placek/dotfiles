@@ -3,20 +3,26 @@
 
   inputs = {
     nixpkgs.url  = "github:NixOS/nixpkgs/9e86f5f7a19db6da2445f07bafa6694b556f9c6d";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs }: {
-    defaultPackage.x86_64-linux = let
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
-    in pkgs.stdenv.mkDerivation {
-      name         = "dotfiles";
-      version      = "test";
-      src          = ./.;
-      buildPhase   = "";
-      installPhase = ''
-        mkdir -p $out
-        cp -r {bin,share,data.json} $out
-      '';
-    };
-  };
+  outputs = { self, nixpkgs, flake-utils, ... }: flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs     = import nixpkgs { inherit system; };
+      dotfiles = pkgs.stdenv.mkDerivation {
+        name         = "dotfiles";
+        version      = "test";
+        src          = ./.;
+        buildPhase   = "";
+        installPhase = ''
+          mkdir -p $out
+          cp -r {bin,share,data.json} $out
+        '';
+      };
+    in rec {
+      # defaultApp     = flake-utils.lib.mkApp { drv = defaultPackage; };
+      defaultPackage = dotfiles;
+      devShell       = pkgs.mkShell { buildInputs = [ dotfiles ]; };
+    }
+  );
 }
