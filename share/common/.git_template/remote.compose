@@ -1,9 +1,0 @@
-version: '3.8'
-services:
-  pair:
-    image: silquenarmo/pair_on_docker:latest
-    volumes:
-      - .:/home/pair/workspace
-    ports:
-      - "2222:22"
-

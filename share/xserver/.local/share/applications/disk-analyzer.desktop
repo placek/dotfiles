@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Disk usage
-GenericName=Disk Usage
-GenericName[pl]=Zużycie dysku
-Exec=kitty -e ncdu
-Icon=disk

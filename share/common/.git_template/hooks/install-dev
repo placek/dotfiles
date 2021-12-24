@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-[ -f .remote.compose ] || cp .git/remote.compose .remote.compose
-[ -f .local.compose ] || cp .git/local.compose .local.compose
-[ -f .local.image ] || cp .git/local.image .local.image
-touch .local.dev.env
-touch .local.test.env
-touch .authorized_keys
