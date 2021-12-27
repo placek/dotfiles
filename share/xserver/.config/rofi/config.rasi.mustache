@@ -1,6 +1,6 @@
 configuration {
   matching: "fuzzy";
-  location: 2;
+  location: south;
 }
 
 * {
@@ -13,46 +13,53 @@ configuration {
   selected-normal-foreground: #{{base00-hex}};
   font:                       "{{font}} {{font-size}}";
   prompt-font:                "{{font}} {{font-size}}";
-  prompt-padding:             {{border-half-size}}px 1em;
+  prompt-padding:             {{border-half-size}}px 0.5em;
 }
 
-#window {
-  anchor: north;
+window {
+  anchor:   north;
   location: north;
-  width: 100%;
-  padding: 0px;
+  border: 0px;
+  width:    100%;
+  padding:  0px;
   children: [ horibox ];
 }
 
-#horibox {
+horibox {
   orientation: horizontal;
   children: [ prompt, entry, listview ];
 }
 
-#prompt {
+prompt {
   padding:          @prompt-padding;
   background-color: @prompt-background;
   text-color:       @prompt-foreground;
   font:             @prompt-font;
 }
 
-#listview {
+listview {
   layout: horizontal;
   spacing: {{border-half-size}}px;
   lines: 100;
 }
 
-#entry {
+entry {
   padding: {{border-half-size}}px {{border-size}}px;
   expand: false;
   width: 10em;
 }
 
-#element {
-  padding: {{border-half-size}}px {{border-size}}px;
+element {
+  padding: 0px;
 }
 
-#element selected {
+element-text {
+  padding: 2px 4px;
+  background-color: @background-color;
+  text-color:       @text-color;
+}
+
+element-text selected {
   background-color: @selected-normal-background;
   text-color:       @selected-normal-foreground;
 }
