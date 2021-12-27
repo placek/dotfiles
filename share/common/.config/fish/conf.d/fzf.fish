@@ -60,15 +60,13 @@ function __fzf_search_current_dir --description "Search the current directory us
   commandline --function repaint
 end
 
-function __fzf_search_pids --description "Seach processes for their PID"
+function __fzf_search_pids --description "Search processes for their PID"
   set --local --export SHELL (command --search fish)
-  set pids_ids_selected (ps -eo pid,user,pcpu,pmem,comm 2>/dev/null | fzf --multi --ansi)
+  set pid_id_selected (ps -eo pid,user,pcpu,pmem,comm 2>/dev/null | fzf --ansi)
 
   if test $status -eq 0
-    for id in $pids_ids_selected
-      set escaped_id (string escape "$id" | cut -f2 -d' ')
-      commandline --insert "$escaped_id "
-    end
+    set escaped_id (string escape "$pid_id_selected" | cut -f2 -d' ')
+    commandline --insert "$escaped_id"
   end
 
   commandline --function repaint

@@ -119,10 +119,6 @@ set statusline+=\ \[%p%%\ %L\]
 " options
 let g:mapleader = "\\"
 let g:maplocalleader = ","
-let g:NERDTreeMapOpenSplit = "s"
-let g:NERDTreeMapPreviewSplit = "gs"
-let g:NERDTreeMapOpenVSplit = "v"
-let g:NERDTreeMapPreviewVSplit = "gv"
 
 " mappings
 nnoremap <leader>1  :set number!<CR>
@@ -177,9 +173,9 @@ hi Folded         ctermbg=6 ctermfg=0
 hi Pmenu          ctermbg=8
 hi Search         ctermbg=2 ctermfg=0
 hi SignColumn     ctermbg=0
-hi StatusLineMode ctermbg=16 ctermfg=0
 hi StatusLine     ctermbg=0 ctermfg=7 cterm=NONE
 hi StatusLineInfo ctermbg=0 ctermfg=8 cterm=BOLD
+hi StatusLineMode ctermbg=16 ctermfg=0
 hi TabLine        ctermbg=0 ctermfg=7 cterm=NONE
 hi TabLineFill    ctermbg=0 ctermfg=0
 hi TabLineSel     ctermbg=0 ctermfg=9 cterm=NONE
@@ -189,9 +185,7 @@ hi Visual         ctermbg=7 ctermfg=0
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
 autocmd! BufWritePre * :%s/\s\+$//e
-autocmd! FileType git nnoremap yy 0viwy
 autocmd! FileType make setlocal noexpandtab
-autocmd! FileType haskell packadd haskell-vim | syntax on
 
 " non-text files
 autocmd! BufRead,BufNewFile *.avi,*.mp4,*.mkv,*.mov,*.mpg set filetype=nontext
