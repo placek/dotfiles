@@ -38,7 +38,7 @@ case "$1" in
         target=$2
       fi
       if [ -d "$projects/$target" ] || [ -z "$target" ]; then
-        tmux -L projects new-session -d -s "$target" -c "$projects/$target" \; rename-window code \; set-option -g default-shell "$SHELL"
+        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; rename-window code \; set-option -g default-shell "$SHELL"
       else
         >&2 echo "projects: $target does not exist"
       fi
@@ -57,7 +57,7 @@ case "$1" in
         pushd "$projects/$target" || exit
           git init
         popd
-        tmux -L projects new-session -d -s "$target" -c "$projects/$target" \; rename-window code \; set-option -g default-shell "$SHELL"
+        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; rename-window code \; set-option -g default-shell "$SHELL"
       fi
     fi
     ;;
@@ -74,7 +74,7 @@ case "$1" in
         pushd "$projects"
           git clone "$uri"
         popd
-        tmux -L projects new-session -d -s "$target" -c "$projects/$target" \; rename-window code \; set-option -g default-shell "$SHELL"
+        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; rename-window code \; set-option -g default-shell "$SHELL"
       fi
     fi
     ;;
