@@ -1,4 +1,4 @@
-packadd coc-nvim
+packadd coc.nvim
 packadd coc-fzf
 
 " functions

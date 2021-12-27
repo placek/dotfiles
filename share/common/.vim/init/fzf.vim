@@ -1,5 +1,5 @@
 packadd fzf
-packadd fzf-vim
+packadd fzf.vim
 
 " functions
 function! s:buildQuickfixList(lines)
