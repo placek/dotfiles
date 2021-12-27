@@ -37,10 +37,6 @@ function __fzf_preview_file --argument-names file_path --description "Prints a p
   end
 end
 
-function __fzf_preview_todo --argument-names todo_id --description "Prints a preview for the given todo."
-  bat --style=numbers --color=always --language=Markdown "$HOME/.todo/$todo_id"
-end
-
 function __fzf_report_file_type --argument-names file_path file_type --description "Explain the file type for a file."
   set_color red
   echo "Cannot preview '$file_path': it is a $file_type."
@@ -64,16 +60,13 @@ function __fzf_search_current_dir --description "Search the current directory us
   commandline --function repaint
 end
 
-function __fzf_search_todos --description "Search todos using fzf and fd. Insert the selected task ID into the commandline at the cursor."
+function __fzf_search_pids --description "Seach processes for their PID"
   set --local --export SHELL (command --search fish)
-  set todo_ids_selected (
-    find $HOME/.todo -maxdepth 1 -type f 2>/dev/null | sed "s/^.*\///" |
-    fzf --multi --ansi --preview='__fzf_preview_todo {}'
-  )
+  set pids_ids_selected (ps -eo pid,user,pcpu,pmem,comm 2>/dev/null | fzf --multi --ansi)
 
   if test $status -eq 0
-    for id in $todo_ids_selected
-      set escaped_id (string escape "$id" | sed "s/^.*\///")
+    for id in $pids_ids_selected
+      set escaped_id (string escape "$id" | cut -f2 -d' ')
       commandline --insert "$escaped_id "
     end
   end
@@ -177,13 +170,13 @@ end
 bind \cf '__fzf_search_current_dir'
 bind \cr '__fzf_search_history'
 bind \cv '__fzf_search_shell_variables'
-bind \e\cl '__fzf_search_git_log'
-bind \e\cs '__fzf_search_git_status'
+bind \cl '__fzf_search_git_log'
+bind \cs '__fzf_search_git_status'
 
 bind --mode insert \cf '__fzf_search_current_dir'
 bind --mode insert \cr '__fzf_search_history'
 bind --mode insert \cv '__fzf_search_shell_variables'
-bind --mode insert \ct '__fzf_search_todos'
-bind --mode insert \e\cl '__fzf_search_git_log'
-bind --mode insert \e\cs '__fzf_search_git_status'
-bind --mode insert \e\cb '__fzf_search_git_branch'
+bind --mode insert \cp '__fzf_search_pids'
+bind --mode insert \cl '__fzf_search_git_log'
+bind --mode insert \cs '__fzf_search_git_status'
+bind --mode insert \cg '__fzf_search_git_branch'
