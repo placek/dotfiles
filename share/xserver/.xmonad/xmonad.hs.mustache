@@ -1,4 +1,4 @@
--- vim: set syntax=haskell
+-- vim: set filetype=haskell
 
 import Data.Monoid
 import Graphics.X11.ExtraTypes.XF86
@@ -123,7 +123,7 @@ myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}}
     ratio   = 2/3
     delta   = 3/100
 
-myManageHook = composeAll [ className =? "Gcr-prompter" --> doCenterFloat
+myManageHook = composeAll [ className =? "pinentry"     --> doCenterFloat
                           , className =? "qutebrowser"  --> doShift ( myWorkspaces !! 0 )
                           ] <+> namedScratchpadManageHook myScratchPads
 
