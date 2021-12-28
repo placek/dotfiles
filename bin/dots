@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 
-alias stow='/usr/bin/env stow'
-
-if ! command -v "stow" &> /dev/null; then
-  >&2 echo "dots: stow command could not be found"
-  exit 1
-fi
-
-script_file=$(realpath $0)
-script_dir=$(dirname $script_file)
-source_dir="$(dirname $script_dir)/share"
 dotfiles_dir=$HOME/.config/dotfiles
 target_dir=$HOME
 packets=$(ls -1 $source_dir)
@@ -17,17 +7,6 @@ packets=$(ls -1 $source_dir)
 [ ! -d "$target_dir" ] && mkdir -p "$target_dir"
 
 case "$1" in
-  i*)
-    rm -rf $dotfiles_dir
-    mkdir $dotfiles_dir
-    cp -rv $source_dir/* $dotfiles_dir
-    chmod -R +w $dotfiles_dir
-    for dir in $(find $source_dir/* -mindepth 1 -type d -printf "%P\n"); do
-      mkdir -p  $target_dir/$dir
-      chmod 700 $target_dir/$dir
-    done
-    ;;
-
   m*)
     shift
     if [ -z "$@" ]; then
@@ -56,6 +35,6 @@ case "$1" in
     ;;
 
   *)
-    >&2 echo "usage: dots [install|mount|umount|remount|help]"
+    >&2 echo "usage: dots [mount|umount|remount|help]"
     ;;
 esac
