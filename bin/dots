@@ -1,36 +1,33 @@
 #!/usr/bin/env bash
 
-dotfiles_dir=$HOME/.config/dotfiles
-target_dir=$HOME
-packets=$(ls -1 $source_dir)
-
-[ ! -d "$target_dir" ] && mkdir -p "$target_dir"
+dotfiles_dir=${DOTFILES_DIR:-"$HOME/.config/dotfiles"}
+packets=$(ls -1 "$dotfiles_dir")
 
 case "$1" in
   m*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$dotfiles_dir --target=$target_dir --verbose --stow $packets
+      stow --dir="$dotfiles_dir" --target="$HOME" --verbose --stow $packets
     else
-      stow --dir=$dotfiles_dir --target=$target_dir --verbose --stow $@
+      stow --dir="$dotfiles_dir" --target="$HOME" --verbose --stow $@
     fi
     ;;
 
   u*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$dotfiles_dir --target=$target_dir --verbose --delete $packets
+      stow --dir="$dotfiles_dir" --target="$HOME" --verbose --delete $packets
     else
-      stow --dir=$dotfiles_dir --target=$target_dir --verbose --delete $@
+      stow --dir="$dotfiles_dir" --target="$HOME" --verbose --delete $@
     fi
     ;;
 
   r*)
     shift
     if [ -z "$@" ]; then
-      stow --dir=$dotfiles_dir --target=$target_dir --verbose --restow $packets
+      stow --dir="$dotfiles_dir" --target="$HOME" --verbose --restow $packets
     else
-      stow --dir=$dotfiles_dir --target=$target_dir --verbose --restow $@
+      stow --dir="$dotfiles_dir" --target="$HOME" --verbose --restow $@
     fi
     ;;
 
