@@ -14,11 +14,21 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
-import XMonad.Util.NamedScratchpad
+import XMonad.Prompt
+import XMonad.Prompt.ConfirmPrompt
+import XMonad.Prompt.FuzzyMatch
+import XMonad.Prompt.Shell
+import XMonad.Util.Cursor
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 import qualified Data.Map        as M
+import qualified Data.Char       as C
+import qualified Data.List       as L
 import qualified XMonad.StackSet as W
+
+import Prompt.Clipboard
+import Prompt.Pass
+import Prompt.Phrase
 
 myBorderWidth        = {{border-size}}
 myClickJustFocuses   = False
@@ -32,6 +42,25 @@ macMap               = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))   
                                    , ((myModMask, xK_c), (controlMask, xK_c))                                      -- copy
                                    , ((myModMask, xK_v), (controlMask, xK_v))                                      -- paste
                                    ]
+
+myXPConfig :: XPConfig
+myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialias=true:hinting=true"
+                 , position          = Top
+                 , height            = 24
+                 , promptBorderWidth = 0
+                 , promptKeymap      = vimLikeXPKeymap' id (\prompt -> prompt ++ " \xE0B0 ") id C.isSpace
+                 , defaultPrompter   = \prompt -> prompt ++ " \xE0B1 "
+                 , historyFilter     = L.nub
+                 , historySize       = 9999
+                 , searchPredicate   = fuzzyMatch
+                 , sorter            = fuzzySort
+                 , maxComplRows      = Just 20
+                 , alwaysHighlight   = True
+                 , bgColor           = "#{{base00-hex}}"
+                 , fgColor           = "#{{base05-hex}}"
+                 , bgHLight          = "#{{base0A-hex}}"
+                 , fgHLight          = "#{{base00-hex}}"
+                 }
 
 myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     -- windows manipulation
@@ -55,18 +84,24 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
     , ((modm              , xK_f     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
     , ((modm .|. shiftMask, xK_f     ), refresh)                                                                   -- resize viewed windows to the correct size
-    -- utils submap
-    , ((modm, xK_space               ), submapDefault (spawn "rofi -modi drun -show drun") . M.fromList $
-       [ ((0, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
-       , ((0, xK_c                   ), spawn "rofi -modi 'clip:greenclip print' -show clip -run-command '{cmd}'") -- clipboard history
-       , ((0, xK_p                   ), spawn "rofi-pass")                                                         -- launch pass
-       , ((0, xK_a                   ), spawn "bash -c 'cat ~/.abbr | rofi -dmenu | xargs xdotool type'")          -- run abbreviations
-       , ((modm, xK_m                ), namedScratchpadAction myScratchPads "mail")                                -- run mail scratchpad
-       ])
+    -- utils
+    , ((modm .|. shiftMask, xK_c     ), clipboardPrompt myXPConfig)                                                -- clipboard history
+    , ((modm, xK_a                   ), phrasePrompt myXPConfig)                                                   -- abbreviations selector
+    , ((modm, xK_space               ), shellPrompt myXPConfig)                                                    -- run command
+    , ((modm, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+    -- pass submap
+    , ((modm , xK_p                  ), submapDefault (passPrompt myXPConfig) . M.fromList $
+      [ ((0, xK_p                    ), passAutocompletePrompt myXPConfig)
+      , ((0, xK_l                    ), passLoginPrompt myXPConfig)
+      , ((0, xK_u                    ), passUrlPrompt myXPConfig)
+      , ((0, xK_g                    ), passGeneratePrompt myXPConfig)
+      , ((0, xK_e                    ), passEditPrompt myXPConfig)
+      , ((0, xK_r                    ), passRemovePrompt myXPConfig)
+      ])
     -- quit submap
     , ((modm, xK_q                   ), submap . M.fromList $
        [ ((modm, xK_q                ), kill1)                                                                     -- close focused window or just remove a current copy of it
-       , ((modm, xK_x                ), io exitSuccess)                                                            -- quit xmonad
+       , ((modm, xK_x                ), confirmPrompt myXPConfig "logout" $ io (exitWith ExitSuccess))             -- quit xmonad
        , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
        ])
     -- notifications submap
@@ -97,10 +132,10 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1..]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask), (copy, shiftMask .|. controlMask)]]
     ++
-    -- mod-{w,e,r}, switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{w,e,r}, move client to screen 1, 2, or 3
+    -- mod-{i,o}, switch to screens 1 or 2
+    -- mod-shift-{i,o}, move client to screen 1 or 2
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_i, xK_o, xK_p] [0..]
+        | (key, sc) <- zip [xK_i, xK_o] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
     -- remap for mac-like bindings
@@ -125,7 +160,7 @@ myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}}
 
 myManageHook = composeAll [ className =? "pinentry"     --> doCenterFloat
                           , className =? "qutebrowser"  --> doShift ( myWorkspaces !! 0 )
-                          ] <+> namedScratchpadManageHook myScratchPads
+                          ]
 
 workspaceNames :: [String]
 workspaceNames = ["\xF43F", "\xF445", "\xF447", "\xF441", "\xF443"]
@@ -133,13 +168,6 @@ workspaceNames = ["\xF43F", "\xF445", "\xF447", "\xF441", "\xF443"]
 myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
   where clickable (k, w) = xmobarAction ("xdotool key super+" ++ show k) "1" w
-
-myScratchPads :: [NamedScratchpad]
-myScratchPads = [ NS "mail"  spawnMail findMail manageMail ]
-  where
-    spawnMail  = "mail-gui"
-    findMail   = title =? "mail"
-    manageMail = customFloating $ W.RationalRect (1/6) (1/6)  (2/3) (2/3)
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -157,11 +185,12 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppExtras          = [windowCount]
                                              }
   where layout a = case a of
-          "Spacing Tall"        -> "█ "
-          "Spacing Mirror Tall" -> "▀▀"
-          "Spacing Full"        -> "██"
+          "Spacing Tall"        -> "<fn=1>\xf338</fn>"
+          "Spacing Mirror Tall" -> "<fn=1>\xf337</fn>"
+          "Spacing Full"        -> "<fn=1>\xf31e</fn>"
 
 myStartupHook = do
+  setDefaultCursor xC_left_ptr
   setDefaultKeyRemap macMap [macMap, emptyKeyRemap]
   spawnOnce "exec ~/.fehbg &"
   spawnOnce "xinput set-prop 11 'libinput Natural Scrolling Enabled' 1 &"
