@@ -7,7 +7,8 @@ module Prompt.Pass ( passPrompt
                    , passEditPrompt
                    ) where
 
-import qualified Data.List        as L
+import qualified Data.List        as List
+import qualified Data.Maybe       as Maybe
 import           System.Directory (getHomeDirectory)
 import           System.FilePath  (combine, dropExtension, takeExtension)
 import           System.Posix.Env (getEnv)
@@ -105,12 +106,12 @@ typePassword passLabel = do
 typeLogin :: String -> X ()
 typeLogin passLabel = do
   output <- io $ runPass [ escapeQuote passLabel ]
-  M.maybe (return ()) typeString $ extractField "user: " output
+  Maybe.maybe (return ()) typeString $ extractField "user: " output
 
 typeUrl :: String -> X ()
 typeUrl passLabel = do
   output <- io $ runPass [ escapeQuote passLabel ]
-  M.maybe (return ()) typeString $ extractField "url: " output
+  Maybe.maybe (return ()) typeString $ extractField "url: " output
 
 -- utils
 void :: IO a -> X ()
@@ -120,10 +121,10 @@ typeString :: String -> X ()
 typeString text = spawn $ "echo -n \"" ++ escapeQuote text ++ "\" | xdotool type --clearmodifiers --file -"
 
 extractField :: String -> [String] -> Maybe String
-extractField phrase input = (L.\\ phrase) <$> L.find (L.isPrefixOf phrase) input
+extractField phrase input = (List.\\ phrase) <$> List.find (List.isPrefixOf phrase) input
 
 runPass :: [String] -> IO [String]
-runPass inputs = L.lines <$> runProcessWithInput "pass" inputs []
+runPass inputs = List.lines <$> runProcessWithInput "pass" inputs []
 
 escapeQuote :: String -> String
 escapeQuote = concatMap escape

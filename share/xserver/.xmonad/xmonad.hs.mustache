@@ -1,34 +1,34 @@
 -- vim: set filetype=haskell
 
-import Data.Monoid
-import Graphics.X11.ExtraTypes.XF86
-import System.Exit
-import XMonad
-import XMonad.Actions.CopyWindow
-import XMonad.Actions.CycleWS
-import XMonad.Actions.KeyRemap
-import XMonad.Actions.Submap
-import XMonad.Config.Desktop
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Spacing
-import XMonad.Prompt
-import XMonad.Prompt.ConfirmPrompt
-import XMonad.Prompt.FuzzyMatch
-import XMonad.Prompt.Shell
-import XMonad.Util.Cursor
-import XMonad.Util.Run
-import XMonad.Util.SpawnOnce
-import qualified Data.Map        as M
-import qualified Data.Char       as C
-import qualified Data.List       as L
-import qualified XMonad.StackSet as W
+import qualified Data.Char                    as Char
+import qualified Data.List                    as List
+import qualified Data.Map                     as Map
+import           Data.Monoid
+import           Graphics.X11.ExtraTypes.XF86
+import           System.Exit
+import           XMonad
+import           XMonad.Actions.CopyWindow
+import           XMonad.Actions.CycleWS
+import           XMonad.Actions.KeyRemap
+import           XMonad.Actions.Submap
+import           XMonad.Config.Desktop
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.Spacing
+import           XMonad.Prompt
+import           XMonad.Prompt.ConfirmPrompt
+import           XMonad.Prompt.FuzzyMatch
+import           XMonad.Prompt.Shell
+import qualified XMonad.StackSet              as W
+import           XMonad.Util.Cursor
+import           XMonad.Util.Run
+import           XMonad.Util.SpawnOnce
 
-import Prompt.Clipboard
-import Prompt.Pass
-import Prompt.Phrase
+import           Prompt.Clipboard
+import           Prompt.Pass
+import           Prompt.Phrase
 
 myBorderWidth        = {{border-size}}
 myClickJustFocuses   = False
@@ -48,9 +48,9 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , position          = Top
                  , height            = 24
                  , promptBorderWidth = 0
-                 , promptKeymap      = vimLikeXPKeymap' id (\prompt -> prompt ++ " \xE0B0 ") id C.isSpace
+                 , promptKeymap      = vimLikeXPKeymap' id (\prompt -> prompt ++ " \xE0B0 ") id Char.isSpace
                  , defaultPrompter   = \prompt -> prompt ++ " \xE0B1 "
-                 , historyFilter     = L.nub
+                 , historyFilter     = List.nub
                  , historySize       = 9999
                  , searchPredicate   = fuzzyMatch
                  , sorter            = fuzzySort
@@ -62,7 +62,7 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , fgHLight          = "#{{base00-hex}}"
                  }
 
-myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
+myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     -- windows manipulation
     [ ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
     , ((modm              , xK_Right ), nextWS)                                                                    -- go to next workspace
@@ -90,7 +90,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm, xK_space               ), shellPrompt myXPConfig)                                                    -- run command
     , ((modm, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
     -- pass submap
-    , ((modm , xK_p                  ), submapDefault (passPrompt myXPConfig) . M.fromList $
+    , ((modm , xK_p                  ), submapDefault (passPrompt myXPConfig) . Map.fromList $
       [ ((0, xK_p                    ), passAutocompletePrompt myXPConfig)
       , ((0, xK_l                    ), passLoginPrompt myXPConfig)
       , ((0, xK_u                    ), passUrlPrompt myXPConfig)
@@ -99,13 +99,13 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
       , ((0, xK_r                    ), passRemovePrompt myXPConfig)
       ])
     -- quit submap
-    , ((modm, xK_q                   ), submap . M.fromList $
+    , ((modm, xK_q                   ), submap . Map.fromList $
        [ ((modm, xK_q                ), kill1)                                                                     -- close focused window or just remove a current copy of it
        , ((modm, xK_x                ), confirmPrompt myXPConfig "logout" $ io (exitWith ExitSuccess))             -- quit xmonad
        , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
        ])
     -- notifications submap
-    , ((modm, xK_Escape              ), submap . M.fromList $
+    , ((modm, xK_Escape              ), submap . Map.fromList $
        [ ((modm .|. shiftMask, xK_q  ), spawn "dunstctl close-all")                                                -- close all notifications
        , ((modm, xK_q                ), spawn "dunstctl set-paused toggle")                                        -- toggle notifications
        , ((modm, xK_Escape           ), spawn "dunstctl history-pop")                                              -- pop notification from history
@@ -125,9 +125,9 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((0, xF86XK_PowerOff           ), spawn "slock")
     ]
     ++
-    -- mod-[1..4], switch to workspace N
-    -- mod-shift-[1..4], move client to workspace N
-    -- mod-shift-control-[1..4], copy client to workspace N
+    -- mod-[1..5], switch to workspace N
+    -- mod-shift-[1..5], move client to workspace N
+    -- mod-shift-control-[1..5], copy client to workspace N
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1..]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask), (copy, shiftMask .|. controlMask)]]
@@ -141,7 +141,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     -- remap for mac-like bindings
     buildKeyRemapBindings [macMap]
 
-myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
+myMouseBindings XConfig {XMonad.modMask = modm} = Map.fromList
     [ ((modm, button1), \w -> focus w >> mouseMoveWindow w       -- set the window to floating mode and move by dragging
                                       >> windows W.shiftMaster)
     , ((modm, button2), \w -> focus w >> windows W.shiftMaster)  -- raise the window to the top of the stack
