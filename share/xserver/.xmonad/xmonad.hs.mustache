@@ -86,7 +86,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm .|. shiftMask, xK_f     ), refresh)                                                                   -- resize viewed windows to the correct size
     -- utils submap
     , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $                    -- run command prompt
-      [ ((modm .|. shiftMask, xK_c   ), clipboardPrompt myXPConfig)                                                -- clipboard history prompt
+      [ ((modm, xK_c                 ), clipboardPrompt myXPConfig)                                                -- clipboard history prompt
       , ((modm, xK_a                 ), phrasePrompt myXPConfig)                                                   -- abbreviations prompt
       , ((modm, xK_p                 ), passPrompt myXPConfig)                                                     -- password prompt
       , ((modm, xK_Return            ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
