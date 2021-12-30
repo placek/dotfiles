@@ -51,7 +51,6 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , promptKeymap      = vimLikeXPKeymap' id (\prompt -> prompt ++ " \xE0B0 ") id Char.isSpace
                  , defaultPrompter   = \prompt -> prompt ++ " \xE0B1 "
                  , historyFilter     = List.nub
-                 , historySize       = 9999
                  , searchPredicate   = fuzzyMatch
                  , sorter            = fuzzySort
                  , maxComplRows      = Just 20
@@ -60,6 +59,7 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , fgColor           = "#{{base05-hex}}"
                  , bgHLight          = "#{{base0A-hex}}"
                  , fgHLight          = "#{{base00-hex}}"
+                 , changeModeKey         = xK_space
                  }
 
 myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
@@ -84,19 +84,12 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
     , ((modm              , xK_f     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
     , ((modm .|. shiftMask, xK_f     ), refresh)                                                                   -- resize viewed windows to the correct size
-    -- utils
-    , ((modm .|. shiftMask, xK_c     ), clipboardPrompt myXPConfig)                                                -- clipboard history
-    , ((modm, xK_a                   ), phrasePrompt myXPConfig)                                                   -- abbreviations selector
-    , ((modm, xK_space               ), shellPrompt myXPConfig)                                                    -- run command
-    , ((modm, xK_Return              ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
-    -- pass submap
-    , ((modm , xK_p                  ), submapDefault (passPrompt myXPConfig) . Map.fromList $
-      [ ((0, xK_p                    ), passAutocompletePrompt myXPConfig)
-      , ((0, xK_l                    ), passLoginPrompt myXPConfig)
-      , ((0, xK_u                    ), passUrlPrompt myXPConfig)
-      , ((0, xK_g                    ), passGeneratePrompt myXPConfig)
-      , ((0, xK_e                    ), passEditPrompt myXPConfig)
-      , ((0, xK_r                    ), passRemovePrompt myXPConfig)
+    -- utils submap
+    , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $                    -- run command prompt
+      [ ((modm .|. shiftMask, xK_c   ), clipboardPrompt myXPConfig)                                                -- clipboard history prompt
+      , ((modm, xK_a                 ), phrasePrompt myXPConfig)                                                   -- abbreviations prompt
+      , ((modm, xK_p                 ), passPrompt myXPConfig)                                                     -- password prompt
+      , ((modm, xK_Return            ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
       ])
     -- quit submap
     , ((modm, xK_q                   ), submap . Map.fromList $
