@@ -26,6 +26,7 @@ import           XMonad.Util.Cursor
 import           XMonad.Util.Run
 import           XMonad.Util.SpawnOnce
 
+import           Prompt.Apps
 import           Prompt.Clipboard
 import           Prompt.Pass
 import           Prompt.Phrase
@@ -87,6 +88,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     -- utils submap
     , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $                    -- run command prompt
       [ ((modm, xK_c                 ), clipboardPrompt myXPConfig)                                                -- clipboard history prompt
+      , ((modm, xK_r                 ), appsPrompt myXPConfig)                                                   -- abbreviations prompt
       , ((modm, xK_a                 ), phrasePrompt myXPConfig)                                                   -- abbreviations prompt
       , ((modm, xK_p                 ), passPrompt myXPConfig)                                                     -- password prompt
       , ((modm, xK_Return            ), spawn $ XMonad.terminal conf)                                              -- launch a terminal

@@ -35,8 +35,7 @@ instance XPrompt Pass where
   nextCompletion _ = getNextCompletion
 
   completionFunction (Pass _ c) s = do
-    dir       <- passwordStoreFolder
-    passwords <- getPasswords dir
+    passwords <- getPasswords
     return $ filter (searchPredicate c $ s) passwords
 
   modeAction (Pass t _) a _ = actionFor t a
@@ -133,19 +132,17 @@ escapeQuote = concatMap escape
         escape '"' = "\\\""
         escape x   = [x]
 
-passwordStoreFolderDefault :: String -> String
-passwordStoreFolderDefault home = combine home ".password-store"
-
-passwordStoreFolder :: IO String
-passwordStoreFolder =
-  getEnv "PASSWORD_STORE_DIR" >>= computePasswordStoreDir
-  where computePasswordStoreDir Nothing         = fmap passwordStoreFolderDefault getHomeDirectory
-        computePasswordStoreDir (Just storeDir) = return storeDir
-
-getPasswords :: FilePath -> IO [String]
-getPasswords passwordStoreDir = do
-  files <- runProcessWithInput "find" ["-L", passwordStoreDir, "-type", "f", "-name", "*.gpg", "-printf", "%P\n"] []
+getPasswords :: IO [String]
+getPasswords = do
+  dir   <- passwordStoreDir
+  files <- runProcessWithInput "find" ["-L", dir, "-type", "f", "-name", "*.gpg", "-printf", "%P\n"] []
   return . map removeGpgExtension $ lines files
+
+passwordStoreDir :: IO String
+passwordStoreDir =
+  getEnv "PASSWORD_STORE_DIR" >>= computePasswordStoreDir
+  where computePasswordStoreDir Nothing         = (`combine` ".password-store") <$> getHomeDirectory
+        computePasswordStoreDir (Just storeDir) = return storeDir
 
 removeGpgExtension :: String -> String
 removeGpgExtension file | takeExtension file == ".gpg" = dropExtension file

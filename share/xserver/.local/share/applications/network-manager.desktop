@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Network manager
-GenericName=Network Manager
-GenericName[pl]=Menadżer sieci
-Exec=kitty -e nmtui
-Icon=network
