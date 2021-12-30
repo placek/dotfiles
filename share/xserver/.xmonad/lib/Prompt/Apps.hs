@@ -6,6 +6,7 @@ import           XMonad.Core
 import           XMonad.Prompt    (XPConfig, XPrompt, commandToComplete,
                                    getNextCompletion, mkXPrompt, nextCompletion,
                                    searchPredicate, showXPrompt)
+import           XMonad.Util.Run (runProcessWithInput)
 
 type Predicate = String -> String -> Bool
 
