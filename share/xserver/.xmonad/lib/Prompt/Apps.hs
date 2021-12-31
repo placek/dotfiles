@@ -1,7 +1,7 @@
 module Prompt.Apps (appsPrompt) where
 
 import           System.Directory (getHomeDirectory)
-import           System.FilePath  (combine)
+import           System.FilePath  (combine, dropExtension, takeExtension)
 import           XMonad.Core
 import           XMonad.Prompt    (XPConfig, XPrompt, commandToComplete,
                                    getNextCompletion, mkXPrompt, nextCompletion,
@@ -26,7 +26,7 @@ appsPrompt xpconfig = do
   mkXPrompt App xpconfig (getCompl apps $ searchPredicate xpconfig) selectApp
 
 selectApp :: String -> X ()
-selectApp app = spawn $ "opendesktop " ++ escapeQuote app
+selectApp app = spawn $ "opendesktop .local/share/applications/" ++ escapeQuote app ++ ".desktop"
 
 escapeQuote :: String -> String
 escapeQuote = concatMap escape
@@ -38,4 +38,8 @@ getApps :: IO [String]
 getApps = do
   home  <- getHomeDirectory
   files <- runProcessWithInput "find" [combine home ".local/share/applications/", "-type", "f", "-name", "*.desktop", "-printf", "%P\n"] []
-  return . lines $ files
+  return . map removeDesktopExtension $ lines files
+
+removeDesktopExtension :: String -> String
+removeDesktopExtension file | takeExtension file == ".desktop" = dropExtension file
+                            | otherwise                        = file
