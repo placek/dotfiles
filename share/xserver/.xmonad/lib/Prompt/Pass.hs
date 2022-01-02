@@ -73,12 +73,12 @@ passwordAction passLabel = do
 loginAction :: String -> X ()
 loginAction passLabel = do
   credential <- fetchCredential passLabel
-  typeString $ field "user" credential
+  typeString $ credential >>= field "user"
 
 urlAction :: String -> X ()
 urlAction passLabel = do
   credential <- fetchCredential passLabel
-  typeString $ field "url" credential
+  typeString $ credential >>= field "url"
 
 generateAction :: String -> X ()
 generateAction passLabel = do
@@ -99,25 +99,25 @@ removalAction passLabel = do
 copyOTP :: String -> X ()
 copyOTP passLabel = spawn $ "pass otp --clip \"" ++ escapeQuote passLabel ++ "\""
 
+typeString :: Either String String -> X ()
+typeString input = case input of
+                     Right text -> spawn $ "echo -n \"" ++ escapeQuote text ++ "\" | xdotool type --clearmodifiers --file -"
+                     Left  err  -> spawn $ "xmessage \"" ++ escapeQuote err ++ "\""
+
 typeLoginAndPassword :: String -> X ()
 typeLoginAndPassword passLabel = do
   credential <- fetchCredential passLabel
-  typeString . sequence $ [field "user" credential, Just "\t", password credential]
+  typeString . fmap concat . sequence $ [credential >>= field "user", Right "\t", fmap password credential]
 
 typePassword :: String -> X ()
 typePassword passLabel = do
   credential <- fetchCredential passLabel
-  typeString $ password credential
+  typeString $ password <$> credential
 
-typeString :: Maybe String -> X ()
-typeString input = case input of
-                     Just text -> spawn $ "echo -n \"" ++ escapeQuote text ++ "\" | xdotool type --clearmodifiers --file -"
-                     Nothing   -> return ()
-
-fetchCredential :: String -> X Credential
+fetchCredential :: String -> X (Either String Credential)
 fetchCredential passLabel = do
-  output <- io $ runPass [ escapeQuote passLabel ]
-  either (fail . show) return $ Password.parse passLabel output
+  output <- io $ runPass [escapeQuote passLabel]
+  return $ either (Left . show) Right (parse passLabel output)
 
 runPass :: [String] -> IO String
 runPass args = runProcessWithInput "pass" args []
