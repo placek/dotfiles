@@ -39,10 +39,6 @@ myFocusedBorderColor = "#{{base09-hex}}"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#{{base00-hex}}"
 myTerminal           = "kitty"
-macMap               = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))                                      -- cut
-                                   , ((myModMask, xK_c), (controlMask, xK_c))                                      -- copy
-                                   , ((myModMask, xK_v), (controlMask, xK_v))                                      -- paste
-                                   ]
 
 myXPConfig :: XPConfig
 myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialias=true:hinting=true"
@@ -62,6 +58,11 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , fgHLight          = "#{{base00-hex}}"
                  , changeModeKey         = xK_space
                  }
+
+macMap = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))                                                    -- cut
+                     , ((myModMask, xK_c), (controlMask, xK_c))                                                    -- copy
+                     , ((myModMask, xK_v), (controlMask, xK_v))                                                    -- paste
+                     ]
 
 myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     -- windows manipulation
@@ -86,12 +87,11 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm              , xK_f     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
     , ((modm .|. shiftMask, xK_f     ), refresh)                                                                   -- resize viewed windows to the correct size
     -- utils submap
-    , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $                    -- run command prompt
-      [ ((modm, xK_c                 ), clipboardPrompt myXPConfig)                                                -- clipboard history prompt
-      , ((modm, xK_r                 ), appsPrompt myXPConfig)                                                   -- abbreviations prompt
-      , ((modm, xK_a                 ), phrasePrompt myXPConfig)                                                   -- abbreviations prompt
-      , ((modm, xK_p                 ), passPrompt myXPConfig)                                                     -- password prompt
-      , ((modm, xK_Return            ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+    , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $                     -- run application prompt
+      [ ((0, xK_c                    ), clipboardPrompt myXPConfig)                                                -- clipboard history prompt
+      , ((0, xK_a                    ), phrasePrompt myXPConfig)                                                   -- abbreviations prompt
+      , ((0, xK_p                    ), passPrompt myXPConfig)                                                     -- password prompt
+      , ((0, xK_Return               ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
       ])
     -- quit submap
     , ((modm, xK_q                   ), submap . Map.fromList $

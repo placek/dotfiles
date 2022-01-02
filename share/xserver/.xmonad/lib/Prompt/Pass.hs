@@ -1,13 +1,17 @@
 module Prompt.Pass (passPrompt) where
 
-import qualified Data.List        as List
-import qualified Data.Maybe       as Maybe
-import           System.Directory (getHomeDirectory)
-import           System.FilePath  (combine, dropExtension, takeExtension)
-import           System.Posix.Env (getEnv)
+import           Data.Either            (either)
+import qualified Data.List              as List
+import qualified Data.Map               as Map
+import qualified Data.Maybe             as Maybe
+import           System.Directory       (getHomeDirectory)
+import           System.FilePath        (combine, dropExtension, takeExtension)
+import           System.Posix.Env       (getEnv)
 import           XMonad.Core
 import           XMonad.Prompt
-import           XMonad.Util.Run  (runProcessWithInput)
+import           XMonad.Util.Run        (runProcessWithInput)
+
+import           Prompt.Pass.Credential
 
 data PromptType = Autocompletion | Password | Login | Url | Generator | Editor | Removal
 
@@ -21,11 +25,6 @@ instance Show PromptType where
   show Removal        = "Remove password"
 
 data Pass = Pass PromptType XPConfig
-
-data Credential = Credential { password :: Maybe String
-                             , login    :: Maybe String
-                             , url      :: Maybe String
-                             }
 
 instance XPrompt Pass where
   showXPrompt (Pass t _) = show t
@@ -73,13 +72,13 @@ passwordAction passLabel = do
 
 loginAction :: String -> X ()
 loginAction passLabel = do
-  output <- io $ fetchCredential passLabel
-  typeString . login $ output
+  credential <- fetchCredential passLabel
+  typeString $ field "user" credential
 
 urlAction :: String -> X ()
 urlAction passLabel = do
-  output <- io $ fetchCredential passLabel
-  typeString . url $ output
+  credential <- fetchCredential passLabel
+  typeString $ field "url" credential
 
 generateAction :: String -> X ()
 generateAction passLabel = do
@@ -102,29 +101,26 @@ copyOTP passLabel = spawn $ "pass otp --clip \"" ++ escapeQuote passLabel ++ "\"
 
 typeLoginAndPassword :: String -> X ()
 typeLoginAndPassword passLabel = do
-  output <- io $ fetchCredential passLabel
-  typeString $ (\a b c -> a ++ b ++ c) <$> login output <*> Just "\t" <*> password output
+  credential <- fetchCredential passLabel
+  typeString . sequence $ [field "user" credential, Just "\t", password credential]
 
 typePassword :: String -> X ()
 typePassword passLabel = do
-  output <- io $ fetchCredential passLabel
-  typeString . password $ output
+  credential <- fetchCredential passLabel
+  typeString $ password credential
 
 typeString :: Maybe String -> X ()
 typeString input = case input of
                      Just text -> spawn $ "echo -n \"" ++ escapeQuote text ++ "\" | xdotool type --clearmodifiers --file -"
                      Nothing   -> return ()
 
-fetchCredential :: String -> IO Credential
+fetchCredential :: String -> X Credential
 fetchCredential passLabel = do
-  output <- runPass [ escapeQuote passLabel ]
-  return $ Credential (safeHead output) (extractField "user: " output) (extractField "url: " output)
+  output <- io $ runPass [ escapeQuote passLabel ]
+  either (fail . show) return $ Password.parse passLabel output
 
-runPass :: [String] -> IO [String]
-runPass args = List.lines <$> runProcessWithInput "pass" args []
-
-extractField :: String -> [String] -> Maybe String
-extractField phrase input = (List.\\ phrase) <$> List.find (List.isPrefixOf phrase) input
+runPass :: [String] -> IO String
+runPass args = runProcessWithInput "pass" args []
 
 escapeQuote :: String -> String
 escapeQuote = concatMap escape
@@ -147,7 +143,3 @@ passwordStoreDir =
 removeGpgExtension :: String -> String
 removeGpgExtension file | takeExtension file == ".gpg" = dropExtension file
                         | otherwise                    = file
-
-safeHead :: [a] -> Maybe a
-safeHead [] = Nothing
-safeHead (x:_) = Just x
