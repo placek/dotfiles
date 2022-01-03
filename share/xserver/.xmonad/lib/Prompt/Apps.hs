@@ -18,7 +18,6 @@ data App = App
 instance XPrompt App where
   showXPrompt App = "Application"
   commandToComplete _ c = c
-  nextCompletion _ = getNextCompletion
 
 appsPrompt :: XPConfig -> X ()
 appsPrompt xpconfig = do

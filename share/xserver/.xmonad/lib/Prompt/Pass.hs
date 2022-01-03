@@ -31,8 +31,6 @@ instance XPrompt Pass where
 
   commandToComplete _ c = c
 
-  nextCompletion _ = getNextCompletion
-
   completionFunction (Pass _ c) s = do
     passwords <- getPasswords
     return $ filter (searchPredicate c $ s) passwords

@@ -16,7 +16,6 @@ data Clipboard = Clipboard
 instance XPrompt Clipboard where
   showXPrompt       Clipboard = "Clipboard"
   commandToComplete _ c       = c
-  nextCompletion      _       = getNextCompletion
 
 clipboardPrompt :: XPConfig -> X ()
 clipboardPrompt xpconfig = do

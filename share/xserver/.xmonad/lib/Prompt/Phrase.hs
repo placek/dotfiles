@@ -17,7 +17,6 @@ data Phrase = Phrase
 instance XPrompt Phrase where
   showXPrompt          Phrase = "Phrase"
   commandToComplete _ c       = c
-  nextCompletion      _       = getNextCompletion
 
 phrasePrompt :: XPConfig -> X ()
 phrasePrompt xpconfig = do
