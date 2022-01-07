@@ -1,37 +1,29 @@
 module Prompt.Clipboard (clipboardPrompt) where
 
 import           XMonad.Core
-import           XMonad.Prompt   (XPConfig, XPrompt, commandToComplete,
-                                  getNextCompletion, mkXPrompt, nextCompletion,
-                                  searchPredicate, showXPrompt)
+import           XMonad.Prompt
 import           XMonad.Util.Run (runProcessWithInput)
 
-type Predicate = String -> String -> Bool
-
-getClipCompl :: [String] -> Predicate -> String -> IO [String]
-getClipCompl compls p s = return $ filter (p s) compls
-
-data Clipboard = Clipboard
+data Clipboard = Clipboard XPConfig
 
 instance XPrompt Clipboard where
-  showXPrompt       Clipboard = "Clipboard"
-  commandToComplete _ c       = c
+  showXPrompt (Clipboard _) = "Clipboard"
+
+  commandToComplete _ c = c
+
+  nextCompletion _ = getNextCompletion
+
+  completionFunction (Clipboard c) s = do
+    clips <- runProcessWithInput "greenclip" ["print"] []
+    return $ filter ((searchPredicate c) s) (lines clips)
+
+  modeAction _ a _ = spawn $ "greenclip print \"" ++ escapeQuote a ++ "\""
 
 clipboardPrompt :: XPConfig -> X ()
-clipboardPrompt xpconfig = do
-  clips <- io getClips
-  mkXPrompt Clipboard xpconfig (getClipCompl clips $ searchPredicate xpconfig) selectClip
-
-selectClip :: String -> X ()
-selectClip clip = spawn $ "greenclip print \"" ++ escapeQuote clip ++ "\""
+clipboardPrompt xpconfig = mkXPromptWithModes [XPT $ Clipboard xpconfig] xpconfig
 
 escapeQuote :: String -> String
 escapeQuote = concatMap escape
   where escape :: Char -> String
         escape '"' = "\\\""
         escape x   = [x]
-
-getClips :: IO [String]
-getClips = do
-  clips <- runProcessWithInput "greenclip" ["print"] []
-  return . lines $ clips
