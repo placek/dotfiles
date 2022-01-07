@@ -3,9 +3,10 @@ module Prompt.Pass.Credential (Credential (..), field, parse) where
 import qualified Data.Map    as Map
 import qualified Text.Parsec as Parsec
 
-data Credential = Credential { password :: String
-                             , fields   :: Map.Map String String
-                             } deriving Show
+data Credential =
+  Credential { password :: String
+             , fields   :: Map.Map String String
+             } deriving Show
 
 field :: String -> Credential -> Either String String
 field s c = case Map.lookup s $ fields c of
