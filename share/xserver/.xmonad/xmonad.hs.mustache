@@ -28,6 +28,7 @@ import           XMonad.Util.SpawnOnce
 import           Prompt.Clipboard
 import           Prompt.Pass
 import           Prompt.Phrase
+import           Prompt.UDisks
 
 myBorderWidth        = {{border-size}}
 myClickJustFocuses   = False
@@ -85,10 +86,11 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm              , xK_f     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
     , ((modm .|. shiftMask, xK_f     ), refresh)                                                                   -- resize viewed windows to the correct size
     -- utils submap
-    , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $                     -- run application prompt
+    , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $                    -- run application prompt
       [ ((0, xK_c                    ), clipboardPrompt myXPConfig)                                                -- clipboard history prompt
       , ((0, xK_a                    ), phrasePrompt myXPConfig)                                                   -- abbreviations prompt
       , ((0, xK_p                    ), passPrompt myXPConfig)                                                     -- password prompt
+      , ((0, xK_m                    ), udisksPrompt myXPConfig)                                                   -- udisks prompt
       , ((0, xK_Return               ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
       ])
     -- quit submap
