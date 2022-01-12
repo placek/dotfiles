@@ -21,9 +21,14 @@ instance XPrompt UDisks where
 
   commandToComplete _ c = c
 
+  completionFunction (UDisks Unmount c) s = do
+    devices <- getDevices
+    let paths = devicePath <$> filter isMounted devices
+    return $ filter (searchPredicate c $ s) paths
+
   completionFunction (UDisks _ c) s = do
     devices <- getDevices
-    let paths = devicePath <$> devices
+    let paths = devicePath <$> filter (not . isMounted) devices
     return $ filter (searchPredicate c $ s) paths
 
   modeAction (UDisks t _) a _ = actionFor t a
@@ -44,31 +49,37 @@ udisksPrompt xpconfig = mkXPromptWithModes ([ XPT $ UDisks Mount xpconfig
 
 -- actions
 mountAction :: String -> X ()
-mountAction _ = do
-  return ()
+mountAction = runUDiskCtl "mount"
 
 unmountAction :: String -> X ()
-unmountAction _ = do
-  return ()
+unmountAction = runUDiskCtl "unmount"
 
 unlockAction :: String -> X ()
-unlockAction _ = do
-  return ()
+unlockAction = runUDiskCtl "unlock"
 
 lockAction :: String -> X ()
-lockAction _ = do
-  return ()
+lockAction = runUDiskCtl "lock"
 
 -- utils
+runUDiskCtl :: String -> String -> X ()
+runUDiskCtl command path = do
+  _ <- io $ runProcessWithInput "udisksctl" [command, "-b", path, "--no-user-interaction"] []
+  return ()
+
 parseDevice :: String -> Either String Device
 parseDevice input = either (Left . show) Right (parse input input)
 
 parseDevices :: String -> Either String [Device]
 parseDevices input = sequence $ parseDevice <$> lines input
 
+filterOutHotplugPartitions :: [Device] -> [Device]
+filterOutHotplugPartitions devices = filterHotplugs . filterPartitions $ devices
+  where filterHotplugs   = filter isHotplug
+        filterPartitions = filter isPartition
+
 getDevices :: IO [Device]
 getDevices = do
   output <- runProcessWithInput "lsblk" ["-o", "PATH,TYPE,HOTPLUG,SIZE,MOUNTPOINT", "--pairs"] []
   case parseDevices output of
     Left err -> print err >> fail err
-    Right ds -> return ds
+    Right ds -> return . filterOutHotplugPartitions $ ds

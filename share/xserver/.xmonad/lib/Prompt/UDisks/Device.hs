@@ -1,14 +1,22 @@
-module Prompt.UDisks.Device (Device (..), parse) where
+module Prompt.UDisks.Device (Device (..), parse, isMounted, isPartition) where
 
 import qualified Text.Parsec as Parsec
 
 data Device =
   Device { devicePath :: String
          , deviceType :: String
-         , hotplug    :: Bool
+         , isHotplug  :: Bool
          , size       :: String
          , mountpoint :: Maybe String
          } deriving Show
+
+isMounted :: Device -> Bool
+isMounted device = case mountpoint device of
+                     Nothing -> False
+                     Just _  -> True
+
+isPartition :: Device -> Bool
+isPartition device = "part" == deviceType device
 
 parse = Parsec.parse deviceParser
 
