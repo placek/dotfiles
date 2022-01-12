@@ -2,28 +2,27 @@
 
 import qualified Data.Char                    as Char
 import qualified Data.Map                     as Map
-import           Data.Monoid
 import           Graphics.X11.ExtraTypes.XF86
-import           System.Exit
+import           System.Exit                          (exitWith, ExitCode(ExitSuccess))
 import           XMonad
-import           XMonad.Actions.CopyWindow
-import           XMonad.Actions.CycleWS
+import           XMonad.Actions.CycleWS               (shiftToPrev, shiftToNext, nextWS, prevWS)
 import           XMonad.Actions.KeyRemap
-import           XMonad.Actions.Submap
+import           XMonad.Actions.RotSlaves             (rotAllUp, rotAllDown)
+import           XMonad.Actions.Submap                (submap, submapDefault)
 import           XMonad.Config.Desktop
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
-import           XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.ManageHelpers           (isDialog, isFullscreen, doCenterFloat, doFullFloat)
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.Spacing
 import           XMonad.Prompt
 import           XMonad.Prompt.ConfirmPrompt
-import           XMonad.Prompt.FuzzyMatch
+import           XMonad.Prompt.FuzzyMatch             (fuzzyMatch, fuzzySort)
 import           XMonad.Prompt.Shell
-import qualified XMonad.StackSet              as W
-import           XMonad.Util.Cursor
+import           XMonad.Util.Cursor                   (setDefaultCursor)
 import           XMonad.Util.Run
-import           XMonad.Util.SpawnOnce
+import           XMonad.Util.SpawnOnce                (spawnOnce)
+import           XMonad.StackSet                      (focusUp, focusDown, focusMaster, shift, sink, greedyView, view, shiftMaster, workspace, stack, integrate', current)
 
 import           Prompt.Clipboard
 import           Prompt.Pass
@@ -58,55 +57,53 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , changeModeKey     = xK_space
                  }
 
-macMap = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))                                                    -- cut
-                     , ((myModMask, xK_c), (controlMask, xK_c))                                                    -- copy
-                     , ((myModMask, xK_v), (controlMask, xK_v))                                                    -- paste
+macMap = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))                                        -- cut
+                     , ((myModMask, xK_c), (controlMask, xK_c))                                        -- copy
+                     , ((myModMask, xK_v), (controlMask, xK_v))                                        -- paste
                      ]
 
 myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     -- windows manipulation
-    [ ((modm              , xK_Left  ), prevWS)                                                                    -- go to previous workspace
-    , ((modm              , xK_Right ), nextWS)                                                                    -- go to next workspace
-    , ((modm .|. shiftMask, xK_Left  ), shiftToPrev)                                                               -- move to previous workspace
-    , ((modm .|. shiftMask, xK_Right ), shiftToNext)                                                               -- move to next workspace
-    , ((modm              , xK_k     ), windows W.focusUp  )                                                       -- move focus to the previous window
-    , ((modm              , xK_j     ), windows W.focusDown)                                                       -- move focus to the next window
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )                                                      -- swap the focused window with the previous window
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )                                                      -- swap the focused window with the next window
-    , ((modm              , xK_m     ), windows W.focusMaster  )                                                   -- move focus to the master window
-    , ((modm .|. shiftMask, xK_m     ), windows W.swapMaster)                                                      -- swap the focused window and the master window
-    , ((modm              , xK_h     ), sendMessage Shrink)                                                        -- shrink the master area
-    , ((modm              , xK_l     ), sendMessage Expand)                                                        -- expand the master area
-    , ((modm .|. shiftMask, xK_h     ), sendMessage (IncMasterN 1))                                                -- increment the number of windows in the master area
-    , ((modm .|. shiftMask, xK_l     ), sendMessage (IncMasterN (-1)))                                             -- deincrement the number of windows in the master area
-    , ((modm              , xK_n     ), sendMessage NextLayout)                                                    -- rotate through the available layouts
-    , ((modm .|. shiftMask, xK_n     ), setLayout $ XMonad.layoutHook conf)                                        -- reset the layouts on the current workspace to default
-    , ((modm              , xK_b     ), sendMessage ToggleStruts)                                                  -- toggle the status bar gap
-    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                                -- change background
-    , ((modm              , xK_f     ), withFocused $ windows . W.sink)                                            -- push window back into tiling
-    , ((modm .|. shiftMask, xK_f     ), refresh)                                                                   -- resize viewed windows to the correct size
+    [ ((modm              , xK_Left  ), prevWS)                                                        -- go to previous workspace
+    , ((modm              , xK_Right ), nextWS)                                                        -- go to next workspace
+    , ((modm .|. shiftMask, xK_Left  ), shiftToPrev)                                                   -- move to previous workspace
+    , ((modm .|. shiftMask, xK_Right ), shiftToNext)                                                   -- move to next workspace
+    , ((modm              , xK_k     ), windows focusUp  )                                             -- move focus to the previous window
+    , ((modm              , xK_j     ), windows focusDown)                                             -- move focus to the next window
+    , ((modm .|. shiftMask, xK_k     ), rotAllUp    )                                                  -- swap the focused window with the previous window
+    , ((modm .|. shiftMask, xK_j     ), rotAllDown  )                                                  -- swap the focused window with the next window
+    , ((modm              , xK_h     ), sendMessage Shrink)                                            -- shrink the master area
+    , ((modm              , xK_l     ), sendMessage Expand)                                            -- expand the master area
+    , ((modm .|. shiftMask, xK_h     ), sendMessage (IncMasterN 1))                                    -- increment the number of windows in the master area
+    , ((modm .|. shiftMask, xK_l     ), sendMessage (IncMasterN (-1)))                                 -- deincrement the number of windows in the master area
+    , ((modm              , xK_m     ), windows focusMaster  )                                         -- move focus to the master window
+    , ((modm              , xK_n     ), sendMessage NextLayout)                                        -- rotate through the available layouts
+    , ((modm              , xK_b     ), sendMessage ToggleStruts)                                      -- toggle the status bar gap
+    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                    -- change background
+    , ((modm              , xK_f     ), withFocused $ windows . sink)                                  -- push window back into tiling
+    , ((modm .|. shiftMask, xK_f     ), refresh)                                                       -- resize viewed windows to the correct size
     -- utils submap
-    , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $                    -- run application prompt
-      [ ((0, xK_c                    ), clipboardPrompt myXPConfig)                                                -- clipboard history prompt
-      , ((0, xK_a                    ), phrasePrompt myXPConfig)                                                   -- abbreviations prompt
-      , ((0, xK_p                    ), passPrompt myXPConfig)                                                     -- password prompt
-      , ((0, xK_m                    ), udisksPrompt myXPConfig)                                                   -- udisks prompt
-      , ((0, xK_Return               ), spawn $ XMonad.terminal conf)                                              -- launch a terminal
+    , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $        -- run application prompt
+      [ ((0, xK_c                    ), clipboardPrompt myXPConfig)                                    -- clipboard history prompt
+      , ((0, xK_a                    ), phrasePrompt myXPConfig)                                       -- abbreviations prompt
+      , ((0, xK_p                    ), passPrompt myXPConfig)                                         -- password prompt
+      , ((0, xK_m                    ), udisksPrompt myXPConfig)                                       -- udisks prompt
+      , ((0, xK_Return               ), spawn $ XMonad.terminal conf)                                  -- launch a terminal
       ])
     -- quit submap
     , ((modm, xK_q                   ), submap . Map.fromList $
-       [ ((modm, xK_q                ), kill1)                                                                     -- close focused window or just remove a current copy of it
-       , ((modm, xK_x                ), confirmPrompt myXPConfig "logout" $ io (exitWith ExitSuccess))             -- quit xmonad
-       , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                              -- restart xmonad
+       [ ((modm, xK_q                ), kill)                                                          -- close focused window
+       , ((modm, xK_x                ), confirmPrompt myXPConfig "logout" $ io (exitWith ExitSuccess)) -- quit xmonad
+       , ((0, xK_x                   ), spawn "xmonad --recompile; xmonad --restart")                  -- restart xmonad
        ])
     -- notifications submap
     , ((modm, xK_Escape              ), submap . Map.fromList $
-       [ ((modm .|. shiftMask, xK_q  ), spawn "dunstctl close-all")                                                -- close all notifications
-       , ((modm, xK_q                ), spawn "dunstctl set-paused toggle")                                        -- toggle notifications
-       , ((modm, xK_Escape           ), spawn "dunstctl history-pop")                                              -- pop notification from history
+       [ ((modm .|. shiftMask, xK_q  ), spawn "dunstctl close-all")                                    -- close all notifications
+       , ((modm, xK_q                ), spawn "dunstctl set-paused toggle")                            -- toggle notifications
+       , ((modm, xK_Escape           ), spawn "dunstctl history-pop")                                  -- pop notification from history
        ])
     -- others
-    , ((0, xK_Print                  ), spawn "scrot -q100 ~/Downloads/ss_%Y%m%d_%H%M%S.png")                      -- screenshot
+    , ((0, xK_Print                  ), spawn "scrot -q100 ~/Downloads/ss_%Y%m%d_%H%M%S.png")          -- screenshot
     , ((0, xF86XK_AudioPrev          ), spawn "spotify_control previous")
     , ((0, xF86XK_AudioPlay          ), spawn "spotify_control playpause")
     , ((0, xF86XK_AudioNext          ), spawn "spotify_control next")
@@ -122,39 +119,36 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     ++
     -- mod-[1..5], switch to workspace N
     -- mod-shift-[1..5], move client to workspace N
-    -- mod-shift-control-[1..5], copy client to workspace N
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1..]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask), (copy, shiftMask .|. controlMask)]]
+        , (f, m) <- [(greedyView, 0), (shift, shiftMask)]]
     ++
     -- mod-{i,o}, switch to screens 1 or 2
     -- mod-shift-{i,o}, move client to screen 1 or 2
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_i, xK_o] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+        , (f, m) <- [(view, 0), (shift, shiftMask)]]
     ++
     -- remap for mac-like bindings
     buildKeyRemapBindings [macMap]
 
 myMouseBindings XConfig {XMonad.modMask = modm} = Map.fromList
-    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w       -- set the window to floating mode and move by dragging
-                                      >> windows W.shiftMaster)
-    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)  -- raise the window to the top of the stack
-    , ((modm, button3), \w -> focus w >> mouseResizeWindow w     -- set the window to floating mode and resize by dragging
-                                      >> windows W.shiftMaster)
+    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w     -- set the window to floating mode and move by dragging
+                                      >> windows shiftMaster)
+    , ((modm, button2), \w -> focus w >> windows shiftMaster)  -- raise the window to the top of the stack
+    , ((modm, button3), \w -> focus w >> mouseResizeWindow w   -- set the window to floating mode and resize by dragging
+                                      >> windows shiftMaster)
     ]
 
 myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True . smartBorders $ t ||| m ||| f
   where
-    f       = Full
-    m       = Mirror t
-    t       = Tall nmaster delta ratio
-    nmaster = 1
-    ratio   = 2/3
-    delta   = 3/100
+    f = Full
+    m = Mirror t
+    t = Tall 1 (3 / 100) (1618 / 1000)
 
-myManageHook = composeAll [ className =? "pinentry"     --> doCenterFloat
-                          , className =? "qutebrowser"  --> doShift ( myWorkspaces !! 0 )
+myManageHook = composeAll [ className =? "pinentry" --> doCenterFloat
+                          , isDialog                --> doCenterFloat
+                          , isFullscreen            --> doFullFloat
                           ]
 
 workspaceNames :: [String]
@@ -165,7 +159,7 @@ myWorkspaces = fmap clickable (zip [1..] workspaceNames)
   where clickable (k, w) = xmobarAction ("xdotool key super+" ++ show k) "1" w
 
 windowCount :: X (Maybe String)
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+windowCount = gets $ Just . show . length . integrate' . stack . workspace . current . windowset
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
                                              , ppHiddenNoWindows = xmobarColor "#{{base03-hex}}" "" . wrap " <fn=1>" "</fn> "
