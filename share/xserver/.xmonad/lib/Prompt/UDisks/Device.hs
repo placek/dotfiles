@@ -1,6 +1,7 @@
-module Prompt.UDisks.Device (Device (..), parse, isMounted, isPartition) where
+module Prompt.UDisks.Device (Device (..), parse, isLoop, isMountedPartition, isNotMountedPartition) where
 
 import qualified Text.Parsec as Parsec
+import           Data.List             (isPrefixOf)
 
 data Device =
   Device { devicePath :: String
@@ -10,6 +11,9 @@ data Device =
          , mountpoint :: Maybe String
          } deriving Show
 
+isLoop :: Device -> Bool
+isLoop device = "loop" == deviceType device
+
 isMounted :: Device -> Bool
 isMounted device = case mountpoint device of
                      Nothing -> False
@@ -17,6 +21,18 @@ isMounted device = case mountpoint device of
 
 isPartition :: Device -> Bool
 isPartition device = "part" == deviceType device
+
+isLoopPartition :: Device -> Bool
+isLoopPartition device = isPartition device && isPrefixOf "/dev/loop" (devicePath device)
+
+isHotplugPartition :: Device -> Bool
+isHotplugPartition device = isPartition device && isHotplug device
+
+isMountedPartition :: Device -> Bool
+isMountedPartition device = isMounted device && (isHotplugPartition device || isLoopPartition device)
+
+isNotMountedPartition :: Device -> Bool
+isNotMountedPartition device = (not . isMounted $ device) && (isHotplugPartition device || isLoopPartition device)
 
 parse = Parsec.parse deviceParser
 
