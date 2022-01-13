@@ -174,9 +174,8 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppExtras          = [windowCount]
                                              }
   where layout a = case a of
-          "Spacing Tall"        -> "<fn=1>\xf338</fn>"
-          "Spacing Mirror Tall" -> "<fn=1>\xf337</fn>"
-          "Spacing Full"        -> "<fn=1>\xf31e</fn>"
+          "Spacing Spiral" -> "<fn=1>\xf01e</fn>"
+          "Spacing Full"   -> "<fn=1>\xf31e</fn>"
 
 myStartupHook = do
   setDefaultCursor xC_left_ptr
