@@ -26,7 +26,6 @@ nnoremap s :sync %d<cr>
 mark h ~/
 command! archive tar -cvf %a.tar %f
 command! compress gzip -9 %f
-command! du ncdu %c
 command! diff vim -d %f %F
 command! make !!make %a
 command! run !! ./%c
