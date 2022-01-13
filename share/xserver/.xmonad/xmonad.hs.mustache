@@ -37,7 +37,7 @@ myFocusFollowsMouse  = True
 myFocusedBorderColor = "#{{base09-hex}}"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#{{base00-hex}}"
-myTerminal           = "kitty"
+myTerminal           = "{{terminal}}"
 
 myXPConfig :: XPConfig
 myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialias=true:hinting=true"
@@ -48,7 +48,7 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , defaultPrompter   = \prompt -> prompt ++ " \xe0b1 "
                  , historyFilter     = deleteAllDuplicates
                  , searchPredicate   = fuzzyMatch
-                 , sorter            = fuzzySort
+                 , sorter            = (\s -> if null s then id else fuzzySort s)
                  , maxComplRows      = Just 20
                  , alwaysHighlight   = True
                  , bgColor           = "#{{base00-hex}}"

@@ -25,11 +25,11 @@ config.set('content.media.audio_video_capture', True)
 config.set('content.media.video_capture',       True)
 config.set('content.notifications.enabled',     True)
 config.set('downloads.location.directory',      '~/Downloads')
-config.set('editor.command',                    ['kitty', '-e', 'vim', '-f', '{file}', '-c', 'normal {line}G{column0}l'])
-config.set('fileselect.folder.command',         ['kitty', '-e', 'vifm', '--choose-dir', '{}'])
+config.set('editor.command',                    ['{{terminal}}', '-e', 'vim', '-f', '{file}', '-c', 'normal {line}G{column0}l'])
+config.set('fileselect.folder.command',         ['{{terminal}}', '-e', 'vifm', '--choose-dir', '{}'])
 config.set('fileselect.handler',                'external')
-config.set('fileselect.multiple_files.command', ['kitty', '-e', 'vifm', '--choose-files', '{}'])
-config.set('fileselect.single_file.command',    ['kitty', '-e', 'vifm', '--choose-files', '{}'])
+config.set('fileselect.multiple_files.command', ['{{terminal}}', '-e', 'vifm', '--choose-files', '{}'])
+config.set('fileselect.single_file.command',    ['{{terminal}}', '-e', 'vifm', '--choose-files', '{}'])
 config.set('fonts.completion.entry',            '{{font-size}}pt "{{font}}"')
 config.set('fonts.contextmenu',                 '{{font-size}}pt "{{font}}"')
 config.set('fonts.debug_console',               '{{font-size}}pt "{{font}}"')
@@ -53,19 +53,22 @@ config.set('window.title_format',               '{current_title}')
 config.set('url.searchengines', {
   'DEFAULT': 'https://www.google.com/search?q={}',
   'allegro': 'https://allegro.pl/listing?string={}',
+  'alpha':   'http://www.wolframalpha.com/input/?i={}',
   'ang':     'https://context.reverso.net/t%C5%82umaczenie/polski-angielski/{}',
   'docker':  'https://hub.docker.com/search?q={}&type=image',
   'duck':    'https://duckduckgo.com/?q={}',
   'hoogle':  'https://hoogle.haskell.org/?hoogle={}',
-  'nixos':   'https://search.nixos.org/packages?query={}',
+  'maps':    'http://maps.google.com/maps?q={}',
+  'nixpkgs': 'https://search.nixos.org/packages?query={}',
   'ruby':    'https://ruby-doc.com/search.html?q={}',
-  'wiki':    'https://en.wikipedia.org/wiki/{}',
+  'stack':   'https://stackexchange.com/search?q={}',
+  'wiki':    'https://pl.wikipedia.org/wiki/{}',
   'youtube': 'https://www.youtube.com/results?search_query={}'
 })
 
-config.bind(';D', 'hint links spawn kitty -e aria2c {hint-url} -d Downloads')
-config.bind(';m', 'hint links spawn kitty -e youtube-dl -x {hint-url} -o Downloads/%(title)s.%(ext)s')
-config.bind(';v', 'hint links spawn kitty -e youtube-dl {hint-url} -o Downloads/%(title)s.%(ext)s')
+config.bind(';D', 'hint links spawn {{terminal}} -e aria2c {hint-url} -d Downloads')
+config.bind(';m', 'hint links spawn {{terminal}} -e youtube-dl -x {hint-url} -o Downloads/%(title)s.%(ext)s')
+config.bind(';v', 'hint links spawn {{terminal}} -e youtube-dl {hint-url} -o Downloads/%(title)s.%(ext)s')
 config.bind('<Ctrl+w>', 'mode-enter passthrough')
 config.bind('I', 'hint inputs');
 

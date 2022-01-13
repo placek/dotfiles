@@ -5,6 +5,9 @@
   "border-size": "4",
   "border-double-size": "8",
 
+  "terminal": "kitty",
+  "browser":  "qutebrowser",
+
   "base00-hex": "32302f",
   "base01-hex": "3c3836",
   "base02-hex": "504945",
