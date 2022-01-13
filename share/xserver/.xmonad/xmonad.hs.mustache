@@ -3,24 +3,24 @@
 import qualified Data.Char                    as Char
 import qualified Data.Map                     as Map
 import           Graphics.X11.ExtraTypes.XF86
-import           System.Exit                          (exitWith, ExitCode(ExitSuccess))
+import           System.Exit                          (ExitCode(ExitSuccess), exitWith)
 import           XMonad
 import           XMonad.Actions.CycleWS               (shiftToPrev, shiftToNext, nextWS, prevWS)
-import           XMonad.Actions.KeyRemap
+import           XMonad.Actions.KeyRemap              (KeymapTable(..), buildKeyRemapBindings, setDefaultKeyRemap, emptyKeyRemap)
 import           XMonad.Actions.RotSlaves             (rotAllUp, rotAllDown)
 import           XMonad.Actions.Submap                (submap, submapDefault)
-import           XMonad.Config.Desktop
-import           XMonad.Hooks.DynamicLog
-import           XMonad.Hooks.ManageDocks
+import           XMonad.Config.Desktop                (desktopConfig)
+import           XMonad.Hooks.DynamicLog              (PP(..), dynamicLogWithPP, xmobarPP, xmobarAction, xmobarColor, wrap, shorten)
+import           XMonad.Hooks.ManageDocks             (ToggleStruts(..), docks, avoidStruts, manageDocks)
 import           XMonad.Hooks.ManageHelpers           (isDialog, isFullscreen, doCenterFloat, doFullFloat)
-import           XMonad.Layout.NoBorders
-import           XMonad.Layout.Spacing
-import           XMonad.Prompt
-import           XMonad.Prompt.ConfirmPrompt
+import           XMonad.Layout.NoBorders              (smartBorders)
+import           XMonad.Layout.Spacing                (Border(..), spacingRaw)
+import           XMonad.Layout.Spiral                 (spiral)
+import           XMonad.Prompt                        (XPConfig(..), XPPosition(..), vimLikeXPKeymap', deleteAllDuplicates)
+import           XMonad.Prompt.ConfirmPrompt          (confirmPrompt)
 import           XMonad.Prompt.FuzzyMatch             (fuzzyMatch, fuzzySort)
-import           XMonad.Prompt.Shell
 import           XMonad.Util.Cursor                   (setDefaultCursor)
-import           XMonad.Util.Run
+import           XMonad.Util.Run                      (safeSpawn, spawnPipe, hPutStrLn)
 import           XMonad.Util.SpawnOnce                (spawnOnce)
 import           XMonad.StackSet                      (focusUp, focusDown, focusMaster, shift, sink, greedyView, view, shiftMaster, workspace, stack, integrate', current)
 
@@ -28,6 +28,7 @@ import           Prompt.Clipboard
 import           Prompt.Pass
 import           Prompt.Phrase
 import           Prompt.UDisks
+import           Prompt.Run
 
 myBorderWidth        = {{border-size}}
 myClickJustFocuses   = False
@@ -43,8 +44,8 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , position          = Top
                  , height            = 24
                  , promptBorderWidth = 0
-                 , promptKeymap      = vimLikeXPKeymap' id (\prompt -> prompt ++ " \xE0B0 ") id Char.isSpace
-                 , defaultPrompter   = \prompt -> prompt ++ " \xE0B1 "
+                 , promptKeymap      = vimLikeXPKeymap' id (\prompt -> prompt ++ " \xe0b0 ") id Char.isSpace
+                 , defaultPrompter   = \prompt -> prompt ++ " \xe0b1 "
                  , historyFilter     = deleteAllDuplicates
                  , searchPredicate   = fuzzyMatch
                  , sorter            = fuzzySort
@@ -79,11 +80,11 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm              , xK_m     ), windows focusMaster  )                                         -- move focus to the master window
     , ((modm              , xK_n     ), sendMessage NextLayout)                                        -- rotate through the available layouts
     , ((modm              , xK_b     ), sendMessage ToggleStruts)                                      -- toggle the status bar gap
-    , ((modm .|. shiftMask, xK_b     ), spawn "bash -c '~/.fehbg'")                                    -- change background
+    , ((modm .|. shiftMask, xK_b     ), safeSpawn "bash" ["-c", "~/.fehbg"])                           -- change background
     , ((modm              , xK_f     ), withFocused $ windows . sink)                                  -- push window back into tiling
     , ((modm .|. shiftMask, xK_f     ), refresh)                                                       -- resize viewed windows to the correct size
     -- utils submap
-    , ((modm, xK_space               ), submapDefault (shellPrompt myXPConfig) . Map.fromList $        -- run application prompt
+    , ((modm, xK_space               ), submapDefault (runPrompt myXPConfig) . Map.fromList $          -- run application prompt
       [ ((0, xK_c                    ), clipboardPrompt myXPConfig)                                    -- clipboard history prompt
       , ((0, xK_a                    ), phrasePrompt myXPConfig)                                       -- abbreviations prompt
       , ((0, xK_p                    ), passPrompt myXPConfig)                                         -- password prompt
@@ -98,23 +99,23 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
        ])
     -- notifications submap
     , ((modm, xK_Escape              ), submap . Map.fromList $
-       [ ((modm .|. shiftMask, xK_q  ), spawn "dunstctl close-all")                                    -- close all notifications
-       , ((modm, xK_q                ), spawn "dunstctl set-paused toggle")                            -- toggle notifications
-       , ((modm, xK_Escape           ), spawn "dunstctl history-pop")                                  -- pop notification from history
+       [ ((modm .|. shiftMask, xK_q  ), safeSpawn "dunstctl" ["close-all"])                            -- close all notifications
+       , ((modm, xK_q                ), safeSpawn "dunstctl" ["set-paused toggle"])                    -- toggle notifications
+       , ((modm, xK_Escape           ), safeSpawn "dunstctl" ["history-pop"])                          -- pop notification from history
        ])
     -- others
-    , ((0, xK_Print                  ), spawn "scrot -q100 ~/Downloads/ss_%Y%m%d_%H%M%S.png")          -- screenshot
-    , ((0, xF86XK_AudioPrev          ), spawn "spotify_control previous")
-    , ((0, xF86XK_AudioPlay          ), spawn "spotify_control playpause")
-    , ((0, xF86XK_AudioNext          ), spawn "spotify_control next")
-    , ((0, xF86XK_AudioMute          ), spawn "amixer set Master toggle")
-    , ((0, xF86XK_AudioLowerVolume   ), spawn "amixer set Master 5%- unmute")
-    , ((0, xF86XK_AudioRaiseVolume   ), spawn "amixer set Master 5%+ unmute")
-    , ((0, xF86XK_MonBrightnessUp    ), spawn "light -A 5.0")
-    , ((0, xF86XK_MonBrightnessDown  ), spawn "light -U 5.0")
-    , ((0, xF86XK_Reload             ), spawn "rotate-displays")
-    , ((0, xF86XK_Sleep              ), spawn "slock")
-    , ((0, xF86XK_PowerOff           ), spawn "slock")
+    , ((0, xK_Print                  ), safeSpawn "scrot" ["-q", "100", "~/Downloads/ss_%Y%m%d_%H%M%S.png"])
+    , ((0, xF86XK_AudioPrev          ), safeSpawn "spotify_control" ["previous"])
+    , ((0, xF86XK_AudioPlay          ), safeSpawn "spotify_control" ["playpause"])
+    , ((0, xF86XK_AudioNext          ), safeSpawn "spotify_control" ["next"])
+    , ((0, xF86XK_AudioMute          ), safeSpawn "amixer" ["set", "Master", "toggle"])
+    , ((0, xF86XK_AudioLowerVolume   ), safeSpawn "amixer" ["set", "Master", "5%-", "unmute"])
+    , ((0, xF86XK_AudioRaiseVolume   ), safeSpawn "amixer" ["set", "Master", "5%+", "unmute"])
+    , ((0, xF86XK_MonBrightnessUp    ), safeSpawn "light" ["-A", "5.0"])
+    , ((0, xF86XK_MonBrightnessDown  ), safeSpawn "light" ["-U", "5.0"])
+    , ((0, xF86XK_Reload             ), safeSpawn "rotate-displays" [])
+    , ((0, xF86XK_Sleep              ), safeSpawn "slock" [])
+    , ((0, xF86XK_PowerOff           ), safeSpawn "slock" [])
     ]
     ++
     -- mod-[1..5], switch to workspace N
@@ -140,11 +141,10 @@ myMouseBindings XConfig {XMonad.modMask = modm} = Map.fromList
                                       >> windows shiftMaster)
     ]
 
-myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True . smartBorders $ t ||| m ||| f
+myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True . smartBorders $ s ||| f
   where
     f = Full
-    m = Mirror t
-    t = Tall 1 (3 / 100) (1618 / 1000)
+    s = spiral (6 / 7)
 
 myManageHook = composeAll [ className =? "pinentry" --> doCenterFloat
                           , isDialog                --> doCenterFloat
@@ -152,7 +152,7 @@ myManageHook = composeAll [ className =? "pinentry" --> doCenterFloat
                           ]
 
 workspaceNames :: [String]
-workspaceNames = ["\xF43F", "\xF445", "\xF447", "\xF441", "\xF443"]
+workspaceNames = ["\xf43f", "\xf445", "\xf447", "\xf441", "\xf443"]
 
 myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
