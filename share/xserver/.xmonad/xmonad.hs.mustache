@@ -27,8 +27,9 @@ import           XMonad.StackSet                      (focusUp, focusDown, focus
 import           Prompt.Clipboard
 import           Prompt.Pass
 import           Prompt.Phrase
-import           Prompt.UDisks
 import           Prompt.Run
+import           Prompt.Search
+import           Prompt.UDisks
 
 myBorderWidth        = {{border-size}}
 myClickJustFocuses   = False
@@ -91,6 +92,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
       , ((0, xK_a                    ), phrasePrompt myXPConfig)                                       -- abbreviations prompt
       , ((0, xK_p                    ), passPrompt myXPConfig)                                         -- password prompt
       , ((0, xK_m                    ), udisksPrompt myXPConfig)                                       -- udisks prompt
+      , ((0, xK_s                    ), searchPrompt myXPConfig)                                       -- search prompt
       , ((0, xK_Return               ), spawn $ XMonad.terminal conf)                                  -- launch a terminal
       ])
     -- quit submap
