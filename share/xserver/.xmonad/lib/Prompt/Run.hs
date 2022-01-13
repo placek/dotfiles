@@ -13,64 +13,44 @@ import           XMonad                   hiding (config)
 import           XMonad.Prompt
 import           XMonad.Util.Run
 
-econst :: Monad m => a -> IOException -> m a
-econst = const . return
-
-data Run = Run
-type Predicate = String -> String -> Bool
+data Run = Run XPConfig
 
 instance XPrompt Run where
-    showXPrompt         Run = "Run"
-    completionToCommand _   = escape
+  showXPrompt (Run _) = "Run"
+
+  completionToCommand _ = escape
+    where escape [] = ""
+          escape (x:xs)
+              | isSpecialChar x = '\\' : x : escape xs
+              | otherwise       = x : escape xs
+
+  nextCompletion _ = getNextCompletion
+
+  completionFunction (Run c) s = do
+    cmds <- io getCommands
+    return $ filter ((searchPredicate c) s) cmds
+
+  modeAction _ a _ = spawn a
 
 runPrompt :: XPConfig -> X ()
-runPrompt c = do
-    cmds <- io getCommands
-    mkXPrompt Run c (getRunCompl cmds $ searchPredicate c) spawn
-
-getRunCompl :: [String] -> Predicate -> String -> IO [String]
-getRunCompl cmds p s | s == "" || last s == ' ' = return []
-                     | otherwise                = do
-    f     <- fmap lines $ runProcessWithInput "bash" [] ("compgen -A file -- "
-                                                        ++ s ++ "\n")
-    files <- case f of
-               [x] -> do fs <- getFileStatus (encodeString x)
-                         if isDirectory fs then return [x ++ "/"]
-                                           else return [x]
-               _   -> return f
-    return . sortBy typedFirst . uniqSort $ files ++ commandCompletionFunction cmds p s
-    where
-    typedFirst x y
-        | x `startsWith` s && not (y `startsWith` s) = LT
-        | y `startsWith` s && not (x `startsWith` s) = GT
-        | otherwise = x `compare` y
-    startsWith str ps = isPrefixOf (map toLower ps) (map toLower str)
-
-commandCompletionFunction :: [String] -> Predicate -> String -> [String]
-commandCompletionFunction cmds p str | '/' `elem` str = []
-                                     | otherwise      = filter (p str) cmds
+runPrompt xpconfig = mkXPromptWithModes [XPT $ Run xpconfig] xpconfig
 
 getCommands :: IO [String]
 getCommands = do
-    p  <- getEnv "PATH" `E.catch` econst []
-    let ds = filter (/= "") $ split ':' p
-    es <- forM ds $ \d -> getDirectoryContents d `E.catch` econst []
-    return . uniqSort . filter ((/= '.') . head) . concat $ es
+  pathEnv <- getEnv "PATH"
+  let paths = filter (/= "") $ split ':' pathEnv
+  commands <- forM paths $ \d -> getDirectoryContents d `E.catch` econst []
+  return . uniqSort . filter ((/= '.') . head) . concat $ commands
+
+econst :: Monad m => a -> IOException -> m a
+econst = const . return
 
 split :: Eq a => a -> [a] -> [[a]]
 split _ [] = []
-split e l =
-    f : split e (rest ls)
-        where
-          (f,ls) = span (/=e) l
-          rest s | s == []   = []
-                 | otherwise = tail s
-
-escape :: String -> String
-escape []       = ""
-escape (x:xs)
-    | isSpecialChar x = '\\' : x : escape xs
-    | otherwise       = x : escape xs
+split e l  = f : split e (rest ls)
+  where (f,ls) = span (/=e) l
+        rest s | s == []   = []
+               | otherwise = tail s
 
 isSpecialChar :: Char -> Bool
 isSpecialChar =  flip elem " &\\@\"'#?$*()[]{};"
