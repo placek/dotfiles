@@ -58,11 +58,13 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , changeModeKey     = xK_space
                  }
 
+macMap :: KeymapTable
 macMap = KeymapTable [ ((myModMask, xK_x), (controlMask, xK_x))                                        -- cut
                      , ((myModMask, xK_c), (controlMask, xK_c))                                        -- copy
                      , ((myModMask, xK_v), (controlMask, xK_v))                                        -- paste
                      ]
 
+myKeys :: XConfig Layout -> Map.Map (ButtonMask, KeySym) (X ())
 myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     -- windows manipulation
     [ ((modm              , xK_Left  ), prevWS)                                                        -- go to previous workspace
@@ -133,6 +135,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     -- remap for mac-like bindings
     buildKeyRemapBindings [macMap]
 
+myMouseBindings :: XConfig Layout -> Map.Map (KeyMask, Button) (Window -> X ())
 myMouseBindings XConfig {XMonad.modMask = modm} = Map.fromList
     [ ((modm, button1), \w -> focus w >> mouseMoveWindow w     -- set the window to floating mode and move by dragging
                                       >> windows shiftMaster)
@@ -140,16 +143,6 @@ myMouseBindings XConfig {XMonad.modMask = modm} = Map.fromList
     , ((modm, button3), \w -> focus w >> mouseResizeWindow w   -- set the window to floating mode and resize by dragging
                                       >> windows shiftMaster)
     ]
-
-myLayout = avoidStruts . spacingRaw True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True (Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}) True . smartBorders $ s ||| f
-  where
-    f = Full
-    s = spiral (6 / 7)
-
-myManageHook = composeAll [ className =? "pinentry" --> doCenterFloat
-                          , isDialog                --> doCenterFloat
-                          , isFullscreen            --> doFullFloat
-                          ]
 
 workspaceNames :: [String]
 workspaceNames = ["\xf43f", "\xf445", "\xf447", "\xf441", "\xf443"]
@@ -160,6 +153,16 @@ myWorkspaces = fmap clickable (zip [1..] workspaceNames)
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . integrate' . stack . workspace . current . windowset
+
+myLayout = avoidStruts . spacingRaw True (Border 4 4 4 4) True (Border 4 4 4 4) True . smartBorders $ s ||| f
+  where
+    f = Full
+    s = spiral (6 / 7)
+
+myManageHook = composeAll [ className =? "pinentry" --> doCenterFloat
+                          , isDialog                --> doCenterFloat
+                          , isFullscreen            --> doFullFloat
+                          ]
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
                                              , ppHiddenNoWindows = xmobarColor "#{{base03-hex}}" "" . wrap " <fn=1>" "</fn> "
@@ -177,6 +180,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
           "Spacing Spiral" -> "<fn=1>\xf01e</fn>"
           "Spacing Full"   -> "<fn=1>\xf31e</fn>"
 
+myStartupHook :: X ()
 myStartupHook = do
   setDefaultCursor xC_left_ptr
   setDefaultKeyRemap macMap [macMap, emptyKeyRemap]
