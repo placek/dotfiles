@@ -1,7 +1,8 @@
 module Prompt.UDisks (udisksPrompt) where
 
 import           XMonad.Core
-import           XMonad.Prompt
+import           XMonad.Prompt          (XPConfig(..), XPrompt(..),  XPType(..), mkXPromptWithModes)
+import           XMonad.Prompt.Input    (inputPromptWithCompl)
 import           XMonad.Util.Run        (runProcessWithInput)
 import           Data.List              (isPrefixOf)
 
@@ -43,25 +44,29 @@ instance XPrompt UDisks where
     let paths = devicePath <$> (filter isNotMountedPartition devices)
     return $ filter (searchPredicate c $ s) paths
 
-  modeAction (UDisks t _) a _ = actionFor t a
+  modeAction (UDisks t c) a _ = actionFor t a
     where actionFor :: PromptType -> String -> X ()
           actionFor promptType = case promptType of
             Mount      -> mountAction
             Unmount    -> unmountAction
-            Unlock     -> unlockAction
+            Unlock     -> unlockAction c
             Lock       -> lockAction
             LoopSetup  -> loopSetupAction
             LoopDelete -> loopDeleteAction
 
 -- prompt
 udisksPrompt :: XPConfig -> X ()
-udisksPrompt xpconfig = mkXPromptWithModes ([ XPT $ UDisks Mount xpconfig
-                                            , XPT $ UDisks Unmount xpconfig
-                                            , XPT $ UDisks Unlock xpconfig
-                                            , XPT $ UDisks Lock xpconfig
-                                            , XPT $ UDisks LoopSetup xpconfig
+udisksPrompt xpconfig = mkXPromptWithModes ([ XPT $ UDisks Mount      xpconfig
+                                            , XPT $ UDisks Unmount    xpconfig
+                                            , XPT $ UDisks Unlock     xpconfig
+                                            , XPT $ UDisks Lock       xpconfig
+                                            , XPT $ UDisks LoopSetup  xpconfig
                                             , XPT $ UDisks LoopDelete xpconfig
                                             ]) xpconfig
+
+keyFilePrompt :: XPConfig -> X (Maybe String)
+keyFilePrompt xpconfig = inputPromptWithCompl xpconfig "Select key file" compl
+  where compl s = lines <$> compgenFiles s
 
 -- actions
 mountAction :: String -> X ()
@@ -74,10 +79,14 @@ unmountAction path = do
   output <- runUDiskCtl ["unmount", "-b", path, "--no-user-interaction"]
   notify output path "Unmounting succeded" "Unmounting failed"
 
-unlockAction :: String -> X ()
-unlockAction path = do
-  output <- runUDiskCtl ["unlock", "-b", path, "--no-user-interaction"]
-  notify output path "Unlocking succeded" "Unlocking failed"
+unlockAction :: XPConfig -> String -> X ()
+unlockAction xpconfig path = do
+  keyFilePath <- keyFilePrompt xpconfig
+  case keyFilePath of
+    Nothing     -> return ()
+    Just kfPath -> do
+                     output <- runUDiskCtl ["unlock", "-b", path, "--key-file", kfPath, "--no-user-interaction"]
+                     notify output path "Unlocking succeded" "Unlocking failed"
 
 lockAction :: String -> X ()
 lockAction path = do
