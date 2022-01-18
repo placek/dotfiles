@@ -8,11 +8,30 @@
     }
   },
   "explorer": {
-    "width": 30,
+    "width": 40,
+    "open-action-strategy": "sourceWindow",
     "previewAction.onHover": false,
-    "file.root.template": "[icon] [fullpath]",
+    "git": {
+      "icon": {
+        "status": {
+          "mixed": "*",
+          "unmodified": " ",
+          "modified": "~",
+          "added": "+",
+          "deleted": "-",
+          "renamed": ">",
+          "copied": ":",
+          "unmerged": ".",
+          "untracked": "?",
+          "ignored": "!"
+        }
+      }
+    },
     "keyMappings.global": {
-      "<cr>": ["wait", "expandable?", ["expanded?", "collapse", "expand"], "open"]
+      "<cr>": ["wait", "expandable?", ["expanded?", "collapse", "expand"], "open"],
+      "v": "open:vsplit:intelligent",
+      "s": "open:split:intelligent",
+      "c": "cd"
     }
   }
 }
