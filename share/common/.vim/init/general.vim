@@ -102,19 +102,24 @@ set updatetime=300
 set wildignore=.*,.git/
 
 " status
-set statusline=
-set statusline+=%#StatusLineMode#
-set statusline+=%{StatusLineMode()}
-set statusline+=%#StatusLineInfo#
-set statusline+=\ %n
-set statusline+=%#StatusLine#
-set statusline+=\ %f:%l:%c
-set statusline+=%#StatusLineInfo#%=
-set statusline+=\ %m
-set statusline+=\ %y
-set statusline+=\ \[%{&fileencoding?&fileencoding:&encoding}\]
-set statusline+=\ \[%{&fileformat}\]
-set statusline+=\ \[%p%%\ %L\]
+if !has('nvim')
+  set statusline=
+  set statusline+=%#StatusLineMode#
+  set statusline+=%{StatusLineMode()}
+  set statusline+=%#StatusLineInfo#
+  set statusline+=\ %n
+  set statusline+=%#StatusLine#
+  set statusline+=\ %f:%l:%c
+  set statusline+=%#StatusLineInfo#%=
+  set statusline+=\ %m
+  set statusline+=\ %y
+  set statusline+=\ \[%{&fileencoding?&fileencoding:&encoding}\]
+  set statusline+=\ \[%{&fileformat}\]
+  set statusline+=\ \[%p%%\ %L\]
+else
+  packadd lualine.nvim
+  lua require('lualine').setup({ options = { theme = 'gruvbox-material' } })
+endif
 
 " options
 let g:mapleader = "\\"
