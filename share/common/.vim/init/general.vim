@@ -210,7 +210,12 @@ nnoremap <silent>g/ :call <SID>searchWithVimgrep(expand('<cword>'))<CR>
 vnoremap <silent>*  :<C-u>call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent>#  :<C-u>call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent>g/ :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
-vnoremap <silent>g# :call <SID>placeComment()<CR>
+
+if !has('nvim')
+  vnoremap <silent>gc :call <SID>placeComment()<CR>
+else
+  lua require('Comment').setup()
+endif
 
 " commands
 command! -count MakeTags     call <SID>makeTags()
