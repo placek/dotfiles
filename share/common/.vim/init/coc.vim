@@ -70,17 +70,19 @@ hi CocGitTopRemovedSign    ctermbg=0  ctermfg=1
 hi CocHighlightText        ctermbg=18 ctermfg=2
 
 " status
-set statusline=
-set statusline+=%#StatusLineMode#
-set statusline+=%{StatusLineMode()}
-set statusline+=%#StatusLineInfo#
-set statusline+=\ %n
-set statusline+=%#StatusLine#
-set statusline+=\ %f:%l:%c
-set statusline+=\ %{coc#status()}
-set statusline+=%#StatusLineInfo#%=
-set statusline+=\ %m
-set statusline+=\ %y
-set statusline+=\ \[%{&fileencoding?&fileencoding:&encoding}\]
-set statusline+=\ \[%{&fileformat}\]
-set statusline+=\ \[%p%%\ %L\]
+if !has('nvim')
+  set statusline=
+  set statusline+=%#StatusLineMode#
+  set statusline+=%{StatusLineMode()}
+  set statusline+=%#StatusLineInfo#
+  set statusline+=\ %n
+  set statusline+=%#StatusLine#
+  set statusline+=\ %f:%l:%c
+  set statusline+=\ %{coc#status()}
+  set statusline+=%#StatusLineInfo#%=
+  set statusline+=\ %m
+  set statusline+=\ %y
+  set statusline+=\ \[%{&fileencoding?&fileencoding:&encoding}\]
+  set statusline+=\ \[%{&fileformat}\]
+  set statusline+=\ \[%p%%\ %L\]
+endif
