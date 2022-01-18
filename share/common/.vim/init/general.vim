@@ -162,6 +162,7 @@ command! -count Open         !open %
 
 " colors
 hi clear StatusLineNC
+hi gitblame       ctermfg=8
 hi ColorColumn    ctermbg=18
 hi DiffAdd        ctermbg=2 ctermfg=0 cterm=BOLD
 hi DiffChange     ctermbg=3 ctermfg=0 cterm=BOLD
@@ -186,9 +187,3 @@ hi Visual         ctermbg=7 ctermfg=0
 autocmd! BufWritePost * :silent! MakeTags
 autocmd! BufWritePre * :%s/\s\+$//e
 autocmd! FileType make setlocal noexpandtab
-
-" non-text files
-autocmd! BufRead,BufNewFile *.avi,*.mp4,*.mkv,*.mov,*.mpg set filetype=nontext
-autocmd! BufRead,BufNewFile *.mp3,*.flac,*.wav,*.ogg set filetype=nontext
-autocmd! BufRead,BufNewFile *.png,*.jpg,*.jpeg,*.gif,*.tiff set filetype=nontext
-autocmd! BufRead,BufNewFile *.ps,*.pdf,*.epub set filetype=nontext
