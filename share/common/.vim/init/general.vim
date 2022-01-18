@@ -118,7 +118,58 @@ if !has('nvim')
   set statusline+=\ \[%p%%\ %L\]
 else
   packadd lualine.nvim
-  lua require('lualine').setup({ options = { theme = 'gruvbox-material' } })
+  lua << END
+    require('lualine').setup {
+      options = {
+        icons_enabled = true,
+        theme = 'gruvbox-material',
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = { 'coc-explorer' },
+        always_divide_middle = true,
+      },
+      sections = {
+        lualine_a = {'mode'},
+        lualine_b = {
+          'branch',
+          'diff',
+          { 'diagnostics',
+            sources = { 'coc' },
+            sections = { 'error', 'warn', 'info', 'hint' },
+            symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
+            update_in_insert = false,
+            always_visible = false,
+            colored = true,
+          }
+        },
+        lualine_c = {
+          { 'filename',
+            file_status = true,
+            path = 1,
+            shorting_target = 10,
+            symbols = {
+              modified = ' [+]',
+              readonly = ' [-]',
+              unnamed = '[No Name]',
+            }
+          }
+        },
+        lualine_x = {'encoding', { 'fileformat', symbols = { unix = 'unix', dos = 'dos', mac = 'mac' } } },
+        lualine_y = {'filetype'},
+        lualine_z = {'progress', 'location'}
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+      },
+      tabline = {},
+      extensions = {'quickfix', 'fzf'}
+    }
+END
 endif
 
 " options
