@@ -1,7 +1,3 @@
-packadd tabular
-packadd vim-fugitive
-packadd vim-signature
-
 " functions
 function! s:getSelectedText()
   norm gv"sy
@@ -117,7 +113,6 @@ if !has('nvim')
   set statusline+=\ \[%{&fileformat}\]
   set statusline+=\ \[%p%%\ %L\]
 else
-  packadd lualine.nvim
   lua << END
     require('lualine').setup {
       options = {
@@ -210,6 +205,8 @@ nnoremap <silent>g/ :call <SID>searchWithVimgrep(expand('<cword>'))<CR>
 vnoremap <silent>*  :<C-u>call setreg("/", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent>#  :<C-u>call setreg("?", substitute(<SID>getSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
 vnoremap <silent>g/ :<C-u>call <SID>searchWithVimgrep(<SID>getSelectedText())<CR>
+vmap     v          <Plug>(expand_region_expand)
+vmap     <C-v>      <Plug>(expand_region_shrink)
 
 if !has('nvim')
   vnoremap <silent>gc :call <SID>placeComment()<CR>
