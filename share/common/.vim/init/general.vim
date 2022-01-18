@@ -177,7 +177,6 @@ nnoremap <leader>2  :set relativenumber!<CR>
 nnoremap <leader>3  :set hlsearch!<CR>
 
 nnoremap <leader>b  :ls<CR>
-nnoremap <leader>c  :terminal ++close<CR>
 nnoremap <leader>f  :call <SID>searchWithVimgrep(input("/"))<CR>
 nnoremap <leader>F  :find
 nnoremap <leader>gc :!git l<CR>
@@ -209,8 +208,11 @@ vmap     v          <Plug>(expand_region_expand)
 vmap     <C-v>      <Plug>(expand_region_shrink)
 
 if !has('nvim')
+  nnoremap <leader>c  :terminal ++close<CR>
   vnoremap <silent>gc :call <SID>placeComment()<CR>
 else
+  nnoremap <leader>c  :split term://fish<CR>
+  tnoremap <Esc> <C-\><C-n>
   lua require('Comment').setup()
 endif
 
