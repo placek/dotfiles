@@ -1,8 +1,19 @@
 {
   "codeLens.enable": true,
-  "suggest.enablePreview": true,
-  "hover.floatConfig": { "highlight": "Identifier", "border": true, "borderhighlight": "PmenuSel" },
-  "suggest.floatConfig": { "highlight": "Identifier", "border": true, "borderhighlight": "PmenuSel" },
+  "hover": {
+    "floatConfig": { "highlight": "Identifier", "border": true, "borderhighlight": "PmenuSel" }
+  },
+  "suggest": {
+    "enablePreview": true,
+    "floatConfig": { "highlight": "Identifier", "border": true, "borderhighlight": "PmenuSel" }
+  },
+  "diagnostic": {
+    "floatConfig": { "highlight": "Identifier", "border": true, "borderhighlight": "PmenuSel" },
+    "errorSign": "E",
+    "warningSign": "W",
+    "infoSign": "I",
+    "hintSign": "H"
+  },
   "languageserver": {
     "haskell": {
       "command": "haskell-language-server",

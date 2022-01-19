@@ -3,13 +3,14 @@ packadd coc-fzf
 
 " functions
 function! s:show_documentation()
-  call CocActionAsync('highlight')
   if CocHasProvider('hover')
     call CocActionAsync('definitionHover')
   endif
 endfunction
 
 " mappings
+nmap <C-n>                <Plug>(coc-cursors-position)
+vmap <C-n>                <Plug>(coc-cursors-range)
 nmap <silent> [c          <Plug>(coc-git-prevconflict)
 nmap <silent> ]c          <Plug>(coc-git-nextconflict)
 nmap <silent> [g          <Plug>(coc-diagnostic-prev)
@@ -41,10 +42,11 @@ nmap <localleader>q       <Plug>(coc-refactor)
 nmap <localleader>R       <Plug>(coc-references)
 nmap <localleader>t       <Plug>(coc-type-definition)
 nmap <localleader><space> :<C-u>CocFzfList<CR>
-nmap <leader>\            :CocCommand explorer --toggle --sources=file+<CR>
+nmap <localleader>,       :call <SID>show_documentation()<CR>
+nmap <leader>\            :CocCommand explorer --focus --width 40  --sources=buffer-,file+<CR>
 
 " autocmd
-autocmd CursorHold * silent call <SID>show_documentation()
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " commands
 command! -nargs=0 Format :call CocAction('format')
