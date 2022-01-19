@@ -3,17 +3,13 @@ packadd coc-fzf
 
 " functions
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+  call CocActionAsync('highlight')
+  if CocHasProvider('hover')
+    call CocActionAsync('definitionHover')
   endif
 endfunction
 
 " mappings
-nnoremap <silent>K        :call <SID>show_documentation()<CR>
 nmap <silent> [c          <Plug>(coc-git-prevconflict)
 nmap <silent> ]c          <Plug>(coc-git-nextconflict)
 nmap <silent> [g          <Plug>(coc-diagnostic-prev)
@@ -48,7 +44,7 @@ nmap <localleader><space> :<C-u>CocFzfList<CR>
 nmap <leader>\            :CocCommand explorer --toggle --sources=file+<CR>
 
 " autocmd
-autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call <SID>show_documentation()
 
 " commands
 command! -nargs=0 Format :call CocAction('format')
@@ -67,7 +63,7 @@ hi CocExplorerGitModified  ctermbg=0  ctermfg=16
 hi CocGitRemovedSign       ctermbg=0  ctermfg=1
 hi CocExplorerGitDeleted   ctermbg=0  ctermfg=1
 hi CocGitTopRemovedSign    ctermbg=0  ctermfg=1
-hi CocHighlightText        ctermbg=18 ctermfg=2
+hi CocHighlightText        ctermbg=18 ctermfg=11
 
 " status
 if !has('nvim')

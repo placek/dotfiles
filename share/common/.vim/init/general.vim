@@ -242,6 +242,7 @@ hi TabLineFill    ctermbg=0 ctermfg=0
 hi TabLineSel     ctermbg=0 ctermfg=9 cterm=NONE
 hi VertSplit      ctermbg=8 ctermfg=8
 hi Visual         ctermbg=7 ctermfg=0
+hi MatchParen     ctermbg=18 ctermfg=2
 
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
