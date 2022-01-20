@@ -71,6 +71,7 @@ config.bind(';m', 'hint links spawn {{terminal}} -e youtube-dl -x {hint-url} -o 
 config.bind(';v', 'hint links spawn {{terminal}} -e youtube-dl {hint-url} -o Downloads/%(title)s.%(ext)s')
 config.bind('<Ctrl+w>', 'mode-enter passthrough')
 config.bind('I', 'hint inputs');
+config.bind(',s', 'open -t https://getpocket.com/edit?url={url}')
 
 config.unbind('<Ctrl+Shift+w>')
 config.unbind('<Ctrl+t>')
