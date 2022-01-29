@@ -182,7 +182,6 @@ require('gitsigns').setup {
     keymap('n', '<localleader>hu', "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", opts)
     keymap('n', '<localleader>hR', "<cmd>lua require('gitsigns').reset_buffer()<cr>", opts)
     keymap('n', '<localleader>hp', "<cmd>lua require('gitsigns').preview_hunk()<cr>", opts)
-    keymap('n', '<localleader>hb', "<cmd>lua require('gitsigns').blame_line({full=true})<cr>", opts)
 
     keymap('o', 'ih', ':<C-U>Gitsigns select_hunk<cr>', opts)
     keymap('x', 'ih', ':<C-U>Gitsigns select_hunk<cr>', opts)
@@ -251,6 +250,45 @@ for _, lsp in pairs(servers) do
     end
   }
 end
+
+--------------------------------------------------------------------- which-key
+
+local wk = require("which-key")
+
+wk.register({
+  ["<leader>b"]       = { "<cmd>lua require('telescope.builtin').buffers()<cr>",      "Search buffers" },
+  ["<leader>f"]       = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",    "Grep files" },
+  ["<leader>F"]       = { "<cmd>lua require('telescope.builtin').find_files()<cr>",   "Search files" },
+  ["<leader>h"]       = { "<cmd>lua require('telescope.builtin').jumplist()<cr>",     "Search history" },
+  ["<leader>m"]       = { "<cmd>lua require('telescope.builtin').marks()<cr>",        "Search marks" },
+  ["<leader>r"]       = { "<cmd>lua require('telescope.builtin').registers()<cr>",    "Search registers" },
+  ["<leader>t"]       = { "<cmd>lua require('telescope.builtin').tags()<cr>",         "Search tags" },
+  ["<leader>\\"]      = { "<cmd>lua require('telescope.builtin').file_browser()<cr>", "Browse files" },
+  ["<leader>g"]       = { name = "Git" },
+  ["<leader>gf"]      = { "<cmd>lua require('telescope.builtin').git_files()<cr>",    "Search git files only" },
+  ["<leader>gc"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",  "List commits" },
+  ["<leader>gs"]      = { "<cmd>lua require('telescope.builtin').git_status()<cr>",   "Show status" },
+  ["<leader>gS"]      = { "<cmd>lua require('telescope.builtin').git_stash()<cr>",    "Show stash" },
+  ["<leader><space>"] = { "<cmd>lua require('telescope.builtin').builtin()<cr>",      "Other search options" },
+
+  ["<localleader>h"]  = { name = "Git hunk" },
+  ["<localleader>hs"] = { "<cmd>lua require('gitsigns').stage_hunk()<cr>",                        "Stage hunk" },
+  ["<localleader>hr"] = { "<cmd>lua require('gitsigns').reset_hunk()<cr>",                        "Reset hunk" },
+  ["<localleader>hS"] = { "<cmd>lua require('gitsigns').stage_buffer()<cr>",                      "Stage buffer" },
+  ["<localleader>hu"] = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>",                   "Undo stage hunk" },
+  ["<localleader>hR"] = { "<cmd>lua require('gitsigns').reset_buffer()<cr>",                      "Reset buffer" },
+  ["<localleader>hp"] = { "<cmd>lua require('gitsigns').preview_hunk()<cr>",                      "Preview hunk" },
+  ["<localleader>,"]  = { "<cmd>lua vim.lsp.buf.hover()<cr>",                                     "Show documentation" },
+  ["<localleader>a"]  = { "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>",         "Code actions" },
+  ["<localleader>d"]  = { "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",              "Show diagnostics" },
+  ["<localleader>D"]  = { "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>", "List diagnostics" },
+  ["<localleader>f"]  = { "<cmd>lua vim.lsp.buf.formatting()<cr>",                                "Format" },
+  ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>",           "List references" },
+  ["<localleader>R"]  = { "<cmd>lua vim.lsp.buf.rename()<cr>",                                    "Rename" },
+  ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" }
+})
+
+-------------------------------------------------------------------------------
 
 vim.cmd [[
 function! GetVisualSelection()
