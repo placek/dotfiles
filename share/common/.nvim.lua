@@ -1,20 +1,14 @@
--- TODO:
--- * git gutter
--- * expand region
-
 vim.opt.backup         = false
 vim.opt.clipboard      = "unnamedplus"
-vim.opt.cmdheight      = 2
+vim.opt.cmdheight      = 1
 vim.opt.colorcolumn    = { "80", "160" }
-vim.opt.completeopt    = { "menuone", "noselect" }
+vim.opt.completeopt    = { "menu", "menuone", "noselect" }
 vim.opt.conceallevel   = 0
 vim.opt.cursorline     = true
 vim.opt.expandtab      = true
 vim.opt.fileencoding   = "utf-8"
 vim.opt.foldcolumn     = "1"
 vim.opt.foldmethod     = "manual"
-vim.opt.grepformat     = "%f:%l:%c:%m"
-vim.opt.grepprg        = "rg --vimgrep $*"
 vim.opt.hlsearch       = true
 vim.opt.list           = true
 vim.opt.listchars      = "tab:» ,nbsp:␣,trail:·,extends:›,precedes:‹"
@@ -22,7 +16,6 @@ vim.opt.mouse          = "a"
 vim.opt.number         = true
 vim.opt.numberwidth    = 2
 vim.opt.pumheight      = 10
-vim.opt.relativenumber = true
 vim.opt.scrolloff      = 8
 vim.opt.shiftwidth     = 2
 vim.opt.showmode       = false
@@ -45,6 +38,7 @@ local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
 local keymap = vim.api.nvim_set_keymap
 local buf_keymap = vim.api.nvim_buf_set_keymap
+local servers = { 'hls' }
 local kind_icons = {
   Text = "",
   Method = "m",
@@ -86,9 +80,9 @@ end
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = ","
 
-keymap("n", "<leader>1",       "<cmd>set number!<CR>", opts)
-keymap("n", "<leader>2",       "<cmd>set relativenumber!<CR>", opts)
-keymap("n", "<leader>3",       "<cmd>set hlsearch!<CR>", opts)
+keymap("n", "<leader>1",       "<cmd>set number!<cr>", opts)
+keymap("n", "<leader>2",       "<cmd>set relativenumber!<cr>", opts)
+keymap("n", "<leader>3",       "<cmd>set hlsearch!<cr>", opts)
 keymap("n", "<leader>b",       "<cmd>lua require('telescope.builtin').buffers()<cr>", opts)
 keymap("n", "<leader>f",       "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts)
 keymap("n", "<leader>F",       "<cmd>lua require('telescope.builtin').find_files()<cr>", opts)
@@ -102,11 +96,14 @@ keymap("n", "<leader>r",       "<cmd>lua require('telescope.builtin').registers(
 keymap("n", "<leader>t",       "<cmd>lua require('telescope.builtin').tags()<cr>", opts)
 keymap("n", "<leader>\\",      "<cmd>lua require('telescope.builtin').file_browser()<cr>", opts)
 keymap("n", "<leader><space>", "<cmd>lua require('telescope.builtin').builtin()<cr>", opts)
-keymap("v", "v",               "<Plug>(expand_region_expand)", opts)
-keymap("v", "<C-v>",           "<Plug>(expand_region_shrink)", opts)
+keymap("v", "*",               ":<C-u>call setreg('/', substitute(GetVisualSelection(), '\\_s\\+', '\\\\_s\\\\+', 'g'))<cr>n", opts)
+keymap("v", "#",               ":<C-u>call setreg('?', substitute(GetVisualSelection(), '\\_s\\+', '\\\\_s\\\\+', 'g'))<cr>n", opts)
 
+----------------------------------------------------------------------- Comment
 
 require('Comment').setup()
+
+----------------------------------------------------------------------- lualine
 
 require('lualine').setup {
   options = {
@@ -164,63 +161,105 @@ require('lualine').setup {
   extensions = {'quickfix'}
 }
 
-require('cmp').setup {
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'cmp_tabnine' }
-  },
-  formatting = {
-    fields = { "kind", "abbr", "menu" },
-    format = function(entry, vim_item)
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-      vim_item.menu = ({
-        nvim_lsp = "[LSP]",
-        cmp_tabnine = "[TAB9]"
-      })[entry.source.name]
-      return vim_item
-    end,
-  },
-  experimental = {
-    ghost_text = false,
-    native_menu = false
-  }
+---------------------------------------------------------------------- gitsigns
+
+require('gitsigns').setup {
+  signcolumn = true,
+  current_line_blame = true,
+  current_line_blame_opts = { delay = 500 },
+  current_line_blame_formatter_opts = { relative_time = true },
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    keymap('n', ']h', "<cmd>Gitsigns next_hunk<cr>", {expr=true})
+    keymap('n', '[h', "<cmd>Gitsigns prev_hunk<cr>", {expr=true})
+
+    keymap('n', '<localleader>hs', "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
+    keymap('v', '<localleader>hs', "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
+    keymap('n', '<localleader>hr', "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
+    keymap('v', '<localleader>hr', "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
+    keymap('n', '<localleader>hS', "<cmd>lua require('gitsigns').stage_buffer()<cr>", opts)
+    keymap('n', '<localleader>hu', "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", opts)
+    keymap('n', '<localleader>hR', "<cmd>lua require('gitsigns').reset_buffer()<cr>", opts)
+    keymap('n', '<localleader>hp', "<cmd>lua require('gitsigns').preview_hunk()<cr>", opts)
+    keymap('n', '<localleader>hb', "<cmd>lua require('gitsigns').blame_line({full=true})<cr>", opts)
+
+    keymap('o', 'ih', ':<C-U>Gitsigns select_hunk<cr>', opts)
+    keymap('x', 'ih', ':<C-U>Gitsigns select_hunk<cr>', opts)
+  end
 }
 
-local opts = { noremap=true, silent=true }
+--------------------------------------------------------------------------- CMP
 
-local on_attach = function(client, bufnr)
-  buf_keymap(bufnr, 'n', '<localleader>,', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-  keymap(           'n', '<localleader>a', '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', opts)
-  buf_keymap(bufnr, 'n', '<localleader>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
-  keymap(           'n', '<localleader>D', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>', opts)
-  keymap(           'n', '<localleader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
-  buf_keymap(bufnr, 'n', '<localleader>r', '<cmd>lua require("telescope.builtin").lsp_references()<cr>', opts)
-  buf_keymap(bufnr, 'n', '<localleader>R', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-  keymap(           'n', '<localleader>s', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<cr>', opts)
-  buf_keymap(bufnr, 'n', 'gd',             '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-  keymap(           'n', '[d',             '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
-  keymap(           'n', ']d',             '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
+local cmp = require('cmp')
 
-  vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-  vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-  vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
-end
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  }, {
+    { name = 'buffer' },
+  })
+})
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+-- cmp.setup.cmdline('/', {
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })
+--
+-- cmp.setup.cmdline(':', {
+--   sources = cmp.config.sources({
+--     { name = 'path' }
+--   }, {
+--     { name = 'cmdline' }
+--   })
+-- })
 
-local servers = { 'hls' }
+--------------------------------------------------------------------- lspconfig
 
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
-    capabilities = capabilities,
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     autostart = true,
-    on_attach = on_attach,
-    flags = { debounce_text_changes = 150 }
+    flags = { debounce_text_changes = 150 },
+    on_attach = function(client, bufnr)
+      buf_keymap(bufnr, 'n', '<localleader>,', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+      keymap(           'n', '<localleader>a', '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', opts)
+      buf_keymap(bufnr, 'n', '<localleader>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
+      keymap(           'n', '<localleader>D', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>', opts)
+      keymap(           'n', '<localleader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
+      buf_keymap(bufnr, 'n', '<localleader>r', '<cmd>lua require("telescope.builtin").lsp_references()<cr>', opts)
+      buf_keymap(bufnr, 'n', '<localleader>R', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+      keymap(           'n', '<localleader>s', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<cr>', opts)
+      buf_keymap(bufnr, 'n', 'gd',             '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+      keymap(           'n', '[d',             '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
+      keymap(           'n', ']d',             '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
+
+      vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
+      vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
+      vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+    end
   }
 end
 
 vim.cmd [[
+function! GetVisualSelection()
+  norm gv"sy
+  let l:ret = getreg('s')
+  exe "norm \<Esc>"
+  return l:ret
+endfunction
+
 " commands
 command! -count MakeTags !git tags
 command! -count Open     !open %
@@ -231,7 +270,11 @@ hi DiffAdd                          ctermbg=2  ctermfg=0 cterm=BOLD
 hi DiffChange                       ctermbg=3  ctermfg=0 cterm=BOLD
 hi DiffDelete                       ctermbg=1  ctermfg=0 cterm=BOLD
 hi DiffText                         ctermbg=2  ctermfg=0 cterm=BOLD
-hi Directory                        ctermfg=4
+hi Directory                                   ctermfg=4
+hi GitSignsCurrentLineBlame                    ctermfg=8
+hi GitSignsAdd                      ctermbg=0  ctermfg=2
+hi GitSignsChange                   ctermbg=0  ctermfg=3
+hi GitSignsDelete                   ctermbg=0  ctermfg=1
 hi FoldColumn                       ctermbg=0  ctermfg=7
 hi Folded                           ctermbg=6  ctermfg=0
 hi LspDiagnosticsSignError          ctermbg=0  ctermfg=1
@@ -255,7 +298,6 @@ hi TabLineFill                      ctermbg=0  ctermfg=0
 hi TabLineSel                       ctermbg=0  ctermfg=9 cterm=NONE
 hi VertSplit                        ctermbg=8  ctermfg=8
 hi Visual                           ctermbg=7  ctermfg=0
-hi gitblame                         ctermfg=8
 
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
