@@ -1,12 +1,12 @@
-vim.opt.conceallevel   = 0
-vim.opt.numberwidth    = 2
-vim.opt.pumheight      = 10
-vim.opt.scrolloff      = 8
-vim.opt.showmode       = false
-vim.opt.sidescrolloff  = 8
-vim.opt.smartindent    = true
-vim.opt.undofile       = true
-vim.opt.writebackup    = false
+vim.opt.conceallevel  = 0
+vim.opt.numberwidth   = 2
+vim.opt.pumheight     = 10
+vim.opt.scrolloff     = 8
+vim.opt.showmode      = false
+vim.opt.sidescrolloff = 8
+vim.opt.smartindent   = true
+vim.opt.undofile      = true
+vim.opt.writebackup   = false
 
 local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
@@ -136,6 +136,7 @@ require('gitsigns').setup {
   current_line_blame = true,
   current_line_blame_opts = { delay = 500 },
   current_line_blame_formatter_opts = { relative_time = true },
+  preview_config = { border = 'none' },
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
@@ -178,19 +179,19 @@ cmp.setup({
   })
 })
 
--- cmp.setup.cmdline('/', {
---   sources = {
---     { name = 'buffer' }
---   }
--- })
---
--- cmp.setup.cmdline(':', {
---   sources = cmp.config.sources({
---     { name = 'path' }
---   }, {
---     { name = 'cmdline' }
---   })
--- })
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
 
 --------------------------------------------------------------------- lspconfig
 
