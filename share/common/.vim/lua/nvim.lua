@@ -51,22 +51,6 @@ for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
---------------------------------------------------------------------- telescope
-
-keymap("n", "<leader>b",       "<cmd>lua require('telescope.builtin').buffers()<cr>", opts)
-keymap("n", "<leader>f",       "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts)
-keymap("n", "<leader>F",       "<cmd>lua require('telescope.builtin').find_files()<cr>", opts)
-keymap("n", "<leader>gS",      "<cmd>lua require('telescope.builtin').git_stash()<cr>", opts)
-keymap("n", "<leader>gc",      "<cmd>lua require('telescope.builtin').git_commits()<cr>", opts)
-keymap("n", "<leader>gf",      "<cmd>lua require('telescope.builtin').git_files()<cr>", opts)
-keymap("n", "<leader>gs",      "<cmd>lua require('telescope.builtin').git_status()<cr>", opts)
-keymap("n", "<leader>h",       "<cmd>lua require('telescope.builtin').jumplist()<cr>", opts)
-keymap("n", "<leader>m",       "<cmd>lua require('telescope.builtin').marks()<cr>", opts)
-keymap("n", "<leader>r",       "<cmd>lua require('telescope.builtin').registers()<cr>", opts)
-keymap("n", "<leader>t",       "<cmd>lua require('telescope.builtin').tags()<cr>", opts)
-keymap("n", "<leader>\\",      "<cmd>lua require('telescope.builtin').file_browser({hidden=true})<cr>", opts)
-keymap("n", "<leader><space>", "<cmd>lua require('telescope.builtin').builtin()<cr>", opts)
-
 ----------------------------------------------------------------------- Comment
 
 require('Comment').setup()
@@ -232,7 +216,7 @@ wk.register({
   ["<leader>m"]       = { "<cmd>lua require('telescope.builtin').marks()<cr>",        "Search marks" },
   ["<leader>r"]       = { "<cmd>lua require('telescope.builtin').registers()<cr>",    "Search registers" },
   ["<leader>t"]       = { "<cmd>lua require('telescope.builtin').tags()<cr>",         "Search tags" },
-  ["<leader>\\"]      = { "<cmd>lua require('telescope.builtin').file_browser()<cr>", "Browse files" },
+  ["<leader>\\"]      = { "<cmd>lua require('telescope.builtin').file_browser({hidden = true})<cr>", "Browse files" },
   ["<leader>g"]       = { name = "Git" },
   ["<leader>gf"]      = { "<cmd>lua require('telescope.builtin').git_files()<cr>",    "Search git files only" },
   ["<leader>gc"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",  "List commits" },
