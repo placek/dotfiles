@@ -64,7 +64,7 @@ keymap("n", "<leader>h",       "<cmd>lua require('telescope.builtin').jumplist()
 keymap("n", "<leader>m",       "<cmd>lua require('telescope.builtin').marks()<cr>", opts)
 keymap("n", "<leader>r",       "<cmd>lua require('telescope.builtin').registers()<cr>", opts)
 keymap("n", "<leader>t",       "<cmd>lua require('telescope.builtin').tags()<cr>", opts)
-keymap("n", "<leader>\\",      "<cmd>lua require('telescope.builtin').file_browser()<cr>", opts)
+keymap("n", "<leader>\\",      "<cmd>lua require('telescope.builtin').file_browser({hidden=true})<cr>", opts)
 keymap("n", "<leader><space>", "<cmd>lua require('telescope.builtin').builtin()<cr>", opts)
 
 ----------------------------------------------------------------------- Comment
