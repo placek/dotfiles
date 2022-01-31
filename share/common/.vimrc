@@ -125,8 +125,9 @@ hi LspReferenceRead                 ctermbg=18 ctermfg=4
 hi LspReferenceWrite                ctermbg=18 ctermfg=11
 hi MatchParen                       ctermbg=18 ctermfg=2
 hi NormalFloat                      ctermbg=18 ctermfg=7
-hi Pmenu                            ctermbg=18 ctermfg=7
+hi Pmenu                            ctermbg=0  ctermfg=8
 hi PmenuSbar                        ctermbg=0  ctermfg=8
+hi PmenuSel                         ctermbg=18 ctermfg=7
 hi Search                           ctermbg=2  ctermfg=0
 hi SignColumn                       ctermbg=0
 hi TabLine                          ctermbg=0  ctermfg=7 cterm=NONE
