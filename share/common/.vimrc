@@ -13,6 +13,12 @@ function! MakeTags()
   let tags_job = job_start("git ctags", #{ exit_cb: function('MakeTagsResult') })
 endfunction
 
+function! MakeFolds()
+  setlocal foldmethod=indent
+  norm zR
+  setlocal foldmethod=manual
+endfunction
+
 function! MakeTagsResult(job, status)
   if a:status == 0
     echom "MakeTags: done"
@@ -76,6 +82,8 @@ let g:maplocalleader = ","
 " mappings
 nnoremap <leader>1  :set number!<CR>
 nnoremap <leader>2  :set hlsearch!<CR>
+nnoremap <leader>3  :call MakeFolds()<CR>
+nnoremap <leader>4  :set spell!<CR>
 
 nmap <silent>       [a :previous<CR>
 nmap <silent>       ]a :next<CR>
@@ -137,6 +145,4 @@ hi Visual                           ctermbg=7  ctermfg=0
 
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
-autocmd! BufWritePre  * :%s/\s\+$//e
-autocmd! BufReadPre   * :setlocal foldmethod=indent
-autocmd! BufWinEnter  * :if &foldmethod == 'indent' | setlocal foldmethod=manual | endif
+autocmd! BufWritePre * :%s/\s\+$//e
