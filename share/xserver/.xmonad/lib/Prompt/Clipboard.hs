@@ -25,6 +25,7 @@ clipboardPrompt xpconfig = mkXPromptWithModes [XPT $ Clipboard xpconfig] xpconfi
 escapeQuote :: String -> String
 escapeQuote = concatMap escape
   where escape :: Char -> String
-        escape '"' = "\\\""
+        escape '"'  = "\\\""
         escape '\\' = "\\\\"
-        escape x   = [x]
+        escape '$'  = "\\$"
+        escape x    = [x]

@@ -37,7 +37,6 @@ set encoding=utf-8
 set expandtab
 set exrc
 set foldcolumn=1
-set foldmethod=manual
 set grepformat=%f:%l:%c:%m
 set grepprg=rg\ --vimgrep\ $*
 set hidden
@@ -112,7 +111,7 @@ hi GitSignsAdd                      ctermbg=0  ctermfg=2
 hi GitSignsChange                   ctermbg=0  ctermfg=3
 hi GitSignsDelete                   ctermbg=0  ctermfg=1
 hi FoldColumn                       ctermbg=0  ctermfg=7
-hi Folded                           ctermbg=6  ctermfg=0
+hi Folded                           ctermbg=19 ctermfg=7
 hi LspDiagnosticsSignError          ctermbg=0  ctermfg=1
 hi LspDiagnosticsSignHint           ctermbg=0  ctermfg=7
 hi LspDiagnosticsSignInfo           ctermbg=0  ctermfg=4
@@ -138,4 +137,6 @@ hi Visual                           ctermbg=7  ctermfg=0
 
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
-autocmd! BufWritePre * :%s/\s\+$//e
+autocmd! BufWritePre  * :%s/\s\+$//e
+autocmd! BufReadPre   * :setlocal foldmethod=indent
+autocmd! BufWinEnter  * :if &foldmethod == 'indent' | setlocal foldmethod=manual | endif

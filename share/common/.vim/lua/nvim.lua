@@ -223,6 +223,9 @@ wk.register({
   ["<leader>gs"]      = { "<cmd>lua require('telescope.builtin').git_status()<cr>",   "Show status" },
   ["<leader>gS"]      = { "<cmd>lua require('telescope.builtin').git_stash()<cr>",    "Show stash" },
   ["<leader><space>"] = { "<cmd>lua require('telescope.builtin').builtin()<cr>",      "Other search options" },
+  ["<leader>l"]       = { name = "LSP" },
+  ["<leader>li"]      = { "<cmd>LspInfo<cr>",                                         "LSP info" },
+  ["<leader>lh"]      = { "<cmd>LspStart hls<cr>",                                    "LSP start hls" },
 
   ["<localleader>h"]  = { name = "Git hunk" },
   ["<localleader>hs"] = { "<cmd>lua require('gitsigns').stage_hunk()<cr>",                        "Stage hunk" },
