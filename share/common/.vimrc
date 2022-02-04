@@ -109,6 +109,7 @@ command! -count Open     !open %
 
 " colors
 hi ColorColumn                      ctermbg=18
+hi Comment                                     ctermfg=8
 hi DiffAdd                          ctermbg=2  ctermfg=0 cterm=BOLD
 hi DiffChange                       ctermbg=3  ctermfg=0 cterm=BOLD
 hi DiffDelete                       ctermbg=1  ctermfg=0 cterm=BOLD
@@ -128,13 +129,9 @@ hi LspDiagnosticsVirtualTextError   ctermbg=0  ctermfg=1
 hi LspDiagnosticsVirtualTextHint    ctermbg=0  ctermfg=7
 hi LspDiagnosticsVirtualTextInfo    ctermbg=0  ctermfg=4
 hi LspDiagnosticsVirtualTextWarning ctermbg=0  ctermfg=16
-hi LspReferenceRead                 ctermbg=18 ctermfg=4
-hi LspReferenceWrite                ctermbg=18 ctermfg=11
-hi MatchParen                       ctermbg=18 ctermfg=2
-hi NormalFloat                      ctermbg=18 ctermfg=7
-hi Pmenu                            ctermbg=0  ctermfg=8
-hi PmenuSbar                        ctermbg=0  ctermfg=8
-hi PmenuSel                         ctermbg=18 ctermfg=7
+hi Pmenu                            ctermbg=0  ctermfg=7
+hi PmenuSbar                        ctermbg=0  ctermfg=7
+hi PmenuSel                         ctermbg=18 ctermfg=15
 hi Search                           ctermbg=2  ctermfg=0
 hi SignColumn                       ctermbg=0
 hi TabLine                          ctermbg=0  ctermfg=7 cterm=NONE
@@ -143,6 +140,19 @@ hi TabLineSel                       ctermbg=0  ctermfg=9 cterm=NONE
 hi VertSplit                        ctermbg=8  ctermfg=8
 hi Visual                           ctermbg=7  ctermfg=0
 
+" haskell
+hi haskellDecl                                 ctermfg=3
+hi haskellDeclKeyword                          ctermfg=3
+hi haskellDeriveKeyword                        ctermfg=3
+hi haskellIdentifier                           ctermfg=12 cterm=NONE
+hi haskellLet                                  ctermfg=3
+hi haskellType                                 ctermfg=12 cterm=BOLD
+hi haskellWhere                                ctermfg=3
+
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
 autocmd! BufWritePre * :%s/\s\+$//e
+
+nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>

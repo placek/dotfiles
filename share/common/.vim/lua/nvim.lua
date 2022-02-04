@@ -8,36 +8,36 @@ vim.opt.smartindent   = true
 vim.opt.undofile      = true
 vim.opt.writebackup   = false
 
-local opts = { noremap = true, silent = true }
-local term_opts = { silent = true }
-local keymap = vim.api.nvim_set_keymap
-local buf_keymap = vim.api.nvim_buf_set_keymap
-local servers = { 'hls' }
+local buf_keymap     = vim.api.nvim_buf_set_keymap
+local float_settings = { border = "rounded" }
+local keymap         = vim.api.nvim_set_keymap
+local opts           = { noremap = true, silent = true }
+local servers        = { "hls", "rnix" }
 local kind_icons = {
-  Text = "",
-  Method = "m",
-  Function = "",
-  Constructor = "",
-  Field = "",
-  Variable = "",
-  Class = "",
-  Interface = "",
-  Module = "",
-  Property = "",
-  Unit = "",
-  Value = "",
-  Enum = "",
-  Keyword = "",
-  Snippet = "",
-  Color = "",
-  File = "",
-  Reference = "",
-  Folder = "",
-  EnumMember = "",
-  Constant = "",
-  Struct = "",
-  Event = "",
-  Operator = "",
+  Text          = "",
+  Method        = "m",
+  Function      = "",
+  Constructor   = "",
+  Field         = "",
+  Variable      = "",
+  Class         = "",
+  Interface     = "",
+  Module        = "",
+  Property      = "",
+  Unit          = "",
+  Value         = "",
+  Enum          = "",
+  Keyword       = "",
+  Snippet       = "",
+  Color         = "",
+  File          = "",
+  Reference     = "",
+  Folder        = "",
+  EnumMember    = "",
+  Constant      = "",
+  Struct        = "",
+  Event         = "",
+  Operator      = "",
   TypeParameter = "",
 }
 local signs = {
@@ -53,27 +53,27 @@ end
 
 ----------------------------------------------------------------------- Comment
 
-require('Comment').setup()
+require("Comment").setup()
 
 ----------------------------------------------------------------------- lualine
 
-require('lualine').setup {
+require("lualine").setup {
   options = {
     icons_enabled = true,
-    theme = 'gruvbox-material',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = { 'coc-explorer' },
+    theme = "gruvbox-material",
+    component_separators = { left = "", right = ""},
+    section_separators = { left = "", right = ""},
+    disabled_filetypes = { "coc-explorer" },
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = {'mode'},
+    lualine_a = {"mode"},
     lualine_b = {
-      'branch',
-      'diff',
-      { 'diagnostics',
-        sources = { 'nvim_lsp' },
-        sections = { 'error', 'warn', 'info', 'hint' },
+      "branch",
+      "diff",
+      { "diagnostics",
+        sources = { "nvim_lsp" },
+        sections = { "error", "warn", "info", "hint" },
         symbols = {
           error = " ",
           warn  = " ",
@@ -86,116 +86,123 @@ require('lualine').setup {
       }
     },
     lualine_c = {
-      { 'filename',
+      { "filename",
         file_status = true,
         path = 1,
         shorting_target = 10,
         symbols = {
-          modified = ' [+]',
-          readonly = ' [-]',
-          unnamed = '[No Name]',
+          modified = " +",
+          readonly = " -",
+          unnamed = "[No Name]",
         }
       }
     },
-    lualine_x = {'encoding', { 'fileformat', symbols = { unix = 'unix', dos = 'dos', mac = 'mac' } } },
-    lualine_y = {'filetype'},
-    lualine_z = {'progress', 'location'}
+    lualine_x = {"encoding", { "fileformat", symbols = { unix = "unix", dos = "dos", mac = "mac" } } },
+    lualine_y = {"filetype"},
+    lualine_z = {"progress", "location"}
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_c = {"filename"},
+    lualine_x = {"location"},
     lualine_y = {},
     lualine_z = {}
   },
   tabline = {},
-  extensions = {'quickfix'}
+  extensions = {"quickfix"}
 }
 
 ---------------------------------------------------------------------- gitsigns
 
-require('gitsigns').setup {
+require("gitsigns").setup {
   signcolumn = true,
   current_line_blame = true,
   current_line_blame_opts = { delay = 500 },
   current_line_blame_formatter_opts = { relative_time = true },
-  preview_config = { border = 'none' },
+  preview_config = float_settings,
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
-    keymap('n', ']h', "<cmd>Gitsigns next_hunk<cr>", {expr=true})
-    keymap('n', '[h', "<cmd>Gitsigns prev_hunk<cr>", {expr=true})
+    keymap("n", "]h", "<cmd>Gitsigns next_hunk<cr>", {expr=true})
+    keymap("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", {expr=true})
 
-    keymap('n', '<localleader>hs', "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
-    keymap('v', '<localleader>hs', "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
-    keymap('n', '<localleader>hr', "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
-    keymap('v', '<localleader>hr', "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
-    keymap('n', '<localleader>hS', "<cmd>lua require('gitsigns').stage_buffer()<cr>", opts)
-    keymap('n', '<localleader>hu', "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", opts)
-    keymap('n', '<localleader>hR', "<cmd>lua require('gitsigns').reset_buffer()<cr>", opts)
-    keymap('n', '<localleader>hp', "<cmd>lua require('gitsigns').preview_hunk()<cr>", opts)
+    keymap("n", "<localleader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
+    keymap("v", "<localleader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
+    keymap("n", "<localleader>hr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
+    keymap("v", "<localleader>hr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
+    keymap("n", "<localleader>hS", "<cmd>lua require('gitsigns').stage_buffer()<cr>", opts)
+    keymap("n", "<localleader>hu", "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", opts)
+    keymap("n", "<localleader>hR", "<cmd>lua require('gitsigns').reset_buffer()<cr>", opts)
+    keymap("n", "<localleader>hp", "<cmd>lua require('gitsigns').preview_hunk()<cr>", opts)
 
-    keymap('o', 'ih', ':<C-U>Gitsigns select_hunk<cr>', opts)
-    keymap('x', 'ih', ':<C-U>Gitsigns select_hunk<cr>', opts)
+    keymap("o", "ih", ":<C-U>Gitsigns select_hunk<cr>", opts)
+    keymap("x", "ih", ":<C-U>Gitsigns select_hunk<cr>", opts)
   end
 }
 
 --------------------------------------------------------------------------- cmp
 
-local cmp = require('cmp')
+local cmp = require("cmp")
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   mapping = {
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
   }, {
-    { name = 'buffer' },
+    { name = "buffer" },
   })
 })
 
-cmp.setup.cmdline('/', {
+cmp.setup.cmdline("/", {
   sources = {
-    { name = 'buffer' }
+    { name = "buffer" }
   }
 })
 
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline(":", {
   sources = cmp.config.sources({
-    { name = 'path' }
+    { name = "path" }
   }, {
-    { name = 'cmdline' }
+    { name = "cmdline" }
   })
 })
 
 --------------------------------------------------------------------- lspconfig
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_settings)
+
 for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  require("lspconfig")[lsp].setup {
+    capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     autostart = true,
     flags = { debounce_text_changes = 150 },
     on_attach = function(client, bufnr)
-      buf_keymap(bufnr, 'n', '<localleader>,', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-      keymap(           'n', '<localleader>a', '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', opts)
-      buf_keymap(bufnr, 'n', '<localleader>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
-      keymap(           'n', '<localleader>D', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>', opts)
-      keymap(           'n', '<localleader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
-      buf_keymap(bufnr, 'n', '<localleader>r', '<cmd>lua require("telescope.builtin").lsp_references()<cr>', opts)
-      buf_keymap(bufnr, 'n', '<localleader>R', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-      keymap(           'n', '<localleader>s', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<cr>', opts)
-      buf_keymap(bufnr, 'n', 'gd',             '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-      keymap(           'n', '[d',             '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
-      keymap(           'n', ']d',             '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
+      buf_keymap(bufnr, "n", "<localleader>,", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+      buf_keymap(bufnr, "n", "<localleader>.", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+      buf_keymap(bufnr, "n", "<localleader>R", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+      buf_keymap(bufnr, "n", "<localleader>d", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", opts)
+      buf_keymap(bufnr, "n", "<localleader>m", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+      buf_keymap(bufnr, "n", "<localleader>r", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", opts)
+      keymap(           "n", "<localleader>D", "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>", opts)
+      keymap(           "n", "<localleader>a", "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>", opts)
+      keymap(           "n", "<localleader>f", "<cmd>lua vim.lsp.buf.formatting()<cr>", opts)
+      keymap(           "n", "<localleader>l", "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>", opts)
+      keymap(           "n", "<localleader>s", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", opts)
+      buf_keymap(bufnr, "n", "gD",             "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+      buf_keymap(bufnr, "n", "gd",             "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+      buf_keymap(bufnr, "n", "gi",             "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+      keymap(           "n", "[d",             "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)
+      keymap(           "n", "]d",             "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", opts)
 
       vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
       vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
@@ -235,11 +242,14 @@ wk.register({
   ["<localleader>hR"] = { "<cmd>lua require('gitsigns').reset_buffer()<cr>",                      "Reset buffer" },
   ["<localleader>hp"] = { "<cmd>lua require('gitsigns').preview_hunk()<cr>",                      "Preview hunk" },
   ["<localleader>,"]  = { "<cmd>lua vim.lsp.buf.hover()<cr>",                                     "Show documentation" },
+  ["<localleader>m"]  = { "<cmd>lua vim.lsp.buf.signature_help()<cr>",                            "Signature help" },
+  ["<localleader>."]  = { "<cmd>lua vim.lsp.buf.type_definition()<cr>",                           "Type definition" },
   ["<localleader>a"]  = { "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>",         "Code actions" },
   ["<localleader>d"]  = { "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",              "Show diagnostics" },
   ["<localleader>D"]  = { "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>", "List diagnostics" },
   ["<localleader>f"]  = { "<cmd>lua vim.lsp.buf.formatting()<cr>",                                "Format" },
   ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>",           "List references" },
   ["<localleader>R"]  = { "<cmd>lua vim.lsp.buf.rename()<cr>",                                    "Rename" },
-  ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" }
+  ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" },
+  ["<localleader>l"]  = { "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>",       "Load diagnostics to loclist" }
 })
