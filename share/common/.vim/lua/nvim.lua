@@ -71,6 +71,7 @@ require("lualine").setup {
     lualine_b = {
       "branch",
       "diff",
+      "g:lsp_attached_server",
       { "diagnostics",
         sources = { "nvim_lsp" },
         sections = { "error", "warn", "info", "hint" },
@@ -187,6 +188,8 @@ for _, lsp in pairs(servers) do
     autostart = true,
     flags = { debounce_text_changes = 150 },
     on_attach = function(client, bufnr)
+      vim.g.lsp_attached_server = lsp
+
       buf_keymap(bufnr, "n", "<localleader>,", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
       buf_keymap(bufnr, "n", "<localleader>.", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
       buf_keymap(bufnr, "n", "<localleader>R", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
