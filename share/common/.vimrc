@@ -104,6 +104,8 @@ vnoremap <silent>#  :<C-u>call setreg("?", substitute(GetSelectedText(), '\_s\+'
 vmap     v          <Plug>(expand_region_expand)
 vmap     <C-v>      <Plug>(expand_region_shrink)
 
+tnoremap <Esc>      <C-\><C-n>
+
 " commands
 command! -count MakeTags call MakeTags()
 command! -count Open     !open %
