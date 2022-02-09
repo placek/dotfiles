@@ -1,5 +1,6 @@
 filetype plugin indent on
 syntax enable
+colorscheme gruvbox8_soft
 
 " functions
 function! GetSelectedText()
@@ -115,12 +116,12 @@ hi DiffChange                       ctermbg=3  ctermfg=0 cterm=BOLD
 hi DiffDelete                       ctermbg=1  ctermfg=0 cterm=BOLD
 hi DiffText                         ctermbg=2  ctermfg=0 cterm=BOLD
 hi Directory                                   ctermfg=4
-hi GitSignsCurrentLineBlame                    ctermfg=8
-hi GitSignsAdd                      ctermbg=0  ctermfg=2
-hi GitSignsChange                   ctermbg=0  ctermfg=3
-hi GitSignsDelete                   ctermbg=0  ctermfg=1
 hi FoldColumn                       ctermbg=0  ctermfg=7
 hi Folded                           ctermbg=19 ctermfg=7
+hi GitSignsAdd                      ctermbg=0  ctermfg=2
+hi GitSignsChange                   ctermbg=0  ctermfg=3
+hi GitSignsCurrentLineBlame                    ctermfg=8
+hi GitSignsDelete                   ctermbg=0  ctermfg=1
 hi LspDiagnosticsSignError          ctermbg=0  ctermfg=1
 hi LspDiagnosticsSignHint           ctermbg=0  ctermfg=7
 hi LspDiagnosticsSignInfo           ctermbg=0  ctermfg=4
@@ -129,6 +130,10 @@ hi LspDiagnosticsVirtualTextError   ctermbg=0  ctermfg=1
 hi LspDiagnosticsVirtualTextHint    ctermbg=0  ctermfg=7
 hi LspDiagnosticsVirtualTextInfo    ctermbg=0  ctermfg=4
 hi LspDiagnosticsVirtualTextWarning ctermbg=0  ctermfg=16
+hi LspReferenceRead                            ctermfg=15
+hi LspReferenceWrite                           ctermfg=15 cterm=BOLD
+hi NormalFloat                      ctermbg=0
+hi FloatBorder                      ctermbg=0
 hi Pmenu                            ctermbg=0  ctermfg=7
 hi PmenuSbar                        ctermbg=0  ctermfg=7
 hi PmenuSel                         ctermbg=18 ctermfg=15
@@ -152,7 +157,3 @@ hi haskellWhere                                ctermfg=3
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
 autocmd! BufWritePre * :%s/\s\+$//e
-
-nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
