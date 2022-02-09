@@ -77,8 +77,10 @@ set wildignore=.*,.git/
 set wildmenu
 
 " options
-let g:mapleader = "\\"
-let g:maplocalleader = ","
+let g:mapleader          = "\\"
+let g:maplocalleader     = ","
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
 
 " mappings
 nnoremap <leader>1  :set number!<CR>
@@ -113,9 +115,9 @@ command! -count Open     !open %
 " colors
 hi ColorColumn                      ctermbg=18
 hi Comment                                     ctermfg=8
-hi DiffAdd                          ctermbg=2  ctermfg=0 cterm=BOLD
-hi DiffChange                       ctermbg=3  ctermfg=0 cterm=BOLD
-hi DiffDelete                       ctermbg=1  ctermfg=0 cterm=BOLD
+hi DiffAdd                          ctermbg=18 ctermfg=2 cterm=NONE
+hi DiffChange                       ctermbg=18 ctermfg=7 cterm=NONE
+hi DiffDelete                       ctermbg=18 ctermfg=1 cterm=NONE
 hi DiffText                         ctermbg=2  ctermfg=0 cterm=BOLD
 hi Directory                                   ctermfg=4
 hi FoldColumn                       ctermbg=0  ctermfg=7
