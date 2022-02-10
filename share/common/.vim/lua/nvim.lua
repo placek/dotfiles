@@ -144,21 +144,16 @@ ls.config.set_config {
   enable_autosnippets = true
 }
 
-ls.snippets = {
-  all = {
-    ls.parser.parse_snippet(
-      { trig = "fn", name = "Example function", dscr = "An example of some snippet" },
-      "$1 is ${2|hard,easy,challenging|}"
-    ),
-  }
-}
+require("luasnip/loaders/from_vscode").load()
 
-keymap("i", "<c-l>", "<Plug>luasnip-next-choice", opts)
-keymap("s", "<c-l>", "<Plug>luasnip-next-choice", opts)
-keymap("i", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
-keymap("s", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
-keymap("i", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
-keymap("s", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+keymap("i", "<c-h>", "<cmd>lua require('luasnip').change_choice(-1)<cr>", opts)
+keymap("s", "<c-h>", "<cmd>lua require('luasnip').change_choice(-1)<cr>", opts)
+keymap("i", "<c-l>", "<cmd>lua require('luasnip').change_choice(1)<cr>", opts)
+keymap("s", "<c-l>", "<cmd>lua require('luasnip').change_choice(1)<cr>", opts)
+keymap("i", "<c-j>", "<cmd>lua require('luasnip').jump(1)<cr>", opts)
+keymap("s", "<c-j>", "<cmd>lua require('luasnip').jump(1)<cr>", opts)
+keymap("i", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", opts)
+keymap("s", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", opts)
 
 --------------------------------------------------------------------------- cmp
 
@@ -209,21 +204,22 @@ cmp.setup({
     end,
   },
   documentation = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, },
-  sources = {
+  sources = cmp.config.sources({
     { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "cmp_tabnine" },
-    { name = "buffer" },
+    { name = "buffer" }
+  }, {
     { name = "path" }
-  }
+  })
 })
 
 cmp.setup.cmdline("?", {
-  sources = { { name = "buffer" } }
+  sources = cmp.config.sources({ { name = "buffer" } }, {})
 })
 
 cmp.setup.cmdline("/", {
-  sources = { { name = "buffer" } }
+  sources = cmp.config.sources({ { name = "buffer" } }, {})
 })
 
 cmp.setup.cmdline(":", {
