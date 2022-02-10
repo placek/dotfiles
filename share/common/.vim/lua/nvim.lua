@@ -115,8 +115,8 @@ require("gitsigns").setup {
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
-    keymap("n", "]h", "<cmd>Gitsigns next_hunk<cr>", {expr=true})
-    keymap("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", {expr=true})
+    keymap("n", "]h", "<cmd>lua require('gitsign').next_hunk()<cr>", {expr=true})
+    keymap("n", "[h", "<cmd>lua require('gitsign').prev_hunk()<cr>", {expr=true})
 
     keymap("n", "<localleader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
     keymap("v", "<localleader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
@@ -281,6 +281,9 @@ wk.register({
   ["<leader>gb"]      = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",                             "List branches" },
   ["<leader>gc"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",                              "List commits" },
   ["<leader>gC"]      = { "<cmd>lua require('telescope.builtin').git_bcommits()<cr>",                             "List commits for buffer" },
+  ["<leader>gd"]      = { "<cmd>lua require('gitsigns').diffthis()<cr>",                                          "Diff this" },
+  ["<leader>gl"]      = { "<cmd>lua require('gitsigns').setqflist()<cr>",                                         "Quickfix list" },
+  ["<leader>gL"]      = { "<cmd>lua require('gitsigns').setloclist()<cr>",                                        "Local list" },
   ["<leader>gs"]      = { "<cmd>lua require('telescope.builtin').git_status()<cr>",                               "Show status" },
   ["<leader>gS"]      = { "<cmd>lua require('telescope.builtin').git_stash()<cr>",                                "Show stash" },
   ["<leader><space>"] = { "<cmd>lua require('telescope.builtin').builtin()<cr>",                                  "Other search options" },
