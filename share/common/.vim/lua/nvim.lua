@@ -1,13 +1,3 @@
-vim.opt.conceallevel  = 0
-vim.opt.numberwidth   = 2
-vim.opt.pumheight     = 10
-vim.opt.scrolloff     = 8
-vim.opt.showmode      = false
-vim.opt.sidescrolloff = 8
-vim.opt.smartindent   = true
-vim.opt.undofile      = true
-vim.opt.writebackup   = false
-
 local buf_keymap     = vim.api.nvim_buf_set_keymap
 local float_settings = { border = "rounded" }
 local keymap         = vim.api.nvim_set_keymap
@@ -67,7 +57,7 @@ require("lualine").setup {
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = {"mode"},
+    lualine_a = { "mode" },
     lualine_b = {
       "branch",
       "diff",
@@ -94,7 +84,7 @@ require("lualine").setup {
         symbols = {
           modified = " +",
           readonly = " -",
-          unnamed = "[No Name]",
+          unnamed = "¯\\_(ツ)_/¯",
         }
       }
     },
@@ -142,6 +132,34 @@ require("gitsigns").setup {
   end
 }
 
+----------------------------------------------------------------------- luasnip
+
+local ls = require("luasnip")
+
+ls.config.set_config {
+  history = true,
+  updateevents = "TextChanged,TextChangedI",
+  ext_base_prio = 300,
+  ext_prio_increase = 1,
+  enable_autosnippets = true
+}
+
+ls.snippets = {
+  all = {
+    ls.parser.parse_snippet(
+      { trig = "fn", name = "Example function", dscr = "An example of some snippet" },
+      "$1 is ${2|hard,easy,challenging|}"
+    ),
+  }
+}
+
+keymap("i", "<c-l>", "<Plug>luasnip-next-choice", opts)
+keymap("s", "<c-l>", "<Plug>luasnip-next-choice", opts)
+keymap("i", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
+keymap("s", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
+keymap("i", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+keymap("s", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+
 --------------------------------------------------------------------------- cmp
 
 local cmp = require("cmp")
@@ -149,33 +167,67 @@ local cmp = require("cmp")
 cmp.setup({
   snippet = {
     expand = function(args)
-      require("luasnip").lsp_expand(args.body)
+      ls.lsp_expand(args.body)
     end,
   },
   mapping = {
+    ["<C-d>"]     = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+    ["<C-f>"]     = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<C-e>"]     = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+    ["<C-y>"]     = cmp.config.disable,
+    ["<C-k>"]     = cmp.mapping.select_prev_item(),
+    ["<C-j>"]     = cmp.mapping.select_next_item(),
+    ["<CR>"]      = cmp.mapping.confirm { select = true },
+    ["<Tab>"]     = cmp.mapping(function(fallback)
+                    if cmp.visible() then cmp.select_next_item()
+                    elseif ls.expandable() then  ls.expand()
+                    elseif ls.expand_or_jumpable() then ls.expand_or_jump()
+                    elseif check_backspace() then fallback()
+                    else fallback()
+                    end
+                  end, { "i", "s"}),
+    ["<S-Tab>"]   = cmp.mapping(function(fallback)
+                    if cmp.visible() then cmp.select_prev_item()
+                    elseif ls.jumpable(-1) then ls.jump(-1)
+                    else fallback()
+                    end
+                  end, { "i", "s"}),
   },
-  sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-  }, {
-    { name = "buffer" },
-  })
-})
-
-cmp.setup.cmdline("/", {
+  formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      vim_item.menu = ({
+        buffer      = "[buf]",
+        nvim_lsp    = "[lsp]",
+        luasnip     = "[snip]",
+        path        = "[path]",
+        cmp_tabnine = "[tab9]",
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
+  documentation = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, },
   sources = {
-    { name = "buffer" }
+    { name = "luasnip" },
+    { name = "nvim_lsp" },
+    { name = "cmp_tabnine" },
+    { name = "buffer" },
+    { name = "path" }
   }
 })
 
+cmp.setup.cmdline("?", {
+  sources = { { name = "buffer" } }
+})
+
+cmp.setup.cmdline("/", {
+  sources = { { name = "buffer" } }
+})
+
 cmp.setup.cmdline(":", {
-  sources = cmp.config.sources({
-    { name = "path" }
-  }, {
-    { name = "cmdline" }
-  })
+  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } })
 })
 
 --------------------------------------------------------------------- lspconfig
