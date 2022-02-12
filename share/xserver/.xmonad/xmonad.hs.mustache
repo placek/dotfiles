@@ -45,6 +45,7 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , position          = Top
                  , height            = 24
                  , promptBorderWidth = 0
+                 , completionKey     = (0, xK_Down)
                  , promptKeymap      = vimLikeXPKeymap' id (\prompt -> prompt ++ " \xe0b0 ") id Char.isSpace
                  , defaultPrompter   = \prompt -> prompt ++ " \xe0b1 "
                  , historyFilter     = deleteAllDuplicates
