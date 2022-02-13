@@ -311,4 +311,12 @@ wk.register({
   ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>",                           "List references" },
   ["<localleader>R"]  = { "<cmd>lua vim.lsp.buf.rename()<cr>",                                                    "Rename" },
   ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",                    "List workspace symbols" }
-})
+}, { mode = "n" })
+
+wk.register({
+  ["<localleader>t"]      = { name = "Tabularize" },
+  ["<localleader>t="]     = { ":Tab /^[^=]*\\zs=/l1c1l0<cr>",                                                     "Align to '=' symbol" },
+  ["<localleader>t<bar>"] = { ":Tab /|<cr>",                                                                      "Align markdown table" },
+  ["<localleader>t:"]     = { ":Tab /^[^:]*\\zs:/l1c0l0<cr>",                                                     "Align to first symbol" },
+  ["<localleader>t;"]     = { ":Tab /^[^:]*\\zs:/l0c1l0<cr>",                                                     "Align to key in hash" }
+}, { mode = "v" })

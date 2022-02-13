@@ -161,3 +161,8 @@ hi haskellWhere                                ctermfg=3
 " autocommands
 autocmd! BufWritePost * :silent! MakeTags
 autocmd! BufWritePre * :%s/\s\+$//e
+
+" undo sequence for space, dot and newline
+inoremap <space> <C-G>u<space>
+inoremap . <C-G>u.
+inoremap <cr> <C-G>u<cr>
