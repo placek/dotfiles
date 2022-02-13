@@ -318,5 +318,6 @@ wk.register({
   ["<localleader>t="]     = { ":Tab /^[^=]*\\zs=/l1c1l0<cr>",                                                     "Align to '=' symbol" },
   ["<localleader>t<bar>"] = { ":Tab /|<cr>",                                                                      "Align markdown table" },
   ["<localleader>t:"]     = { ":Tab /^[^:]*\\zs:/l1c0l0<cr>",                                                     "Align to first symbol" },
-  ["<localleader>t;"]     = { ":Tab /^[^:]*\\zs:/l0c1l0<cr>",                                                     "Align to key in hash" }
+  ["<localleader>t;"]     = { ":Tab /^[^:]*:\zs/l1l0",                                                            "Align to key in hash" },
+  ["<localleader>tt"]     = { ":Tabularize /",                                                                    "Custom alignment", silent = false }
 }, { mode = "v" })
