@@ -142,7 +142,7 @@ hi FloatBorder                      ctermbg=0
 hi Pmenu                            ctermbg=0   ctermfg=7
 hi PmenuSbar                        ctermbg=0   ctermfg=7
 hi PmenuSel                         ctermbg=18  ctermfg=15
-hi Search                           ctermbg=2   ctermfg=0
+hi Search                                                 cterm=BOLD
 hi SignColumn                       ctermbg=0
 hi TabLine                          ctermbg=0   ctermfg=7 cterm=NONE
 hi TabLineFill                      ctermbg=0   ctermfg=0
