@@ -285,6 +285,8 @@ wk.register({
   ["<leader>gg"]      = { ":G<cr>",                                                                               "Fugitive status" },
   ["<leader>gl"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",                              "List commits" },
   ["<leader>gL"]      = { "<cmd>lua require('telescope.builtin').git_bcommits()<cr>",                             "List commits for buffer" },
+  ["<leader>gp"]      = { ":G pull<cr>",                                                                          "Pull" },
+  ["<leader>gP"]      = { ":G push<cr>",                                                                          "Push" },
   ["<leader>gq"]      = { "<cmd>lua require('gitsigns').setqflist()<cr>",                                         "Quickfix list" },
   ["<leader>gQ"]      = { "<cmd>lua require('gitsigns').setloclist()<cr>",                                        "Local list" },
   ["<leader>gs"]      = { "<cmd>lua require('telescope.builtin').git_status()<cr>",                               "Show status" },
