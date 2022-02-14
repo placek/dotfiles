@@ -5,7 +5,7 @@ import           XMonad                   hiding (config)
 import           XMonad.Prompt
 import           XMonad.Util.Run                 (safeSpawn)
 
-data SearchType = Allegro | Alpha | Ang | Docker | Duck | Hoogle | Maps | Nixpkgs | Ruby | Stack | Wiki | Youtube
+data SearchType = Allegro | Alpha | Ang | Docker | Duck | Hoogle | Maps | Nixpkgs | Pocket | Ruby | Stack | Wiki | Youtube
                   deriving Show
 
 data Search = Search SearchType XPConfig
@@ -31,5 +31,6 @@ searchPrompt xpconfig = mkXPromptWithModes [ XPT $ Search Duck xpconfig
                                            , XPT $ Search Alpha xpconfig
                                            , XPT $ Search Ang xpconfig
                                            , XPT $ Search Docker xpconfig
+                                           , XPT $ Search Pocket xpconfig
                                            , XPT $ Search Ruby xpconfig
                                            ] xpconfig

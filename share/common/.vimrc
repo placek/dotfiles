@@ -66,6 +66,7 @@ set shortmess+=c
 set showcmd
 set signcolumn=yes
 set softtabstop=2
+set splitbelow
 set splitright
 set tabstop=2
 set tags+=.git/tags;
