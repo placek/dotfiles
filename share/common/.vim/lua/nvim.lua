@@ -282,7 +282,7 @@ wk.register({
   ["<leader>gB"]      = { ":Git blame<cr>",                                                                       "Blame" },
   ["<leader>gd"]      = { "<cmd>lua require('gitsigns').diffthis()<cr>",                                          "Diff this" },
   ["<leader>gc"]      = { ":Git commit<cr>",                                                                      "Commit" },
-  ["<leader>gg"]      = { ":G<cr>",                                                                               "Fugitive status" },
+  ["<leader>gg"]      = { ":G<cr><C-w>10_",                                                                       "Fugitive status" },
   ["<leader>gl"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",                              "List commits" },
   ["<leader>gL"]      = { "<cmd>lua require('telescope.builtin').git_bcommits()<cr>",                             "List commits for buffer" },
   ["<leader>gp"]      = { ":G pull<cr>",                                                                          "Pull" },

@@ -160,8 +160,9 @@ hi haskellType                                 ctermfg=12 cterm=BOLD
 hi haskellWhere                                ctermfg=3
 
 " autocommands
-autocmd! BufWritePost * :silent! MakeTags
-autocmd! BufWritePre * :%s/\s\+$//e
+autocmd! BufWritePost *        :silent! MakeTags
+autocmd! BufWritePre  *        :%s/\s\+$//e
+autocmd! FileType     fugitive setlocal winfixheight
 
 " undo sequence for space, dot and newline
 inoremap <space> <C-G>u<space>
