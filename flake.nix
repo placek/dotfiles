@@ -32,7 +32,7 @@
       # defaultApp     = flake-utils.lib.mkApp { drv = defaultPackage; };
       defaultPackage = dotfiles;
       devShell       = pkgs.mkShell {
-        buildInputs = [ dotfiles pkgs.shellcheck pkgs.stylish-haskell pkgs.haskell-language-server ];
+        buildInputs = [ dotfiles pkgs.shellcheck ];
       };
     }
   );

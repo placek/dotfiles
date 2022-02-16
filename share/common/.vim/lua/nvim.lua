@@ -268,6 +268,7 @@ local wk = require("which-key")
 
 wk.register({
   ["<leader>\\"]      = { "<cmd>lua require('telescope.builtin').git_files({hidden=true})<cr>",                   "Search git files only" },
+  ["<leader><esc>"]   = { "<cmd>lua require('telescope.builtin').resume()<cr>",                                   "Last search" },
   ["<leader>/"]       = { "<cmd>lua require('telescope.builtin').file_browser({hidden=true,no_ignore=true})<cr>", "Browse files" },
   ["<leader>b"]       = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                                  "Search buffers" },
   ["<leader>c"]       = { "<cmd>split term://fish<cr>",                                                           "Open terminal" },
