@@ -46,7 +46,7 @@ config.set('tabs.last_close',                   'close')
 config.set('tabs.mousewheel_switching',         False)
 config.set('tabs.padding',                      {'bottom': {{border-size}}, 'left': {{border-double-size}}, 'right': {{border-double-size}}, 'top': {{border-size}}})
 config.set('tabs.show',                         'always')
-config.set('tabs.title.format',                 '{current_title} {audio}')
+config.set('tabs.title.format',                 '{index}{audio} | {current_title}')
 config.set('tabs.tooltips',                     False)
 config.set('window.title_format',               '{current_title}')
 
@@ -153,7 +153,7 @@ c.colors.tabs.indicator.start                   = base0D
 c.colors.tabs.indicator.stop                    = base0C
 c.colors.tabs.indicator.error                   = base08
 c.colors.tabs.odd.fg                            = base05
-c.colors.tabs.odd.bg                            = base00
+c.colors.tabs.odd.bg                            = base01
 c.colors.tabs.even.fg                           = base05
 c.colors.tabs.even.bg                           = base00
 c.colors.tabs.pinned.even.bg                    = base01
@@ -165,6 +165,6 @@ c.colors.tabs.pinned.selected.even.fg           = base0A
 c.colors.tabs.pinned.selected.odd.bg            = base02
 c.colors.tabs.pinned.selected.odd.fg            = base0A
 c.colors.tabs.selected.odd.fg                   = base0A
-c.colors.tabs.selected.odd.bg                   = base00
+c.colors.tabs.selected.odd.bg                   = base01
 c.colors.tabs.selected.even.fg                  = base0A
 c.colors.tabs.selected.even.bg                  = base00
