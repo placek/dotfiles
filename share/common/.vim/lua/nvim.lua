@@ -299,6 +299,7 @@ wk.register({
   ["<leader>z"]       = { "<cmd>TZAtaraxis<cr>",                                                                  "ZEN" },
 
   ["<localleader>h"]  = { name = "Git hunk" },
+  ["<localleader>hb"] = { "<cmd>lua require('gitsigns').blame_line({full = true})<cr>",                           "Blame line" },
   ["<localleader>hp"] = { "<cmd>lua require('gitsigns').preview_hunk()<cr>",                                      "Preview hunk" },
   ["<localleader>hr"] = { "<cmd>lua require('gitsigns').reset_hunk()<cr>",                                        "Reset hunk" },
   ["<localleader>hR"] = { "<cmd>lua require('gitsigns').reset_buffer()<cr>",                                      "Reset buffer" },
