@@ -296,6 +296,7 @@ wk.register({
   ["<leader>l"]       = { name = "LSP" },
   ["<leader>lh"]      = { "<cmd>LspStart hls<cr>",                                                                "LSP start hls" },
   ["<leader>li"]      = { "<cmd>LspInfo<cr>",                                                                     "LSP info" },
+  ["<leader>z"]       = { "<cmd>TZAtaraxis<cr>",                                                                  "ZEN" },
 
   ["<localleader>h"]  = { name = "Git hunk" },
   ["<localleader>hp"] = { "<cmd>lua require('gitsigns').preview_hunk()<cr>",                                      "Preview hunk" },
