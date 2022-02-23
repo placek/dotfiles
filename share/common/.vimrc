@@ -80,8 +80,6 @@ set wildmenu
 " options
 let g:mapleader          = "\\"
 let g:maplocalleader     = ","
-let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
 
 " mappings
 nnoremap <leader>1  :set number!<CR>
