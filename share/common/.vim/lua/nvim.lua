@@ -327,3 +327,7 @@ wk.register({
   ["<localleader>t;"]     = { ":Tab /^[^:]*:\zs/l1l0",                                                            "Align to key in hash" },
   ["<localleader>tt"]     = { ":Tabularize /",                                                                    "Custom alignment", silent = false }
 }, { mode = "v" })
+
+----------------------------------------------------------------------- TrueZen
+
+require("true-zen").setup({ integrations = { tmux = true, gitsigns = true, lualine = true } })
