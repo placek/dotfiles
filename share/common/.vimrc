@@ -38,8 +38,6 @@ set cursorline
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
 set diffopt-=internal
-set dir=/tmp
-set encoding=utf-8
 set encoding=utf-8
 set expandtab
 set exrc
@@ -58,9 +56,9 @@ set nocompatible
 set noshowmode
 set nospell
 set noswapfile
-set nowritebackup
 set number
 set path+=**
+set scrolloff=8
 set shiftwidth=2
 set shortmess+=c
 set showcmd
@@ -73,6 +71,8 @@ set tags+=.git/tags;
 set termencoding=utf-8
 set timeoutlen=1000 ttimeoutlen=0
 set ttyfast
+set undodir=/tmp/undodir
+set undofile
 set updatetime=300
 set wildignore=.*,.git/
 set wildmenu
@@ -82,10 +82,9 @@ let g:mapleader          = "\\"
 let g:maplocalleader     = ","
 
 " mappings
-nnoremap <leader>1  :set number!<CR>
-nnoremap <leader>2  :set hlsearch!<CR>
-nnoremap <leader>3  :call MakeFolds()<CR>
-nnoremap <leader>4  :set spell!<CR>
+nnoremap <leader>1  :set relativenumber!<CR>
+nnoremap <leader>2  :call MakeFolds()<CR>
+nnoremap <leader>3  :set spell!<CR>
 
 nmap <silent>       [a :previous<CR>
 nmap <silent>       ]a :next<CR>
