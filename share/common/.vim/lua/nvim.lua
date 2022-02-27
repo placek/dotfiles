@@ -118,14 +118,14 @@ require("gitsigns").setup {
     keymap("n", "]h", "<cmd>lua require('gitsign').next_hunk()<cr>", {expr=true})
     keymap("n", "[h", "<cmd>lua require('gitsign').prev_hunk()<cr>", {expr=true})
 
-    keymap("n", "<localleader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
-    keymap("v", "<localleader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
-    keymap("n", "<localleader>hr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
-    keymap("v", "<localleader>hr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
-    keymap("n", "<localleader>hS", "<cmd>lua require('gitsigns').stage_buffer()<cr>", opts)
-    keymap("n", "<localleader>hu", "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", opts)
-    keymap("n", "<localleader>hR", "<cmd>lua require('gitsigns').reset_buffer()<cr>", opts)
-    keymap("n", "<localleader>hp", "<cmd>lua require('gitsigns').preview_hunk()<cr>", opts)
+    keymap("n", "<leader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
+    keymap("v", "<leader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
+    keymap("n", "<leader>hr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
+    keymap("v", "<leader>hr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", opts)
+    keymap("n", "<leader>hS", "<cmd>lua require('gitsigns').stage_buffer()<cr>", opts)
+    keymap("n", "<leader>hu", "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", opts)
+    keymap("n", "<leader>hR", "<cmd>lua require('gitsigns').reset_buffer()<cr>", opts)
+    keymap("n", "<leader>hp", "<cmd>lua require('gitsigns').preview_hunk()<cr>", opts)
 
     keymap("o", "ih", ":<C-U>Gitsigns select_hunk<cr>", opts)
     keymap("x", "ih", ":<C-U>Gitsigns select_hunk<cr>", opts)
@@ -267,45 +267,45 @@ end
 local wk = require("which-key")
 
 wk.register({
-  ["<leader>\\"]      = { "<cmd>lua require('telescope.builtin').git_files({hidden=true})<cr>",                   "Search git files only" },
   ["<leader><esc>"]   = { "<cmd>lua require('telescope.builtin').resume()<cr>",                                   "Last search" },
+  ["<leader><space>"] = { "<cmd>lua require('telescope.builtin').builtin()<cr>",                                  "Other search options" },
+  ["<leader>\\"]      = { "<cmd>lua require('telescope.builtin').git_files({hidden=true})<cr>",                   "Search git files only" },
   ["<leader>/"]       = { "<cmd>lua require('telescope.builtin').file_browser({hidden=true,no_ignore=true})<cr>", "Browse files" },
   ["<leader>b"]       = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                                  "Search buffers" },
   ["<leader>c"]       = { "<cmd>split term://fish<cr>",                                                           "Open terminal" },
-  ["<leader>f"]       = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",                                "Grep files" },
   ["<leader>F"]       = { "<cmd>lua require('telescope.builtin').find_files()<cr>",                               "Search files" },
-  ["<leader>h"]       = { "<cmd>lua require('telescope.builtin').jumplist()<cr>",                                 "Search history" },
+  ["<leader>f"]       = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",                                "Grep files" },
+  ["<leader>H"]       = { "<cmd>lua require('telescope.builtin').jumplist()<cr>",                                 "Search history" },
+  ["<leader>h"]       = { name = "Git hunk" },
+  ["<leader>hb"]      = { "<cmd>lua require('gitsigns').blame_line({full = true})<cr>",                           "Blame line" },
+  ["<leader>hp"]      = { "<cmd>lua require('gitsigns').preview_hunk()<cr>",                                      "Preview hunk" },
+  ["<leader>hr"]      = { "<cmd>lua require('gitsigns').reset_hunk()<cr>",                                        "Reset hunk" },
+  ["<leader>hR"]      = { "<cmd>lua require('gitsigns').reset_buffer()<cr>",                                      "Reset buffer" },
+  ["<leader>hs"]      = { "<cmd>lua require('gitsigns').stage_hunk()<cr>",                                        "Stage hunk" },
+  ["<leader>hS"]      = { "<cmd>lua require('gitsigns').stage_buffer()<cr>",                                      "Stage buffer" },
+  ["<leader>hu"]      = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>",                                   "Undo stage hunk" },
   ["<leader>m"]       = { "<cmd>lua require('telescope.builtin').marks()<cr>",                                    "Search marks" },
   ["<leader>r"]       = { "<cmd>lua require('telescope.builtin').registers()<cr>",                                "Search registers" },
   ["<leader>t"]       = { "<cmd>lua require('telescope.builtin').tags()<cr>",                                     "Search tags" },
   ["<leader>g"]       = { name = "Git" },
-  ["<leader>gb"]      = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",                             "List branches" },
   ["<leader>gB"]      = { ":Git blame<cr>",                                                                       "Blame" },
+  ["<leader>gb"]      = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",                             "List branches" },
   ["<leader>gd"]      = { "<cmd>lua require('gitsigns').diffthis()<cr>",                                          "Diff this" },
   ["<leader>gc"]      = { ":Git commit<cr>",                                                                      "Commit" },
   ["<leader>gg"]      = { ":G<cr><C-w>10_",                                                                       "Fugitive status" },
-  ["<leader>gl"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",                              "List commits" },
   ["<leader>gL"]      = { "<cmd>lua require('telescope.builtin').git_bcommits()<cr>",                             "List commits for buffer" },
+  ["<leader>gl"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",                              "List commits" },
   ["<leader>gp"]      = { ":G pull<cr>",                                                                          "Pull" },
   ["<leader>gP"]      = { ":G push<cr>",                                                                          "Push" },
-  ["<leader>gq"]      = { "<cmd>lua require('gitsigns').setqflist()<cr>",                                         "Quickfix list" },
   ["<leader>gQ"]      = { "<cmd>lua require('gitsigns').setloclist()<cr>",                                        "Local list" },
-  ["<leader>gs"]      = { "<cmd>lua require('telescope.builtin').git_status()<cr>",                               "Show status" },
+  ["<leader>gq"]      = { "<cmd>lua require('gitsigns').setqflist()<cr>",                                         "Quickfix list" },
   ["<leader>gS"]      = { "<cmd>lua require('telescope.builtin').git_stash()<cr>",                                "Show stash" },
-  ["<leader><space>"] = { "<cmd>lua require('telescope.builtin').builtin()<cr>",                                  "Other search options" },
+  ["<leader>gs"]      = { "<cmd>lua require('telescope.builtin').git_status()<cr>",                               "Show status" },
   ["<leader>l"]       = { name = "LSP" },
   ["<leader>lh"]      = { "<cmd>LspStart hls<cr>",                                                                "LSP start hls" },
   ["<leader>li"]      = { "<cmd>LspInfo<cr>",                                                                     "LSP info" },
   ["<leader>z"]       = { "<cmd>TZAtaraxis<cr>",                                                                  "ZEN" },
 
-  ["<localleader>h"]  = { name = "Git hunk" },
-  ["<localleader>hb"] = { "<cmd>lua require('gitsigns').blame_line({full = true})<cr>",                           "Blame line" },
-  ["<localleader>hp"] = { "<cmd>lua require('gitsigns').preview_hunk()<cr>",                                      "Preview hunk" },
-  ["<localleader>hr"] = { "<cmd>lua require('gitsigns').reset_hunk()<cr>",                                        "Reset hunk" },
-  ["<localleader>hR"] = { "<cmd>lua require('gitsigns').reset_buffer()<cr>",                                      "Reset buffer" },
-  ["<localleader>hs"] = { "<cmd>lua require('gitsigns').stage_hunk()<cr>",                                        "Stage hunk" },
-  ["<localleader>hS"] = { "<cmd>lua require('gitsigns').stage_buffer()<cr>",                                      "Stage buffer" },
-  ["<localleader>hu"] = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>",                                   "Undo stage hunk" },
   ["<localleader>,"]  = { "<cmd>lua vim.lsp.buf.hover()<cr>",                                                     "Show documentation" },
   ["<localleader>."]  = { "<cmd>lua vim.lsp.buf.type_definition()<cr>",                                           "Type definition" },
   ["<localleader>a"]  = { "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>",                         "Code actions" },
@@ -320,12 +320,12 @@ wk.register({
 }, { mode = "n" })
 
 wk.register({
-  ["<localleader>t"]      = { name = "Tabularize" },
-  ["<localleader>t="]     = { ":Tab /^[^=]*\\zs=/l1c1l0<cr>",                                                     "Align to '=' symbol" },
-  ["<localleader>t<bar>"] = { ":Tab /|<cr>",                                                                      "Align markdown table" },
-  ["<localleader>t:"]     = { ":Tab /^[^:]*\\zs:/l1c0l0<cr>",                                                     "Align to first symbol" },
-  ["<localleader>t;"]     = { ":Tab /^[^:]*:\zs/l1l0",                                                            "Align to key in hash" },
-  ["<localleader>tt"]     = { ":Tabularize /",                                                                    "Custom alignment", silent = false }
+  ["<leader>a"]       = { name = "Tabularize" },
+  ["<leader>a="]      = { ":Tab /^[^=]*\\zs=/l1c1l0<cr>",                                                         "Align to '=' symbol" },
+  ["<leader>a<bar>"]  = { ":Tab /|<cr>",                                                                          "Align markdown table" },
+  ["<leader>a:"]      = { ":Tab /^[^:]*\\zs:/l1c0l0<cr>",                                                         "Align to first symbol" },
+  ["<leader>a;"]      = { ":Tab /^[^:]*:\zs/l1l0",                                                                "Align to key in hash" },
+  ["<leader>at"]      = { ":Tabularize /",                                                                        "Custom alignment", silent = false }
 }, { mode = "v" })
 
 ----------------------------------------------------------------------- TrueZen
