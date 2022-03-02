@@ -13,9 +13,7 @@ import           XMonad.Config.Desktop                (desktopConfig)
 import           XMonad.Hooks.DynamicLog              (PP(..), dynamicLogWithPP, xmobarPP, xmobarAction, xmobarColor, wrap, shorten)
 import           XMonad.Hooks.ManageDocks             (ToggleStruts(..), docks, avoidStruts, manageDocks)
 import           XMonad.Hooks.ManageHelpers           (isDialog, isFullscreen, doCenterFloat, doFullFloat)
-import           XMonad.Layout.NoBorders              (smartBorders)
 import           XMonad.Layout.Spacing                (Border(..), spacingRaw)
-import           XMonad.Layout.Spiral                 (spiral)
 import           XMonad.Prompt                        (XPConfig(..), XPPosition(..), vimLikeXPKeymap', deleteAllDuplicates)
 import           XMonad.Prompt.ConfirmPrompt          (confirmPrompt)
 import           XMonad.Prompt.FuzzyMatch             (fuzzyMatch, fuzzySort)
@@ -157,10 +155,12 @@ myWorkspaces = fmap clickable (zip [1..] workspaceNames)
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . integrate' . stack . workspace . current . windowset
 
-myLayout = avoidStruts . spacingRaw True (Border 4 4 4 4) True (Border 4 4 4 4) True . smartBorders $ s ||| f
+myLayout = avoidStruts . spacingRaw True border True border True $ t ||| m ||| f
   where
-    f = Full
-    s = spiral (6 / 7)
+    border  = Border #{{border-size}} #{{border-size}} #{{border-size}} #{{border-size}}
+    f       = Full
+    m       = Mirror t
+    t       = Tall 1 (3/100) (2/3)
 
 myManageHook = composeAll [ className =? "pinentry" --> doCenterFloat
                           , isDialog                --> doCenterFloat
@@ -180,8 +180,9 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppExtras          = [windowCount]
                                              }
   where layout a = case a of
-          "Spacing Spiral" -> "<fn=1>\xf01e</fn>"
-          "Spacing Full"   -> "<fn=1>\xf31e</fn>"
+          "Spacing Full"        -> "<fn=1>\xf31e</fn>"
+          "Spacing Tall"        -> "<fn=1>\xf338</fn>"
+          "Spacing Mirror Tall" -> "<fn=1>\xf337</fn>"
 
 myStartupHook :: X ()
 myStartupHook = do
