@@ -1,5 +1,3 @@
--- vim: set filetype=haskell
-
 import qualified Data.Char                    as Char
 import qualified Data.Map                     as Map
 import           Graphics.X11.ExtraTypes.XF86
@@ -13,6 +11,7 @@ import           XMonad.Config.Desktop                (desktopConfig)
 import           XMonad.Hooks.DynamicLog              (PP(..), dynamicLogWithPP, xmobarPP, xmobarAction, xmobarColor, wrap, shorten)
 import           XMonad.Hooks.ManageDocks             (ToggleStruts(..), docks, avoidStruts, manageDocks)
 import           XMonad.Hooks.ManageHelpers           (isDialog, isFullscreen, doCenterFloat, doFullFloat)
+import           XMonad.Layout.NoBorders              (smartBorders)
 import           XMonad.Layout.Spacing                (Border(..), spacingRaw)
 import           XMonad.Prompt                        (XPConfig(..), XPPosition(..), vimLikeXPKeymap', deleteAllDuplicates)
 import           XMonad.Prompt.ConfirmPrompt          (confirmPrompt)
@@ -155,7 +154,7 @@ myWorkspaces = fmap clickable (zip [1..] workspaceNames)
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . integrate' . stack . workspace . current . windowset
 
-myLayout = avoidStruts . spacingRaw True border True border True $ t ||| m ||| f
+myLayout = avoidStruts . spacingRaw True border True border True . smartBorders $ t ||| m ||| f
   where
     border  = Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}
     f       = Full
@@ -211,3 +210,4 @@ defaults xmproc = desktopConfig { terminal           = myTerminal
 main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $ docks (defaults xmproc)
+-- vim:ft=haskell
