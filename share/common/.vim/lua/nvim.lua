@@ -146,14 +146,14 @@ ls.config.set_config {
 
 require("luasnip/loaders/from_vscode").load()
 
-keymap("i", "<c-h>", "<cmd>lua require('luasnip').change_choice(-1)<cr>", opts)
-keymap("s", "<c-h>", "<cmd>lua require('luasnip').change_choice(-1)<cr>", opts)
-keymap("i", "<c-l>", "<cmd>lua require('luasnip').change_choice(1)<cr>", opts)
-keymap("s", "<c-l>", "<cmd>lua require('luasnip').change_choice(1)<cr>", opts)
-keymap("i", "<c-j>", "<cmd>lua require('luasnip').jump(1)<cr>", opts)
-keymap("s", "<c-j>", "<cmd>lua require('luasnip').jump(1)<cr>", opts)
-keymap("i", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", opts)
-keymap("s", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", opts)
+keymap("i", "<m-h>", "<cmd>lua require('luasnip').change_choice(-1)<cr>", opts)
+keymap("s", "<m-h>", "<cmd>lua require('luasnip').change_choice(-1)<cr>", opts)
+keymap("i", "<m-l>", "<cmd>lua require('luasnip').change_choice(1)<cr>", opts)
+keymap("s", "<m-l>", "<cmd>lua require('luasnip').change_choice(1)<cr>", opts)
+keymap("i", "<m-j>", "<cmd>lua require('luasnip').jump(1)<cr>", opts)
+keymap("s", "<m-j>", "<cmd>lua require('luasnip').jump(1)<cr>", opts)
+keymap("i", "<m-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", opts)
+keymap("s", "<m-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", opts)
 
 --------------------------------------------------------------------------- cmp
 
@@ -166,15 +166,11 @@ cmp.setup({
     end,
   },
   mapping = {
-    ["<C-d>"]     = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-    ["<C-f>"]     = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<C-e>"]     = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
-    ["<C-y>"]     = cmp.config.disable,
-    ["<C-k>"]     = cmp.mapping.select_prev_item(),
-    ["<C-j>"]     = cmp.mapping.select_next_item(),
-    ["<CR>"]      = cmp.mapping.confirm { select = true },
-    ["<Tab>"]     = cmp.mapping(function(fallback)
+    ["<c-d>"]     = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+    ["<c-u>"]     = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+    ["<esc>"]     = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+    ["<cr>"]      = cmp.mapping.confirm { select = true },
+    ["<tab>"]     = cmp.mapping(function(fallback)
                     if cmp.visible() then cmp.select_next_item()
                     elseif ls.expandable() then  ls.expand()
                     elseif ls.expand_or_jumpable() then ls.expand_or_jump()
@@ -182,7 +178,7 @@ cmp.setup({
                     else fallback()
                     end
                   end, { "i", "s"}),
-    ["<S-Tab>"]   = cmp.mapping(function(fallback)
+    ["<s-tab>"]   = cmp.mapping(function(fallback)
                     if cmp.visible() then cmp.select_prev_item()
                     elseif ls.jumpable(-1) then ls.jump(-1)
                     else fallback()
@@ -194,11 +190,11 @@ cmp.setup({
     format = function(entry, vim_item)
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       vim_item.menu = ({
-        buffer      = "[buf]",
-        nvim_lsp    = "[lsp]",
-        luasnip     = "[snip]",
-        path        = "[path]",
-        cmp_tabnine = "[tab9]",
+        buffer      = "",
+        nvim_lsp    = "",
+        luasnip     = "",
+        path        = "",
+        cmp_tabnine = "9",
       })[entry.source.name]
       return vim_item
     end,
@@ -292,7 +288,7 @@ wk.register({
   ["<leader>gb"]      = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",                             "List branches" },
   ["<leader>gd"]      = { "<cmd>lua require('gitsigns').diffthis()<cr>",                                          "Diff this" },
   ["<leader>gc"]      = { ":Git commit<cr>",                                                                      "Commit" },
-  ["<leader>gg"]      = { ":G<cr><C-w>10_",                                                                       "Fugitive status" },
+  ["<leader>gg"]      = { ":G<cr><c-w>10_",                                                                       "Fugitive status" },
   ["<leader>gL"]      = { "<cmd>lua require('telescope.builtin').git_bcommits()<cr>",                             "List commits for buffer" },
   ["<leader>gl"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",                              "List commits" },
   ["<leader>gp"]      = { ":G pull<cr>",                                                                          "Pull" },
@@ -324,7 +320,7 @@ wk.register({
   ["<leader>a="]      = { ":Tab /^[^=]*\\zs=/l1c1l0<cr>",                                                         "Align to '=' symbol" },
   ["<leader>a<bar>"]  = { ":Tab /|<cr>",                                                                          "Align markdown table" },
   ["<leader>a:"]      = { ":Tab /^[^:]*\\zs:/l1c0l0<cr>",                                                         "Align to first symbol" },
-  ["<leader>a;"]      = { ":Tab /^[^:]*:\zs/l1l0",                                                                "Align to key in hash" },
+  ["<leader>a;"]      = { ":Tab /^[^:]*:\zs/l1l0<cr>",                                                            "Align to key in hash" },
   ["<leader>at"]      = { ":Tabularize /",                                                                        "Custom alignment", silent = false }
 }, { mode = "v" })
 
