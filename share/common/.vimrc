@@ -114,51 +114,49 @@ command! -count MakeTags call MakeTags()
 command! -count Open     !open %
 
 " colors
-hi ColorColumn                      ctermbg=18
-hi Comment                                      ctermfg=8
-hi DiffAdd                          ctermbg=18  ctermfg=2 cterm=NONE
-hi DiffChange                       ctermbg=18  ctermfg=7 cterm=NONE
-hi DiffDelete                       ctermbg=18  ctermfg=1 cterm=NONE
-hi DiffText                         ctermbg=2   ctermfg=0 cterm=BOLD
-hi Directory                                    ctermfg=4
-hi FoldColumn                       ctermbg=0   ctermfg=7
-hi Folded                           ctermbg=19  ctermfg=7
-hi GitSignsAdd                      ctermbg=0   ctermfg=2
-hi GitSignsChange                   ctermbg=0   ctermfg=3
-hi GitSignsCurrentLineBlame                     ctermfg=8
-hi GitSignsDelete                   ctermbg=0   ctermfg=1
-hi LspDiagnosticsSignError          ctermbg=0   ctermfg=1
-hi LspDiagnosticsSignHint           ctermbg=0   ctermfg=7
-hi LspDiagnosticsSignInfo           ctermbg=0   ctermfg=4
-hi LspDiagnosticsSignWarning        ctermbg=0   ctermfg=16
-hi LspDiagnosticsVirtualTextError   ctermbg=0   ctermfg=1
-hi LspDiagnosticsVirtualTextHint    ctermbg=0   ctermfg=7
-hi LspDiagnosticsVirtualTextInfo    ctermbg=0   ctermfg=4
-hi LspDiagnosticsVirtualTextWarning ctermbg=0   ctermfg=16
-hi LspReferenceRead                             ctermfg=15
-hi LspReferenceWrite                            ctermfg=15 cterm=BOLD
-hi NormalFloat                      ctermbg=0
-hi FloatBorder                      ctermbg=0
-hi Pmenu                            ctermbg=0   ctermfg=7
-hi PmenuSbar                        ctermbg=0   ctermfg=7
-hi PmenuSel                         ctermbg=18  ctermfg=15
-hi Search                                                 cterm=BOLD
-hi SignColumn                       ctermbg=0
-hi TabLine                          ctermbg=0   ctermfg=7 cterm=NONE
-hi TabLineFill                      ctermbg=0   ctermfg=0
-hi TabLineSel                       ctermbg=0   ctermfg=9 cterm=NONE
-hi VertSplit                        ctermbg=8   ctermfg=8
-hi Visual                           ctermbg=7   ctermfg=0
-hi TelescopeSelection               ctermbg=237 ctermfg=7
-
-" haskell
-hi haskellDecl                                  ctermfg=3
-hi haskellDeclKeyword                           ctermfg=3
-hi haskellDeriveKeyword                         ctermfg=3
-hi haskellIdentifier                            ctermfg=12 cterm=NONE
-hi haskellLet                                   ctermfg=3
-hi haskellType                                  ctermfg=12 cterm=BOLD
-hi haskellWhere                                 ctermfg=3
+hi ColorColumn                          ctermbg=18
+hi Comment                                          ctermfg=8
+hi DiffAdd                              ctermbg=18  ctermfg=2 cterm=NONE
+hi DiffChange                           ctermbg=18  ctermfg=7 cterm=NONE
+hi DiffDelete                           ctermbg=18  ctermfg=1 cterm=NONE
+hi DiffText                             ctermbg=2   ctermfg=0 cterm=BOLD
+hi Directory                                        ctermfg=4
+hi FoldColumn                           ctermbg=0   ctermfg=7
+hi Folded                               ctermbg=19  ctermfg=7
+hi GitSignsAdd                          ctermbg=0   ctermfg=2
+hi GitSignsChange                       ctermbg=0   ctermfg=3
+hi GitSignsCurrentLineBlame                         ctermfg=8
+hi GitSignsDelete                       ctermbg=0   ctermfg=1
+hi LspDiagnosticsSignError              ctermbg=0   ctermfg=1
+hi LspDiagnosticsSignHint               ctermbg=0   ctermfg=7
+hi LspDiagnosticsSignInfo               ctermbg=0   ctermfg=4
+hi LspDiagnosticsSignWarning            ctermbg=0   ctermfg=16
+hi LspDiagnosticsSignInformation        ctermbg=0   ctermfg=8
+hi LspDiagnosticsVirtualTextError       ctermbg=0   ctermfg=1
+hi LspDiagnosticsVirtualTextHint        ctermbg=0   ctermfg=7
+hi LspDiagnosticsVirtualTextInfo        ctermbg=0   ctermfg=4
+hi LspDiagnosticsVirtualTextWarning     ctermbg=0   ctermfg=16
+hi LspDiagnosticsVirtualTextInformation ctermbg=0   ctermfg=8
+hi LspDiagnosticsUnderlineError         ctermbg=0   ctermfg=1  cterm=UNDERLINE
+hi LspDiagnosticsUnderlineHint          ctermbg=0   ctermfg=7  cterm=UNDERLINE
+hi LspDiagnosticsUnderlineInfo          ctermbg=0   ctermfg=4  cterm=UNDERLINE
+hi LspDiagnosticsUnderlineWarning       ctermbg=0   ctermfg=16 cterm=UNDERLINE
+hi LspDiagnosticsUnderlineInformation   ctermbg=0   ctermfg=8  cterm=UNDERLINE
+hi LspReferenceRead                                 ctermfg=15
+hi LspReferenceWrite                                ctermfg=15 cterm=BOLD
+hi NormalFloat                          ctermbg=0
+hi FloatBorder                          ctermbg=0
+hi Pmenu                                ctermbg=0   ctermfg=7
+hi PmenuSbar                            ctermbg=0   ctermfg=7
+hi PmenuSel                             ctermbg=18  ctermfg=15
+hi Search                                                     cterm=BOLD
+hi SignColumn                           ctermbg=0
+hi TabLine                              ctermbg=0   ctermfg=7 cterm=NONE
+hi TabLineFill                          ctermbg=0   ctermfg=0
+hi TabLineSel                           ctermbg=0   ctermfg=9 cterm=NONE
+hi VertSplit                            ctermbg=8   ctermfg=8
+hi Visual                               ctermbg=7   ctermfg=0
+hi TelescopeSelection                   ctermbg=237 ctermfg=7
 
 " autocommands
 autocmd! BufWritePost *        :silent! MakeTags
