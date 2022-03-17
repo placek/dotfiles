@@ -97,6 +97,7 @@ end
 
 function fish_right_prompt
   set cwd (prompt_pwd)
+  set timestamp (date +%H%M%S)
 
   if git::is_repo
     set root_folder (command git rev-parse --show-toplevel 2>/dev/null)
@@ -104,7 +105,7 @@ function fish_right_prompt
     set cwd (echo $PWD | sed -e "s|$parent_root_folder/||")
   end
 
-  printf (dim)$cwd (date +%s)(off)
+  printf (dim)"$cwd | $timestamp"(off)
 end
 
 function fish_prompt
