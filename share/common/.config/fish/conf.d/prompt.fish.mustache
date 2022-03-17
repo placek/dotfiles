@@ -104,7 +104,7 @@ function fish_right_prompt
     set cwd (echo $PWD | sed -e "s|$parent_root_folder/||")
   end
 
-  printf (dim)$cwd(off)
+  printf (dim)$cwd (date +%s)(off)
 end
 
 function fish_prompt
@@ -168,7 +168,7 @@ function fish_prompt
   if test "$code" = 0
     echo -n -s (green)"$SYMBOL "(off)
   else
-    echo -n -s (red)"$SYMBOL "(off)
+    echo -n -s (red)"$SYMBOL:$code"(off)
   end
 end
 
