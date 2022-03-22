@@ -3,11 +3,6 @@
 dotfiles_dir=${DOTFILES_DIR:-"$HOME/.config/dotfiles"}
 packets=$(ls -1 "$dotfiles_dir")
 
-if [ $(hostname) = "alpha" ]; then
-  sed -i -e "s/%battery%//" "$dotfiles_dir/xserver/.xmobarrc"
-  sed -i -e "s/%wlan0wi%//" "$dotfiles_dir/xserver/.xmobarrc"
-fi
-
 case "$1" in
   m*)
     shift
