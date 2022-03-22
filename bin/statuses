@@ -24,6 +24,6 @@ printf "\\uE0B3 "
 [ $(dunstctl is-paused) == "true" ] && printf "</fc>"
 
 # gpg smart card status
-ssh-add -l >/dev/null 2>/dev/null && pass healthcheck && printf "<fn=1></fn> "
+ssh-add -l >/dev/null 2>/dev/null && printf "<fn=1></fn> "
 
 exit 0
