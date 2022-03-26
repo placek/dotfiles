@@ -327,3 +327,7 @@ wk.register({
 ----------------------------------------------------------------------- TrueZen
 
 require("true-zen").setup({ integrations = { tmux = true, gitsigns = true, lualine = true } })
+
+------------------------------------------------------------------------- fitget
+
+require("fidget").setup({ text = { spinner = "dots" } })
