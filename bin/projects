@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-export VIM_IDE=yes
-
 if ! command -v "$EDITOR" &> /dev/null; then
   >&2 echo "projects: $EDITOR editor set by \$EDITOR env variable could not be found"
   exit
@@ -33,11 +31,13 @@ case "$1" in
       >&2 echo "projects: no projects available under $projects"
     else
       if [ -z "$2" ]; then
-        target=$(ls -1 "$projects" | sort -n | fzf --prompt "Projects> ")
+        target=$(ls -1 "$projects" | sort -n | fzf --no-multi --cycle --prompt "Projects> ")
+      elif [ "$2" = "-t" ]; then
+        target=$(ls -1 "$projects" | sort -n | fzf --no-multi --cycle --color='bg+:yellow,fg+:black,prompt:yellow,hl+:yellow,gutter:black' --pointer=' ' --no-info --no-bold --height 100% --no-border --prompt "Projects> ")
       else
         target=$2
       fi
-      if [ -d "$projects/$target" ] || [ -z "$target" ]; then
+      if [ ! -z "$target" ] && [ -d "$projects/$target" ]; then
         tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; rename-window code \; set-option -g default-shell "$SHELL"
       else
         >&2 echo "projects: $target does not exist"
