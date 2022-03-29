@@ -162,6 +162,7 @@ hi TelescopeSelection                   ctermbg=237 ctermfg=7
 autocmd! BufWritePost *        :silent! MakeTags
 autocmd! BufWritePre  *        :%s/\s\+$//e
 autocmd! FileType     fugitive setlocal winfixheight
+autocmd! FileType     ansible  setlocal syntax=yaml
 
 " undo sequence for space, dot and newline
 inoremap <space> <C-G>u<space>

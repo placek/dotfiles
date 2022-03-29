@@ -41,6 +41,8 @@ for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
+require("telescope").load_extension("file_browser")
+
 ----------------------------------------------------------------------- Comment
 
 require("Comment").setup()
@@ -328,6 +330,16 @@ wk.register({
 
 require("true-zen").setup({ integrations = { tmux = true, gitsigns = true, lualine = true } })
 
-------------------------------------------------------------------------- fitget
+------------------------------------------------------------------------ fitget
 
 require("fidget").setup({ text = { spinner = "dots" } })
+
+--------------------------------------------------------------------- nvim-lint
+
+require("lint").linters_by_ft = {
+  ansible = { "ansible_lint" },
+  haskell = { "hlint" },
+  ruby    = { "ruby" },
+  nix     = { "nix" },
+  yaml    = { "yamllint" }
+}
