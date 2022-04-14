@@ -117,8 +117,8 @@ require("gitsigns").setup {
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
-    keymap("n", "]h", "<cmd>lua require('gitsign').next_hunk()<cr>", {expr=true})
-    keymap("n", "[h", "<cmd>lua require('gitsign').prev_hunk()<cr>", {expr=true})
+    keymap("n", "]h", "<cmd>lua require('gitsigns').next_hunk()<cr>", opts)
+    keymap("n", "[h", "<cmd>lua require('gitsigns').prev_hunk()<cr>", opts)
 
     keymap("n", "<leader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)
     keymap("v", "<leader>hs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", opts)

@@ -164,6 +164,11 @@ autocmd! BufWritePre  *        :%s/\s\+$//e
 autocmd! FileType     fugitive setlocal winfixheight
 autocmd! FileType     ansible  setlocal syntax=yaml
 autocmd! BufWritePost <buffer> lua require("lint").try_lint()
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave *.* mkview
+  autocmd BufWinEnter *.* silent! loadview
+augroup END
 
 " undo sequence for space, dot and newline
 inoremap <space> <C-G>u<space>
