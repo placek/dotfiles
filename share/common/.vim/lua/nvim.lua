@@ -314,7 +314,18 @@ wk.register({
   ["<localleader>m"]  = { "<cmd>lua vim.lsp.buf.signature_help()<cr>",                            "Signature help" },
   ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>",           "List references" },
   ["<localleader>R"]  = { "<cmd>lua vim.lsp.buf.rename()<cr>",                                    "Rename" },
-  ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" }
+  ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" },
+
+  ["<space>"]         = { name = "Harpoon" },
+  ["<space><space>"]  = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",               "List" },
+  ["<space><cr>"]     = { "<cmd>lua require('harpoon.mark').add_file()<cr>",                      "Add file" },
+  ["<space><left>"]   = { "<cmd>lua require('harpoon.ui').nav_prev() <cr>",                       "Previous file" },
+  ["<space><right>"]  = { "<cmd>lua require('harpoon.ui').nav_next() <cr>",                       "Next file" },
+  ["<space>q"]        = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>",                       "File 1" },
+  ["<space>w"]        = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>",                       "File 2" },
+  ["<space>e"]        = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>",                       "File 3" },
+  ["<space>r"]        = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>",                       "File 4" },
+  ["<space>t"]        = { "<cmd>lua require('harpoon.ui').nav_file(5)<cr>",                       "File 5" }
 }, { mode = "n" })
 
 wk.register({
