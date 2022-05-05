@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+user=$(whoami)
+server="$1"
+mountpoint="/run/media/$user/$server"
+
+sudo mkdir -p $mountpoint
+sudo sshfs -o allow_other,default_permissions $user@$server:/ $mountpoint
