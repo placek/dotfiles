@@ -42,6 +42,7 @@ for _, sign in ipairs(signs) do
 end
 
 require("telescope").load_extension("file_browser")
+require("telescope").load_extension("harpoon")
 
 ----------------------------------------------------------------------- Comment
 
@@ -317,7 +318,7 @@ wk.register({
   ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" },
 
   ["<space>"]         = { name = "Harpoon" },
-  ["<space><space>"]  = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",               "List" },
+  ["<space><space>"]  = { "<cmd>Telescope harpoon marks<cr>",                                     "List" },
   ["<space><cr>"]     = { "<cmd>lua require('harpoon.mark').add_file()<cr>",                      "Add file" },
   ["<space><left>"]   = { "<cmd>lua require('harpoon.ui').nav_prev() <cr>",                       "Previous file" },
   ["<space><right>"]  = { "<cmd>lua require('harpoon.ui').nav_next() <cr>",                       "Next file" },
