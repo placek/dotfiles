@@ -70,8 +70,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm              , xK_Right   ), nextWS)                                                        -- go to next workspace
     , ((modm .|. shiftMask, xK_Left    ), shiftToPrev)                                                   -- move to previous workspace
     , ((modm .|. shiftMask, xK_Right   ), shiftToNext)                                                   -- move to next workspace
-    , ((modm .|. controlMask, xK_Left  ), prevScreen)                                                    -- move to previous screen
-    , ((modm .|. controlMask, xK_Right ), nextScreen)                                                    -- move to next screen
+    , ((modm .|. altMask  , xK_Left    ), prevScreen)                                                    -- move to previous screen
+    , ((modm .|. altMask  , xK_Right   ), nextScreen)                                                    -- move to next screen
     , ((modm              , xK_k       ), windows focusUp  )                                             -- move focus to the previous window
     , ((modm              , xK_j       ), windows focusDown)                                             -- move focus to the next window
     , ((modm .|. shiftMask, xK_k       ), rotAllUp    )                                                  -- swap the focused window with the previous window
