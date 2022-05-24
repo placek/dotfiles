@@ -319,7 +319,7 @@ wk.register({
 
   ["<space>"]         = { name = "Harpoon" },
   ["<space><space>"]  = { "<cmd>Telescope harpoon marks<cr>",                                     "List" },
-  ["<space><cr>"]     = { "<cmd>lua require('harpoon.mark').add_file()<cr>",                      "Add file" },
+  ["<space><cr>"]     = { "<cmd>lua require('harpoon.mark').toggle_file()<cr>",                   "Add or reomove file" },
   ["<space><left>"]   = { "<cmd>lua require('harpoon.ui').nav_prev() <cr>",                       "Previous file" },
   ["<space><right>"]  = { "<cmd>lua require('harpoon.ui').nav_next() <cr>",                       "Next file" },
   ["<space>q"]        = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>",                       "File 1" },
