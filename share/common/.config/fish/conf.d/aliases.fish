@@ -21,7 +21,6 @@ abbr --add lcps  "docker-compose -f .local.compose ps"
 
 abbr --add j "journalctl"
 abbr --add s "systemctl"
-# abbr --add pair "docker-compose -f .remote.compose"
 abbr --add tb "nc termbin.com 9999"
 abbr --add p "projects"
 
@@ -29,4 +28,3 @@ abbr --add p "projects"
 alias ls="lsd --icon-theme unicode"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias cdt="cd (mktemp -d)"
-alias vi="vim --clean"

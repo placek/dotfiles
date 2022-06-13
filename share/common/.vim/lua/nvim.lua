@@ -202,7 +202,9 @@ cmp.setup({
       return vim_item
     end,
   },
-  documentation = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, },
+  window = {
+    documentation = cmp.config.window.bordered()
+  },
   sources = cmp.config.sources({
     { name = "luasnip" },
     { name = "nvim_lsp" },
