@@ -26,5 +26,6 @@ abbr --add p "projects"
 
 # aliases
 alias ls="lsd --icon-theme unicode"
+alias tree="lsd --icon-theme unicode --tree"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias cdt="cd (mktemp -d)"
