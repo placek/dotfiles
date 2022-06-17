@@ -33,7 +33,7 @@ case "$1" in
       if [ -z "$2" ]; then
         target=$(ls -1 "$projects" | sort -n | fzf --no-multi --cycle --prompt "Projects> ")
       elif [ "$2" = "-t" ]; then
-        target=$(ls -1 "$projects" | sort -n | fzf --no-multi --cycle --color='bg+:yellow,fg+:black,prompt:yellow,hl+:yellow,gutter:black' --pointer=' ' --no-info --no-bold --height 100% --no-border --prompt "Projects> ")
+        target=$(ls -1 "$projects" | sort -n | fzf --no-multi --cycle --color='bg+:yellow,fg+:black,prompt:yellow,hl+:black:bold,gutter:black' --pointer=' ' --no-info --no-bold --height 100% --no-border --prompt "Projects> ")
       else
         target=$2
       fi
