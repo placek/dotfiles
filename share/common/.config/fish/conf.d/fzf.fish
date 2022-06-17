@@ -165,15 +165,6 @@ function __fzf_search_shell_variables --description "Search and inspect shell va
   commandline --function repaint
 end
 
-bind \ec echo\ -n\ \(clear\ \|\ string\ replace\ \\e\\\[3J\ \"\"\)\;\ commandline\ -f\ repaint
-bind \cf '__fzf_search_current_dir'
-bind \cr '__fzf_search_history'
-bind \cv '__fzf_search_shell_variables'
-bind \cl '__fish_list_current_token'
-bind \el '__fzf_search_git_log'
-bind \es '__fzf_search_git_status'
-bind \eb '__fzf_search_git_branch'
-
 bind --mode insert \ec echo\ -n\ \(clear\ \|\ string\ replace\ \\e\\\[3J\ \"\"\)\;\ commandline\ -f\ repaint
 bind --mode insert \cf '__fzf_search_current_dir'
 bind --mode insert \cr '__fzf_search_history'
