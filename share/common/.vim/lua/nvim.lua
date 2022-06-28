@@ -41,6 +41,18 @@ for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
+open_on_other_branch = function()
+  local command = "git for-each-ref --format='%(refname:short)' refs/heads/"
+  local result = vim.fn.system(command)
+  local branches = {}
+  for s in result:gmatch("[^\r\n]+") do
+    table.insert(branches, s)
+  end
+  vim.ui.select(branches, { prompt = "Select branch:" }, function(branch, i)
+    vim.cmd(":Gvsplit " .. branch .. ":%")
+  end)
+end
+
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("harpoon")
 
@@ -293,6 +305,7 @@ wk.register({
   ["<leader>gb"]      = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",             "List branches" },
   ["<leader>gd"]      = { "<cmd>lua require('gitsigns').diffthis()<cr>",                          "Diff this" },
   ["<leader>gc"]      = { ":Git commit<cr>",                                                      "Commit" },
+  ["<leader>gC"]      = { "<cmd>lua open_on_other_branch()<cr>",                                  "Open on other branch" },
   ["<leader>gg"]      = { ":G<cr><c-w>10_",                                                       "Fugitive status" },
   ["<leader>gL"]      = { "<cmd>lua require('telescope.builtin').git_bcommits()<cr>",             "List commits for buffer" },
   ["<leader>gl"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",              "List commits" },
