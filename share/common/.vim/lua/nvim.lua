@@ -49,7 +49,9 @@ open_on_other_branch = function()
     table.insert(branches, s)
   end
   vim.ui.select(branches, { prompt = "Select branch:" }, function(branch, i)
-    vim.cmd(":Gvsplit " .. branch .. ":%")
+    if branch != nil
+      vim.cmd(":Gvsplit " .. branch .. ":%")
+    end
   end)
 end
 

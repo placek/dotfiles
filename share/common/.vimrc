@@ -116,10 +116,10 @@ command! -count Open     !open %
 " colors
 hi ColorColumn                          ctermbg=18
 hi Comment                                          ctermfg=8
-hi DiffAdd                              ctermbg=18  ctermfg=2 cterm=NONE
-hi DiffChange                           ctermbg=18  ctermfg=7 cterm=NONE
-hi DiffDelete                           ctermbg=18  ctermfg=1 cterm=NONE
-hi DiffText                             ctermbg=2   ctermfg=0 cterm=BOLD
+hi DiffAdd                              ctermbg=18  ctermfg=2  cterm=none
+hi DiffChange                           ctermbg=18  ctermfg=7  cterm=none
+hi DiffDelete                           ctermbg=18  ctermfg=1  cterm=none
+hi DiffText                             ctermbg=19  ctermfg=3  cterm=bold
 hi Directory                                        ctermfg=4
 hi FoldColumn                           ctermbg=0   ctermfg=7
 hi Folded                               ctermbg=19  ctermfg=7
@@ -137,23 +137,23 @@ hi LspDiagnosticsVirtualTextHint        ctermbg=0   ctermfg=7
 hi LspDiagnosticsVirtualTextInfo        ctermbg=0   ctermfg=4
 hi LspDiagnosticsVirtualTextWarning     ctermbg=0   ctermfg=16
 hi LspDiagnosticsVirtualTextInformation ctermbg=0   ctermfg=8
-hi LspDiagnosticsUnderlineError         ctermbg=0   ctermfg=1  cterm=UNDERLINE
-hi LspDiagnosticsUnderlineHint          ctermbg=0   ctermfg=7  cterm=UNDERLINE
-hi LspDiagnosticsUnderlineInfo          ctermbg=0   ctermfg=4  cterm=UNDERLINE
-hi LspDiagnosticsUnderlineWarning       ctermbg=0   ctermfg=16 cterm=UNDERLINE
-hi LspDiagnosticsUnderlineInformation   ctermbg=0   ctermfg=8  cterm=UNDERLINE
+hi LspDiagnosticsUnderlineError         ctermbg=0   ctermfg=1  cterm=underline
+hi LspDiagnosticsUnderlineHint          ctermbg=0   ctermfg=7  cterm=underline
+hi LspDiagnosticsUnderlineInfo          ctermbg=0   ctermfg=4  cterm=underline
+hi LspDiagnosticsUnderlineWarning       ctermbg=0   ctermfg=16 cterm=underline
+hi LspDiagnosticsUnderlineInformation   ctermbg=0   ctermfg=8  cterm=underline
 hi LspReferenceRead                                 ctermfg=15
-hi LspReferenceWrite                                ctermfg=15 cterm=BOLD
+hi LspReferenceWrite                                ctermfg=15 cterm=bold
 hi NormalFloat                          ctermbg=0
 hi FloatBorder                          ctermbg=0
 hi Pmenu                                ctermbg=0   ctermfg=7
 hi PmenuSbar                            ctermbg=0   ctermfg=7
 hi PmenuSel                             ctermbg=18  ctermfg=15
-hi Search                                                     cterm=BOLD
+hi Search                                                      cterm=bold
 hi SignColumn                           ctermbg=0
-hi TabLine                              ctermbg=0   ctermfg=7 cterm=NONE
+hi TabLine                              ctermbg=0   ctermfg=7  cterm=none
 hi TabLineFill                          ctermbg=0   ctermfg=0
-hi TabLineSel                           ctermbg=0   ctermfg=9 cterm=NONE
+hi TabLineSel                           ctermbg=0   ctermfg=9  cterm=none
 hi VertSplit                            ctermbg=8   ctermfg=8
 hi Visual                               ctermbg=7   ctermfg=0
 hi TelescopeSelection                   ctermbg=237 ctermfg=7
