@@ -124,6 +124,7 @@ escapeQuote :: String -> String
 escapeQuote = concatMap escape
   where escape :: Char -> String
         escape '"' = "\\\""
+        escape '$' = "\\$"
         escape x   = [x]
 
 getPasswords :: IO [String]
