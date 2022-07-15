@@ -48,10 +48,15 @@ case "$1" in
     ffmpeg -loglevel fatal -i "$4" -ss "$2" -t "$3" -codec:v copy -codec:a copy "${4%.*}_trimmed.mp4" && exit 0
     ;;
 
+  gif)
+    ffmpeg -i "$2" -vf "fps=10,scale=320:-1:flags=lanczos" -c:v pam -f image2pipe - | convert -delay 10 - -loop 0 -layers optimize "${2%.*}.gif"
+    ;;
+
   *)
     >&2 echo "usage: $0 info filename"
     >&2 echo "       $0 asubtitles filename1 filename2"
     >&2 echo "       $0 awatermark filename1 filename2"
+    >&2 echo "       $0 gif filename"
     >&2 echo "       $0 crop x y w h filename"
     >&2 echo "       $0 merge filename1 filename2"
     >&2 echo "       $0 resize w h filename"
