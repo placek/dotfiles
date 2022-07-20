@@ -29,6 +29,7 @@ function! MakeTagsResult(job, status)
 endfunction
 
 " settings
+set autowrite
 set backspace=indent,eol,start
 set clipboard=unnamedplus
 set cmdheight=1
@@ -40,7 +41,6 @@ set diffopt+=indent-heuristic
 set diffopt-=internal
 set encoding=utf-8
 set expandtab
-set exrc
 set foldcolumn=1
 set grepformat=%f:%l:%c:%m
 set grepprg=rg\ --vimgrep\ $*
@@ -85,6 +85,7 @@ let g:maplocalleader     = ","
 nnoremap <leader>1  :set relativenumber!<CR>
 nnoremap <leader>2  :call MakeFolds()<CR>
 nnoremap <leader>3  :set spell!<CR>
+nnoremap <leader>'  :make %:t:r<CR>
 
 nmap <silent>       [a :previous<CR>
 nmap <silent>       ]a :next<CR>

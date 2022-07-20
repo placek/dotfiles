@@ -96,6 +96,10 @@ case "$1" in
     fi
     ;;
 
+  k*)
+    tmux -L projects kill-server
+    ;;
+
   *)
     if [ -n "$TMUX" ]; then
       >&2 echo "usage: projects [add|new|clone|ls|sync|help]"
