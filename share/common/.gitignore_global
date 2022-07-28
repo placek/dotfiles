@@ -10,3 +10,4 @@
 .local.image
 .remote.compose
 .authorized_keys
+.projects.vim
