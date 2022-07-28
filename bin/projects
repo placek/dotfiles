@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 projects=${PROJECTS_DIR:-"$HOME/Projects"}
-session_file=".projects.vim"
 backup_origin="backup"
 tmux="tmux -L projects"
 list=$($tmux ls 2> /dev/null | cut -f1 -d':' | sort)
