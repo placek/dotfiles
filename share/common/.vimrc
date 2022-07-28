@@ -175,3 +175,21 @@ augroup END
 inoremap <space> <C-G>u<space>
 inoremap . <C-G>u.
 inoremap <cr> <C-G>u<cr>
+"
+" automatic session management
+function! MakeSession()
+  let b:filename = getcwd() . '/.projects.vim'
+  exe "mksession! " . b:filename
+endfunction
+
+function! LoadSession()
+  let b:filename = getcwd() . '/.projects.vim'
+  if (filereadable(b:filename)) && !empty($TMUX)
+    exe 'source ' b:filename
+  else
+    echo "No session loaded."
+  endif
+endfunction
+
+au VimEnter * nested :call LoadSession()
+au VimLeave * :call MakeSession()

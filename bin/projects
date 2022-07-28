@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-if ! command -v "$EDITOR" &> /dev/null; then
-  >&2 echo "projects: $EDITOR editor set by \$EDITOR env variable could not be found"
-  exit
-fi
-
 projects=${PROJECTS_DIR:-"$HOME/Projects"}
-list=$(tmux -L projects ls 2> /dev/null | cut -f1 -d':' | sort)
+session_file=".projects.vim"
+backup_origin="backup"
+tmux="tmux -L projects"
+list=$($tmux ls 2> /dev/null | cut -f1 -d':' | sort)
+vim="vim"
 
 [ ! -d "$projects" ] && mkdir -p "$projects"
 
@@ -38,7 +37,7 @@ case "$1" in
         target=$2
       fi
       if [ ! -z "$target" ] && [ -d "$projects/$target" ]; then
-        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; set-option -g default-shell "$SHELL"
+        $tmux new-session -d -s "$target" -c "$projects/$target" "$vim" \; set-option -g default-shell "$SHELL"
       else
         >&2 echo "projects: $target does not exist"
       fi
@@ -57,7 +56,7 @@ case "$1" in
         pushd "$projects/$target" || exit
           git init
         popd
-        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; set-option -g default-shell "$SHELL"
+        $tmux new-session -d -s "$target" -c "$projects/$target" "$vim" \; set-option -g default-shell "$SHELL"
       fi
     fi
     ;;
@@ -74,7 +73,7 @@ case "$1" in
         pushd "$projects"
           git clone "$uri"
         popd
-        tmux -L projects new-session -d -s "$target" -c "$projects/$target" "$EDITOR" \; set-option -g default-shell "$SHELL"
+        $tmux new-session -d -s "$target" -c "$projects/$target" "$vim" \; set-option -g default-shell "$SHELL"
       fi
     fi
     ;;
@@ -88,7 +87,7 @@ case "$1" in
         if [ -d "$project" ]; then
           echo "projects: $project"
           branch=$(cat "$project/.git/HEAD" | cut -d "/" -f3)
-          git push backup "$branch"
+          git push $backup_origin "$branch"
         else
           >&2 echo "projects: could not cd to $project"
         fi
@@ -97,14 +96,14 @@ case "$1" in
     ;;
 
   k*)
-    tmux -L projects kill-server
+    $tmux kill-server
     ;;
 
   *)
     if [ -n "$TMUX" ]; then
-      >&2 echo "usage: projects [add|new|clone|ls|sync|help]"
+      >&2 echo "usage: projects [add|new|clone|ls|sync|kill]"
     else
-      tmux -L projects attach
+      $tmux attach
     fi
     ;;
 esac
