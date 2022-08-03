@@ -250,6 +250,17 @@ for _, lsp in pairs(servers) do
     capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     autostart = true,
     flags = { debounce_text_changes = 150 },
+    settings = {
+      haskell = {
+        plugin = {
+          importLens = { globalOn = true, },
+          hlint = { globalOn = true, },
+          tactics = { globalOn = true, },
+          stylish-haskell = { globalOn = true, },
+        },
+        formattingProvider = 'stylish-haskell',
+      },
+    },
     on_attach = function(client, bufnr)
       vim.g.lsp_attached_server = lsp
 
