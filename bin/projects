@@ -37,6 +37,7 @@ case "$1" in
       fi
       if [ ! -z "$target" ] && [ -d "$projects/$target" ]; then
         $tmux new-session -d -s "$target" -c "$projects/$target" "$vim" \; set-option -g default-shell "$SHELL"
+        $tmux switch-client -t "$target"
       else
         >&2 echo "projects: $target does not exist"
       fi

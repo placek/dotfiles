@@ -254,19 +254,12 @@ for _, lsp in pairs(servers) do
       vim.g.lsp_attached_server = lsp
 
       buf_keymap(bufnr, "n", "<localleader>,", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-      buf_keymap(bufnr, "n", "<localleader>.", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-      buf_keymap(bufnr, "n", "<localleader>R", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-      buf_keymap(bufnr, "n", "<localleader>d", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", opts)
-      buf_keymap(bufnr, "n", "<localleader>m", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-      buf_keymap(bufnr, "n", "<localleader>r", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", opts)
-      keymap(           "n", "<localleader>D", "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>", opts)
-      keymap(           "n", "<localleader>a", "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>", opts)
+      keymap(           "n", "<localleader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
       keymap(           "n", "<localleader>f", "<cmd>lua vim.lsp.buf.formatting()<cr>", opts)
       keymap(           "n", "<localleader>l", "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>", opts)
+      buf_keymap(bufnr, "n", "<localleader>r", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", opts)
       keymap(           "n", "<localleader>s", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", opts)
-      buf_keymap(bufnr, "n", "gD",             "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
       buf_keymap(bufnr, "n", "gd",             "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-      buf_keymap(bufnr, "n", "gi",             "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
       keymap(           "n", "[d",             "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)
       keymap(           "n", "]d",             "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", opts)
 
@@ -323,15 +316,10 @@ wk.register({
   ["<leader>z"]       = { "<cmd>TZAtaraxis<cr>",                                                  "ZEN" },
 
   ["<localleader>,"]  = { "<cmd>lua vim.lsp.buf.hover()<cr>",                                     "Show documentation" },
-  ["<localleader>."]  = { "<cmd>lua vim.lsp.buf.type_definition()<cr>",                           "Type definition" },
-  ["<localleader>a"]  = { "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>",         "Code actions" },
-  ["<localleader>d"]  = { "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",              "Show diagnostics" },
-  ["<localleader>D"]  = { "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>", "List diagnostics" },
+  ["<localleader>a"]  = { "<cmd>lua vim.lsp.buf.code_action()<cr>",                               "Code actions" },
   ["<localleader>f"]  = { "<cmd>lua vim.lsp.buf.formatting()<cr>",                                "Format" },
   ["<localleader>l"]  = { "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>",       "Load diagnostics to loclist" },
-  ["<localleader>m"]  = { "<cmd>lua vim.lsp.buf.signature_help()<cr>",                            "Signature help" },
   ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>",           "List references" },
-  ["<localleader>R"]  = { "<cmd>lua vim.lsp.buf.rename()<cr>",                                    "Rename" },
   ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" },
 
   ["<space>"]         = { name = "Harpoon" },
