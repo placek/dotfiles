@@ -185,19 +185,16 @@ cmp.setup({
   mapping = {
     ["<c-d>"]     = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<c-u>"]     = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-    ["<esc>"]     = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
-    ["<cr>"]      = cmp.mapping.confirm { select = true },
-    ["<tab>"]     = cmp.mapping(function(fallback)
+    ["<left>"]    = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+    ["<right>"]   = cmp.mapping.confirm { select = true },
+    ["<down>"]    = cmp.mapping(function(fallback)
                     if cmp.visible() then cmp.select_next_item()
-                    elseif ls.expandable() then  ls.expand()
-                    elseif ls.expand_or_jumpable() then ls.expand_or_jump()
-                    elseif check_backspace() then fallback()
+                    elseif ls.expandable() then ls.expand()
                     else fallback()
                     end
                   end, { "i", "s"}),
-    ["<s-tab>"]   = cmp.mapping(function(fallback)
+    ["<up>"]      = cmp.mapping(function(fallback)
                     if cmp.visible() then cmp.select_prev_item()
-                    elseif ls.jumpable(-1) then ls.jump(-1)
                     else fallback()
                     end
                   end, { "i", "s"}),
@@ -252,14 +249,33 @@ for _, lsp in pairs(servers) do
     flags = { debounce_text_changes = 150 },
     settings = {
       haskell = {
+        formattingProvider = "stylish-haskell",
         plugin = {
-          importLens = { globalOn = true, },
+          alternateNumberFormat = { globalOn = true, },
+          callHierarchy = { globalOn = true, },
+          class = { globalOn = true, },
+          eval = { globalOn = true, },
+          -- "ghcide-code-actions-bindings" = { globalOn = true, },
+          -- "ghcide-code-actions-fill-holes" = { globalOn = true, },
+          -- "ghcide-code-actions-imports-exports" = { globalOn = true, },
+          -- "ghcide-code-actions-type-signatures" = { globalOn = true, },
+          -- "ghcide-completions" = { globalOn = true, },
+          -- "ghcide-core" = { globalOn = true, },
+          -- "ghcide-hover-and-symbols" = { globalOn = true, },
+          -- "ghcide-type-lenses" = { globalOn = true, },
+          haddockComments = { globalOn = true, },
           hlint = { globalOn = true, },
+          importLens = { globalOn = true, },
+          moduleName = { globalOn = true, },
+          pragmas = { globalOn = true, },
+          qualifyImportedNames = { globalOn = true, },
+          refineImports = { globalOn = true, },
+          retrie = { globalOn = true, },
+          selectionRange = { globalOn = true, },
+          splice = { globalOn = true, },
           tactics = { globalOn = true, },
-          stylish-haskell = { globalOn = true, },
         },
-        formattingProvider = 'stylish-haskell',
-      },
+      }
     },
     on_attach = function(client, bufnr)
       vim.g.lsp_attached_server = lsp
@@ -267,7 +283,7 @@ for _, lsp in pairs(servers) do
       buf_keymap(bufnr, "n", "<localleader>,", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
       keymap(           "n", "<localleader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
       keymap(           "n", "<localleader>f", "<cmd>lua vim.lsp.buf.formatting()<cr>", opts)
-      keymap(           "n", "<localleader>l", "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>", opts)
+      keymap(           "n", "<localleader>q", "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>", opts)
       buf_keymap(bufnr, "n", "<localleader>r", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", opts)
       keymap(           "n", "<localleader>s", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", opts)
       buf_keymap(bufnr, "n", "gd",             "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
@@ -329,7 +345,7 @@ wk.register({
   ["<localleader>,"]  = { "<cmd>lua vim.lsp.buf.hover()<cr>",                                     "Show documentation" },
   ["<localleader>a"]  = { "<cmd>lua vim.lsp.buf.code_action()<cr>",                               "Code actions" },
   ["<localleader>f"]  = { "<cmd>lua vim.lsp.buf.formatting()<cr>",                                "Format" },
-  ["<localleader>l"]  = { "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>",       "Load diagnostics to loclist" },
+  ["<localleader>q"]  = { "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>",       "Load diagnostics to loclist" },
   ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>",           "List references" },
   ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" },
 
@@ -361,13 +377,3 @@ require("true-zen").setup({ integrations = { tmux = true, gitsigns = true, luali
 ------------------------------------------------------------------------ fitget
 
 require("fidget").setup({ text = { spinner = "dots" } })
-
---------------------------------------------------------------------- nvim-lint
-
-require("lint").linters_by_ft = {
-  ansible = { "ansible_lint" },
-  haskell = { "hlint" },
-  ruby    = { "ruby" },
-  nix     = { "nix" },
-  yaml    = { "yamllint" }
-}
