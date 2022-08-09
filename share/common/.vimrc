@@ -79,37 +79,37 @@ set wildignore=.*,.git/
 set wildmenu
 
 " options
-let g:mapleader          = "\\"
-let g:maplocalleader     = ","
+let g:mapleader      = "\\"
+let g:maplocalleader = ","
 
 " mappings
-nnoremap <leader>1  :set relativenumber!<CR>
-nnoremap <leader>2  :call MakeFolds()<CR>
-nnoremap <leader>3  :set spell!<CR>
-nnoremap <leader>'  :make %:t:r<CR>
+nnoremap <leader>1 :set relativenumber!<CR>
+nnoremap <leader>2 :call MakeFolds()<CR>
+nnoremap <leader>3 :set spell!<CR>
+nnoremap <leader>' :make %:t:r<CR>
 
-nmap <silent>       [a :previous<CR>
-nmap <silent>       ]a :next<CR>
-nmap <silent>       [b :bprevious<CR>
-nmap <silent>       ]b :bnext<CR>
-nmap <silent>       [w <C-w>W
-nmap <silent>       ]w <C-w>w
-nmap <silent>       [t :tabprevious<CR>
-nmap <silent>       ]t :tabnext<CR>
-nmap <silent>       [e :cprevious<CR>
-nmap <silent>       ]e :cnext<CR>
-nmap <silent>       [l :lprevious<CR>
-nmap <silent>       ]l :lnext<CR>
+nmap <silent>      [a :previous<CR>
+nmap <silent>      ]a :next<CR>
+nmap <silent>      [b :bprevious<CR>
+nmap <silent>      ]b :bnext<CR>
+nmap <silent>      [w <C-w>W
+nmap <silent>      ]w <C-w>w
+nmap <silent>      [t :tabprevious<CR>
+nmap <silent>      ]t :tabnext<CR>
+nmap <silent>      [e :cprevious<CR>
+nmap <silent>      ]e :cnext<CR>
+nmap <silent>      [l :lprevious<CR>
+nmap <silent>      ]l :lnext<CR>
 
 cmap Q q
 cmap W w
 
-vnoremap <silent>*  :<C-u>call setreg("/", substitute(GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent>#  :<C-u>call setreg("?", substitute(GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vmap     v          <Plug>(expand_region_expand)
-vmap     <C-v>      <Plug>(expand_region_shrink)
+vnoremap <silent>* :<C-u>call setreg("/", substitute(GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent># :<C-u>call setreg("?", substitute(GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vmap     v         <Plug>(expand_region_expand)
+vmap     <C-v>     <Plug>(expand_region_shrink)
 
-tnoremap <Esc>      <C-\><C-n>
+tnoremap <Esc>     <C-\><C-n>
 
 " commands
 command! -count MakeTags call MakeTags()
@@ -144,8 +144,8 @@ hi LspDiagnosticsUnderlineHint          ctermbg=0   ctermfg=7  cterm=underline
 hi LspDiagnosticsUnderlineInfo          ctermbg=0   ctermfg=4  cterm=underline
 hi LspDiagnosticsUnderlineWarning       ctermbg=0   ctermfg=16 cterm=underline
 hi LspDiagnosticsUnderlineInformation   ctermbg=0   ctermfg=8  cterm=underline
-hi LspReferenceRead                                 ctermfg=15
-hi LspReferenceWrite                                ctermfg=15 cterm=bold
+hi LspReferenceRead                                 ctermfg=15 cterm=bold
+hi LspReferenceWrite                                ctermfg=15 cterm=bold,underline
 hi NormalFloat                          ctermbg=0
 hi FloatBorder                          ctermbg=0
 hi Pmenu                                ctermbg=0   ctermfg=7

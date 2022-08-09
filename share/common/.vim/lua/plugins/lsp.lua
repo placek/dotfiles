@@ -17,7 +17,7 @@ local function on_attach(client, buf)
   local keymap     = vim.api.nvim_set_keymap
   local opts       = { noremap = true, silent = true }
 
-  if buf.server_ready() then
+  if vim.lsp.buf.server_ready() then
     vim.g.lsp_attached_server = "•"
   else
     vim.g.lsp_attached_server = " "
@@ -27,21 +27,19 @@ local function on_attach(client, buf)
   keymap(         "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)
   keymap(         "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", opts)
 
-  vim.api.nvim_command [[
-    autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  ]]
+  vim.api.nvim_command [[ autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight() ]]
+  vim.api.nvim_command [[ autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight() ]]
+  vim.api.nvim_command [[ autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references() ]]
 end
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", })
 
 -- haskell
 lsp.hls.setup {
-  autostart    = true,
-  flags        = flags,
-  on_attach    = on_attach,
-  settings = {
+  autostart = true,
+  flags     = flags,
+  on_attach = on_attach,
+  settings  = {
     haskell = {
       formattingProvider = "stylish-haskell",
       plugin = {
