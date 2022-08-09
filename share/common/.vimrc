@@ -42,6 +42,7 @@ set diffopt-=internal
 set encoding=utf-8
 set expandtab
 set foldcolumn=1
+set foldmethod=manual
 set grepformat=%f:%l:%c:%m
 set grepprg=rg\ --vimgrep\ $*
 set hidden
@@ -164,32 +165,8 @@ autocmd! BufWritePost *        :silent! MakeTags
 autocmd! BufWritePre  *        :%s/\s\+$//e
 autocmd! FileType     fugitive setlocal winfixheight
 autocmd! FileType     ansible  setlocal syntax=yaml
-autocmd! BufWritePost <buffer> lua require("lint").try_lint()
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave *.* mkview
-  autocmd BufWinEnter *.* silent! loadview
-augroup END
 
 " undo sequence for space, dot and newline
 inoremap <space> <C-G>u<space>
 inoremap . <C-G>u.
 inoremap <cr> <C-G>u<cr>
-"
-" automatic session management
-function! MakeSession()
-  let b:filename = getcwd() . '/.projects.vim'
-  exe "mksession! " . b:filename
-endfunction
-
-function! LoadSession()
-  let b:filename = getcwd() . '/.projects.vim'
-  if (filereadable(b:filename)) && !empty($TMUX)
-    exe 'source ' b:filename
-  else
-    echo "No session loaded."
-  endif
-endfunction
-
-au VimEnter * nested :call LoadSession()
-au VimLeave * :call MakeSession()
