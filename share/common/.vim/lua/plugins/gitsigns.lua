@@ -1,10 +1,10 @@
 require("gitsigns").setup {
-  signcolumn = true,
-  current_line_blame = true,
-  current_line_blame_opts = { delay = 500 },
+  signcolumn                        = true,
+  current_line_blame                = true,
+  current_line_blame_opts           = { delay = 500 },
   current_line_blame_formatter_opts = { relative_time = true },
-  preview_config = float_settings,
-  on_attach = function(bufnr)
+  preview_config                    = { border = "rounded" },
+  on_attach = function(_)
     local keymap = vim.api.nvim_set_keymap
     local opts = { noremap = true, silent = true }
 

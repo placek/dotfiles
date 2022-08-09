@@ -1,7 +1,6 @@
-local lsp            = require('lspconfig')
-local flags          = { allow_incremental_sync = true, debounce_text_changes = 200, }
-local capabilities   = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local float_settings = { border = "rounded" }
+local lsp          = require('lspconfig')
+local flags        = { allow_incremental_sync = true, debounce_text_changes = 200, }
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local signs = {
   { name = "LspDiagnosticsSignError",       text = "" },
   { name = "LspDiagnosticsSignWarning",     text = "" },
@@ -14,6 +13,10 @@ for _, sign in ipairs(signs) do
 end
 
 local function on_attach(client, buf)
+  local buf_keymap = vim.api.nvim_buf_set_keymap
+  local keymap     = vim.api.nvim_set_keymap
+  local opts       = { noremap = true, silent = true }
+
   if buf.server_ready() then
     vim.g.lsp_attached_server = "•"
   else
@@ -31,7 +34,7 @@ local function on_attach(client, buf)
   ]]
 end
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_settings)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", })
 
 -- haskell
 lsp.hls.setup {

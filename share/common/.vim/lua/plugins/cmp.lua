@@ -4,11 +4,11 @@ local keymap = vim.api.nvim_set_keymap
 local opts   = { noremap = true, silent = true }
 
 ls.config.set_config {
-  history = true,
-  updateevents = "TextChanged,TextChangedI",
-  ext_base_prio = 300,
-  ext_prio_increase = 1,
-  enable_autosnippets = true
+  history             = true,
+  updateevents        = "TextChanged,TextChangedI",
+  ext_base_prio       = 300,
+  ext_prio_increase   = 1,
+  enable_autosnippets = true,
 }
 
 require("luasnip/loaders/from_vscode").load()
@@ -31,19 +31,19 @@ cmp.setup {
   mapping = {
     ["<c-d>"]     = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<c-u>"]     = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-    ["<left>"]    = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+    ["<left>"]    = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
     ["<right>"]   = cmp.mapping.confirm { select = true, },
     ["<down>"]    = cmp.mapping(function(fallback)
-                    if cmp.visible() then cmp.select_next_item()
-                    elseif ls.expandable() then ls.expand()
-                    else fallback()
-                    end
-                  end, { "i", "s"}),
+                      if cmp.visible() then cmp.select_next_item()
+                      elseif ls.expandable() then ls.expand()
+                      else fallback()
+                      end
+                    end, { "i", "s"}),
     ["<up>"]      = cmp.mapping(function(fallback)
-                    if cmp.visible() then cmp.select_prev_item()
-                    else fallback()
-                    end
-                  end, { "i", "s"}),
+                      if cmp.visible() then cmp.select_prev_item()
+                      else fallback()
+                      end
+                    end, { "i", "s"}),
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
