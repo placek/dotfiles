@@ -112,12 +112,6 @@ function fish_prompt
   set -q SYMBOL || set SYMBOL '$'
   set -l code $status
 
-  if test -n "$ssh_client"
-    set -l host (hostname -s)
-    set -l who (whoami)
-    echo -n -s (red)"("(cyan)"$who"(red)":"(cyan)"$host"(red)") "(off)
-  end
-
   if git::is_repo
     set -l branch (git::branch_name 2>/dev/null)
     set -l ref (git show-ref --head --abbrev | awk '{print substr($0,0,7)}' | sed -n 1p)
