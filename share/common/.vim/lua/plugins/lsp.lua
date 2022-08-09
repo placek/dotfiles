@@ -71,18 +71,16 @@ lsp.hls.setup {
   },
 }
 
--- local servers = {
---   'html',      -- HTML
---   'cssls',     -- CSS
---   'jsonls',    -- JSON
---   'yamlls',    -- YAML
---   'ansiblels', -- ansible
--- }
---
--- for _, server in ipairs(servers) do
---   lsp[server].setup({
---     flags = flags,
---     capabilities = capabilities,
---     on_attach = on_attach,
---   })
--- end
+local servers = {
+  'bashls',    -- bash
+  'ansiblels', -- ansible
+  'rnix',      -- NIX
+}
+
+for _, server in ipairs(servers) do
+  lsp[server].setup({
+    flags = flags,
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+end
