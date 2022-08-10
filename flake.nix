@@ -17,6 +17,7 @@
         buildPhase   = ''
           export LANG=C.utf8
           data_file="data.json"
+          [[ $(hostname) == "alpha" ]] && sed -i 's/"mobile":\s+true/"mobile": false'
           for file in $(find . -name "*.mustache" -type f); do
             target=$(echo $file | sed 's/\.mustache$//')
             ${pkgs.haskellPackages.mustache}/bin/haskell-mustache $file $data_file > $target
@@ -32,7 +33,7 @@
       # defaultApp     = flake-utils.lib.mkApp { drv = defaultPackage; };
       defaultPackage = dotfiles;
       devShell       = pkgs.mkShell {
-        buildInputs = [ dotfiles pkgs.nodePackages.bash-language-server pkgs.rnix-lsp ];
+        buildInputs = [ dotfiles pkgs.nodePackages.bash-language-server pkgs.rnix-lsp pkgs.haskellPackages.mustache ];
       };
     }
   );

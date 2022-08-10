@@ -6,7 +6,7 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
-       , template        = "%UnsafeStdinReader%}{%multicpu%%statuses%%EPLL%%multicoretemp%%memory%%disku%%default:Master%%battery%%dynnetwork%%wlan0wi%%date%"
+       , template        = "%UnsafeStdinReader%}{%multicpu%%statuses%%EPLL%%multicoretemp%%memory%%disku%%default:Master%{{#mobile}}%battery%{{/mobile}}%dynnetwork%{{#mobile}}%wlan0wi%{{/mobile}}%date%"
        , commands        = [ Run ComX                     "statuses" [
                                                              "-r", "#{{base08-hex}}"
                                                            ] "\xE0B3 " "statuses" 10
