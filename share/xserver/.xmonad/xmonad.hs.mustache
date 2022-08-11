@@ -200,11 +200,13 @@ defaults xmproc = desktopConfig { terminal           = myTerminal
                                 , layoutHook         = myLayout
                                 , manageHook         = myManageHook <+> manageDocks <+> manageHook desktopConfig
                                 , handleEventHook    = myEventHook
-                                , logHook            = myLogHook xmproc
+                                , logHook            = xmproc
                                 , startupHook        = myStartupHook
                                 }
 
 main = do
-  xmproc <- spawnPipe "xmobar"
-  xmonad $ docks (defaults xmproc)
+  xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/0.hs"
+  xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/1.hs"
+  xmproc2 <- spawnPipe "xmobar -x 2 $HOME/.config/xmobar/2.hs"
+  xmonad . docks . defaults $ myLogHook xmproc0 >> myLogHook xmproc1 >> myLogHook xmproc2
 -- vim:ft=haskell
