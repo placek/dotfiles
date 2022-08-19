@@ -118,7 +118,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((0, xF86XK_AudioRaiseVolume     ), safeSpawn "amixer" ["set", "Master", "5%+", "unmute"])
     , ((0, xF86XK_MonBrightnessUp      ), safeSpawn "light" ["-A", "5.0"])
     , ((0, xF86XK_MonBrightnessDown    ), safeSpawn "light" ["-U", "5.0"])
-    , ((0, xF86XK_Reload               ), safeSpawn "rotate-displays" [])
+    , ((0, 0xff68                      ), safeSpawn "rotate-displays" [])
     , ((0, xF86XK_Sleep                ), safeSpawn "slock" [])
     , ((0, xF86XK_PowerOff             ), safeSpawn "slock" [])
     ]
