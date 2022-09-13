@@ -1,7 +1,7 @@
 # greetings
 function fish_greeting
   if set -q TMUX
-    echo (yellow) (date) (off)
+    date
   else
     inxi
   end
