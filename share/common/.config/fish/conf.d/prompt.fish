@@ -19,13 +19,13 @@ end
 function symbol_prompt
   if string match -qv 0 $__pipestatus
     set_color -o red
-    echo -n -s " $SYMBOL"
+    echo -n -s "$SYMBOL"
     set_color normal
     set_color brblack
-    echo -n -s " $__pipestatus"
+    echo -n -s "$__pipestatus"
   else
     set_color -o green
-    echo -n -s " $SYMBOL"
+    echo -n -s "$SYMBOL"
   end
   set_color normal
 end
@@ -33,9 +33,9 @@ end
 function fish_prompt
   set -lx __pipestatus $pipestatus
 
+  symbol_prompt
   fish_vcs_prompt
   nix_prompt
-  symbol_prompt
 
   echo -n -s " "
 end
