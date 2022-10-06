@@ -114,6 +114,7 @@ tnoremap <Esc>     <C-\><C-n>
 " commands
 command! -count MakeTags call MakeTags()
 command! -count Open     !open %
+command!        BufOnly  execute '%bdelete|edit #|normal `"'
 
 " colors
 hi ColorColumn                          ctermbg=18

@@ -21,8 +21,9 @@ abbr --add lcps  "docker-compose -f .local.compose ps"
 
 abbr --add j "journalctl"
 abbr --add s "systemctl"
-abbr --add tb "nc termbin.com 9999"
 abbr --add p "projects"
+abbr --add tt "nc termbin.com 9999"
+abbr --add tf "nc oshi.at 7777"
 
 # aliases
 alias ls="lsd --icon-theme unicode"
