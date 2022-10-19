@@ -110,9 +110,9 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     -- others
     , ((shiftMask, xK_Print            ), safeSpawn "scrot" ["-q", "100", "/tmp/ss_%Y%m%d_%H%M%S.png"])
     , ((0, xK_Print                    ), safeSpawn "scrot" ["-q", "100", "-s", "/tmp/ss_%Y%m%d_%H%M%S.png"])
-    , ((0, xF86XK_AudioPrev            ), safeSpawn "spotify_control" ["previous"])
-    , ((0, xF86XK_AudioPlay            ), safeSpawn "spotify_control" ["playpause"])
-    , ((0, xF86XK_AudioNext            ), safeSpawn "spotify_control" ["next"])
+    , ((0, xF86XK_AudioPrev            ), safeSpawn "playerctl" ["previous"])
+    , ((0, xF86XK_AudioPlay            ), safeSpawn "playerctl" ["play-pause"])
+    , ((0, xF86XK_AudioNext            ), safeSpawn "playerctl" ["next"])
     , ((0, xF86XK_AudioMute            ), safeSpawn "amixer" ["set", "Master", "toggle"])
     , ((0, xF86XK_AudioLowerVolume     ), safeSpawn "amixer" ["set", "Master", "5%-", "unmute"])
     , ((0, xF86XK_AudioRaiseVolume     ), safeSpawn "amixer" ["set", "Master", "5%+", "unmute"])
