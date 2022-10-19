@@ -34,15 +34,29 @@ command! run !! ./%c
 fileviewer *.rb,*.hs,*.lhs,*.css,*.erb,*.yaml,*.yml,*.sass,*.haml,*.js,*.md,*.htm,*.html,*.svg,*.xml,
        \ vifmprev code %pw %ph %c
 
+" windows executables
+filetype *.exe
+       \ {run in wine}
+       \ wine %c &
+
 " web browser related
-filextype *.htm,*.html,*.svg,*.xml
+filetype *.htm,*.html,*.xml
        \ {view in browser}
        \ qutebrowser %c &,
        \ {edit in vim}
        \ vim %c
 
+" svg
+filetype *.svg
+       \ {view in browser}
+       \ qutebrowser %c &,
+       \ {edit in inkscape}
+       \ inkscape %c,
+       \ {edit in vim}
+       \ vim %c
+
 " pdf / ps / djvu / epub
-filextype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu,*.epub
+filetype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu,*.epub
        \ {view in zathura}
        \ zathura %c &
 
@@ -54,14 +68,14 @@ fileviewer *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus,
        \ vifmprev audio %pw %ph %c
 
 " video
-filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,*.as[fx]
+filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,*.as[fx]
        \ {view using mplayer}
        \ mplayer %c &
 fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
        \ vifmprev video %pw %ph %c
 
 " images
-filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.pbm
+filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.pbm
        \ {view in feh}
        \ feh %c &,
        \ {edit in gimp}
