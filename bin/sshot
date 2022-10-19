@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+file="$HOME/Downloads/sshot.png"
+
+case "$1" in
+  w*)
+    shift
+    scrot -q 100 -u "$file"
+    xclip -selection clipboard -t image/png < "$file"
+    ;;
+  s*)
+    shift
+    scrot -q 100 -s "$file"
+    xclip -selection clipboard -t image/png < "$file"
+    ;;
+  *)
+    ;;
+esac
