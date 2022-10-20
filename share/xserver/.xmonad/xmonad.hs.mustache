@@ -105,6 +105,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm, xK_Escape                ), submap . Map.fromList $
        [ ((modm .|. shiftMask, xK_q    ), safeSpawn "dunstctl" ["close-all"])                            -- close all notifications
        , ((modm, xK_q                  ), safeSpawn "dunstctl" ["set-paused", "toggle"])                 -- toggle notifications
+       , ((modm, xK_p                  ), safeSpawn "show"     ["player"])                               -- show now playing
        , ((modm, xK_Escape             ), safeSpawn "dunstctl" ["history-pop"])                          -- pop notification from history
        ])
     -- others
