@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-case "$1" in
-  p*) notify-send -i none -a "$(playerctl metadata --format "{{ playerName }}")" "$(playerctl status)" "$(playerctl metadata --format "{{ artist }} - {{ title }}")" ;;
-  *)
-esac

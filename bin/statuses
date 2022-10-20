@@ -28,8 +28,8 @@ ssh-add -l >/dev/null 2>/dev/null && printf "<fn=1></fn> "
 
 # playerctl status
 case $(playerctl status) in
-  Playing) printf "<fn=1></fn> " ;;
-  Paused)  printf "<fn=1></fn> " ;;
+  Playing) printf "<fn=1></fn> $(playerctl metadata --format "{{ artist }}: {{ trunc(title,30) }}") " ;;
+  Paused)  printf "<fn=1></fn> $(playerctl metadata --format "{{ artist }}: {{ trunc(title,30) }}") " ;;
 esac
 
 exit 0
