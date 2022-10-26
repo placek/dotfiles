@@ -1,6 +1,5 @@
 filetype plugin indent on
 syntax enable
-colorscheme gruvbox8_soft
 
 " functions
 function! GetSelectedText()

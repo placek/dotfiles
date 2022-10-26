@@ -39,6 +39,7 @@ lsp.hls.setup {
   autostart = true,
   flags     = flags,
   on_attach = on_attach,
+  cmd       = { "haskell-language-server", "--lsp" },
   settings  = {
     haskell = {
       formattingProvider = "stylish-haskell",
