@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-dir="$(git rev-parse --git-dir)"
-
-trap 'rm -f "$dir/$$.tags"' EXIT
-
-git ls-files | ctags -L - --tag-relative -f "$dir/$$.tags"
-
-mv "$dir/$$.tags" "$dir/tags"
+if [ -x ".git/hooks/ctags" ]; then
+  .git/hooks/ctags
+else
+  >&2 echo "$0: no hook at .git/hooks/ctags exists"
+fi
