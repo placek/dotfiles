@@ -17,12 +17,6 @@ local function on_attach(client, buf)
   local keymap     = vim.api.nvim_set_keymap
   local opts       = { noremap = true, silent = true }
 
-  if vim.lsp.buf.server_ready() then
-    vim.g.lsp_attached_server = "•"
-  else
-    vim.g.lsp_attached_server = " "
-  end
-
   vim.lsp.codelens.refresh()
 
   buf_keymap(buf, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)

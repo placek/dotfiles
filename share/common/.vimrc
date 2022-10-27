@@ -167,7 +167,7 @@ autocmd! BufWritePost *            :silent! MakeTags
 autocmd! BufWritePre  *            :%s/\s\+$//e
 autocmd! FileType     fugitive     setlocal winfixheight
 autocmd! FileType     ansible      setlocal syntax=yaml
-autocmd! User         DirenvLoaded :echom ".envrc loaded"
+autocmd! User         DirenvLoaded :let g:direnv_loaded = "•"
 
 " undo sequence for space, dot and newline
 inoremap <space> <C-G>u<space>

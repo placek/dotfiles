@@ -11,7 +11,7 @@ require("lualine").setup {
     lualine_b = {
       "branch",
       "diff",
-      "g:lsp_attached_server",
+      "g:direnv_loaded",
       { "diagnostics",
         sources = { "nvim_lsp" },
         sections = { "error", "warn", "info", "hint" },
