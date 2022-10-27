@@ -23,6 +23,8 @@ local function on_attach(client, buf)
     vim.g.lsp_attached_server = " "
   end
 
+  vim.lsp.codelens.refresh()
+
   buf_keymap(buf, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
   keymap(         "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)
   keymap(         "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", opts)

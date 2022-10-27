@@ -1,4 +1,5 @@
 local wk = require("which-key")
+local cth = require('telescope.themes').get_cursor()
 
 wk.register({
   ["<leader><esc>"]   = { "<cmd>lua require('telescope.builtin').resume()<cr>",                   "Last search" },
@@ -6,7 +7,6 @@ wk.register({
   ["<leader>\\"]      = { "<cmd>lua require('telescope.builtin').git_files({hidden=true})<cr>",   "Search git files only" },
   ["<leader>/"]       = { "<cmd>Telescope file_browser path=%:p:h hidden=true<cr>",               "Browse files" },
   ["<leader>b"]       = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                  "Search buffers" },
-  ["<leader>c"]       = { "<cmd>split term://fish<cr>",                                           "Open terminal" },
   ["<leader>F"]       = { "<cmd>lua require('telescope.builtin').find_files()<cr>",               "Search files" },
   ["<leader>f"]       = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",                "Grep files" },
   ["<leader>H"]       = { "<cmd>lua require('telescope.builtin').jumplist()<cr>",                 "Search history" },
@@ -36,16 +36,18 @@ wk.register({
   ["<leader>gq"]      = { "<cmd>lua require('gitsigns').setqflist()<cr>",                         "Quickfix list" },
   ["<leader>gS"]      = { "<cmd>lua require('telescope.builtin').git_stash()<cr>",                "Show stash" },
   ["<leader>gs"]      = { "<cmd>lua require('telescope.builtin').git_status()<cr>",               "Show status" },
-  ["<leader>l"]       = { name = "LSP" },
-  ["<leader>lh"]      = { "<cmd>LspStart hls<cr>",                                                "LSP start hls" },
-  ["<leader>li"]      = { "<cmd>LspInfo<cr>",                                                     "LSP info" },
-  ["<leader>z"]       = { "<cmd>TZAtaraxis<cr>",                                                  "ZEN" },
 
   ["<localleader>,"]  = { "<cmd>lua vim.lsp.buf.hover()<cr>",                                     "Show documentation" },
   ["<localleader>a"]  = { "<cmd>lua vim.lsp.buf.code_action()<cr>",                               "Code actions" },
-  ["<localleader>f"]  = { "<cmd>lua vim.lsp.buf.formatting()<cr>",                                "Format" },
-  ["<localleader>q"]  = { "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>",       "Load diagnostics to loclist" },
-  ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>",           "List references" },
+  ["<localleader>d"]  = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>",              "Diagnostics" },
+  ["<localleader>D"]  = { "<cmd>lua vim.diagnostic.setloclist({open_loclist = false})<cr>",       "Load diagnostics to loclist" },
+  ["<localleader>f"]  = { "<cmd>lua vim.lsp.buf.format({async = true})<cr>",                      "Format" },
+  ["<localleader>h"]  = { "<cmd>LspStart hls<cr>",                                                "LSP start HLS" },
+  ["<localleader>i"]  = { "<cmd>lua require('telescope.builtin').lsp_incoming_calls(cth)<cr>",    "Incoming calls" },
+  ["<localleader>I"]  = { "<cmd>LspInfo<cr>",                                                     "LSP info" },
+  ["<localleader>l"]  = { "<cmd>lua vim.lsp.codelens.refresh()<cr>",                              "Code lens" },
+  ["<localleader>o"]  = { "<cmd>lua require('telescope.builtin').lsp_outgoing_calls(cth)<cr>",    "Outgoing calls" },
+  ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references(cth)<cr>",        "List references" },
   ["<localleader>s"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "List workspace symbols" },
 
   ["<space>"]         = { name = "Harpoon" },

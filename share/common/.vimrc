@@ -129,6 +129,7 @@ hi GitSignsAdd                          ctermbg=0   ctermfg=2
 hi GitSignsChange                       ctermbg=0   ctermfg=3
 hi GitSignsCurrentLineBlame                         ctermfg=8
 hi GitSignsDelete                       ctermbg=0   ctermfg=1
+hi LspCodeLens                          ctermbg=0   ctermfg=19
 hi LspDiagnosticsSignError              ctermbg=0   ctermfg=1
 hi LspDiagnosticsSignHint               ctermbg=0   ctermfg=7
 hi LspDiagnosticsSignInfo               ctermbg=0   ctermfg=4
