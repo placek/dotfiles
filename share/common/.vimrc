@@ -80,6 +80,7 @@ set wildmenu
 " options
 let g:mapleader      = "\\"
 let g:maplocalleader = ","
+let g:direnv_silent_load = 1
 
 " mappings
 nnoremap <leader>1 :set relativenumber!<CR>
@@ -162,10 +163,11 @@ hi Visual                               ctermbg=7   ctermfg=0
 hi TelescopeSelection                   ctermbg=237 ctermfg=7
 
 " autocommands
-autocmd! BufWritePost *        :silent! MakeTags
-autocmd! BufWritePre  *        :%s/\s\+$//e
-autocmd! FileType     fugitive setlocal winfixheight
-autocmd! FileType     ansible  setlocal syntax=yaml
+autocmd! BufWritePost *            :silent! MakeTags
+autocmd! BufWritePre  *            :%s/\s\+$//e
+autocmd! FileType     fugitive     setlocal winfixheight
+autocmd! FileType     ansible      setlocal syntax=yaml
+autocmd! User         DirenvLoaded :echom ".envrc loaded"
 
 " undo sequence for space, dot and newline
 inoremap <space> <C-G>u<space>
