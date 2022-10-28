@@ -9,17 +9,17 @@ function! GetSelectedText()
   return l:ret
 endfunction
 
-function! MakeTags()
-  return jobstart("git ctags", #{ exit_cb: function('MakeTagsResult') })
-endfunction
-
 function! MakeFolds()
   setlocal foldmethod=indent
   norm zR
   setlocal foldmethod=manual
 endfunction
 
-function! MakeTagsResult(job, status)
+function! MakeTags()
+  call jobstart("git ctags", { "on_exit": function('MakeTagsResult') })
+endfunction
+
+function! MakeTagsResult(job, status, event)
   if a:status == 0
     echom "MakeTags: done"
   else
