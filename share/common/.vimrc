@@ -99,7 +99,7 @@ vmap     <C-v>     <Plug>(expand_region_shrink)
 tnoremap <Esc>     <C-\><C-n>
 
 " commands
-command! -count MakeTags !git ctags
+command! -count MakeTags call jobstart('git ctags')
 command! -count Open     !open %
 command!        BufOnly  execute '%bdelete|edit #|normal `"'
 
