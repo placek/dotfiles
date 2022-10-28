@@ -9,10 +9,22 @@ function! GetSelectedText()
   return l:ret
 endfunction
 
+function! MakeTags()
+  return jobstart("git ctags", #{ exit_cb: function('MakeTagsResult') })
+endfunction
+
 function! MakeFolds()
   setlocal foldmethod=indent
   norm zR
   setlocal foldmethod=manual
+endfunction
+
+function! MakeTagsResult(job, status)
+  if a:status == 0
+    echom "MakeTags: done"
+  else
+    echom "MakeTags: tags generation failed"
+  endif
 endfunction
 
 " settings
@@ -99,7 +111,7 @@ vmap     <C-v>     <Plug>(expand_region_shrink)
 tnoremap <Esc>     <C-\><C-n>
 
 " commands
-command! -count MakeTags call jobstart('git ctags')
+command! -count MakeTags call MakeTags()
 command! -count Open     !open %
 command!        BufOnly  execute '%bdelete|edit #|normal `"'
 
@@ -117,7 +129,6 @@ hi GitSignsAdd                          ctermbg=0   ctermfg=2
 hi GitSignsChange                       ctermbg=0   ctermfg=3
 hi GitSignsCurrentLineBlame                         ctermfg=8
 hi GitSignsDelete                       ctermbg=0   ctermfg=1
-hi LspCodeLens                          ctermbg=0   ctermfg=19
 hi LspDiagnosticsSignError              ctermbg=0   ctermfg=1
 hi LspDiagnosticsSignHint               ctermbg=0   ctermfg=7
 hi LspDiagnosticsSignInfo               ctermbg=0   ctermfg=4
@@ -150,10 +161,10 @@ hi Visual                               ctermbg=7   ctermfg=0
 hi TelescopeSelection                   ctermbg=237 ctermfg=7
 
 " autocommands
-autocmd! BufWritePost *            :silent! MakeTags
-autocmd! BufWritePre  *            :%s/\s\+$//e
-autocmd! FileType     fugitive     setlocal winfixheight
-autocmd! FileType     ansible      setlocal syntax=yaml
+autocmd! BufWritePost *        :silent! MakeTags
+autocmd! BufWritePre  *        :%s/\s\+$//e
+autocmd! FileType     fugitive setlocal winfixheight
+autocmd! FileType     ansible  setlocal syntax=yaml
 
 " undo sequence for space, dot and newline
 inoremap <space> <C-G>u<space>
