@@ -9,22 +9,10 @@ function! GetSelectedText()
   return l:ret
 endfunction
 
-function! MakeTags()
-  let tags_job = job_start("git ctags", #{ exit_cb: function('MakeTagsResult') })
-endfunction
-
 function! MakeFolds()
   setlocal foldmethod=indent
   norm zR
   setlocal foldmethod=manual
-endfunction
-
-function! MakeTagsResult(job, status)
-  if a:status == 0
-    echom "MakeTags: done"
-  else
-    echom "MakeTags: tags generation failed"
-  endif
 endfunction
 
 " settings
@@ -111,7 +99,7 @@ vmap     <C-v>     <Plug>(expand_region_shrink)
 tnoremap <Esc>     <C-\><C-n>
 
 " commands
-command! -count MakeTags call MakeTags()
+command! -count MakeTags !git ctags
 command! -count Open     !open %
 command!        BufOnly  execute '%bdelete|edit #|normal `"'
 
