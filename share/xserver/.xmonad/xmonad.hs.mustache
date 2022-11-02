@@ -37,6 +37,8 @@ myModMask            = mod4Mask
 myNormalBorderColor  = "#{{base00-hex}}"
 myTerminal           = "{{terminal}}"
 
+xF86XK_RotateDisplay = 0xff68
+
 myXPConfig :: XPConfig
 myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialias=true:hinting=true"
                  , position          = Top
@@ -114,11 +116,12 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((0, xF86XK_AudioPlay            ), safeSpawn "playerctl" ["play-pause"])
     , ((0, xF86XK_AudioNext            ), safeSpawn "playerctl" ["next"])
     , ((0, xF86XK_AudioMute            ), safeSpawn "amixer" ["set", "Master", "toggle"])
+    , ((0, xF86XK_Calculator           ), safeSpawn "amixer" ["set", "Capture", "toggle"])
     , ((0, xF86XK_AudioLowerVolume     ), safeSpawn "amixer" ["set", "Master", "5%-", "unmute"])
     , ((0, xF86XK_AudioRaiseVolume     ), safeSpawn "amixer" ["set", "Master", "5%+", "unmute"])
     , ((0, xF86XK_MonBrightnessUp      ), safeSpawn "light" ["-A", "5.0"])
     , ((0, xF86XK_MonBrightnessDown    ), safeSpawn "light" ["-U", "5.0"])
-    , ((0, 0xff68                      ), safeSpawn "rotate-displays" [])
+    , ((0, xF86XK_RotateDisplay        ), safeSpawn "rotate-displays" [])
     , ((0, xF86XK_Sleep                ), safeSpawn "slock" [])
     , ((0, xF86XK_PowerOff             ), safeSpawn "slock" [])
     ]
