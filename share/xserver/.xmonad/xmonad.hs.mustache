@@ -32,7 +32,7 @@ myBorderWidth        = {{border-size}}
 myClickJustFocuses   = False
 myEventHook          = mempty
 myFocusFollowsMouse  = True
-myFocusedBorderColor = "#{{base09-hex}}"
+myFocusedBorderColor = "#{{base0B-hex}}"
 myModMask            = mod4Mask
 myNormalBorderColor  = "#{{base00-hex}}"
 myTerminal           = "{{terminal}}"
@@ -53,8 +53,8 @@ myXPConfig = def { font              = "xft:{{font}}:size={{font-size}}:antialia
                  , maxComplRows      = Just 20
                  , alwaysHighlight   = True
                  , bgColor           = "#{{base00-hex}}"
-                 , fgColor           = "#{{base05-hex}}"
-                 , bgHLight          = "#{{base0A-hex}}"
+                 , fgColor           = "#{{base0F-hex}}"
+                 , bgHLight          = "#{{base03-hex}}"
                  , fgHLight          = "#{{base00-hex}}"
                  , changeModeKey     = xK_Tab
                  }
@@ -167,13 +167,13 @@ myManageHook = composeAll [ className =? "pinentry" --> doCenterFloat
                           ]
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
-                                             , ppHiddenNoWindows = xmobarColor "#{{base03-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppHidden          = xmobarColor "#{{base04-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppCurrent         = xmobarColor "#{{base0A-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppVisible         = xmobarColor "#{{base06-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppTitle           = xmobarColor "#{{base0A-hex}}" "" . shorten 40
+                                             , ppHiddenNoWindows = xmobarColor "#{{base08-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppHidden          = xmobarColor "#{{base0B-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppCurrent         = xmobarColor "#{{base03-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppVisible         = xmobarColor "#{{base02-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppTitle           = xmobarColor "#{{base03-hex}}" "" . shorten 40
                                              , ppLayout          = layout
-                                             , ppUrgent          = xmobarColor "#{{base08-hex}}" "#{{base05-hex}}"
+                                             , ppUrgent          = xmobarColor "#{{base08-hex}}" "#{{base0F-hex}}"
                                              , ppWsSep           = ""
                                              , ppSep             = " \xE0B1 "
                                              , ppExtras          = [windowCount]

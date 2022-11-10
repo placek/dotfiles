@@ -1,40 +1,40 @@
 Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinting=true"
        , additionalFonts = [ "xft:Font Awesome 6 Free:{{font-size}}:style=solid:antialias=true:hinting=true" ]
        , bgColor         = "#{{base00-hex}}"
-       , fgColor         = "#{{base05-hex}}"
+       , fgColor         = "#{{base0F-hex}}"
        , position        = TopW L 100
        , lowerOnStart    = True
        , sepChar         = "%"
        , alignSep        = "}{"
        , template        = "%UnsafeStdinReader%}{%multicpu%%statuses%%EPLL%%multicoretemp%%memory%%disku%%default:Capture%%default:Master%{{#mobile}}%battery%{{/mobile}}%dynnetwork%{{#mobile}}%wlan0wi%{{/mobile}}%date%"
        , commands        = [ Run ComX "statuses"            [
-                                                              "-r", "#{{base08-hex}}"
+                                                              "-r", "#{{base01-hex}}"
                                                             ] "\xE0B3 " "statuses" 10
                            , Run MultiCpu                   [ "-t", "<autovbar> "
                                                             , "-L", "30", "-H", "70"
-                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
+                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base01-hex}}"
                                                             ] 10
                             , Run MultiCoreTemp             [ "-t", "\xE0B3 <fn=1>\xf2c9</fn> <avg>\x2103 "
                                                             , "-L", "60", "-H", "80"
-                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
+                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base01-hex}}"
                                                             , "--", "--mintemp", "20", "--maxtemp", "100"
                                                             ] 10
                            , Run Memory                     [ "-t", "\xE0B3 <fn=1>\xf538</fn> <usedvbar> "
                                                             , "-L", "30", "-H", "70"
-                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
+                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base01-hex}}"
                                                             ] 10
                            , Run DiskU                      [ ("/", "\xE0B3 <fn=1>\xf0a0</fn> <usedvbar> ") ]
                                                             [ "-L", "30", "-H", "70"
-                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base08-hex}}"
+                                                            , "-n", "#{{base0A-hex}}", "-h", "#{{base01-hex}}"
                                                             ] 100
                            , Run Volume "default" "Capture" [ "-t", "\xE0B3 <fn=1><status></fn> "
                                                             , "--"
-                                                            , "-C", "#{{base05-hex}}", "-c", "#{{base05-hex}}"
+                                                            , "-C", "#{{base0F-hex}}", "-c", "#{{base0F-hex}}"
                                                             , "-O", "\xf130", "-o", "\xf131"
                                                             ] 10
                            , Run Volume "default" "Master"  [ "-t", "<fn=1><status></fn> <volumevbar> "
                                                             , "--"
-                                                            , "-C", "#{{base05-hex}}", "-c", "#{{base05-hex}}"
+                                                            , "-C", "#{{base0F-hex}}", "-c", "#{{base0F-hex}}"
                                                             , "-O", "\xf028", "-o", "\xf6a9"
                                                             ] 10
                            , Run Battery                    [ "-t", "\xE0B3 <acstatus> "
@@ -44,9 +44,9 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                                                             , "-o", "<fn=1>\xf242</fn> <timeleft> <leftvbar>"
                                                             , "-a", "notify-send -u critical 'battery' 'below 10%'", "-A", "10"
                                                             ] 50
-                           , Run DynNetwork                 [ "-t", "<fc=#{{base02-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base05-hex}},#{{base02-hex}}> <dev> <rx>↓↑<tx> </fc>" ] 10
-                           , Run Wireless "wlan0"           [ "-t", "<fc=#{{base05-hex}},#{{base02-hex}}>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10
-                           , Run Date                       "<fc=#{{base03-hex}},#{{base02-hex}}>\xE0B2</fc><fc=#{{base05-hex}},#{{base03-hex}}> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
+                           , Run DynNetwork                 [ "-t", "<fc=#{{base02-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base0F-hex}},#{{base02-hex}}> <dev> <rx>↓↑<tx> </fc>" ] 10
+                           , Run Wireless "wlan0"           [ "-t", "<fc=#{{base0F-hex}},#{{base02-hex}}>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10
+                           , Run Date                       "<fc=#{{base03-hex}},#{{base02-hex}}>\xE0B2</fc><fc=#{{base0F-hex}},#{{base03-hex}}> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
                            , Run WeatherX "EPLL"            [ ("clear", "\xf185")
                                                             , ("sunny", "\xf185")
                                                             , ("mostly clear", "\xf6c4")
