@@ -1,10 +1,18 @@
+# FONTS
 font_family                   {{font}} Nerd Font
 bold_font                     {{font}} Nerd Font Bold
 italic_font                   {{font}} Nerd Font Italic
 bold_italic_font              {{font}} Nerd Font BoldItalic
 font_size                     {{font-size}}.0
 
-active_border_color           none
+# SCROLLING
+scrollback_lines              9999
+scrollback_pager              less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
+scrollback_pager_history_size 0
+
+# MOUSE
+mouse_hide_wait               3.0
+
 adjust_column_width           0
 adjust_line_height            0
 allow_hyperlinks              yes
@@ -27,6 +35,7 @@ detect_urls                   yes
 dim_opacity                   0.75
 disable_ligatures             always
 draw_minimal_borders          yes
+editor                        nvim
 enable_audio_bell             no
 enabled_layouts               tall
 focus_follows_mouse           no
@@ -37,9 +46,7 @@ inactive_text_alpha           1.0
 initial_window_height         400
 initial_window_width          640
 input_delay                   3
-mouse_hide_wait               3.0
 open_url_modifiers            ctrl
-open_url_with                 qutebrowser
 placement_strategy            center
 pointer_shape_when_dragging   beam
 pointer_shape_when_grabbed    arrow
@@ -49,9 +56,6 @@ repaint_delay                 10
 resize_debounce_time          0.1
 resize_draw_strategy          static
 resize_in_steps               no
-scrollback_lines              2000
-scrollback_pager              less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
-scrollback_pager_history_size 0
 select_by_word_characters     @-./_~?&=%+#
 single_window_margin_width    -1
 startup_session               none
@@ -84,40 +88,50 @@ map super+v                   paste_from_clipboard
 map ctrl+plus                 change_font_size all +2.0
 map ctrl+minus                change_font_size all -2.0
 map ctrl+0                    change_font_size all 0
-map ctrl+shift+p>shift+h      kitten hints --regex "([0-9a-fA-F-]+)" --type regex --program -
+map ctrl+h                    kitten hints --regex "([0-9a-fA-F-]+)" --type regex --program -
 
 background                    #{{base00-hex}}
-foreground                    #{{base05-hex}}
-selection_background          #{{base05-hex}}
-selection_foreground          #{{base00-hex}}
+foreground                    #{{base0F-hex}}
+selection_background          #{{base04-hex}}
+selection_foreground          #{{base0F-hex}}
 url_color                     #{{base04-hex}}
-cursor                        #{{base05-hex}}
-active_border_color           #{{base03-hex}}
-inactive_border_color         #{{base01-hex}}
-active_tab_background         #{{base00-hex}}
-active_tab_foreground         #{{base05-hex}}
-inactive_tab_background       #{{base01-hex}}
-inactive_tab_foreground       #{{base04-hex}}
-tab_bar_background            #{{base01-hex}}
+cursor                        #{{base0F-hex}}
+active_border_color           none
+inactive_border_color         none
+active_tab_background         none
+active_tab_foreground         none
+inactive_tab_background       none
+inactive_tab_foreground       none
+tab_bar_background            none
+
+# black
 color0                        #{{base00-hex}}
-color1                        #{{base08-hex}}
-color2                        #{{base0B-hex}}
-color3                        #{{base0A-hex}}
-color4                        #{{base0D-hex}}
-color5                        #{{base0E-hex}}
-color6                        #{{base0C-hex}}
-color7                        #{{base05-hex}}
-color8                        #{{base03-hex}}
-color9                        #{{base08-hex}}
-color10                       #{{base0B-hex}}
-color11                       #{{base0A-hex}}
-color12                       #{{base0D-hex}}
-color13                       #{{base0E-hex}}
-color14                       #{{base0C-hex}}
-color15                       #{{base07-hex}}
-color16                       #{{base09-hex}}
-color17                       #{{base0F-hex}}
-color18                       #{{base01-hex}}
-color19                       #{{base02-hex}}
-color20                       #{{base04-hex}}
-color21                       #{{base06-hex}}
+color8                        #{{base08-hex}}
+
+# red
+color1                        #{{base01-hex}}
+color9                        #{{base09-hex}}
+
+# green
+color2                        #{{base02-hex}}
+color10                       #{{base0A-hex}}
+
+# yellow
+color3                        #{{base03-hex}}
+color11                       #{{base0B-hex}}
+
+# blue
+color4                        #{{base04-hex}}
+color12                       #{{base0C-hex}}
+
+# magenta
+color5                        #{{base05-hex}}
+color13                       #{{base0D-hex}}
+
+# cyan
+color6                        #{{base06-hex}}
+color14                       #{{base0E-hex}}
+
+# white
+color7                        #{{base07-hex}}
+color15                       #{{base0F-hex}}
