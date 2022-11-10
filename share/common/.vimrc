@@ -116,7 +116,7 @@ command! -count Open     !open %
 command!        BufOnly  execute '%bdelete|edit #|normal `"'
 
 " colors
-hi ColorColumn                          ctermbg=18
+hi ColorColumn                          ctermbg=8
 hi Comment                                          ctermfg=8
 hi DiffAdd                              ctermbg=18  ctermfg=2  cterm=none
 hi DiffChange                           ctermbg=18  ctermfg=7  cterm=none
