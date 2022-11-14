@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
 projects=${PROJECTS_DIR:-"$HOME/Projects"}
-backup_origin="backup"
-tmux="tmux -L projects"
-list=$($tmux ls 2> /dev/null | cut -f1 -d':' | sort)
-vim="vim"
 
 [ ! -d "$projects" ] && mkdir -p "$projects"
 
@@ -16,28 +12,17 @@ popd () {
 }
 
 case "$1" in
-  l*)
-    if [ -z "$list" ]; then
-      >&2 echo "projects: no projects available"
-    else
-      echo "$list"
-    fi
-    ;;
-
   a*)
     if [ -z "$(ls -1 "$projects" | sort -n)" ]; then
       >&2 echo "projects: no projects available under $projects"
     else
       if [ -z "$2" ]; then
         target=$(ls -1 "$projects" | sort -n | fzf --no-multi --cycle --prompt "Projects> ")
-      elif [ "$2" = "-t" ]; then
-        target=$(ls -1 "$projects" | sort -n | fzf --no-multi --cycle --color='bg+:yellow,fg+:black,prompt:yellow,hl+:black:bold,gutter:black' --pointer=' ' --no-info --no-bold --height 100% --no-border --prompt "Projects> ")
       else
         target=$2
       fi
       if [ ! -z "$target" ] && [ -d "$projects/$target" ]; then
-        $tmux new-session -d -s "$target" -c "$projects/$target" "$vim" \; set-option -g default-shell "$SHELL"
-        $tmux switch-client -t "$target"
+        echo -ne "launch --title='$target' vim\ncd $projects/$target" | kitty --session -
       else
         >&2 echo "projects: $target does not exist"
       fi
@@ -56,7 +41,7 @@ case "$1" in
         pushd "$projects/$target" || exit
           git init
         popd
-        $tmux new-session -d -s "$target" -c "$projects/$target" "$vim" \; set-option -g default-shell "$SHELL"
+        echo -ne "launch --title='$target' vim\ncd $projects/$target" | kitty --session -
       fi
     fi
     ;;
@@ -73,37 +58,12 @@ case "$1" in
         pushd "$projects"
           git clone "$uri"
         popd
-        $tmux new-session -d -s "$target" -c "$projects/$target" "$vim" \; set-option -g default-shell "$SHELL"
+        echo -ne "launch --title='$target' vim\ncd $projects/$target" | kitty --session -
       fi
     fi
     ;;
 
-  s*)
-    if [ -z "$list" ]; then
-      >&2 echo "projects: nothing to sync"
-    else
-      for name in $list; do
-        project="$projects/$name"
-        if [ -d "$project" ]; then
-          echo "projects: $project"
-          branch=$(cat "$project/.git/HEAD" | cut -d "/" -f3)
-          git push $backup_origin "$branch"
-        else
-          >&2 echo "projects: could not cd to $project"
-        fi
-      done
-    fi
-    ;;
-
-  k*)
-    $tmux kill-server
-    ;;
-
   *)
-    if [ -n "$TMUX" ]; then
-      >&2 echo "usage: projects [add|new|clone|ls|sync|kill]"
-    else
-      $tmux attach
-    fi
+    >&2 echo "usage: projects [add|new|clone]"
     ;;
 esac
