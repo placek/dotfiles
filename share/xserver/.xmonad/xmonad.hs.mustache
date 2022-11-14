@@ -24,6 +24,7 @@ import           XMonad.StackSet                      (focusUp, focusDown, focus
 import           Prompt.Clipboard
 import           Prompt.Pass
 import           Prompt.Phrase
+import           Prompt.Projects
 import           Prompt.Run
 import           Prompt.Search
 import           Prompt.UDisks
@@ -72,8 +73,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm              , xK_Right   ), nextWS)                                                        -- go to next workspace
     , ((modm .|. shiftMask, xK_Left    ), shiftToPrev)                                                   -- move to previous workspace
     , ((modm .|. shiftMask, xK_Right   ), shiftToNext)                                                   -- move to next workspace
-    , ((modm .|. mod1Mask  , xK_Left   ), prevScreen)                                                    -- move to previous screen
-    , ((modm .|. mod1Mask  , xK_Right  ), nextScreen)                                                    -- move to next screen
+    , ((modm .|. mod1Mask , xK_Left    ), prevScreen)                                                    -- move to previous screen
+    , ((modm .|. mod1Mask , xK_Right   ), nextScreen)                                                    -- move to next screen
     , ((modm              , xK_k       ), windows focusUp  )                                             -- move focus to the previous window
     , ((modm              , xK_j       ), windows focusDown)                                             -- move focus to the next window
     , ((modm .|. shiftMask, xK_k       ), rotAllUp    )                                                  -- swap the focused window with the previous window
@@ -90,12 +91,13 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm .|. shiftMask, xK_f       ), refresh)                                                       -- resize viewed windows to the correct size
     -- utils submap
     , ((modm, xK_space                 ), submapDefault (runPrompt myXPConfig) . Map.fromList $          -- run application prompt
-      [ ((0, xK_c                      ), clipboardPrompt myXPConfig)                                    -- clipboard history prompt
-      , ((0, xK_a                      ), phrasePrompt myXPConfig)                                       -- abbreviations prompt
-      , ((0, xK_p                      ), passPrompt myXPConfig)                                         -- password prompt
-      , ((0, xK_m                      ), udisksPrompt myXPConfig)                                       -- udisks prompt
-      , ((0, xK_s                      ), searchPrompt myXPConfig)                                       -- search prompt
-      , ((0, xK_Return                 ), spawn $ XMonad.terminal conf)                                  -- launch a terminal
+      [ ((0,    xK_c                   ), clipboardPrompt myXPConfig)                                    -- clipboard history prompt
+      , ((0,    xK_a                   ), phrasePrompt myXPConfig)                                       -- abbreviations prompt
+      , ((modm, xK_Return              ), projectsPrompt myXPConfig)                                     -- projects prompt
+      , ((0,    xK_p                   ), passPrompt myXPConfig)                                         -- password prompt
+      , ((0,    xK_m                   ), udisksPrompt myXPConfig)                                       -- udisks prompt
+      , ((0,    xK_s                   ), searchPrompt myXPConfig)                                       -- search prompt
+      , ((0,    xK_Return              ), spawn $ XMonad.terminal conf)                                  -- launch a terminal
       ])
     -- quit submap
     , ((modm, xK_q                     ), submap . Map.fromList $
@@ -105,7 +107,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
        ])
     -- notifications submap
     , ((modm, xK_Escape                ), submap . Map.fromList $
-       [ ((modm .|. shiftMask, xK_q    ), safeSpawn "dunstctl" ["close-all"])                            -- close all notifications
+       [ ((modm, xK_w                  ), safeSpawn "dunstctl" ["close-all"])                            -- close all notifications
        , ((modm, xK_q                  ), safeSpawn "dunstctl" ["set-paused", "toggle"])                 -- toggle notifications
        , ((modm, xK_Escape             ), safeSpawn "dunstctl" ["history-pop"])                          -- pop notification from history
        ])
@@ -139,7 +141,6 @@ myMouseBindings :: XConfig Layout -> Map.Map (KeyMask, Button) (Window -> X ())
 myMouseBindings XConfig {XMonad.modMask = modm} = Map.fromList
     [ ((modm, button1), \w -> focus w >> mouseMoveWindow w     -- set the window to floating mode and move by dragging
                                       >> windows shiftMaster)
-    , ((modm, button2), \w -> focus w >> windows shiftMaster)  -- raise the window to the top of the stack
     , ((modm, button3), \w -> focus w >> mouseResizeWindow w   -- set the window to floating mode and resize by dragging
                                       >> windows shiftMaster)
     ]
@@ -171,7 +172,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppHidden          = xmobarColor "#{{base03-hex}}" "" . wrap " <fn=1>" "</fn> "
                                              , ppCurrent         = xmobarColor "#{{base0B-hex}}" "" . wrap " <fn=1>" "</fn> "
                                              , ppVisible         = xmobarColor "#{{base02-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppTitle           = xmobarColor "#{{base0B-hex}}" "" . shorten 40
+                                             , ppTitle           = xmobarColor "#{{base04-hex}}" "" . shorten 60
                                              , ppLayout          = layout
                                              , ppUrgent          = xmobarColor "#{{base08-hex}}" "#{{base0F-hex}}"
                                              , ppWsSep           = ""
