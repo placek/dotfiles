@@ -9,16 +9,6 @@ abbr --add dcd   "docker-compose down --remove-orphans"
 abbr --add dcres "docker-compose restart"
 abbr --add dcps  "docker-compose ps"
 
-abbr --add lcb   "docker-compose -f .local.compose build"
-abbr --add lcr   "docker-compose -f .local.compose run --rm"
-abbr --add lcrt  "docker-compose -f .local.compose run --rm test"
-abbr --add lcrw  "docker-compose -f .local.compose run --rm web"
-abbr --add lcu   "docker-compose -f .local.compose up -d"
-abbr --add lcl   "docker-compose -f .local.compose logs"
-abbr --add lcd   "docker-compose -f .local.compose down --remove-orphans"
-abbr --add lcres "docker-compose -f .local.compose restart"
-abbr --add lcps  "docker-compose -f .local.compose ps"
-
 abbr --add j "journalctl"
 abbr --add s "systemctl"
 abbr --add p "projects"
@@ -31,3 +21,6 @@ alias tree="lsd --icon-theme unicode --tree --hyperlink auto"
 alias sshh="kitty +kitten ssh"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias cdt="cd (mktemp -d)"
+alias icat="kitty +kitten icat"
+
+function search --wraps rg; kitty +kitten hyperlinked_grep $argv; end
