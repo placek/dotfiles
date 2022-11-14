@@ -1,5 +1,6 @@
 module Prompt.Projects (projectsPrompt) where
 
+import           Data.List              (sort)
 import           System.Directory       (getHomeDirectory)
 import           System.FilePath        (combine)
 import           System.Posix.Env       (getEnv)
@@ -66,7 +67,7 @@ getProjects :: IO [String]
 getProjects = do
   dir   <- projectsDir
   files <- runProcessWithInput "find" ["-L", dir, "-type", "d", "-maxdepth", "1", "-printf", "%P\n"] []
-  return $ lines files
+  return . sort . lines $ files
 
 projectsDir :: IO String
 projectsDir =
