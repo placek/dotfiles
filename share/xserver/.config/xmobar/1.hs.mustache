@@ -31,13 +31,11 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                                                             , "--"
                                                             , "-C", "#{{base0F-hex}}", "-c", "#{{base0F-hex}}"
                                                             , "-O", "\xf130", "-o", "\xf131"
-                                                            , "-l", "#{{base02-hex}}", "-n", "#{{base03-hex}}", "-h", "#{{base01-hex}}"
                                                             ] 10
                            , Run Volume "default" "Master"  [ "-t", "<fn=1><status></fn> <volumevbar> "
                                                             , "--"
                                                             , "-C", "#{{base0F-hex}}", "-c", "#{{base0F-hex}}"
                                                             , "-O", "\xf028", "-o", "\xf6a9"
-                                                            , "-l", "#{{base02-hex}}", "-n", "#{{base03-hex}}", "-h", "#{{base01-hex}}"
                                                             ] 10
                            , Run Battery                    [ "-t", "\xE0B3 <acstatus> "
                                                             , "--"
@@ -47,9 +45,9 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                                                             , "-a", "notify-send -u critical 'battery' 'below 10%'", "-A", "10"
                                                             , "-l", "#{{base02-hex}}", "-n", "#{{base03-hex}}", "-h", "#{{base01-hex}}"
                                                             ] 50
-                           , Run DynNetwork                 [ "-t", "<fc=#{{base08-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base00-hex}},#{{base08-hex}}> <dev> <rx>↓↑<tx> </fc>" ] 10
-                           , Run Wireless "wlan0"           [ "-t", "<fc=#{{base00-hex}},#{{base07-hex}}>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10
-                           , Run Date                       "<fc=#{{base0F-hex}},#{{base08-hex}}>\xE0B2</fc><fc=#{{base00-hex}},#{{base0F-hex}}> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
+                           , Run DynNetwork                 [ "-t", "<fc=#{{base08-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base0F-hex}},#{{base08-hex}}> <dev> <rx>↓↑<tx> </fc>" ] 10
+                           , Run Wireless "wlan0"           [ "-t", "<fc=#{{base0F-hex}},#{{base08-hex}}>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10
+                           , Run Date                       "<fc=#{{base07-hex}},#{{base08-hex}}>\xE0B2</fc><fc=#{{base00-hex}},#{{base07-hex}}> %a \xE0B3 %H:%M \xE0B3 %d.%m.%Y </fc>" "date" 10
                            , Run WeatherX "EPLL"            [ ("clear", "\xf185")
                                                             , ("sunny", "\xf185")
                                                             , ("mostly clear", "\xf6c4")
