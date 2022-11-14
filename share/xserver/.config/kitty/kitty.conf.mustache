@@ -1,94 +1,125 @@
-# FONTS
+# Fonts
 font_family                   {{font}} Nerd Font
 bold_font                     {{font}} Nerd Font Bold
 italic_font                   {{font}} Nerd Font Italic
 bold_italic_font              {{font}} Nerd Font BoldItalic
 font_size                     {{font-size}}.0
-
-# SCROLLING
-scrollback_lines              9999
-scrollback_pager              less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
-scrollback_pager_history_size 0
-
-# MOUSE
-mouse_hide_wait               3.0
-
-adjust_column_width           0
-adjust_line_height            0
-allow_hyperlinks              yes
-allow_remote_control          no
-background_opacity            1.0
-background_tint               0.0
-bell_on_tab                   no
-box_drawing_scale             0.001, 1, 1.5, {{border-half-size}}
-click_interval                -1.0
-clipboard_control             write-clipboard write-primary
-close_on_child_death          yes
-command_on_bell               none
-confirm_os_window_close       0
-copy_on_select                no
-cursor_blink_interval         -1
-cursor_shape                  block
-cursor_stop_blinking_after    15.0
-default_pointer_shape         beam
-detect_urls                   yes
-dim_opacity                   0.75
-disable_ligatures             always
-draw_minimal_borders          yes
-editor                        nvim
-enable_audio_bell             no
-enabled_layouts               tall
-focus_follows_mouse           no
-font_features                 none
 force_ltr                     no
-hide_window_decorations       yes
-inactive_text_alpha           1.0
-initial_window_height         400
-initial_window_width          640
-input_delay                   3
-open_url_modifiers            ctrl
-placement_strategy            center
+disable_ligatures             always
+font_features                 none
+box_drawing_scale             0.001, 1, 1.5, {{border-half-size}}
+
+# Cursor customization
+cursor_shape                  block
+cursor_blink_interval         -1
+cursor_stop_blinking_after    15.0
+
+# Scrollback
+scrollback_lines              2000
+scrollback_pager              less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
+scrollback_pager_history_size 9999
+wheel_scroll_multiplier       5.0
+touch_scroll_multiplier       1.0
+
+# Mouse
+mouse_hide_wait               3.0
+default_pointer_shape         beam
+url_style                     curly
+open_url_with                 default
+url_prefixes                  file ftp ftps gemini git gopher http https irc ircs kitty mailto news sftp ssh
+detect_urls                   yes
+copy_on_select                no
+paste_actions
+select_by_word_characters     @-./_~?&=%+#
+click_interval                -1.0
+focus_follows_mouse           no
 pointer_shape_when_dragging   beam
 pointer_shape_when_grabbed    arrow
-rectangle_select_modifiers    ctrl+alt
-remember_window_size          no
+
+# Performance tuning
 repaint_delay                 10
+input_delay                   3
+sync_to_monitor               yes
+
+# Terminal bell
+enable_audio_bell             no
+visual_bell_duration          0.0
+window_alert_on_bell          no
+bell_on_tab                   no
+command_on_bell               none
+
+# Window layout
+remember_window_size          no
+enabled_layouts               *
+window_resize_step_cells      {{border-half-size}}
+window_resize_step_lines      {{border-half-size}}
+window_border_width           {{border-size}}px
+draw_minimal_borders          yes
+window_margin_width           0
+window_padding_width          {{border-size}}
+placement_strategy            center
+inactive_text_alpha           0.6
+hide_window_decorations       yes
 resize_debounce_time          0.1
 resize_draw_strategy          static
 resize_in_steps               no
-select_by_word_characters     @-./_~?&=%+#
+confirm_os_window_close       0
 single_window_margin_width    -1
-startup_session               none
-strip_trailing_spaces         never
-sync_to_monitor               yes
-tab_bar_background            none
+
+# Tab bar
 tab_bar_edge                  bottom
+tab_bar_background            none
 tab_bar_margin_width          0.0
 tab_bar_min_tabs              2
 tab_bar_style                 powerline
 tab_switch_strategy           previous
-tab_title_template            "kitty"
-term                          xterm-256color
-terminal_select_modifiers     shift
-touch_scroll_multiplier       1.0
-update_check_interval         0
-url_prefixes                  http https file ftp
-url_style                     curly
-visual_bell_duration          0.0
-wheel_scroll_multiplier       5.0
-window_alert_on_bell          no
-window_border_width           {{border-size}}
-window_margin_width           0
-window_padding_width          {{border-size}}
-window_resize_step_cells      {{border-half-size}}
-window_resize_step_lines      {{border-half-size}}
+tab_title_template            "{fmt.fg.yellow}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}"
 
+# Advanced
+shell                         .
+editor                        .
+close_on_child_death          yes
+allow_remote_control          no
+update_check_interval         0
+startup_session               none
+clipboard_control             write-clipboard write-primary
+allow_hyperlinks              yes
+shell_integration             enabled
+strip_trailing_spaces         never
+term                          xterm-kitty
+
+# Keyboard shortcuts
 map super+c                   copy_to_clipboard
 map super+v                   paste_from_clipboard
-map ctrl+plus                 change_font_size all +2.0
-map ctrl+minus                change_font_size all -2.0
-map ctrl+0                    change_font_size all 0
-map ctrl+h                    kitten hints --regex "([0-9a-fA-F-]+)" --type regex --program -
+map super+x                   pass_selection_to_program
+map kitty_mod+k               scroll_line_up
+map kitty_mod+j               scroll_line_down
+map kitty_mod+up              scroll_to_prompt -1
+map kitty_mod+down            scroll_to_prompt +1
+map kitty_mod+.               show_scrollback
+map kitty_mod+,               show_last_command_output
+map kitty_mod+enter           launch --cwd=current
+map kitty_mod+right           next_window
+map kitty_mod+left            previous_window
+map kitty_mod+n               next_tab
+map kitty_mod+p               previous_tab
+map kitty_mod+c               new_tab
+map kitty_mod+x               close_tab
+map kitty_mod+t               set_tab_title
+map kitty_mod+l               next_layout
+map kitty_mod+plus            change_font_size all +2.0
+map kitty_mod+minus           change_font_size all -2.0
+map kitty_mod+0               change_font_size all 0
+map kitty_mod+f               kitten hints --alphabet "asdfghjkl" --type hyperlink
+map kitty_mod+h               kitten hints --alphabet "asdfghjkl" --regex "([0-9a-fA-F-]+)" --type regex --program -
+map kitty_mod+g               kitten hints --alphabet "asdfghjkl" --type hash --program -
+map kitty_mod+b               kitten hints --alphabet "asdfghjkl" --type path --program -
+map kitty_mod+u               kitten unicode_input
+
+# Color scheme
+active_border_color           #{{base03-hex}}
+inactive_border_color         #{{base08-hex}}
+bell_border_color             #{{base03-hex}}
 
 background                    #{{base00-hex}}
 foreground                    #{{base0F-hex}}
