@@ -43,7 +43,6 @@ Config { font            = "xft:{{font}}:size={{font-size}}:antialias=true:hinti
                                                             , "-i", "<fn=1>\xf0e7</fn> <leftvbar>"
                                                             , "-o", "<fn=1>\xf242</fn> <timeleft> <leftvbar>"
                                                             , "-a", "notify-send -u critical 'battery' 'below 10%'", "-A", "10"
-                                                            , "-l", "#{{base02-hex}}", "-n", "#{{base03-hex}}", "-h", "#{{base01-hex}}"
                                                             ] 50
                            , Run DynNetwork                 [ "-t", "<fc=#{{base08-hex}},#{{base00-hex}}>\xE0B2</fc><fc=#{{base0F-hex}},#{{base08-hex}}> <dev> <rx>↓↑<tx> </fc>" ] 10
                            , Run Wireless "wlan0"           [ "-t", "<fc=#{{base0F-hex}},#{{base08-hex}}>\xE0B3 <ssid> <qualityvbar> </fc>" ] 10
