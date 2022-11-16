@@ -120,12 +120,12 @@ map ctrl+shift+k>alt+down     resize_window shorter
 map ctrl+shift+k>alt+home     resize_window reset
 
 clear_all_mouse_actions         no
-mouse_map left      press       ungrabbed mouse_selection normal
 mouse_map alt+left  press       ungrabbed mouse_selection rectangle
 mouse_map left      doublepress ungrabbed mouse_selection word
 mouse_map left      triplepress ungrabbed mouse_selection line
 mouse_map right     press       ungrabbed mouse_selection extend
 mouse_map alt+right press       ungrabbed mouse_select_command_output
+mouse_map left      click       ungrabbed mouse_handle_click selection link prompt
 
 # Color scheme
 active_border_color           #{{base03-hex}}
