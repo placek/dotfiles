@@ -1,6 +1,6 @@
 local lsp          = require('lspconfig')
 local flags        = { allow_incremental_sync = true, debounce_text_changes = 200, }
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities
 local signs = {
   { name = "LspDiagnosticsSignError",       text = "" },
   { name = "LspDiagnosticsSignWarning",     text = "" },
