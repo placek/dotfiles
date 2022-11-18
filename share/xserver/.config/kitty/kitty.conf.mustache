@@ -83,49 +83,50 @@ allow_hyperlinks              yes
 shell_integration             no-cursor
 strip_trailing_spaces         never
 term                          xterm-kitty
+kitty_mod                     ctrl+shift
 
 # Keyboard shortcuts
 clear_all_shortcuts           yes
 map super+c                   copy_to_clipboard
 map super+v                   paste_from_clipboard
 map super+x                   pass_selection_to_program
-map ctrl+shift+k>k            scroll_line_up
-map ctrl+shift+k>j            scroll_line_down
-map ctrl+shift+k>up           scroll_to_prompt -1
-map ctrl+shift+k>down         scroll_to_prompt +1
-map ctrl+shift+k>.            show_scrollback
-map ctrl+shift+k>,            show_last_command_output
-map ctrl+shift+k>enter        launch --type=window --cwd=current --title current
-map ctrl+shift+k>right        next_window
-map ctrl+shift+k>left         previous_window
-map ctrl+shift+k>n            next_tab
-map ctrl+shift+k>p            previous_tab
-map ctrl+shift+k>c            launch --type=tab --cwd=current --title current
-map ctrl+shift+k>x            close_tab
-map ctrl+shift+k>t            set_tab_title
-map ctrl+shift+k>l            next_layout
-map ctrl+shift+k>plus         change_font_size all +2.0
-map ctrl+shift+k>minus        change_font_size all -2.0
-map ctrl+shift+k>0            change_font_size all 0
-map ctrl+shift+k>f            kitten hints --alphabet "asdfghjkl" --type hyperlink
-map ctrl+shift+k>h            kitten hints --alphabet "asdfghjkl" --regex "([0-9a-fA-F-]+)" --type regex --program -
-map ctrl+shift+k>g            kitten hints --alphabet "asdfghjkl" --type hash --program -
-map ctrl+shift+k>b            kitten hints --alphabet "asdfghjkl" --type path --program -
-map ctrl+shift+k>u            kitten unicode_input
-map ctrl+shift+k>r            load_config_file
-map ctrl+shift+k>alt+left     resize_window narrower
-map ctrl+shift+k>alt+right    resize_window wider
-map ctrl+shift+k>alt+up       resize_window taller
-map ctrl+shift+k>alt+down     resize_window shorter
-map ctrl+shift+k>alt+home     resize_window reset
+map kitty_mod+k               scroll_line_up
+map kitty_mod+j               scroll_line_down
+map kitty_mod+up              scroll_to_prompt -1
+map kitty_mod+down            scroll_to_prompt +1
+map kitty_mod+.               show_scrollback
+map kitty_mod+,               show_last_command_output
+map kitty_mod+enter           launch --type=window --cwd=current --title current
+map kitty_mod+right           next_window
+map kitty_mod+left            previous_window
+map kitty_mod+n               next_tab
+map kitty_mod+p               previous_tab
+map kitty_mod+c               launch --type=tab --cwd=current --title current
+map kitty_mod+x               close_tab
+map kitty_mod+t               set_tab_title
+map kitty_mod+l               next_layout
+map kitty_mod+plus            change_font_size all +2.0
+map kitty_mod+minus           change_font_size all -2.0
+map kitty_mod+0               change_font_size all 0
+map kitty_mod+f               kitten hints --alphabet "asdfghjkl" --type hyperlink
+map kitty_mod+h               kitten hints --alphabet "asdfghjkl" --regex "([0-9a-fA-F-]+)" --type regex --program -
+map kitty_mod+g               kitten hints --alphabet "asdfghjkl" --type hash --program -
+map kitty_mod+b               kitten hints --alphabet "asdfghjkl" --type path --program -
+map kitty_mod+u               kitten unicode_input
+map kitty_mod+r               load_config_file
+map kitty_mod+alt+left        resize_window narrower
+map kitty_mod+alt+right       resize_window wider
+map kitty_mod+alt+up          resize_window taller
+map kitty_mod+alt+down        resize_window shorter
+map kitty_mod+alt+home        resize_window reset
 
-clear_all_mouse_actions         no
-mouse_map alt+left  press       ungrabbed mouse_selection rectangle
-mouse_map left      doublepress ungrabbed mouse_selection word
-mouse_map left      triplepress ungrabbed mouse_selection line
-mouse_map right     press       ungrabbed mouse_selection extend
-mouse_map alt+right press       ungrabbed mouse_select_command_output
-mouse_map left      click       ungrabbed mouse_handle_click selection link prompt
+clear_all_mouse_actions       no
+mouse_map kitty_mod+left      press       ungrabbed mouse_selection rectangle
+mouse_map left                doublepress ungrabbed mouse_selection word
+mouse_map left                triplepress ungrabbed mouse_selection line
+mouse_map right               press       ungrabbed mouse_selection extend
+mouse_map kitty_mod+right     press       ungrabbed mouse_select_command_output
+mouse_map left                click       ungrabbed mouse_handle_click selection link prompt
 
 # Color scheme
 active_border_color           #{{base03-hex}}
