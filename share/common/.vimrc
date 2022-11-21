@@ -118,17 +118,17 @@ command!        BufOnly  execute '%bdelete|edit #|normal `"'
 " colors
 hi ColorColumn                          ctermbg=8
 hi Comment                                          ctermfg=8
-hi DiffAdd                              ctermbg=18  ctermfg=2  cterm=none
-hi DiffChange                           ctermbg=18  ctermfg=7  cterm=none
-hi DiffDelete                           ctermbg=18  ctermfg=1  cterm=none
-hi DiffText                             ctermbg=19  ctermfg=3  cterm=bold
+hi DiffAdd                              ctermbg=8   ctermfg=10 cterm=none
+hi DiffChange                           ctermbg=8   ctermfg=3  cterm=none
+hi DiffDelete                           ctermbg=8   ctermfg=9  cterm=none
+hi DiffText                             ctermbg=8   ctermfg=11 cterm=underline
 hi Directory                                        ctermfg=4
 hi FoldColumn                           ctermbg=0   ctermfg=7
-hi Folded                               ctermbg=19  ctermfg=7
-hi GitSignsAdd                          ctermbg=0   ctermfg=2
-hi GitSignsChange                       ctermbg=0   ctermfg=3
+hi Folded                               ctermbg=0   ctermfg=15 cterm=bold
+hi GitSignsAdd                          ctermbg=0   ctermfg=10
+hi GitSignsChange                       ctermbg=0   ctermfg=11
 hi GitSignsCurrentLineBlame                         ctermfg=8
-hi GitSignsDelete                       ctermbg=0   ctermfg=1
+hi GitSignsDelete                       ctermbg=0   ctermfg=9
 hi LspDiagnosticsSignError              ctermbg=0   ctermfg=1
 hi LspDiagnosticsSignHint               ctermbg=0   ctermfg=7
 hi LspDiagnosticsSignInfo               ctermbg=0   ctermfg=4
