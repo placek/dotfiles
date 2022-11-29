@@ -18,7 +18,7 @@ abbr --add tf "nc oshi.at 7777"
 # aliases
 alias ls="lsd --icon-theme unicode --hyperlink auto"
 alias tree="lsd --icon-theme unicode --tree --hyperlink auto"
-alias sshh="kitty +kitten ssh"
+alias sshh="TERM=xterm-256color ssh"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias cdt="cd (mktemp -d)"
 alias icat="kitty +kitten icat"
