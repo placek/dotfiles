@@ -169,7 +169,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppHidden          = xmobarColor "#{{base03-hex}}" "" . wrap " <fn=1>" "</fn> "
                                              , ppCurrent         = xmobarColor "#{{base0B-hex}}" "" . wrap " <fn=1>" "</fn> "
                                              , ppVisible         = xmobarColor "#{{base02-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppTitle           = xmobarColor "#{{base0C-hex}}" "" . shorten 60
+                                             , ppTitle           = xmobarColor "#{{base0C-hex}}" "" . shorten 20
                                              , ppLayout          = layout
                                              , ppUrgent          = xmobarColor "#{{base08-hex}}" "#{{base0F-hex}}"
                                              , ppWsSep           = ""
