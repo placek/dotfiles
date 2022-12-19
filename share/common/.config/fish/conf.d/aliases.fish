@@ -22,7 +22,16 @@ alias sshh="TERM=xterm-256color ssh"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias cdt="cd (mktemp -d)"
 alias icat="kitty +kitten icat"
-alias vim="nvr --remote"
+
+function vim
+  set -f project (basename (git root 2>/dev/null) 2>/dev/null)
+
+  if test -S "/tmp/$project.socket"
+    nvr --remote --servername "/tmp/$project.socket" $argv
+  else
+    nvim $argv
+  end
+end
 
 function search --wraps rg; kitty +kitten hyperlinked_grep $argv; end
 function gr; git commit -m (curl -Ls http://whatthecommit.com/index.txt); end
