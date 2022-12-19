@@ -1,11 +1,16 @@
-local lsp          = require('lspconfig')
-local flags        = { allow_incremental_sync = true, debounce_text_changes = 200, }
-local capabilities = require("cmp_nvim_lsp").default_capabilities
+local lsp   = require('lspconfig')
+local flags = { allow_incremental_sync = true, debounce_text_changes = 200, }
 local signs = {
   { name = "LspDiagnosticsSignError",       text = "" },
   { name = "LspDiagnosticsSignWarning",     text = "" },
   { name = "LspDiagnosticsSignHint",        text = "" },
   { name = "LspDiagnosticsSignInformation", text = "" },
+}
+
+-- LSP settings (for overriding per client)
+local handlers =  {
+  ["textDocument/hover"]         = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 }
 
 for _, sign in ipairs(signs) do
@@ -18,6 +23,8 @@ local function on_attach(client, buf)
   local opts       = { noremap = true, silent = true }
 
   vim.lsp.codelens.refresh()
+  vim.diagnostic.config({ virtual_text = false })
+  vim.o.updatetime = 250
 
   buf_keymap(buf, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
   keymap(         "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)
@@ -26,17 +33,17 @@ local function on_attach(client, buf)
   vim.api.nvim_command [[ autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight() ]]
   vim.api.nvim_command [[ autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight() ]]
   vim.api.nvim_command [[ autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references() ]]
+  vim.api.nvim_command [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, { border = "rounded", focus = false })]]
 end
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", })
 
 -- haskell
 lsp.hls.setup {
-  autostart = true,
-  flags     = flags,
-  on_attach = on_attach,
-  cmd       = { "haskell-language-server", "--lsp" },
-  settings  = {
+  autostart    = true,
+  flags        = flags,
+  on_attach    = on_attach,
+  handlers     = handlers,
+  cmd          = { "haskell-language-server", "--lsp" },
+  settings     = {
     haskell = {
       formattingProvider = "stylish-haskell",
       plugin = {
@@ -67,17 +74,3 @@ lsp.hls.setup {
     }
   },
 }
-
-local servers = {
-  'bashls',    -- bash
-  'ansiblels', -- ansible
-  'rnix',      -- NIX
-}
-
-for _, server in ipairs(servers) do
-  lsp[server].setup({
-    flags = flags,
-    capabilities = capabilities,
-    on_attach = on_attach,
-  })
-end

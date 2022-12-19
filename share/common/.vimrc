@@ -150,7 +150,7 @@ hi NormalFloat                          ctermbg=0
 hi FloatBorder                          ctermbg=0
 hi Pmenu                                ctermbg=0   ctermfg=7
 hi PmenuSbar                            ctermbg=0   ctermfg=7
-hi PmenuSel                             ctermbg=18  ctermfg=15
+hi PmenuSel                             ctermbg=4   ctermfg=0
 hi Search                                                      cterm=bold
 hi SignColumn                           ctermbg=0
 hi TabLine                              ctermbg=0   ctermfg=7  cterm=none
