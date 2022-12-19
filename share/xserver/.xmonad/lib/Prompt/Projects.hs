@@ -53,7 +53,7 @@ newAction name = do
 
 -- utils
 openProject :: String -> String -> IO ()
-openProject dir name = spawn $ "echo -ne \"launch --title='" ++ name ++ "' vim\ncd " ++ dir ++ "\" | kitty --session -"
+openProject dir name = spawn $ "echo -ne \"launch --title='" ++ name ++ "' nvr\ncd " ++ dir ++ "\" | kitty --session -"
 
 createProject :: String -> IO ()
 createProject dir = spawn $ "git init " ++ dir

@@ -22,6 +22,7 @@ alias sshh="TERM=xterm-256color ssh"
 alias mail="sc $HOME/.password-store/envs/mail.gpg neomutt"
 alias cdt="cd (mktemp -d)"
 alias icat="kitty +kitten icat"
+alias vim="nvr --remote"
 
 function search --wraps rg; kitty +kitten hyperlinked_grep $argv; end
 function gr; git commit -m (curl -Ls http://whatthecommit.com/index.txt); end
