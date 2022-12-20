@@ -89,9 +89,9 @@ cmp.setup {
     documentation = cmp.config.window.bordered(),
   },
   sources = cmp.config.sources({
+    { name = "cmp_tabnine" },
     { name = "luasnip" },
     { name = "nvim_lsp" },
-    { name = "cmp_tabnine" },
     { name = "buffer" },
   }, {
     { name = "path" },

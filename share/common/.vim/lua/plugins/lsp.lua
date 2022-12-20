@@ -24,7 +24,6 @@ local function on_attach(client, buf)
 
   vim.lsp.codelens.refresh()
   vim.diagnostic.config({ virtual_text = false })
-  vim.o.updatetime = 250
 
   buf_keymap(buf, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
   keymap(         "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)

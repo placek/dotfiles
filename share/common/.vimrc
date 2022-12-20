@@ -100,11 +100,8 @@ nmap <silent>      ]e :cnext<CR>
 nmap <silent>      [l :lprevious<CR>
 nmap <silent>      ]l :lnext<CR>
 
-cmap Q q
-cmap W w
-
-vnoremap <silent>* :<C-u>call setreg("/", substitute(GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
-vnoremap <silent># :<C-u>call setreg("?", substitute(GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<CR>n
+vnoremap <silent>* :<C-u>call setreg("/\V", escape(GetSelectedText(), '/\'))<CR>n
+vnoremap <silent># :<C-u>call setreg("?\V", escape(GetSelectedText(), '/\'))<CR>n
 vmap     v         <Plug>(expand_region_expand)
 vmap     <C-v>     <Plug>(expand_region_shrink)
 
