@@ -23,6 +23,7 @@ wk.register({
   ["<leader>nn"]      = { ":NnnPicker<cr>",                                                       "Picker" },
   ["<leader>r"]       = { "<cmd>lua require('telescope.builtin').registers()<cr>",                "Search registers" },
   ["<leader>t"]       = { "<cmd>lua require('telescope.builtin').tags()<cr>",                     "Search tags" },
+  ["<leader>u"]       = { ":UndotreeToggle<cr>",                                                  "Undo tree" },
   ["<leader>g"]       = { name = "Git" },
   ["<leader>gB"]      = { ":Git blame<cr>",                                                       "Blame" },
   ["<leader>gb"]      = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",             "Branches" },
