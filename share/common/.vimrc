@@ -58,7 +58,7 @@ set nospell
 set noswapfile
 set number
 set path+=**
-set scrolloff=8
+set scrolloff=4
 set shiftwidth=2
 set shortmess+=c
 set showcmd
