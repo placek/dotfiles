@@ -30,7 +30,7 @@ wk.register({
   ["<leader>gd"]      = { "<cmd>lua require('gitsigns').diffthis()<cr>",                          "Diff this" },
   ["<leader>gc"]      = { ":Git commit<cr>",                                                      "Commit" },
   ["<leader>gC"]      = { "<cmd>lua open_on_other_branch()<cr>",                                  "Open on other branch" },
-  ["<leader>gg"]      = { ":call toggleFugitiveGit<cr>",                                          "ToggleFugitiveGit status" },
+  ["<leader>gg"]      = { "<cmd>lua toggle_fugitive()<cr>",                                       "Git status" },
   ["<leader>gL"]      = { "<cmd>lua require('telescope.builtin').git_bcommits()<cr>",             "Commits for buffer" },
   ["<leader>gl"]      = { "<cmd>lua require('telescope.builtin').git_commits()<cr>",              "Commits" },
   ["<leader>gp"]      = { ":G pull<cr>",                                                          "Pull" },

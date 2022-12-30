@@ -1,4 +1,4 @@
-local function showFugitiveGit()
+local function show_fugitive()
   if vim.fn.FugitiveHead() ~= '' then
     vim.cmd [[
     Git
@@ -10,10 +10,10 @@ local function showFugitiveGit()
   end
 end
 
-function toggleFugitiveGit()
+toggle_fugitive = function()
   if vim.fn.buflisted(vim.fn.bufname('fugitive:///*/.git//$')) ~= 0 then
     vim.cmd [[ execute ":bdelete" bufname('fugitive:///*/.git//$') ]]
   else
-    showFugitiveGit()
+    show_fugitive()
   end
 end
