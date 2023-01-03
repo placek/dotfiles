@@ -9,7 +9,7 @@ local signs = {
 
 -- LSP settings (for overriding per client)
 local handlers =  {
-  ["textDocument/hover"]         = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+  ["textDocument/hover"]         = vim.lsp.with(vim.lsp.handlers.hover,          { border = "rounded" }),
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 }
 
@@ -26,23 +26,22 @@ local function on_attach(client, buf)
   vim.diagnostic.config({ virtual_text = false })
 
   buf_keymap(buf, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-  keymap(         "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)
-  keymap(         "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", opts)
+  keymap(         "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<cr>", opts)
+  keymap(         "n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>", opts)
 
   vim.api.nvim_command [[ autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight() ]]
   vim.api.nvim_command [[ autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight() ]]
   vim.api.nvim_command [[ autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references() ]]
-  vim.api.nvim_command [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, { border = "rounded", focus = false })]]
 end
 
 -- haskell
 lsp.hls.setup {
-  autostart    = true,
-  flags        = flags,
-  on_attach    = on_attach,
-  handlers     = handlers,
-  cmd          = { "haskell-language-server", "--lsp" },
-  settings     = {
+  autostart = true,
+  flags     = flags,
+  on_attach = on_attach,
+  handlers  = handlers,
+  cmd       = { "haskell-language-server", "--lsp" },
+  settings  = {
     haskell = {
       formattingProvider = "stylish-haskell",
       plugin = {

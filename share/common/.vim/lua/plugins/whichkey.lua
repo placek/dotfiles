@@ -1,11 +1,11 @@
 local wk = require("which-key")
-local cth = require('telescope.themes').get_cursor()
+local cth = require("telescope.themes").get_cursor()
 
 wk.register({
+  ["<leader>/"]       = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({ path = '%:p:h', grouped = true, hidden = true, respect_gitignore = true, display_stat = { date = true }})<cr>", "Browse files" },
   ["<leader><esc>"]   = { "<cmd>lua require('telescope.builtin').resume()<cr>",                   "Last search" },
   ["<leader><space>"] = { "<cmd>lua require('telescope.builtin').builtin()<cr>",                  "Other search options" },
   ["<leader>\\"]      = { "<cmd>lua require('telescope.builtin').git_files({hidden=true})<cr>",   "Search git files only" },
-  ["<leader>/"]       = { "<cmd>Telescope file_browser path=%:p:h hidden=true<cr>",               "Browse files" },
   ["<leader>b"]       = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                  "Search buffers" },
   ["<leader>F"]       = { "<cmd>lua require('telescope.builtin').find_files()<cr>",               "Search files" },
   ["<leader>f"]       = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",                "Grep files" },
@@ -18,9 +18,6 @@ wk.register({
   ["<leader>hS"]      = { "<cmd>lua require('gitsigns').stage_buffer()<cr>",                      "Stage buffer" },
   ["<leader>hu"]      = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>",                   "Undo stage" },
   ["<leader>m"]       = { "<cmd>lua require('telescope.builtin').marks()<cr>",                    "Search marks" },
-  ["<leader>n"]       = { name = "NNN" },
-  ["<leader>ne"]      = { ":NnnExplorer<cr>",                                                     "Explorer" },
-  ["<leader>nn"]      = { ":NnnPicker<cr>",                                                       "Picker" },
   ["<leader>r"]       = { "<cmd>lua require('telescope.builtin').registers()<cr>",                "Search registers" },
   ["<leader>t"]       = { "<cmd>lua require('telescope.builtin').tags()<cr>",                     "Search tags" },
   ["<leader>u"]       = { ":UndotreeToggle<cr>",                                                  "Undo tree" },
@@ -45,6 +42,7 @@ wk.register({
   ["<leader>gs"]      = { "<cmd>lua require('telescope.builtin').git_status()<cr>",               "Status" },
 
   ["<localleader>,"]  = { "<cmd>lua vim.lsp.buf.hover()<cr>",                                     "Show documentation" },
+  ["<localleader>."]  = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<cr>",       "Show diagnostic" },
   ["<localleader>a"]  = { "<cmd>lua vim.lsp.buf.code_action()<cr>",                               "Code actions" },
   ["<localleader>l"]  = { "<cmd>lua vim.lsp.codelens.refresh()<cr>",                              "Code lens" },
   ["<localleader>d"]  = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>",              "Diagnostics" },
@@ -74,6 +72,7 @@ wk.register({
   ["<leader>a="]      = { ":Tab /^[^=]*\\zs=/l1c1l0<cr>",                                         "Align to '=' symbol" },
   ["<leader>a<bar>"]  = { ":Tab /|<cr>",                                                          "Align markdown table" },
   ["<leader>a:"]      = { ":Tab /^[^:]*\\zs:/l1c0l0<cr>",                                         "Align to first symbol" },
+  ["<leader>as"]      = { ":Tab /::<cr>",                                                         "Align to '::'" },
   ["<leader>a;"]      = { ":Tab /^[^:]*:\zs/l1l0<cr>",                                            "Align to key in hash" },
   ["<leader>at"]      = { ":Tabularize /",                                                        "Custom alignment", silent = false }
 }, { mode = "v" })
