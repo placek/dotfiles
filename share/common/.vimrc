@@ -114,7 +114,7 @@ command!        BufOnly  execute '%bdelete|edit #|normal `"'
 
 " colors
 hi ColorColumn                          ctermbg=8
-hi Comment                                          ctermfg=8
+hi Comment                                          ctermfg=7
 hi DiffAdd                              ctermbg=8   ctermfg=10 cterm=none
 hi DiffChange                           ctermbg=8   ctermfg=3  cterm=none
 hi DiffDelete                           ctermbg=8   ctermfg=9  cterm=none
@@ -143,11 +143,12 @@ hi LspDiagnosticsUnderlineWarning       ctermbg=0   ctermfg=16 cterm=underline
 hi LspDiagnosticsUnderlineInformation   ctermbg=0   ctermfg=8  cterm=underline
 hi LspReferenceRead                                 ctermfg=15 cterm=bold
 hi LspReferenceWrite                                ctermfg=15 cterm=bold,underline
+hi LspCodeLens                          ctermfg=22  ctermbg=0
 hi NormalFloat                          ctermbg=0
 hi FloatBorder                          ctermbg=0
 hi Pmenu                                ctermbg=0   ctermfg=7
 hi PmenuSbar                            ctermbg=0   ctermfg=7
-hi PmenuSel                             ctermbg=4   ctermfg=0
+hi PmenuSel                             ctermbg=4   ctermfg=0  cterm=bold
 hi Search                                                      cterm=bold
 hi SignColumn                           ctermbg=0
 hi TabLine                              ctermbg=0   ctermfg=7  cterm=none
@@ -155,12 +156,12 @@ hi TabLineFill                          ctermbg=0   ctermfg=0
 hi TabLineSel                           ctermbg=0   ctermfg=9  cterm=none
 hi VertSplit                            ctermbg=8   ctermfg=8
 hi Visual                               ctermbg=7   ctermfg=0
-hi TelescopeSelection                   ctermbg=237 ctermfg=7
+hi TelescopeSelection                   ctermbg=4   ctermfg=0  cterm=bold
+hi TelescopeMatch                                              cterm=bold,underline
 
 " autocommands
 autocmd! BufWritePost *        :silent! MakeTags
 autocmd! BufWritePre  *        :%s/\s\+$//e
-autocmd! FileType     fugitive setlocal winfixheight
 autocmd! FileType     ansible  setlocal syntax=yaml
 
 " undo sequence for space, dot and newline
