@@ -1,3 +1,88 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-xdg-open $@
+set -euf -o noclobber -o noglob -o nounset
+
+FPATH="$1"
+FNAME=$(basename "$1")
+PAGER="${PAGER:-less -R}"
+ext="${FNAME##*.}"
+if [ -n "$ext" ]; then
+  ext="$(printf "%s" "${ext}" | tr '[:upper:]' '[:lower:]')"
+fi
+
+handle_pdf() {
+  nohup zathura "${FPATH}" >/dev/null 2>&1 &
+  exit 0
+}
+
+handle_audio() {
+  mocq "${FPATH}" "opener" >/dev/null 2>&1
+  exit 0
+}
+
+handle_video() {
+  nohup smplayer "${FPATH}" >/dev/null 2>&1 &
+  exit 0
+}
+
+handle_json() {
+  jq --color-output . "${FPATH}" | eval "$PAGER"
+  exit 0
+}
+
+handle_md() {
+  mdcat "${FPATH}" | eval "$PAGER"
+  exit 0
+}
+
+handle_html() {
+  qutebrowser "${FPATH}" >/dev/null 2>&1 &
+  exit 0
+}
+
+handle_image() {
+  icat "${FPATH}"
+  exit 0
+}
+
+handle_fallback() {
+  nohup xdg-open "${FPATH}" >/dev/null 2>&1 &
+  exit 0
+}
+
+handle_extension() {
+  case "${ext}" in
+    pdf)
+      handle_pdf
+      exit 1;;
+
+    png|jpg|jpeg|gif|tiff|bmp)
+      handle_image
+      exit 1;;
+
+    aac|flac|m4a|mid|midi|mpa|mp2|mp3|ogg|wav|wma)
+      handle_audio
+      exit 1;;
+
+    avi|mkv|mp4)
+      handle_video
+      exit 1;;
+
+    md)
+      handle_md
+      exit 1;;
+
+    htm|html|xhtml|svg)
+      handle_html
+      exit 1;;
+
+    json)
+      handle_json
+      exit 1;;
+  esac
+}
+
+handle_extension
+handle_fallback
+
+exit 1

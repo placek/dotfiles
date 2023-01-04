@@ -151,9 +151,9 @@ hi PmenuSbar                            ctermbg=0   ctermfg=7
 hi PmenuSel                             ctermbg=4   ctermfg=0  cterm=bold
 hi Search                                                      cterm=bold
 hi SignColumn                           ctermbg=0
-hi TabLine                              ctermbg=0   ctermfg=7  cterm=none
+hi TabLine                              ctermbg=8   ctermfg=7  cterm=bold
 hi TabLineFill                          ctermbg=0   ctermfg=0
-hi TabLineSel                           ctermbg=0   ctermfg=9  cterm=none
+hi TabLineSel                           ctermbg=7   ctermfg=0  cterm=bold
 hi VertSplit                            ctermbg=8   ctermfg=8
 hi Visual                               ctermbg=7   ctermfg=0
 hi TelescopeSelection                   ctermbg=4   ctermfg=0  cterm=bold
