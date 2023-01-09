@@ -126,6 +126,7 @@ hi GitSignsAdd                          ctermbg=0   ctermfg=10
 hi GitSignsChange                       ctermbg=0   ctermfg=11
 hi GitSignsCurrentLineBlame                         ctermfg=8
 hi GitSignsDelete                       ctermbg=0   ctermfg=9
+hi LeapLabelPrimary                     ctermbg=11  ctermfg=8  cterm=bold
 hi LspDiagnosticsSignError              ctermbg=0   ctermfg=1
 hi LspDiagnosticsSignHint               ctermbg=0   ctermfg=7
 hi LspDiagnosticsSignInfo               ctermbg=0   ctermfg=4
