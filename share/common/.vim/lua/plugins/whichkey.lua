@@ -51,7 +51,7 @@ wk.register({
   ["<localleader>i"]  = { "<cmd>lua require('telescope.builtin').lsp_incoming_calls(cth)<cr>",    "Incoming calls" },
   ["<localleader>o"]  = { "<cmd>lua require('telescope.builtin').lsp_outgoing_calls(cth)<cr>",    "Outgoing calls" },
   ["<localleader>r"]  = { "<cmd>lua require('telescope.builtin').lsp_references(cth)<cr>",        "References" },
-  ["<localleader>s"]  = { "<cmd>SymbolsOutline<cr>",                                              "Symbols outline" },
+  ["<localleader>s"]  = { "<cmd>AerialToggle<cr>",                                                "Symbols outline" },
   ["<localleader>S"]  = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",    "Workspace symbols" },
   ["<localleader>I"]  = { "<cmd>LspInfo<cr>",                                                     "LSP info" },
   ["<localleader>H"]  = { "<cmd>LspStart hls<cr>",                                                "LSP start HLS" },
