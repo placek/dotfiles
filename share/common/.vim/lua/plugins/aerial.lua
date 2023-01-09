@@ -181,7 +181,7 @@ require("aerial").setup({
 
   -- Set default symbol icons to use patched font icons (see https://www.nerdfonts.com/)
   -- "auto" will set it to true if nvim-web-devicons or lspkind-nvim is installed.
-  nerd_font = "auto",
+  nerd_font = true,
 
   -- Call this function when aerial attaches to a buffer.
   on_attach = function(bufnr) end,
