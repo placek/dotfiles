@@ -1,11 +1,20 @@
-local lsp   = require('lspconfig')
-local flags = { allow_incremental_sync = true, debounce_text_changes = 200, }
-local signs = {
+local lsp    = require('lspconfig')
+local keymap = vim.api.nvim_set_keymap
+local opts   = { noremap = true, silent = true }
+local flags  = { allow_incremental_sync = true, debounce_text_changes = 200, }
+local signs  = {
   { name = "LspDiagnosticsSignError",       text = "" },
   { name = "LspDiagnosticsSignWarning",     text = "" },
   { name = "LspDiagnosticsSignHint",        text = "" },
   { name = "LspDiagnosticsSignInformation", text = "" },
 }
+
+vim.lsp.codelens.refresh()
+vim.diagnostic.config({ virtual_text = false })
+
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<cr>", opts)
+keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>", opts)
 
 -- LSP settings (for overriding per client)
 local handlers =  {
@@ -18,17 +27,6 @@ for _, sign in ipairs(signs) do
 end
 
 local function on_attach(client, buf)
-  local buf_keymap = vim.api.nvim_buf_set_keymap
-  local keymap     = vim.api.nvim_set_keymap
-  local opts       = { noremap = true, silent = true }
-
-  vim.lsp.codelens.refresh()
-  vim.diagnostic.config({ virtual_text = false })
-
-  buf_keymap(buf, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-  keymap(         "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<cr>", opts)
-  keymap(         "n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>", opts)
-
   vim.api.nvim_command [[ autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight() ]]
   vim.api.nvim_command [[ autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight() ]]
   vim.api.nvim_command [[ autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references() ]]
@@ -71,4 +69,11 @@ lsp.hls.setup {
       },
     }
   },
+}
+
+-- ruby
+lsp.solargraph.setup {
+  autostart = true,
+  flags     = flags,
+  handlers  = handlers,
 }
