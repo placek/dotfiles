@@ -8,6 +8,7 @@
 .local.test.env
 .local.compose
 .local.image
+.local.nix
+.local.entrypoint
 .remote.compose
 .authorized_keys
-.projects.vim
