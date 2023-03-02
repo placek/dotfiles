@@ -55,16 +55,18 @@ config.set('url.searchengines', {
   'allegro': 'https://allegro.pl/listing?string={}',
   'alpha':   'http://www.wolframalpha.com/input/?i={}',
   'ang':     'https://context.reverso.net/t%C5%82umaczenie/polski-angielski/{}',
-  'docker':  'https://hub.docker.com/search?q={}&type=image',
   'duck':    'https://duckduckgo.com/?q={}',
-  'hoogle':  'https://hoogle.haskell.org/?hoogle={}',
-  'maps':    'http://maps.google.com/maps?q={}',
-  'nixpkgs': 'https://search.nixos.org/packages?query={}',
-  'pocket':  'https://getpocket.com/my-list/search?query={}',
-  'ruby':    'https://ruby-doc.com/search.html?q={}',
   'stack':   'https://stackexchange.com/search?q={}',
-  'wiki':    'https://pl.wikipedia.org/wiki/{}',
-  'youtube': 'https://www.youtube.com/results?search_query={}'
+  'd':       'https://hub.docker.com/search?q={}&type=image',
+  'h':       'https://hoogle.haskell.org/?hoogle={}',
+  'm':       'http://maps.google.com/maps?q={}',
+  'np':      'https://search.nixos.org/packages?query={}',
+  'npv':     'https://lazamar.co.uk/nix-versions/?channel=nixpkgs-unstable&package={}',
+  'p':       'https://getpocket.com/my-list/search?query={}',
+  'rb':      'https://ruby-doc.com/search.html?q={}',
+  'we':      'https://en.wikipedia.org/wiki/{}',
+  'wp':      'https://pl.wikipedia.org/wiki/{}',
+  'yt':      'https://www.youtube.com/results?search_query={}'
 })
 
 config.bind(';D', 'hint links spawn {{terminal}} -e aria2c {hint-url} -d Downloads')
