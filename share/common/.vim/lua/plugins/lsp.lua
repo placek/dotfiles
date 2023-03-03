@@ -77,3 +77,10 @@ lsp.solargraph.setup {
   flags     = flags,
   handlers  = handlers,
 }
+
+-- nix
+lsp.rnix.setup {
+  autostart = true,
+  flags     = flags,
+  handlers  = handlers,
+}
