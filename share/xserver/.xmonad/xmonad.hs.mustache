@@ -186,7 +186,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppSep             = " \xE0B1 "
                                              , ppExtras          = []
                                              }
-  where noNSP "NSP" = "\xF198"
+  where noNSP "NSP" = xmobarAction "xdotool key super+BackSpace" "1" "\xF198"
         noNSP s     = s
         layout a    = case a of
           "Spacing Full"        -> "<fn=1>\xf31e</fn>"
