@@ -17,9 +17,10 @@ import           XMonad.Prompt                        (XPConfig(..), XPPosition(
 import           XMonad.Prompt.ConfirmPrompt          (confirmPrompt)
 import           XMonad.Prompt.FuzzyMatch             (fuzzyMatch, fuzzySort)
 import           XMonad.Util.Cursor                   (setDefaultCursor)
+import           XMonad.Util.NamedScratchpad
 import           XMonad.Util.Run                      (safeSpawn, spawnPipe, hPutStrLn)
 import           XMonad.Util.SpawnOnce                (spawnOnce)
-import           XMonad.StackSet                      (focusUp, focusDown, focusMaster, shift, sink, greedyView, view, shiftMaster, workspace, stack, integrate', current)
+import           XMonad.StackSet                      (focusUp, focusDown, focusMaster, shift, sink, greedyView, view, shiftMaster, workspace, stack, integrate', current, RationalRect(..))
 
 import           Prompt.Clipboard
 import           Prompt.Pass
@@ -89,6 +90,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = Map.fromList $
     , ((modm .|. shiftMask, xK_b       ), safeSpawn "bash" ["-c", "~/.fehbg"])                           -- change background
     , ((modm              , xK_f       ), withFocused $ windows . sink)                                  -- push window back into tiling
     , ((modm .|. shiftMask, xK_f       ), refresh)                                                       -- resize viewed windows to the correct size
+    , ((modm, xK_Escape                ), namedScratchpadAction myScratchPads "slack")                   -- spawn slack
     -- utils submap
     , ((modm, xK_space                 ), submapDefault (runPrompt myXPConfig) . Map.fromList $          -- run application prompt
       [ ((0,    xK_c                   ), clipboardPrompt myXPConfig)                                    -- clipboard history prompt
@@ -152,6 +154,14 @@ myWorkspaces :: [String]
 myWorkspaces = fmap clickable (zip [1..] workspaceNames)
   where clickable (k, w) = xmobarAction ("xdotool key super+" ++ show k) "1" w
 
+myScratchPads :: [NamedScratchpad]
+myScratchPads = [ NS "slack" spawnSlack findSlack manageSlack
+                ]
+  where
+    spawnSlack  = "slack"
+    findSlack   = resource =? "slack"
+    manageSlack = customFloating $ RationalRect (1/16) (1/16) (7/8) (7/8)
+
 myLayout = avoidStruts . spacingRaw True border True border True . smartBorders $ t ||| m ||| f
   where
     border  = Border {{border-size}} {{border-size}} {{border-size}} {{border-size}}
@@ -162,13 +172,13 @@ myLayout = avoidStruts . spacingRaw True border True border True . smartBorders 
 myManageHook = composeAll [ className =? "pinentry" --> doCenterFloat
                           , isDialog                --> doCenterFloat
                           , isFullscreen            --> doFullFloat
-                          ]
+                          ] <+> namedScratchpadManageHook myScratchPads
 
 myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmproc
-                                             , ppHiddenNoWindows = xmobarColor "#{{base08-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppHidden          = xmobarColor "#{{base03-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppCurrent         = xmobarColor "#{{base0B-hex}}" "" . wrap " <fn=1>" "</fn> "
-                                             , ppVisible         = xmobarColor "#{{base02-hex}}" "" . wrap " <fn=1>" "</fn> "
+                                             , ppHiddenNoWindows = xmobarColor "#{{base08-hex}}" "" . wrap " <fn=1>" "</fn> " . noNSP
+                                             , ppHidden          = xmobarColor "#{{base03-hex}}" "" . wrap " <fn=1>" "</fn> " . noNSP
+                                             , ppCurrent         = xmobarColor "#{{base0B-hex}}" "" . wrap " <fn=1>" "</fn> " . noNSP
+                                             , ppVisible         = xmobarColor "#{{base02-hex}}" "" . wrap " <fn=1>" "</fn> " . noNSP
                                              , ppTitle           = xmobarColor "#{{base0C-hex}}" "" . shorten 20
                                              , ppLayout          = layout
                                              , ppUrgent          = xmobarColor "#{{base08-hex}}" "#{{base0F-hex}}"
@@ -176,7 +186,9 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP { ppOutput          = hPutStrLn xmp
                                              , ppSep             = " \xE0B1 "
                                              , ppExtras          = []
                                              }
-  where layout a = case a of
+  where noNSP "NSP" = "\xF198"
+        noNSP s     = s
+        layout a    = case a of
           "Spacing Full"        -> "<fn=1>\xf31e</fn>"
           "Spacing Tall"        -> "<fn=1>\xf338</fn>"
           "Spacing Mirror Tall" -> "<fn=1>\xf337</fn>"
