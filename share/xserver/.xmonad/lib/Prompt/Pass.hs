@@ -99,8 +99,11 @@ copyOTP passLabel = spawn $ "pass otp --clip \"" ++ escapeQuote passLabel ++ "\"
 
 typeString :: Either String String -> X ()
 typeString input = case input of
-                     Right text -> spawn $ "echo -n \"" ++ escapeQuote text ++ "\" | xdotool type --clearmodifiers --file -"
+                     Right text -> spawn $ clearLineCommand ++ " echo -n \"" ++ escapeQuote text ++ "\" | xdotool type --clearmodifiers --file -"
                      Left  err  -> spawn $ "xmessage \"" ++ escapeQuote err ++ "\""
+
+clearLineCommand :: String
+clearLineCommand = "xdotool key ctrl+v Home ctrl+k;"
 
 typeLoginAndPassword :: String -> X ()
 typeLoginAndPassword passLabel = do
