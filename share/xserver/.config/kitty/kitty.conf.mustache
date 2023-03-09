@@ -46,7 +46,7 @@ command_on_bell               none
 
 # Window layout
 remember_window_size          no
-enabled_layouts               tall:bias=70;full_size=1
+enabled_layouts               tall:bias=62;full_size=1,stack
 window_resize_step_cells      {{border-half-size}}
 window_resize_step_lines      {{border-half-size}}
 window_border_width           {{border-size}}px
@@ -97,10 +97,11 @@ map kitty_mod+h               change_font_size all -2.0
 map kitty_mod+k               scroll_line_up
 map kitty_mod+j               scroll_line_down
 map kitty_mod+l               change_font_size all +2.0
-map kitty_mod+up              scroll_to_prompt -1
-map kitty_mod+down            scroll_to_prompt +1
+map kitty_mod+alt+k           scroll_to_prompt -1
+map kitty_mod+alt+j           scroll_to_prompt +1
 map kitty_mod+.               show_scrollback
 map kitty_mod+,               show_last_command_output
+map kitty_mod+z               next_layout
 
 map kitty_mod+enter           launch --type=window --cwd=current --title current
 map kitty_mod+c               launch --type=tab --cwd=current --title current
